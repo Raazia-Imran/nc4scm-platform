@@ -1,0 +1,62 @@
+export default {
+  name: "aboutPage",
+  title: "About Page",
+  type: "document",
+  fields: [
+    { name: "eyebrow", title: "Eyebrow", type: "string" },
+    {
+      name: "headline",
+      title: "Headline",
+      type: "string",
+      validation: (Rule) => Rule.required(),
+    },
+    { name: "introduction", title: "Introduction", type: "text", rows: 4 },
+    {
+      name: "heroImage",
+      title: "Hero image",
+      type: "image",
+      options: { hotspot: true },
+      fields: [{ name: "alt", title: "Alternative text", type: "string" }],
+    },
+    { name: "missionHeading", title: "Mission heading", type: "string" },
+    {
+      name: "mission",
+      title: "Mission",
+      type: "array",
+      of: [{ type: "block" }],
+    },
+    { name: "visionHeading", title: "Vision heading", type: "string" },
+    { name: "vision", title: "Vision", type: "array", of: [{ type: "block" }] },
+    {
+      name: "foundingHeading",
+      title: "Founding story heading",
+      type: "string",
+    },
+    {
+      name: "foundingStory",
+      title: "Founding story",
+      type: "array",
+      of: [{ type: "block" }],
+    },
+    { name: "teamHeading", title: "Team section heading", type: "string" },
+    {
+      name: "teamIntroduction",
+      title: "Team section introduction",
+      type: "text",
+      rows: 3,
+    },
+    {
+      name: "partnersHeading",
+      title: "Partners section heading",
+      type: "string",
+    },
+    {
+      name: "partnersIntroduction",
+      title: "Partners section introduction",
+      type: "text",
+      rows: 3,
+    },
+    { name: "seo", title: "SEO", type: "seo" },
+  ],
+  preview: { prepare: () => ({ title: "About page" }) },
+};

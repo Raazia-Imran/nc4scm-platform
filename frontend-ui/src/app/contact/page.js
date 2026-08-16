@@ -1,60 +1,93 @@
-// src/app/contact/page.js
-// -----------------------------------------------------------------------------
-// The Contact Interface: a minimalist, split-screen layout. The left side is
-// static institutional info (a Server Component, no JS needed). The right
-// side is the interactive form, which is intentionally isolated into its
-// own "use client" component (ContactForm) below in the same file's
-// sibling — kept in one file here since the split is small enough not to
-// warrant its own module, but still cleanly separated by component boundary
-// so only the form itself ships client-side JavaScript.
-// -----------------------------------------------------------------------------
-import ContactForm from './ContactForm'
-
+import { Suspense } from "react";
+import { client } from "@/sanityClient";
+import ContactForm from "./ContactForm";
+const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,mapEmbedUrl,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
 export const metadata = {
-  title: 'Contact — NC4SCM',
-}
-
-export default function ContactPage() {
+  title: "Contact — NC4SCM",
+  description:
+    "Contact NC4SCM for consultancy, collaboration, media, and general enquiries.",
+};
+export default async function ContactPage() {
+  const data = await client.fetch(QUERY).catch(() => ({}));
+  const s = data.settings || {},
+    p = data.page || {};
   return (
-    <section className="grid min-h-[70vh] md:grid-cols-2">
-      {/* ------------------------------------------------------------------
-          LEFT: INSTITUTIONAL DETAILS
-      ------------------------------------------------------------------ */}
-      <div className="flex flex-col justify-center bg-ink px-6 py-24 text-paper md:px-16">
-        <h1 className="font-display text-4xl leading-tight">Get in Touch</h1>
-        <p className="mt-6 max-w-sm text-sm leading-relaxed text-paper/70">
-          For research collaborations, technical support inquiries, or media
-          requests, reach out using the form or the details below.
-        </p>
-
-        <div className="mt-12 space-y-6 text-sm">
+    <>
+      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+        <div className="mx-auto max-w-[1400px]">
+          <p className="eyebrow text-mint">Contact</p>
+          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+            {p.contactHeadline ||
+              "Let’s turn a materials challenge into a path forward."}
+          </h1>
+          <p className="mt-9 max-w-2xl text-lg leading-8 text-ivory/70">
+            {p.contactIntroduction ||
+              "Contact the center about technical services, research collaboration, training, media, or institutional partnerships."}
+          </p>
+        </div>
+      </section>
+      <section className="section-shell bg-ivory">
+        <div className="grid gap-16 lg:grid-cols-[.65fr_1.35fr]">
+          <aside>
+            <p className="eyebrow text-clay">Contact details</p>
+            <div className="mt-7 space-y-8">
+              {s.address && <Info label="Visit" value={s.address} />}{" "}
+              {s.email && (
+                <Info
+                  label="Email"
+                  value={s.email}
+                  href={`mailto:${s.email}`}
+                />
+              )}{" "}
+              {s.phone && (
+                <Info label="Call" value={s.phone} href={`tel:${s.phone}`} />
+              )}{" "}
+              {s.linkedinUrl && (
+                <Info label="Follow" value="LinkedIn ↗" href={s.linkedinUrl} />
+              )}
+            </div>
+          </aside>
           <div>
-            <p className="text-xs uppercase tracking-widest text-paper/50">Address</p>
-            <p className="mt-2 leading-relaxed text-paper/90">
-              Materials Research Building
-              <br />
-              University Campus, Main Road
-              <br />
-              City, Country
-            </p>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest text-paper/50">Email</p>
-            <p className="mt-2 text-paper/90">info@nc4scm.org</p>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-widest text-paper/50">Phone</p>
-            <p className="mt-2 text-paper/90">+1 (000) 000-0000</p>
+            <p className="eyebrow text-clay">Send an enquiry</p>
+            <h2 className="mt-5 mb-10 font-display text-4xl text-forest">
+              Tell us what you are working on.
+            </h2>
+            <Suspense fallback={<p>Loading form…</p>}>
+              <ContactForm successMessage={p.contactSuccessMessage} />
+            </Suspense>
           </div>
         </div>
-      </div>
-
-      {/* ------------------------------------------------------------------
-          RIGHT: THE INTERACTIVE FORM
-      ------------------------------------------------------------------ */}
-      <div className="flex flex-col justify-center bg-paper px-6 py-24 md:px-16">
-        <ContactForm />
-      </div>
-    </section>
-  )
+        {s.mapEmbedUrl && (
+          <div className="mt-20 overflow-hidden rounded-[2rem] bg-sage">
+            <iframe
+              src={s.mapEmbedUrl}
+              title="NC4SCM location"
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="h-[420px] w-full border-0"
+            />
+          </div>
+        )}
+      </section>
+    </>
+  );
+}
+function Info({ label, value, href }) {
+  const content = (
+    <p className="whitespace-pre-line text-base leading-7 text-carbon/70">
+      {value}
+    </p>
+  );
+  return (
+    <div className="border-t border-forest/15 pt-5">
+      <p className="eyebrow mb-3 text-carbon/40">{label}</p>
+      {href ? (
+        <a href={href} className="hover:text-clay">
+          {content}
+        </a>
+      ) : (
+        content
+      )}
+    </div>
+  );
 }

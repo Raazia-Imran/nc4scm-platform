@@ -19,6 +19,109 @@ body {
 }
 
 ::selection {
-  background-color: #5c6d5e;
-  color: #faf9f6;
+  background-color: #a85f42;
+  color: #f7f5ef;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  body {
+    overflow-x: hidden;
+  }
+  a,
+  button {
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    outline: 3px solid #a85f42;
+    outline-offset: 4px;
+  }
+}
+
+@layer components {
+  .skip-link {
+    @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ivory px-5 py-3 font-semibold text-forest shadow-float transition focus:translate-y-0;
+  }
+  .section-shell {
+    @apply px-6 py-24 sm:px-10 lg:px-[max(2.5rem,calc((100vw-1400px)/2))] lg:py-32;
+  }
+  .eyebrow {
+    @apply text-[.68rem] font-bold uppercase tracking-[.22em];
+  }
+  .section-title {
+    @apply font-display text-4xl font-medium leading-[1.02] tracking-[-.035em] text-forest sm:text-6xl;
+  }
+  .button {
+    @apply inline-flex min-h-12 items-center justify-center gap-4 rounded-full px-6 py-3 text-sm font-semibold transition duration-300;
+  }
+  .button-dark {
+    @apply bg-forest text-ivory hover:-translate-y-0.5 hover:bg-moss;
+  }
+  .button-light {
+    @apply bg-ivory text-forest hover:-translate-y-0.5 hover:bg-mint;
+  }
+  .button-ghost {
+    @apply border border-ivory/35 text-ivory hover:border-ivory hover:bg-ivory/10;
+  }
+  .text-link {
+    @apply items-center gap-3 border-b border-forest/30 pb-1 text-sm font-semibold text-forest transition hover:border-forest;
+  }
+  .service-row {
+    @apply grid min-h-52 grid-cols-[2.2rem_1fr_auto] items-start gap-5 border-b border-forest/15 py-9 transition lg:px-6 lg:[&:nth-child(odd)]:border-r lg:hover:bg-ivory/70;
+  }
+  .service-arrow {
+    @apply grid h-10 w-10 place-items-center rounded-full border border-forest/20 text-forest transition group-hover:-translate-y-1 group-hover:translate-x-1 group-hover:bg-forest group-hover:text-ivory;
+  }
+  .footer-label {
+    @apply text-[.65rem] font-bold uppercase tracking-[.2em] text-mint;
+  }
+  .footer-link {
+    @apply text-sm text-ivory/65 transition hover:text-ivory;
+  }
+  .field-label {
+    @apply block text-xs font-bold uppercase tracking-[.14em] text-forest;
+  }
+  .field-input {
+    @apply mt-2 min-h-12 w-full rounded-xl border border-forest/20 bg-transparent px-4 py-3 text-base font-normal normal-case tracking-normal text-carbon outline-none transition placeholder:text-carbon/35 focus:border-clay focus:ring-2 focus:ring-clay/15;
+  }
+}
+
+.material-grid {
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 64px 64px;
+}
+.material-sample {
+  background:
+    radial-gradient(
+      circle at 30% 20%,
+      rgba(255, 255, 255, 0.45),
+      transparent 22%
+    ),
+    linear-gradient(135deg, #d2b29e 0%, #a85f42 45%, #713d2c 100%);
+  position: relative;
+}
+.material-sample::after {
+  content: "";
+  position: absolute;
+  inset: 10%;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  border-radius: 50%;
+  transform: rotate(-12deg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

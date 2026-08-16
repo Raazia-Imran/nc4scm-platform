@@ -17,25 +17,66 @@
 //    can point at different Sanity projects (e.g. staging vs production)
 //    without ever hard-coding secrets into source control.
 // -----------------------------------------------------------------------------
-import {defineConfig} from 'sanity'
-import {deskTool} from 'sanity/desk'
-import {visionTool} from '@sanity/vision'
-import {schemaTypes} from './schemaTypes'
+import { defineConfig } from "sanity";
+import { deskTool } from "sanity/desk";
+import { visionTool } from "@sanity/vision";
+import { schemaTypes } from "./schemaTypes";
 
 export default defineConfig({
-  name: 'default',
-  title: 'NC4SCM Content Studio',
+  name: "default",
+  title: "NC4SCM Content Studio",
 
   // These come from environment variables so the Studio can be safely
   // committed to source control without leaking project-specific values.
   // Set SANITY_STUDIO_PROJECT_ID and SANITY_STUDIO_DATASET in a local
   // `.env` file inside cms-backend/ (Sanity automatically loads variables
   // prefixed with SANITY_STUDIO_).
-  projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'dxinqb51',
-  dataset: process.env.SANITY_STUDIO_DATASET || 'production',
+  projectId: process.env.SANITY_STUDIO_PROJECT_ID || "dxinqb51",
+  dataset: process.env.SANITY_STUDIO_DATASET || "production",
 
   plugins: [
-    deskTool(),
+    deskTool({
+      structure: (S) =>
+        S.list()
+          .title("NC4SCM Content")
+          .items([
+            S.listItem()
+              .title("Global Site Settings")
+              .child(
+                S.document()
+                  .schemaType("siteSettings")
+                  .documentId("siteSettings"),
+              ),
+            S.divider(),
+            S.listItem()
+              .title("Home Page")
+              .child(
+                S.document().schemaType("homePage").documentId("homePage"),
+              ),
+            S.listItem()
+              .title("About Page")
+              .child(
+                S.document().schemaType("aboutPage").documentId("aboutPage"),
+              ),
+            S.listItem()
+              .title("Page Headings & Contact")
+              .child(
+                S.document()
+                  .schemaType("pageSettings")
+                  .documentId("pageSettings"),
+              ),
+            S.divider(),
+            ...S.documentTypeListItems().filter(
+              (item) =>
+                ![
+                  "siteSettings",
+                  "homePage",
+                  "aboutPage",
+                  "pageSettings",
+                ].includes(item.getId()),
+            ),
+          ]),
+    }),
     // visionTool lets you run raw GROQ queries inside the Studio UI, which
     // is invaluable when designing the queries our Next.js pages will use.
     visionTool(),
@@ -44,4 +85,4 @@ export default defineConfig({
   schema: {
     types: schemaTypes,
   },
-})
+});

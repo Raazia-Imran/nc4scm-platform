@@ -1,106 +1,30 @@
-// src/app/events/page.js
-// -----------------------------------------------------------------------------
-// The Events Engine. All events (conferences, seminars, workshops) are
-// fetched in a single query, then split into "Upcoming" and "Past" buckets
-// purely by comparing each event's `eventDateTime` against the current
-// server time — editors never have to manually flag an event as past.
-//
-// Because this comparison happens in a Server Component at request time,
-// the split is always correct as of the moment someone loads the page,
-// with no client-side JavaScript required.
-// -----------------------------------------------------------------------------
-import {client} from '@/sanityClient'
-
-const EVENTS_QUERY = `*[_type == "event"] | order(eventDateTime asc){
-  _id, title, eventType, eventDateTime, venue, description
-}`
-
-const EVENT_TYPE_LABELS = {
-  conference: 'International Conference',
-  seminar: 'Academic Seminar',
-  workshop: 'Technical Workshop',
-}
-
+import { client } from "@/sanityClient";
+import EventsExplorer from "./EventsExplorer";
+const QUERY = `{"settings":*[_type=="pageSettings"][0],"events":*[_type=="event"]{_id,title,slug,eventType,eventDateTime,venue,description}}`;
 export const metadata = {
-  title: 'Events — NC4SCM',
-}
-
-function formatEventDate(isoString) {
-  return new Date(isoString).toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-  })
-}
-
-function EventCard({event}) {
-  return (
-    <article className="border-t border-stone/30 py-6">
-      <p className="text-xs uppercase tracking-widest text-accent">
-        {EVENT_TYPE_LABELS[event.eventType] || event.eventType}
-      </p>
-      <h3 className="mt-2 font-display text-xl text-ink">{event.title}</h3>
-      <p className="mt-1 text-sm text-stone">
-        {formatEventDate(event.eventDateTime)} — {event.venue}
-      </p>
-      <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/80">{event.description}</p>
-    </article>
-  )
-}
-
+  title: "Events — NC4SCM",
+  description: "Conferences, seminars, and technical workshops from NC4SCM.",
+};
 export default async function EventsPage() {
-  const events = await client.fetch(EVENTS_QUERY)
-  const now = Date.now()
-
-  // Defensive default: if the query somehow returns null (e.g. transient
-  // network issue), fall back to an empty array rather than crashing the
-  // page on `.filter`.
-  const allEvents = events || []
-
-  const upcomingEvents = allEvents
-    .filter((event) => new Date(event.eventDateTime).getTime() >= now)
-    .sort((a, b) => new Date(a.eventDateTime) - new Date(b.eventDateTime))
-
-  const pastEvents = allEvents
-    .filter((event) => new Date(event.eventDateTime).getTime() < now)
-    .sort((a, b) => new Date(b.eventDateTime) - new Date(a.eventDateTime))
-
+  const data = await client.fetch(QUERY).catch(() => ({}));
   return (
-    <section className="mx-auto max-w-content px-6 py-24 md:px-10">
-      <h1 className="font-display text-4xl leading-tight text-ink">Events Engine</h1>
-      <p className="mt-6 max-w-xl text-base leading-relaxed text-stone">
-        Conferences, seminars, and workshops hosted or co-hosted by NC4SCM.
-      </p>
-
-      <div className="mt-16 grid gap-16 md:grid-cols-2">
-        <div>
-          <h2 className="font-display text-2xl text-ink">Upcoming Live Events</h2>
-          <div className="mt-4">
-            {upcomingEvents.length > 0 ? (
-              upcomingEvents.map((event) => <EventCard key={event._id} event={event} />)
-            ) : (
-              <p className="border-t border-stone/30 py-6 text-sm text-stone">
-                No upcoming events scheduled at this time.
-              </p>
-            )}
-          </div>
+    <>
+      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+        <div className="mx-auto max-w-[1400px]">
+          <p className="eyebrow text-mint">Knowledge exchange</p>
+          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+            {data.settings?.eventsHeadline ||
+              "Where technical knowledge becomes shared capability."}
+          </h1>
+          <p className="mt-9 max-w-2xl text-lg leading-8 text-ivory/70">
+            {data.settings?.eventsIntroduction ||
+              "Join conferences, seminars, and practical workshops designed for researchers, industry professionals, and public-sector decision makers."}
+          </p>
         </div>
-
-        <div>
-          <h2 className="font-display text-2xl text-ink">Past Archive History</h2>
-          <div className="mt-4">
-            {pastEvents.length > 0 ? (
-              pastEvents.map((event) => <EventCard key={event._id} event={event} />)
-            ) : (
-              <p className="border-t border-stone/30 py-6 text-sm text-stone">
-                No past events recorded yet.
-              </p>
-            )}
-          </div>
-        </div>
-      </div>
-    </section>
-  )
+      </section>
+      <section className="section-shell bg-ivory">
+        <EventsExplorer events={data.events || []} />
+      </section>
+    </>
+  );
 }
