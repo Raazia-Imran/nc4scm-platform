@@ -10,109 +10,40 @@
 // static nav/footer markup itself — only the interactive bits elsewhere in
 // the app (like the contact form) ship their own client-side bundles.
 // -----------------------------------------------------------------------------
-import './globals.css'
-import Link from 'next/link'
+import "./globals.css";
+import { client } from "@/sanityClient";
+import SiteHeader from "@/app/components/SiteHeader";
+import SiteFooter from "@/app/components/SiteFooter";
+
+export const revalidate = 60;
 
 export const metadata = {
-  title: 'NC4SCM — National Center for Sustainable Construction Materials',
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://nc4scm.org",
+  ),
+  title: "NC4SCM — National Center for Sustainable Construction Materials",
   description:
-    'NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.',
-}
+    "NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.",
+  openGraph: { type: "website", siteName: "NC4SCM" },
+  twitter: { card: "summary_large_image" },
+};
 
 // Centralizing the nav links in one array means adding a new top-level page
 // later only requires one edit, instead of hunting through JSX.
-const NAV_LINKS = [
-  {href: '/about', label: 'About'},
-  {href: '/services', label: 'Services'},
-  {href: '/publications', label: 'Research'},
-  {href: '/events', label: 'Events'},
-  {href: '/news', label: 'News'},
-  {href: '/contact', label: 'Contact'},
-]
+const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{organizationName, shortName, logo, missionLine, navigation, headerCta, footerServiceLinks, address, email, phone, linkedinUrl, copyrightText}`;
 
-export default function RootLayout({children}) {
+export default async function RootLayout({ children }) {
+  const settings = await client.fetch(SETTINGS_QUERY).catch(() => null);
   return (
     <html lang="en">
-      <body className="bg-paper text-ink font-sans antialiased">
-        {/* ---------------------------------------------------------------
-            STICKY HEADER
-            `sticky top-0` keeps the nav pinned during scroll; a subtle
-            backdrop blur + border keeps it legible over scrolling content
-            without a hard drop shadow, matching the "quiet luxury" brief.
-        --------------------------------------------------------------- */}
-        <header className="sticky top-0 z-50 border-b border-stone/20 bg-paper/90 backdrop-blur-md">
-          <nav className="mx-auto flex max-w-content items-center justify-between px-6 py-5 md:px-10">
-            <Link href="/" className="font-display text-lg tracking-wide">
-              NC4SCM
-            </Link>
-            <ul className="hidden gap-8 text-sm uppercase tracking-widest text-stone md:flex">
-              {NAV_LINKS.map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href} className="transition-colors hover:text-ink">
-                    {link.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-            {/* A minimal mobile menu: a plain list that wraps below the logo
-                on small screens rather than a hidden hamburger, keeping this
-                file free of client-side state for a component this simple. */}
-            <ul className="flex gap-4 text-xs uppercase tracking-widest text-stone md:hidden">
-              {NAV_LINKS.slice(0, 3).map((link) => (
-                <li key={link.href}>
-                  <Link href={link.href}>{link.label}</Link>
-                </li>
-              ))}
-            </ul>
-          </nav>
-        </header>
-
-        <main>{children}</main>
-
-        {/* -----------------------------------------------------------------
-            FOOTER
-            Static institutional info. Kept intentionally simple; if this
-            content needs to be editor-managed later, add a "siteSettings"
-            singleton document type in Sanity and fetch it here.
-        ----------------------------------------------------------------- */}
-        <footer className="border-t border-stone/20 py-14">
-          <div className="mx-auto grid max-w-content gap-10 px-6 md:grid-cols-3 md:px-10">
-            <div>
-              <p className="font-display text-lg">NC4SCM</p>
-              <p className="mt-3 max-w-xs text-sm leading-relaxed text-stone">
-                National Center for Sustainable Construction Materials —
-                advancing low-carbon building technologies through rigorous
-                research and international partnership.
-              </p>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-stone">Explore</p>
-              <ul className="mt-3 space-y-2 text-sm">
-                {NAV_LINKS.map((link) => (
-                  <li key={link.href}>
-                    <Link href={link.href} className="text-ink/80 hover:text-ink">
-                      {link.label}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-widest text-stone">Contact</p>
-              <p className="mt-3 text-sm leading-relaxed text-ink/80">
-                Materials Research Building
-                <br />
-                University Campus, Main Road
-                <br />
-                info@nc4scm.org
-              </p>
-            </div>
-          </div>
-          <p className="mx-auto mt-10 max-w-content px-6 text-xs text-stone md:px-10">
-            © {new Date().getFullYear()} NC4SCM. All rights reserved.
-          </p>
-        </footer>
+      <body className="bg-ivory text-carbon font-sans antialiased">
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
+        <SiteHeader settings={settings} />
+        <main id="main-content">{children}</main>
+        <SiteFooter settings={settings} />
       </body>
     </html>
-  )
+  );
 }

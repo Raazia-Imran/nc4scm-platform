@@ -21,26 +21,26 @@
 // that doesn't need to reflect an edit within milliseconds (our news,
 // events, publications, etc. are all fine with a short cache window).
 // -----------------------------------------------------------------------------
-import {createClient} from 'next-sanity'
-import imageUrlBuilder from '@sanity/image-url'
+import { createClient } from "next-sanity";
+import imageUrlBuilder from "@sanity/image-url";
 
 // Fail loudly and early if the project hasn't configured its environment
 // variables yet, rather than silently returning empty data everywhere and
 // leaving a beginner to debug a blank page with no explanation.
-const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID
-const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET
-const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || '2024-01-01'
+const projectId = process.env.NEXT_PUBLIC_SANITY_PROJECT_ID;
+const dataset = process.env.NEXT_PUBLIC_SANITY_DATASET;
+const apiVersion = process.env.NEXT_PUBLIC_SANITY_API_VERSION || "2024-01-01";
 
 if (!projectId || !dataset) {
   // We intentionally throw only in development so a misconfigured
   // production build doesn't crash for end-users; in production, Next.js
   // will still fail the build if these are missing, which is the safer
   // failure mode for a live site.
-  if (process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV === "development") {
     throw new Error(
-      'Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET. ' +
-        'Copy .env.local and fill in your Sanity project details.'
-    )
+      "Missing NEXT_PUBLIC_SANITY_PROJECT_ID or NEXT_PUBLIC_SANITY_DATASET. " +
+        "Copy .env.local and fill in your Sanity project details.",
+    );
   }
 }
 
@@ -52,13 +52,13 @@ export const client = createClient({
   // Only attached if a read token was actually provided (i.e. the dataset
   // is private). Public datasets work perfectly fine with `token: undefined`.
   token: process.env.SANITY_API_READ_TOKEN || undefined,
-  perspective: 'published',
-})
+  perspective: "published",
+});
 
 // imageUrlBuilder wraps our client and exposes a fluent API for generating
 // resized/cropped/format-converted image URLs on the fly, e.g.
 //   urlFor(doc.avatar).width(400).height(400).url()
-const builder = imageUrlBuilder(client)
+const builder = imageUrlBuilder(client);
 
 /**
  * Safely builds an image URL from a Sanity image reference object.
@@ -67,6 +67,6 @@ const builder = imageUrlBuilder(client)
  * rather than needing its own try/catch.
  */
 export function urlFor(source) {
-  if (!source) return null
-  return builder.image(source)
+  if (!source) return null;
+  return builder.image(source);
 }

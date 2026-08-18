@@ -4,43 +4,56 @@
 // Partners Matrix (a logo grid) on the About Hub.
 // -----------------------------------------------------------------------------
 export default {
-  name: 'partner',
-  title: 'Institutional Partner',
-  type: 'document',
+  name: "partner",
+  title: "Institutional Partner",
+  type: "document",
   fields: [
     {
-      name: 'organizationName',
-      title: 'Organization Name',
-      type: 'string',
+      name: "organizationName",
+      title: "Organization Name",
+      type: "string",
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'logo',
-      title: 'Logo',
-      type: 'image',
-      options: {hotspot: true},
+      name: "category",
+      title: "Partner category",
+      type: "string",
+      options: {
+        list: [
+          { title: "Funder", value: "funder" },
+          { title: "Academic", value: "academic" },
+          { title: "Industry", value: "industry" },
+        ],
+      },
+      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "logo",
+      title: "Logo",
+      type: "image",
+      options: { hotspot: true },
       fields: [
         {
-          name: 'alt',
-          title: 'Alternative text',
-          type: 'string',
+          name: "alt",
+          title: "Alternative text",
+          type: "string",
           validation: (Rule) => Rule.required(),
         },
       ],
       validation: (Rule) => Rule.required(),
     },
     {
-      name: 'targetUrl',
-      title: 'Target External URL',
-      type: 'url',
-      description: 'Where users are taken when they click this logo.',
+      name: "targetUrl",
+      title: "Target External URL",
+      type: "url",
+      description: "Where users are taken when they click this logo.",
       validation: (Rule) =>
         Rule.required().uri({
-          scheme: ['http', 'https'],
+          scheme: ["http", "https"],
         }),
     },
   ],
   preview: {
-    select: {title: 'organizationName', media: 'logo'},
+    select: { title: "organizationName", media: "logo" },
   },
-}
+};

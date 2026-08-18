@@ -6,11 +6,11 @@
 // separate from sanity.config.js because the CLI runs in a Node context
 // before any React/Studio code is loaded.
 // -----------------------------------------------------------------------------
-import {defineCliConfig} from 'sanity/cli'
+import { defineCliConfig } from "sanity/cli";
 
 export default defineCliConfig({
   api: {
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID || 'your-project-id',
-    dataset: process.env.SANITY_STUDIO_DATASET || 'production',
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID || "your-project-id",
+    dataset: process.env.SANITY_STUDIO_DATASET || "production",
   },
-})
+});
