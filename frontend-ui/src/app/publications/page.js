@@ -10,19 +10,23 @@
 import { client } from "@/sanityClient";
 import PublicationsVault from "./PublicationsVault";
 
-// We dereference the `authors` references directly in the GROQ query using
-// the `->` operator, so the frontend receives fully-resolved author names
-// instead of having to make a second round-trip per publication.
-const PUBLICATIONS_QUERY = `*[_type == "publication"] | order(releaseDate desc){
+// Publication author names are stored in official citation order. Optional
+// team-member references are fetched separately so external collaborators do
+// not require artificial Team Member records.
+const PUBLICATIONS_QUERY = `*[_type == "publication"] | order(publicationYear desc, releaseDate desc){
   _id,
   title,
+  publicationType,
+  publicationYear,
   releaseDate,
   category,
   journal,
+  publisher,
   doiUrl,
   keywords,
   abstract,
-  "authors": authors[]->{_id, fullName},
+  authors,
+  "teamAuthors": teamAuthors[]->{_id, fullName},
   "pdfUrl": pdfFile.asset->url,
   "pdfFilename": pdfFile.asset->originalFilename
 }`;
