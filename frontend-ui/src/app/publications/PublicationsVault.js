@@ -21,6 +21,23 @@ const CATEGORY_LABELS = {
   "general-research": "General Research",
 };
 
+const PUBLICATION_TYPE_LABELS = {
+  "journal-article": "Journal article",
+  "conference-paper": "Conference paper",
+  "book-chapter": "Book chapter",
+  "technical-report": "Technical report",
+};
+
+// Supports both the current citation-name strings and resolved author objects
+// returned by the earlier schema while existing records are being migrated.
+const getAuthorName = (author) =>
+  typeof author === "string" ? author : author?.fullName;
+
+const getPublicationYear = (publication) =>
+  String(
+    publication.publicationYear || publication.releaseDate?.slice(0, 4) || "",
+  );
+
 export default function PublicationsVault({ publications }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
@@ -38,20 +55,19 @@ export default function PublicationsVault({ publications }) {
         pub.abstract,
         pub.journal,
         pub.keywords?.join(" "),
-        pub.authors?.map((a) => a.fullName).join(" "),
+        pub.authors?.map(getAuthorName).filter(Boolean).join(" "),
       ]
         .join(" ")
         .toLowerCase();
       const matchesSearch = haystack.includes(searchTerm.toLowerCase());
-      const matchesYear = year === "all" || pub.releaseDate?.startsWith(year);
+      const matchesYear =
+        year === "all" || getPublicationYear(pub) === String(year);
       return matchesCategory && matchesSearch && matchesYear;
     });
   }, [publications, searchTerm, activeCategory, year]);
   const years = [
-    ...new Set(
-      publications.map((p) => p.releaseDate?.slice(0, 4)).filter(Boolean),
-    ),
-  ];
+    ...new Set(publications.map(getPublicationYear).filter(Boolean)),
+  ].sort((a, b) => Number(b) - Number(a));
 
   // Build the list of categories that actually have at least one
   // publication, so the filter bar never shows an empty, dead-end option.
@@ -72,7 +88,7 @@ export default function PublicationsVault({ publications }) {
           type="text"
           value={searchTerm}
           onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search publications by title…"
+          placeholder="Search by title, author, or venue…"
           className="field-input mt-0 w-full"
         />
         <select
@@ -126,31 +142,47 @@ export default function PublicationsVault({ publications }) {
               <div>
                 <p className="text-xs uppercase tracking-widest text-accent">
                   {CATEGORY_LABELS[pub.category] || pub.category}
+                  {pub.publicationType && (
+                    <>
+                      <span aria-hidden="true"> · </span>
+                      {PUBLICATION_TYPE_LABELS[pub.publicationType] ||
+                        pub.publicationType}
+                    </>
+                  )}
                 </p>
                 <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-forest">
                   {pub.title}
                 </h2>
                 <p className="mt-2 text-sm text-stone">
                   {pub.authors && pub.authors.length > 0
-                    ? pub.authors.map((author) => author.fullName).join(", ")
+                    ? pub.authors
+                        .map(getAuthorName)
+                        .filter(Boolean)
+                        .join(", ")
                     : "Unattributed"}
-                  {pub.releaseDate &&
-                    ` — ${new Date(pub.releaseDate).toLocaleDateString(
-                      "en-US",
-                      {
-                        year: "numeric",
-                        month: "long",
-                      },
-                    )}`}
+                  {pub.releaseDate
+                    ? ` — ${new Date(`${pub.releaseDate}T00:00:00`).toLocaleDateString(
+                        "en-US",
+                        {
+                          year: "numeric",
+                          month: "long",
+                          day: "numeric",
+                        },
+                      )}`
+                    : getPublicationYear(pub) &&
+                      ` — ${getPublicationYear(pub)}`}
                 </p>
                 {pub.journal && (
                   <p className="mt-2 text-sm font-semibold text-carbon/70">
                     {pub.journal}
+                    {pub.publisher && ` · ${pub.publisher}`}
                   </p>
                 )}
-                <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/80">
-                  {pub.abstract}
-                </p>
+                {pub.abstract && (
+                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/80">
+                    {pub.abstract}
+                  </p>
+                )}
                 {pub.keywords?.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2">
                     {pub.keywords.map((k) => (
@@ -178,7 +210,7 @@ export default function PublicationsVault({ publications }) {
                   URL — resolved server-side via `pdfFile.asset->url` in the
                   GROQ query — so no proxying or extra backend code is
                   needed to serve the file. */}
-              {pub.pdfUrl ? (
+              {pub.pdfUrl && (
                 <a
                   href={pub.pdfUrl}
                   download={pub.pdfFilename || true}
@@ -188,8 +220,6 @@ export default function PublicationsVault({ publications }) {
                 >
                   Download PDF
                 </a>
-              ) : (
-                <span className="text-xs text-stone">No file attached</span>
               )}
             </article>
           ))
