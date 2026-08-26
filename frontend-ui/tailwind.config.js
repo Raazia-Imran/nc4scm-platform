@@ -27,6 +27,10 @@ module.exports = {
         limestone: "#e7e4dc",
         clay: "#a85f42",
         carbon: "#18211d",
+        teal: "#236b70",
+        sky: "#dfeaf3",
+        cobalt: "#176fa6",
+        sun: "#f2d77b",
       },
       fontFamily: {
         display: [
