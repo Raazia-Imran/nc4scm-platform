@@ -23,7 +23,7 @@ The records use stable DOI-derived `_id` values. Re-running the command with
 
 ## Client-managed website content
 
-`client-content.ndjson` contains the client-approved global settings, page
+`client-content.ndjson` contains the client-approved global settings, homepage, page
 copy, journey, seven news records, three events, four services, three partners,
 and the two currently approved team profiles. The preparation script attaches
 the supplied center logo, partner logos, and news/event media as Sanity assets.

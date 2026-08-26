@@ -2,31 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import TestimonialShowcase from "@/app/components/TestimonialShowcase";
+import RichTextRenderer from "@/app/components/RichTextRenderer";
 
 const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published!=false]|order(displayOrder asc){_id,quote,personName,role,organization,portrait},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
-
-const defaults = {
-  eyebrow: "Pakistan's national hub for low-carbon materials",
-  headline: "Materials research for a climate-ready built environment.",
-  intro:
-    "NC4SCM brings science, industry, and policy together to accelerate practical, high-performance alternatives to carbon-intensive construction materials.",
-  primaryCta: { label: "Explore our services", href: "/services" },
-  secondaryCta: { label: "View our research", href: "/publications" },
-  aboutKicker: "From laboratory evidence to industrial adoption",
-  aboutHeading:
-    "Building the knowledge and partnerships needed to decarbonize construction.",
-  servicesHeading: "Technical depth, built for real-world use.",
-  servicesIntro:
-    "From material characterization to plant-level technology support, our work helps partners move from possibility to verified performance.",
-  flagshipLabel: "Flagship research",
-  flagshipTitle: "NRPU Project No. 14074",
-  flagshipSummary:
-    "A multidisciplinary research program advancing locally viable supplementary cementitious materials and pathways for lower-carbon construction in Pakistan.",
-  closingHeading: "Have a material challenge worth solving?",
-  closingBody:
-    "Talk to our researchers about testing, technical support, collaborative research, or industry implementation.",
-  closingLink: { label: "Start a conversation", href: "/contact" },
-};
 
 const Action = ({ link, light = false }) =>
   link?.href ? (
@@ -41,7 +19,7 @@ const Action = ({ link, light = false }) =>
 
 export default async function HomePage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
-  const page = { ...defaults, ...(data.page || {}) };
+  const page = data.page || {};
   const hero = urlFor(page.heroImage)
     ?.width(1800)
     .height(1300)
@@ -60,12 +38,7 @@ export default async function HomePage() {
     ...item,
     externalUrl: item.registrationUrl,
   }));
-  const stats = page.statistics || [
-    { value: "40%", label: "Potential CO₂ reduction with LC3" },
-    { value: "04", label: "Integrated technical service areas" },
-    { value: "01", label: "National center for shared expertise" },
-    { value: "360°", label: "Research-to-industry support" },
-  ];
+  const stats = page.statistics || [];
   return (
     <>
       <section className="relative min-h-[850px] overflow-hidden bg-forest pt-36 text-ivory lg:min-h-screen">
@@ -93,7 +66,7 @@ export default async function HomePage() {
             <div className="flex flex-wrap gap-3 lg:justify-end">
               <Action link={page.primaryCta} light />
               <Link
-                href={page.secondaryCta?.href || "/publications"}
+                href={page.secondaryCta?.href}
                 className="button button-ghost"
               >
                 {page.secondaryCta?.label}
@@ -108,10 +81,7 @@ export default async function HomePage() {
           <p className="eyebrow text-clay">{page.aboutKicker}</p>
           <div>
             <h2 className="section-title max-w-4xl">{page.aboutHeading}</h2>
-            <p className="mt-8 max-w-2xl text-lg leading-8 text-carbon/65">
-              We connect academic rigor with the realities of materials supply,
-              cement production, standards, and infrastructure delivery.
-            </p>
+            {page.aboutBody?.length ? <div className="mt-8 max-w-2xl text-lg leading-8 text-carbon/65"><RichTextRenderer value={page.aboutBody} /></div> : null}
             <Link href="/about" className="text-link mt-9 inline-flex">
               Discover the center <span>↗</span>
             </Link>
@@ -144,15 +114,7 @@ export default async function HomePage() {
           </p>
         </div>
         <div className="grid lg:grid-cols-2">
-          {(services.length
-            ? services
-            : [
-                { title: "LC3 Technology" },
-                { title: "Material Characterization" },
-                { title: "New Material Development" },
-                { title: "Technological Support" },
-              ]
-          ).map((s, i) => (
+          {services.map((s, i) => (
             <Link
               key={s._id || s.title}
               href={
