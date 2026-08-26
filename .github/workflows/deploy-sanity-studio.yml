@@ -43,7 +43,7 @@ jobs:
           cache-dependency-path: cms-backend/package-lock.json
 
       - name: Install locked dependencies
-        run: npm ci
+        run: npm ci --ignore-scripts
 
       - name: Deploy hosted Studio
-        run: npx sanity deploy --no-minify --yes
+        run: ./node_modules/.bin/sanity deploy --no-minify --yes

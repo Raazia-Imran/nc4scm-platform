@@ -342,8 +342,7 @@ body {
 .testimonial-viewport { overflow: hidden; }
 .testimonial-grid { display: flex; width: max-content; gap: 1rem; padding: .5rem; animation: testimonial-marquee 38s linear infinite; }
 .testimonial-viewport:hover .testimonial-grid, .testimonial-viewport:focus-within .testimonial-grid { animation-play-state: paused; }
-.testimonial-card { min-height: 17rem; border-radius: 1.5rem; background: #f7f5ef; padding: 1.75rem; box-shadow: 0 20px 70px rgba(0,0,0,.12); transition: transform 400ms ease; }
-.testimonial-card { width: clamp(18rem, 28vw, 25rem); flex: 0 0 auto; }
+.testimonial-card { width: clamp(18rem, 28vw, 25rem); min-height: 17rem; flex: 0 0 auto; border-radius: 1.5rem; background: #f7f5ef; padding: 1.75rem; box-shadow: 0 20px 70px rgba(0,0,0,.12); transition: transform 400ms ease; }
 .testimonial-card:hover { transform: translateY(-5px); }
 .testimonial-mark { color: #245b45; font-family: Georgia, serif; font-size: 4rem; line-height: .65; }
 @keyframes testimonial-marquee { to { transform: translateX(calc(-50% - .5rem)); } }
