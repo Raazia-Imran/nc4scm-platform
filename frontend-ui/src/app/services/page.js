@@ -95,12 +95,13 @@ export default async function ServicesPage() {
     </>
   );
 }
-function Mini({ title, items = [] }) {
+function Mini({ title, items }) {
+  const visibleItems = Array.isArray(items) ? items : [];
   return (
     <div className="rounded-2xl bg-sage p-6">
       <p className="eyebrow text-clay">{title}</p>
       <ul className="mt-5 space-y-3 text-sm leading-6 text-carbon/65">
-        {items.slice(0, 4).map((x) => (
+        {visibleItems.slice(0, 4).map((x) => (
           <li key={x}>— {x}</li>
         ))}
       </ul>
