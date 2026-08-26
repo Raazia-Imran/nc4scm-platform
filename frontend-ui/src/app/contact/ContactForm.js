@@ -47,7 +47,7 @@ export default function ContactForm({ successMessage }) {
     } catch {
       setStatus("error");
       setError(
-        "Your message could not be sent. Please try again or email nc4scm@cloud.neduet.edu.pk.",
+        "The website email service is awaiting activation. Please email the centre directly for now.",
       );
     }
   }
@@ -133,9 +133,7 @@ export default function ContactForm({ successMessage }) {
           {status === "submitting" ? "Sending…" : "Send enquiry"} <span>↗</span>
         </button>
         {error && (
-          <p role="alert" className="mt-4 text-sm text-red-800">
-            {error}
-          </p>
+          <div role="alert" className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"><p>{error}</p><a className="mt-2 inline-flex font-semibold underline underline-offset-4" href="mailto:nc4scm@cloud.neduet.edu.pk">Email NC4SCM directly ↗</a></div>
         )}
       </div>
     </form>

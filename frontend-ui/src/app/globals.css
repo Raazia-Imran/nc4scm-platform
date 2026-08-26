@@ -119,8 +119,11 @@ body {
     @apply bg-mint/80;
   }
   .mission-card:hover {
-    @apply -translate-y-1 border-teal/30 shadow-[0_28px_90px_rgba(18,61,47,.14)];
+    @apply -translate-y-1 border-forest bg-forest shadow-[0_28px_90px_rgba(18,61,47,.18)];
   }
+  .mission-card:hover .eyebrow,
+  .mission-card:hover h2,
+  .mission-card:hover .text-carbon\/65 { color: #f7f5ef; }
   .mission-card:hover::after {
     @apply scale-125;
   }
@@ -324,6 +327,14 @@ body {
 .filter-pill { flex: 0 0 auto; border: 1px solid rgba(18,61,47,.16); border-radius: 999px; background: rgba(255,255,255,.52); padding: .7rem 1rem; color: #123d2f; font-size: .78rem; font-weight: 650; text-transform: capitalize; transition: background 250ms ease, color 250ms ease, transform 250ms ease, border-color 250ms ease; }
 .filter-pill:hover { transform: translateY(-2px); border-color: rgba(18,61,47,.35); }
 .filter-pill.is-active { border-color: #123d2f; background: #123d2f; color: #f7f5ef; box-shadow: 0 8px 24px rgba(18,61,47,.16); }
+.filter-drawer-backdrop { position: fixed; inset: 0; z-index: 80; display: flex; align-items: flex-end; background: rgba(9,35,28,.48); backdrop-filter: blur(5px); }
+.filter-drawer { width: 100%; max-height: 78vh; overflow-y: auto; border-radius: 1.75rem 1.75rem 0 0; background: #f7f5ef; padding: 1.5rem; box-shadow: 0 -20px 80px rgba(0,0,0,.2); animation: drawer-up 320ms cubic-bezier(.22,1,.36,1); }
+.filter-drawer-option { width: 100%; border: 1px solid rgba(18,61,47,.12); border-radius: .9rem; padding: .9rem 1rem; text-align: left; color: #123d2f; font-size: .9rem; font-weight: 650; text-transform: capitalize; }
+.filter-drawer-option.is-active { background: #123d2f; color: #f7f5ef; }
+@keyframes drawer-up { from { transform: translateY(100%); } }
+
+.stat-card:hover { background: #123d2f; }
+.stat-card:hover p { color: #f7f5ef; }
 
 .testimonial-viewport { overflow: hidden; }
 .testimonial-grid { display: flex; width: max-content; gap: 1rem; padding: .5rem; animation: testimonial-marquee 38s linear infinite; }
@@ -578,6 +589,8 @@ body {
     min-height: auto;
   }
   .testimonial-grid { animation-duration: 28s; }
+  .flip-rail { display: grid; grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: 1fr; overflow: visible; }
+  .flip-card { height: 15rem; }
 }
 
 @media (max-width: 900px) {

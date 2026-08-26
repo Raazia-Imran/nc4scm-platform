@@ -143,7 +143,7 @@ export default async function HomePage() {
           {stats.map((s) => (
             <div
               key={s.label}
-              className="premium-card p-7"
+              className="premium-card stat-card p-7"
             >
               <p className="font-display text-5xl text-forest">{s.value}</p>
               <p className="mt-3 max-w-[13rem] text-sm leading-6 text-carbon/60">

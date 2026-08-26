@@ -11,6 +11,7 @@ const labels = {
 export default function EventsExplorer({ events }) {
   const [period, setPeriod] = useState("upcoming");
   const [type, setType] = useState("all");
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const now = Date.now();
   const shown = useMemo(
     () =>
@@ -43,11 +44,13 @@ export default function EventsExplorer({ events }) {
             </button>
           ))}
         </div>
-        <div className="filter-rail sm:max-w-[34rem]" aria-label="Filter events by type">
+        <button className="button button-dark sm:hidden" onClick={() => setFiltersOpen(true)}><FilterIcon /> Filter events</button>
+        <div className="filter-rail hidden sm:flex sm:max-w-[34rem]" aria-label="Filter events by type">
           <span className="filter-rail-label"><FilterIcon /> Type</span>
           {["all", "conference", "seminar", "workshop"].map((x) => <button key={x} onClick={() => setType(x)} className={`filter-pill ${type === x ? "is-active" : ""}`}>{x === "all" ? "All" : `${x}s`}</button>)}
         </div>
       </div>
+      {filtersOpen && <div className="filter-drawer-backdrop" role="presentation" onClick={() => setFiltersOpen(false)}><aside className="filter-drawer" role="dialog" aria-modal="true" aria-label="Filter events" onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between"><h2 className="text-xl font-semibold text-forest">Filter events</h2><button className="grid h-10 w-10 place-items-center rounded-full border border-forest/15" onClick={() => setFiltersOpen(false)} aria-label="Close filters">×</button></div><div className="mt-7 grid gap-2">{["all", "conference", "seminar", "workshop"].map((x) => <button key={x} onClick={() => { setType(x); setFiltersOpen(false); }} className={`filter-drawer-option ${type === x ? "is-active" : ""}`}>{x === "all" ? "All event types" : `${x}s`}</button>)}</div></aside></div>}
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {shown.length ? (
           shown.map((e) => {

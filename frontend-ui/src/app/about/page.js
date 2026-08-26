@@ -206,9 +206,8 @@ export default async function AboutPage() {
 function Story({ label, title, body }) {
   return (
     <article className="mission-card group">
-      <div className="flex items-center justify-between">
+      <div>
         <p className="eyebrow text-teal">{label}</p>
-        <span className="mission-card-icon" aria-hidden="true">↗</span>
       </div>
       <h2 className="mt-8 font-sans text-2xl font-medium leading-[1.2] tracking-[-.03em] text-forest sm:text-3xl">
         {title}
