@@ -16,6 +16,10 @@ html {
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background:
+    radial-gradient(circle at 8% 18%, rgba(168, 95, 66, 0.07), transparent 24rem),
+    radial-gradient(circle at 92% 42%, rgba(36, 91, 69, 0.07), transparent 28rem),
+    #f7f5ef;
 }
 
 ::selection {
@@ -45,7 +49,7 @@ body {
     @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ivory px-5 py-3 font-semibold text-forest shadow-float transition focus:translate-y-0;
   }
   .section-shell {
-    @apply px-6 py-24 sm:px-10 lg:px-[max(2.5rem,calc((100vw-1400px)/2))] lg:py-32;
+    @apply relative px-6 py-24 sm:px-10 lg:px-[max(2.5rem,calc((100vw-1400px)/2))] lg:py-32;
   }
   .eyebrow {
     @apply text-[.68rem] font-bold uppercase tracking-[.22em];
@@ -93,6 +97,118 @@ body {
     linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
   background-size: 64px 64px;
+}
+
+.material-grid::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 15%, rgba(220, 236, 223, 0.18), transparent 28%),
+    radial-gradient(circle at 82% 70%, rgba(168, 95, 66, 0.16), transparent 32%);
+}
+
+.journey-line {
+  position: relative;
+}
+
+.journey-line::before {
+  content: "";
+  position: absolute;
+  left: 1.4rem;
+  top: 1.4rem;
+  bottom: 1.4rem;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(220, 236, 223, 0.15),
+    rgba(220, 236, 223, 0.8),
+    rgba(220, 236, 223, 0.15)
+  );
+}
+
+.journey-item {
+  display: grid;
+  grid-template-columns: 2.8rem minmax(0, 1fr);
+  gap: 1.25rem;
+  position: relative;
+}
+
+.journey-item + .journey-item {
+  margin-top: 1.25rem;
+}
+
+.journey-marker {
+  z-index: 1;
+  display: grid;
+  width: 2.8rem;
+  height: 2.8rem;
+  place-items: center;
+  border: 1px solid rgba(220, 236, 223, 0.45);
+  border-radius: 999px;
+  background: #123d2f;
+  color: #dcecdf;
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+}
+
+.journey-card {
+  border: 1px solid rgba(247, 245, 239, 0.13);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  background:
+    linear-gradient(145deg, rgba(247, 245, 239, 0.085), transparent 65%),
+    rgba(247, 245, 239, 0.025);
+  transition:
+    transform 300ms ease,
+    border-color 300ms ease,
+    background-color 300ms ease;
+}
+
+.journey-item:hover .journey-card {
+  transform: translateY(-3px);
+  border-color: rgba(220, 236, 223, 0.42);
+  background-color: rgba(247, 245, 239, 0.055);
+}
+
+@media (min-width: 1024px) {
+  .journey-line {
+    display: grid;
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+    gap: 1rem;
+  }
+
+  .journey-line::before {
+    left: 1.4rem;
+    right: 1.4rem;
+    top: 1.4rem;
+    bottom: auto;
+    width: auto;
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      rgba(220, 236, 223, 0.15),
+      rgba(220, 236, 223, 0.8),
+      rgba(220, 236, 223, 0.15)
+    );
+  }
+
+  .journey-item {
+    display: flex;
+    min-width: 0;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  .journey-item + .journey-item {
+    margin-top: 0;
+  }
+
+  .journey-card {
+    min-height: 22rem;
+    padding: 1.4rem;
+  }
 }
 .material-sample {
   background:

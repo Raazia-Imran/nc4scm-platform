@@ -20,3 +20,17 @@ npx sanity dataset import seed/publications.ndjson production --replace
 
 The records use stable DOI-derived `_id` values. Re-running the command with
 `--replace` updates these 12 records instead of creating duplicates.
+
+## Client-provided news and events
+
+`client-content.ndjson` contains the seven verified news records and three
+event records prepared from the client-provided LinkedIn sources and seminar
+poster. It uses stable IDs and does not overwrite the singleton page settings.
+
+```bash
+npx sanity dataset import seed/client-content.ndjson production --replace
+```
+
+The supplied media is kept in the frontend as a resilient local fallback.
+Editors can later upload replacement cover images in Sanity without changing
+the verified titles, dates, descriptions, or source links.

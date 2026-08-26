@@ -32,18 +32,22 @@ export default function NewsGrid({ articles }) {
       </div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
-          const image = urlFor(a.coverImage)
-            ?.width(800)
-            .height(520)
-            .fit("crop")
-            .url();
+          const image =
+            (a.coverImage &&
+              urlFor(a.coverImage)?.width(800).height(520).fit("crop").url()) ||
+            a.localImage;
+          const href =
+            a.externalUrl ||
+            (a.slug?.current ? `/news/${a.slug.current}` : "/news");
           return (
             <Link
               key={a._id}
-              href={`/news/${a.slug?.current}`}
-              className="group"
+              href={href}
+              target={a.externalUrl ? "_blank" : undefined}
+              rel={a.externalUrl ? "noreferrer" : undefined}
+              className="group rounded-[1.75rem] border border-forest/10 bg-white/55 p-3 pb-7 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-float"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sage">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage">
                 {image && (
                   <Image
                     src={image}
@@ -53,6 +57,7 @@ export default function NewsGrid({ articles }) {
                   />
                 )}
               </div>
+              <div className="px-3">
               <p className="eyebrow mt-5 text-clay">
                 {a.category || "Update"} ·{" "}
                 {a.publishedAt
@@ -69,8 +74,10 @@ export default function NewsGrid({ articles }) {
                 {a.excerpt}
               </p>
               <span className="text-link mt-5 inline-flex">
-                Read story <span>↗</span>
+                {a.externalUrl ? "View original update" : "Read story"}{" "}
+                <span>↗</span>
               </span>
+              </div>
             </Link>
           );
         })}

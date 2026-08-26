@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
 import ContactForm from "./ContactForm";
-const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,mapEmbedUrl,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
+import { centreContent } from "@/content/clientContent";
+const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,contactPeople,mapEmbedUrl,latitude,longitude,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
 export const metadata = {
   title: "Contact — NC4SCM",
   description:
@@ -11,6 +12,14 @@ export default async function ContactPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const s = data.settings || {},
     p = data.page || {};
+  const mapUrl =
+    s.mapEmbedUrl ||
+    "https://www.openstreetmap.org/export/embed.html?bbox=67.106924%2C24.928469%2C67.116924%2C24.938469&layer=mapnik&marker=24.933469%2C67.111924";
+  const contacts = s.contactPeople?.length
+    ? s.contactPeople
+    : centreContent.contacts;
+  const latitude = s.latitude ?? centreContent.coordinates.latitude;
+  const longitude = s.longitude ?? centreContent.coordinates.longitude;
   return (
     <>
       <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
@@ -32,16 +41,17 @@ export default async function ContactPage() {
             <p className="eyebrow text-clay">Contact details</p>
             <div className="mt-7 space-y-8">
               {s.address && <Info label="Visit" value={s.address} />}{" "}
-              {s.email && (
-                <Info
-                  label="Email"
-                  value={s.email}
-                  href={`mailto:${s.email}`}
-                />
-              )}{" "}
+              <Info
+                label="Centre email"
+                value={s.email || centreContent.email}
+                href={"mailto:" + (s.email || centreContent.email)}
+              />
               {s.phone && (
                 <Info label="Call" value={s.phone} href={`tel:${s.phone}`} />
               )}{" "}
+              {contacts.map((contact) => (
+                <ContactPerson key={contact.email} contact={contact} />
+              ))}
               {s.linkedinUrl && (
                 <Info label="Follow" value="LinkedIn ↗" href={s.linkedinUrl} />
               )}
@@ -57,19 +67,64 @@ export default async function ContactPage() {
             </Suspense>
           </div>
         </div>
-        {s.mapEmbedUrl && (
-          <div className="mt-20 overflow-hidden rounded-[2rem] bg-sage">
+        <div className="mt-20 overflow-hidden rounded-[2rem] border border-forest/10 bg-sage shadow-float">
+          <div className="grid lg:grid-cols-[.72fr_1.28fr]">
+            <div className="p-8 sm:p-10">
+              <p className="eyebrow text-clay">Find us</p>
+              <h2 className="mt-5 font-display text-4xl text-forest">
+                NED University of Engineering & Technology
+              </h2>
+              <p className="mt-5 text-sm leading-7 text-carbon/60">
+                Coordinates: {latitude}, {longitude}
+              </p>
+              <a
+                className="text-link mt-7 inline-flex"
+                href={
+                  "https://www.openstreetmap.org/?mlat=" +
+                  latitude +
+                  "&mlon=" +
+                  longitude +
+                  "#map=17/" +
+                  latitude +
+                  "/" +
+                  longitude
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open full map <span>↗</span>
+              </a>
+            </div>
             <iframe
-              src={s.mapEmbedUrl}
+              src={mapUrl}
               title="NC4SCM location"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="h-[420px] w-full border-0"
+              className="h-[420px] w-full border-0 lg:h-full lg:min-h-[430px]"
             />
           </div>
-        )}
+        </div>
       </section>
     </>
+  );
+}
+function ContactPerson({ contact }) {
+  return (
+    <div className="border-t border-forest/15 pt-5">
+      <p className="eyebrow text-carbon/40">{contact.role}</p>
+      <p className="mt-3 font-display text-2xl text-forest">{contact.name}</p>
+      <div className="mt-3 space-y-1 text-sm text-carbon/65">
+        <a className="block hover:text-clay" href={"mailto:" + contact.email}>
+          {contact.email}
+        </a>
+        <a
+          className="block hover:text-clay"
+          href={"tel:" + contact.phone.replace(/\s/g, "")}
+        >
+          {contact.phone}
+        </a>
+      </div>
+    </div>
   );
 }
 function Info({ label, value, href }) {

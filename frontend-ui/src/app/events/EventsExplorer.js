@@ -1,5 +1,6 @@
 "use client";
 import Link from "next/link";
+import Image from "next/image";
 import { useMemo, useState } from "react";
 const labels = {
   conference: "Conference",
@@ -60,8 +61,13 @@ export default function EventsExplorer({ events }) {
             return (
               <Link
                 key={e._id}
-                href={e.slug?.current ? `/events/${e.slug.current}` : "/events"}
-                className="group grid gap-6 border-b border-forest/15 py-8 sm:grid-cols-[7rem_1fr_auto] sm:items-center"
+                href={
+                  e.externalUrl ||
+                  (e.slug?.current ? `/events/${e.slug.current}` : "/events")
+                }
+                target={e.externalUrl ? "_blank" : undefined}
+                rel={e.externalUrl ? "noreferrer" : undefined}
+                className="group grid gap-6 border-b border-forest/15 py-8 sm:grid-cols-[7rem_9rem_1fr_auto] sm:items-center"
               >
                 <div>
                   <p className="font-display text-5xl text-forest">
@@ -74,6 +80,17 @@ export default function EventsExplorer({ events }) {
                     })}
                   </p>
                 </div>
+                <div className="relative hidden aspect-[4/3] overflow-hidden rounded-2xl bg-sage sm:block">
+                  {e.localImage && (
+                    <Image
+                      src={e.localImage}
+                      alt=""
+                      fill
+                      sizes="144px"
+                      className="object-cover transition duration-500 group-hover:scale-105"
+                    />
+                  )}
+                </div>
                 <div>
                   <p className="eyebrow text-clay">
                     {labels[e.eventType] || e.eventType}
@@ -82,6 +99,11 @@ export default function EventsExplorer({ events }) {
                     {e.title}
                   </h2>
                   <p className="mt-3 text-sm text-carbon/55">{e.venue}</p>
+                  {e.description && (
+                    <p className="mt-3 max-w-2xl text-sm leading-6 text-carbon/55">
+                      {e.description}
+                    </p>
+                  )}
                 </div>
                 <span className="service-arrow">↗</span>
               </Link>

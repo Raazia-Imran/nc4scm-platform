@@ -9,6 +9,9 @@ const blank = {
   service: "",
   message: "",
 };
+const DEFAULT_ENDPOINT =
+  "https://formsubmit.co/ajax/nc4scm@cloud.neduet.edu.pk";
+
 export default function ContactForm({ successMessage }) {
   const params = useSearchParams();
   const [form, setForm] = useState({
@@ -23,14 +26,7 @@ export default function ContactForm({ successMessage }) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-    if (!endpoint) {
-      setStatus("error");
-      setError(
-        "The form destination has not been configured yet. Please use the email address shown on this page.",
-      );
-      return;
-    }
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || DEFAULT_ENDPOINT;
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -38,7 +34,12 @@ export default function ContactForm({ successMessage }) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          _subject: "NC4SCM website enquiry: " + form.enquiryType,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
       if (!response.ok) throw new Error();
       setStatus("success");
@@ -46,7 +47,7 @@ export default function ContactForm({ successMessage }) {
     } catch {
       setStatus("error");
       setError(
-        "Your message could not be sent. Please try again or contact us by email.",
+        "Your message could not be sent. Please try again or email nc4scm@cloud.neduet.edu.pk.",
       );
     }
   }

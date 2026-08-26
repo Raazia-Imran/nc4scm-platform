@@ -19,7 +19,7 @@ export const revalidate = 60;
 
 export const metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://nc4scm.org",
+    process.env.NEXT_PUBLIC_SITE_URL || "https://nc4scm.com",
   ),
   title: "NC4SCM — National Center for Sustainable Construction Materials",
   description:

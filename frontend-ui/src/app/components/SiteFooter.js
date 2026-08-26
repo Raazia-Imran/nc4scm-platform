@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { centreContent } from "@/content/clientContent";
 
 const primary = [
   { label: "About", href: "/about" },
@@ -54,14 +55,12 @@ export default function SiteFooter({ settings }) {
               {settings?.address && (
                 <p className="whitespace-pre-line">{settings.address}</p>
               )}
-              {settings?.email && (
-                <a
-                  className="footer-link block"
-                  href={`mailto:${settings.email}`}
-                >
-                  {settings.email}
-                </a>
-              )}
+              <a
+                className="footer-link block"
+                href={"mailto:" + (settings?.email || centreContent.email)}
+              >
+                {settings?.email || centreContent.email}
+              </a>
               {settings?.phone && (
                 <a className="footer-link block" href={`tel:${settings.phone}`}>
                   {settings.phone}

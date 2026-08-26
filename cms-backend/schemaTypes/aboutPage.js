@@ -38,6 +38,40 @@ export default {
       type: "array",
       of: [{ type: "block" }],
     },
+    {
+      name: "journey",
+      title: "How We Began — Journey Timeline",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "year",
+              title: "Year",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "title",
+              title: "Milestone title",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "description",
+              title: "Milestone description",
+              type: "text",
+              rows: 4,
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: { title: "year", subtitle: "title" },
+          },
+        },
+      ],
+    },
     { name: "teamHeading", title: "Team section heading", type: "string" },
     {
       name: "teamIntroduction",
