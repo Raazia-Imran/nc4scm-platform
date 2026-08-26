@@ -2,6 +2,7 @@ import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
+import Reveal from "@/app/components/Reveal";
 import {
   centreContent,
   immediatePartners,
@@ -85,44 +86,47 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="section-shell overflow-hidden bg-forest text-ivory material-grid">
-        <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
+      <section className="journey-editorial section-shell overflow-hidden">
+        <div className="relative z-10 grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
           <div>
-            <p className="eyebrow text-mint">How we began</p>
-            <h2 className="mt-5 font-display text-5xl leading-[.95] sm:text-7xl">
-              Our journey from research to national impact.
+            <p className="eyebrow text-clay">How we began</p>
+            <h2 className="mt-5 font-sans text-5xl font-medium leading-[.92] tracking-[-.055em] text-carbon sm:text-7xl">
+              Our journey,<br />built year by year.
             </h2>
           </div>
-          <p className="max-w-xl text-base leading-8 text-ivory/65 lg:justify-self-end">
+          <p className="max-w-xl text-base leading-8 text-carbon/60 lg:justify-self-end">
             Six years of evidence, standardisation, industry engagement, and
             practical demonstration created the foundation for NC4SCM.
           </p>
         </div>
-        <div className="journey-line mt-20">
+        <div className="journey-editorial-list relative z-10 mt-20">
           {(p.journey?.length ? p.journey : journey).map((item, index) => (
-            <article
+            <Reveal
               key={item.year}
-              className="journey-item group"
-              style={{ "--journey-index": index }}
+              className={`journey-editorial-row ${index % 2 ? "is-right" : "is-left"}`}
+              delay={(index % 3) * 90}
             >
-              <div className="journey-marker" aria-hidden="true">
-                <span>{String(index + 1).padStart(2, "0")}</span>
-              </div>
-              <div className="journey-card">
-                <p className="font-display text-5xl text-mint sm:text-6xl">
+              <article className="journey-editorial-card group">
+                <span className="journey-index" aria-hidden="true">
+                  {String(index + 1).padStart(2, "0")}
+                </span>
+                <p className="journey-year">
                   {item.year}
                 </p>
-                <h3 className="mt-4 text-lg font-semibold text-ivory">
+                <h3 className="mt-3 text-xl font-semibold tracking-tight text-carbon">
                   {item.title}
                 </h3>
-                <p className="mt-4 text-sm leading-7 text-ivory/62">
+                <p className="mt-4 max-w-xl text-sm leading-7 text-carbon/58">
                   {item.description}
                 </p>
-              </div>
-            </article>
+                <div className="journey-materials mt-6" aria-hidden="true">
+                  <span /><span /><span />
+                </div>
+              </article>
+            </Reveal>
           ))}
         </div>
-        <p className="mt-14 border-t border-ivory/15 pt-7 text-sm font-semibold tracking-wide text-mint">
+        <p className="relative z-10 mt-16 border-t border-carbon/10 pt-7 text-sm font-semibold tracking-wide text-teal">
           2021 Research → 2022 Standardisation → 2023 Industry Engagement →
           2024 Demonstration → 2025 Global Outreach → 2026 NC4SCM
         </p>
