@@ -127,7 +127,7 @@ export default async function AboutPage() {
       <section className="section-shell bg-ivory">
         <p className="eyebrow text-clay">People</p>
         <div className="mt-5 grid gap-8 border-b border-forest/15 pb-10 lg:grid-cols-2">
-          <h2 className="font-sans text-4xl font-medium leading-[1.02] tracking-[-.045em] text-ivory sm:text-6xl">
+          <h2 className="font-sans text-4xl font-medium leading-[1.02] tracking-[-.045em] text-forest sm:text-6xl">
             {p.teamHeading || "The team behind the work."}
           </h2>
           <p className="self-end text-base leading-7 text-carbon/65">
@@ -144,7 +144,7 @@ export default async function AboutPage() {
               <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
                 {cards.map((m) => (
                   <article key={m._id} className="premium-card group p-3">
-                    <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sage">
+                    <a href={m.linkedinUrl || undefined} target={m.linkedinUrl ? "_blank" : undefined} rel={m.linkedinUrl ? "noreferrer" : undefined} aria-label={m.linkedinUrl ? `View ${m.fullName} on LinkedIn` : undefined} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sage">
                       {m.avatar && (
                         <Image
                           src={urlFor(m.avatar)
@@ -157,8 +157,8 @@ export default async function AboutPage() {
                           className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
                         />
                       )}
-                      {m.placeholder && <div className="grid h-full place-items-center text-xs font-semibold uppercase tracking-[.15em] text-forest/30">Photo pending</div>}
-                    </div>
+                      {!m.avatar && <div className="grid h-full place-items-center text-xs font-semibold uppercase tracking-[.15em] text-forest/30">Photo pending</div>}
+                    </a>
                     <h4 className="mt-5 px-2 font-sans text-2xl font-semibold tracking-tight text-forest">
                       {m.fullName}
                     </h4>

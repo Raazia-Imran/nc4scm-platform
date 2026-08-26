@@ -23,9 +23,10 @@ The records use stable DOI-derived `_id` values. Re-running the command with
 
 ## Client-provided news and events
 
-`client-content.ndjson` contains the seven verified news records and three
-event records prepared from the client-provided LinkedIn sources and seminar
-poster. It uses stable IDs and does not overwrite the singleton page settings.
+`client-content.ndjson` contains the seven verified news records, three event
+records, and two initial team profiles prepared from client-provided material.
+The team portraits remain empty until approved images are uploaded in Studio.
+Stable IDs make the import safe to repeat without creating duplicates.
 
 ```bash
 npx sanity dataset import seed/client-content.ndjson production --replace

@@ -3,28 +3,19 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { urlFor } from "@/sanityClient";
-import FilterIcon from "@/app/components/FilterIcon";
+import FilterMenu from "@/app/components/FilterMenu";
 export default function NewsGrid({ articles }) {
   const [category, setCategory] = useState("all");
-  const [search, setSearch] = useState("");
-  const [filtersOpen, setFiltersOpen] = useState(false);
   const [visible, setVisible] = useState(12);
   const cats = useMemo(
     () => ["all", ...new Set(articles.map((x) => x.category).filter(Boolean))],
     [articles],
   );
-  const filtered = articles.filter((x) => (category === "all" || x.category === category) && [x.headline, x.excerpt, x.category].join(" ").toLowerCase().includes(search.toLowerCase()));
+  const filtered = articles.filter((x) => category === "all" || x.category === category);
+  const options = cats.map((x) => ({ value: x, label: x === "all" ? "All news" : x.replaceAll("-", " ") }));
   return (
     <div className="mt-14">
-      <div className="grid gap-3 sm:grid-cols-[1fr_auto]">
-        <label className="relative"><span className="sr-only">Search news</span><input value={search} onChange={(e) => setSearch(e.target.value)} className="field-input mt-0 w-full" placeholder="Search news and updates…" /></label>
-        <button className="button button-dark sm:hidden" onClick={() => setFiltersOpen(true)}><FilterIcon /> Filter news</button>
-      </div>
-      <div className="filter-rail mt-5 hidden sm:flex" aria-label="Filter news by category">
-        <span className="filter-rail-label"><FilterIcon /> Filter</span>
-        {cats.map((x) => <button key={x} onClick={() => { setCategory(x); setVisible(12); }} className={`filter-pill ${category === x ? "is-active" : ""}`}>{x === "all" ? "All news" : x.replaceAll("-", " ")}</button>)}
-      </div>
-      {filtersOpen && <div className="filter-drawer-backdrop" role="presentation" onClick={() => setFiltersOpen(false)}><aside className="filter-drawer" role="dialog" aria-modal="true" aria-label="Filter news" onClick={(e) => e.stopPropagation()}><div className="flex items-center justify-between"><h2 className="text-xl font-semibold text-forest">Filter news</h2><button className="grid h-10 w-10 place-items-center rounded-full border border-forest/15" onClick={() => setFiltersOpen(false)} aria-label="Close filters">×</button></div><div className="mt-7 grid gap-2">{cats.map((x) => <button key={x} onClick={() => { setCategory(x); setVisible(12); setFiltersOpen(false); }} className={`filter-drawer-option ${category === x ? "is-active" : ""}`}>{x === "all" ? "All news" : x.replaceAll("-", " ")}</button>)}</div></aside></div>}
+      <div className="flex justify-end"><FilterMenu label="Filter news by category" value={category} options={options} onChange={(next) => { setCategory(next); setVisible(12); }} /></div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
           const image =

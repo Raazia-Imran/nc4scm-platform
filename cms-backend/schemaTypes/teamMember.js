@@ -55,6 +55,7 @@ export default {
       name: "avatar",
       title: "Avatar Image",
       type: "image",
+      description: "Optional until an approved portrait is available.",
       options: { hotspot: true },
       fields: [
         {
@@ -65,7 +66,6 @@ export default {
           validation: (Rule) => Rule.required(),
         },
       ],
-      validation: (Rule) => Rule.required(),
     },
     { name: "email", title: "Public email", type: "string" },
     { name: "linkedinUrl", title: "LinkedIn URL", type: "url" },

@@ -44,6 +44,7 @@ export const centreContent = {
     "Achieve research excellence in low-carbon construction materials, and enable their application in industry and policy, for the benefit of society with integrity and wisdom.",
   coordinates: { latitude: 24.933469, longitude: 67.111924 },
   email: "nc4scm@cloud.neduet.edu.pk",
+  linkedinUrl: "https://www.linkedin.com/company/national-center-for-sustainable-construction-materials/",
   contacts: [
     {
       role: "Principal Investigator (NC4SCM)",
