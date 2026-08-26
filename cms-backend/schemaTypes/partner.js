@@ -48,7 +48,7 @@ export default {
       type: "url",
       description: "Where users are taken when they click this logo.",
       validation: (Rule) =>
-        Rule.required().uri({
+        Rule.uri({
           scheme: ["http", "https"],
         }),
     },

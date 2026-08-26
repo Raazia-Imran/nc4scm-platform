@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { urlFor } from "@/sanityClient";
+import FilterMenu from "@/app/components/FilterMenu";
 export default function NewsGrid({ articles }) {
   const [category, setCategory] = useState("all");
   const [visible, setVisible] = useState(12);
@@ -10,40 +11,27 @@ export default function NewsGrid({ articles }) {
     () => ["all", ...new Set(articles.map((x) => x.category).filter(Boolean))],
     [articles],
   );
-  const filtered =
-    category === "all"
-      ? articles
-      : articles.filter((x) => x.category === category);
+  const filtered = articles.filter((x) => category === "all" || x.category === category);
+  const options = cats.map((x) => ({ value: x, label: x === "all" ? "All news" : x.replaceAll("-", " ") }));
   return (
     <div className="mt-14">
-      <div className="flex flex-wrap gap-2">
-        {cats.map((x) => (
-          <button
-            key={x}
-            onClick={() => {
-              setCategory(x);
-              setVisible(12);
-            }}
-            className={`rounded-full border px-4 py-2 text-xs font-semibold capitalize ${category === x ? "border-clay bg-clay text-ivory" : "border-forest/15 text-forest"}`}
-          >
-            {x.replace("-", " ")}
-          </button>
-        ))}
-      </div>
+      <div className="flex justify-end"><FilterMenu label="Filter news by category" value={category} options={options} onChange={(next) => { setCategory(next); setVisible(12); }} /></div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
-          const image = urlFor(a.coverImage)
-            ?.width(800)
-            .height(520)
-            .fit("crop")
-            .url();
+          const image = a.coverImage &&
+            urlFor(a.coverImage)?.width(800).height(520).fit("crop").url();
+          const href =
+            a.externalUrl ||
+            (a.slug?.current ? `/news/${a.slug.current}` : "/news");
           return (
             <Link
               key={a._id}
-              href={`/news/${a.slug?.current}`}
-              className="group"
+              href={href}
+              target={a.externalUrl ? "_blank" : undefined}
+              rel={a.externalUrl ? "noreferrer" : undefined}
+              className="premium-card group p-3 pb-7"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-sage">
+              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage">
                 {image && (
                   <Image
                     src={image}
@@ -53,6 +41,7 @@ export default function NewsGrid({ articles }) {
                   />
                 )}
               </div>
+              <div className="px-3">
               <p className="eyebrow mt-5 text-clay">
                 {a.category || "Update"} ·{" "}
                 {a.publishedAt
@@ -62,15 +51,17 @@ export default function NewsGrid({ articles }) {
                     })
                   : ""}
               </p>
-              <h2 className="mt-3 font-display text-3xl leading-tight text-forest">
+              <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
                 {a.headline}
               </h2>
               <p className="mt-3 line-clamp-3 text-sm leading-6 text-carbon/60">
                 {a.excerpt}
               </p>
               <span className="text-link mt-5 inline-flex">
-                Read story <span>↗</span>
+                {a.externalUrl ? "View original update" : "Read story"}{" "}
+                <span>↗</span>
               </span>
+              </div>
             </Link>
           );
         })}

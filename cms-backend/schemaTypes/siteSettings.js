@@ -51,8 +51,26 @@ export default {
     { name: "address", title: "Address", type: "text", rows: 3 },
     { name: "email", title: "Email", type: "string" },
     { name: "phone", title: "Phone", type: "string" },
+    {
+      name: "contactPeople",
+      title: "Key contact people",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "role", title: "Role", type: "string" },
+            { name: "name", title: "Name", type: "string" },
+            { name: "email", title: "Email", type: "string" },
+            { name: "phone", title: "Phone", type: "string" },
+          ],
+        },
+      ],
+    },
     { name: "linkedinUrl", title: "LinkedIn URL", type: "url" },
     { name: "mapEmbedUrl", title: "Map embed URL", type: "url" },
+    { name: "latitude", title: "Latitude", type: "number" },
+    { name: "longitude", title: "Longitude", type: "number" },
     { name: "copyrightText", title: "Copyright text", type: "string" },
     { name: "defaultSeo", title: "Default SEO", type: "seo" },
   ],

@@ -9,7 +9,7 @@ const blank = {
   service: "",
   message: "",
 };
-export default function ContactForm({ successMessage }) {
+export default function ContactForm({ successMessage, recipientEmail }) {
   const params = useSearchParams();
   const [form, setForm] = useState({
     ...blank,
@@ -23,14 +23,7 @@ export default function ContactForm({ successMessage }) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT;
-    if (!endpoint) {
-      setStatus("error");
-      setError(
-        "The form destination has not been configured yet. Please use the email address shown on this page.",
-      );
-      return;
-    }
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/ajax/${recipientEmail}`;
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -38,7 +31,12 @@ export default function ContactForm({ successMessage }) {
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify(form),
+        body: JSON.stringify({
+          ...form,
+          _subject: "NC4SCM website enquiry: " + form.enquiryType,
+          _template: "table",
+          _captcha: "false",
+        }),
       });
       if (!response.ok) throw new Error();
       setStatus("success");
@@ -46,7 +44,7 @@ export default function ContactForm({ successMessage }) {
     } catch {
       setStatus("error");
       setError(
-        "Your message could not be sent. Please try again or contact us by email.",
+        "The website email service is awaiting activation. Please email the centre directly for now.",
       );
     }
   }
@@ -132,9 +130,7 @@ export default function ContactForm({ successMessage }) {
           {status === "submitting" ? "Sending…" : "Send enquiry"} <span>↗</span>
         </button>
         {error && (
-          <p role="alert" className="mt-4 text-sm text-red-800">
-            {error}
-          </p>
+          <div role="alert" className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"><p>{error}</p>{recipientEmail && <a className="mt-2 inline-flex font-semibold underline underline-offset-4" href={`mailto:${recipientEmail}`}>Email NC4SCM directly ↗</a>}</div>
         )}
       </div>
     </form>

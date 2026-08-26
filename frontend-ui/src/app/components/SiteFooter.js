@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { urlFor } from "@/sanityClient";
 
 const primary = [
   { label: "About", href: "/about" },
@@ -11,14 +13,13 @@ const primary = [
 
 export default function SiteFooter({ settings }) {
   const nav = settings?.navigation?.length ? settings.navigation : primary;
+  const logoUrl = urlFor(settings?.logo)?.width(520).height(150).fit("max").url();
   return (
     <footer className="bg-forest text-ivory">
       <div className="mx-auto max-w-[1400px] px-6 py-16 sm:px-10 lg:py-24">
         <div className="grid gap-12 border-b border-ivory/15 pb-14 lg:grid-cols-[1.35fr_.65fr_.65fr_.85fr]">
           <div>
-            <p className="font-display text-4xl font-medium sm:text-5xl">
-              {settings?.shortName || "NC4SCM"}
-            </p>
+            {logoUrl ? <div className="inline-flex rounded-xl bg-ivory px-4 py-3"><Image src={logoUrl} alt={settings?.logo?.alt || settings?.organizationName || ""} width={260} height={72} className="h-12 w-auto object-contain" /></div> : <p className="font-display text-4xl">{settings?.shortName || settings?.organizationName}</p>}
             <p className="mt-5 max-w-md text-sm leading-7 text-ivory/65">
               {settings?.missionLine ||
                 "Advancing low-carbon construction materials through research, testing, and meaningful industry collaboration."}
@@ -54,14 +55,12 @@ export default function SiteFooter({ settings }) {
               {settings?.address && (
                 <p className="whitespace-pre-line">{settings.address}</p>
               )}
-              {settings?.email && (
-                <a
-                  className="footer-link block"
-                  href={`mailto:${settings.email}`}
-                >
-                  {settings.email}
-                </a>
-              )}
+              <a
+                className="footer-link block"
+                href={settings?.email ? `mailto:${settings.email}` : undefined}
+              >
+                {settings?.email}
+              </a>
               {settings?.phone && (
                 <a className="footer-link block" href={`tel:${settings.phone}`}>
                   {settings.phone}

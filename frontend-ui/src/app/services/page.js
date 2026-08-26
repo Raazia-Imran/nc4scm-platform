@@ -1,8 +1,15 @@
 import Image from "next/image";
 import Link from "next/link";
 import { client, urlFor } from "@/sanityClient";
+import ServiceFlipRail from "@/app/components/ServiceFlipRail";
 
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"services":*[_type=="service"]|order(displayOrder asc){_id,title,slug,summary,image,methods,deliverables}}`;
+const FALLBACK_SERVICES = [
+  { _id: "service-lc3-placeholder", title: "LC3 Technology", summary: "Technical guidance for limestone calcined clay cement development and implementation.", methods: [], deliverables: [] },
+  { _id: "service-characterization-placeholder", title: "Material Characterization", summary: "Evidence-led assessment of locally available clays and supplementary cementitious materials.", methods: [], deliverables: [] },
+  { _id: "service-development-placeholder", title: "New Material Development", summary: "Applied research for lower-carbon, affordable construction-material solutions.", methods: [], deliverables: [] },
+  { _id: "service-support-placeholder", title: "Technological Support", summary: "Research-to-industry support for validation, scale-up, and practical adoption.", methods: [], deliverables: [] },
+];
 export const metadata = {
   title: "Services — NC4SCM",
   description:
@@ -10,12 +17,13 @@ export const metadata = {
 };
 export default async function ServicesPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
+  const services = data.services?.length ? data.services : FALLBACK_SERVICES;
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">Technical services</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {data.settings?.servicesHeadline ||
               "Move from material question to verified answer."}
           </h1>
@@ -25,9 +33,12 @@ export default async function ServicesPage() {
           </p>
         </div>
       </section>
-      <section className="section-shell bg-ivory">
+      <section className="overflow-hidden bg-[#0b282d] px-6 py-20 text-ivory sm:px-10">
+        <div className="mx-auto max-w-[1400px]"><p className="eyebrow text-mint/65">Explore capabilities</p><h2 className="mt-5 max-w-3xl font-sans text-4xl font-medium tracking-[-.045em] sm:text-6xl">Technical services, viewed from every angle.</h2><div className="mt-10"><ServiceFlipRail services={services} /></div></div>
+      </section>
+      <section className="section-shell marble-surface">
         <div className="space-y-20">
-          {(data.services || []).map((s, i) => {
+          {services.map((s, i) => {
             const image = urlFor(s.image)
               ?.width(900)
               .height(700)
@@ -36,18 +47,18 @@ export default async function ServicesPage() {
             return (
               <article
                 key={s._id}
-                className="grid gap-10 border-t border-forest/15 pt-10 lg:grid-cols-[.8fr_1.2fr]"
+                className="premium-card grid gap-10 p-6 sm:p-8 lg:grid-cols-[.8fr_1.2fr]"
               >
                 <div>
                   <p className="eyebrow text-clay">Service 0{i + 1}</p>
-                  <h2 className="mt-5 font-display text-4xl leading-tight text-forest sm:text-5xl">
+                  <h2 className="mt-5 font-sans text-4xl font-semibold leading-tight tracking-[-.045em] text-forest sm:text-5xl">
                     {s.title}
                   </h2>
                   <p className="mt-6 max-w-md text-base leading-7 text-carbon/65">
                     {s.summary}
                   </p>
                   <Link
-                    href={`/services/${s.slug?.current}`}
+                    href={s.slug?.current ? `/services/${s.slug.current}` : "/contact"}
                     className="button button-dark mt-8"
                   >
                     Explore service <span>↗</span>

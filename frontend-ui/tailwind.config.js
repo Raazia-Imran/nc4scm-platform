@@ -25,8 +25,12 @@ module.exports = {
         sage: "#e8eee6",
         ivory: "#f7f5ef",
         limestone: "#e7e4dc",
-        clay: "#a85f42",
+        clay: "#52705b",
         carbon: "#18211d",
+        teal: "#245b45",
+        sky: "#e8eee6",
+        cobalt: "#245b45",
+        sun: "#dcecdf",
       },
       fontFamily: {
         display: [

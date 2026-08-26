@@ -1,18 +1,19 @@
 import { client } from "@/sanityClient";
 import NewsGrid from "./NewsGrid";
-const QUERY = `{"settings":*[_type=="pageSettings"][0],"articles":*[_type=="news"]|order(publishedAt desc){_id,headline,slug,publishedAt,category,excerpt,coverImage}}`;
+const QUERY = `{"settings":*[_type=="pageSettings"][0],"articles":*[_type=="news"]|order(publishedAt desc){_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl}}`;
 export const metadata = {
   title: "News — NC4SCM",
   description: "Announcements, milestones, and stories from NC4SCM.",
 };
 export default async function NewsPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
+  const articles = data.articles || [];
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">News & insight</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {data.settings?.newsHeadline ||
               "Progress, partnerships, and practical impact."}
           </h1>
@@ -23,7 +24,7 @@ export default async function NewsPage() {
         </div>
       </section>
       <section className="section-shell bg-ivory">
-        <NewsGrid articles={data.articles || []} />
+        <NewsGrid articles={articles} />
       </section>
     </>
   );

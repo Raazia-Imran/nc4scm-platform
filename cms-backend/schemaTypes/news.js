@@ -20,7 +20,6 @@ export default {
       type: "slug",
       description: "Used to build the article URL: /news/<slug>",
       options: { source: "headline", maxLength: 96 },
-      validation: (Rule) => Rule.required(),
     },
     {
       name: "category",
@@ -32,6 +31,12 @@ export default {
           { title: "Milestone", value: "milestone" },
           { title: "Media coverage", value: "media" },
           { title: "Announcement", value: "announcement" },
+          { title: "Recognition", value: "recognition" },
+          { title: "Industry engagement", value: "industry-engagement" },
+          { title: "Global engagement", value: "global-engagement" },
+          { title: "Research", value: "research" },
+          { title: "Policy engagement", value: "policy-engagement" },
+          { title: "Public engagement", value: "public-engagement" },
         ],
       },
       validation: (Rule) => Rule.required(),
@@ -47,7 +52,13 @@ export default {
       name: "publishedAt",
       title: "Published Timestamp",
       type: "datetime",
-      validation: (Rule) => Rule.required(),
+    },
+    {
+      name: "externalUrl",
+      title: "Original external source",
+      type: "url",
+      description:
+        "Optional. Use for a verified LinkedIn or partner update. When supplied, the news card opens the original source.",
     },
     {
       name: "coverImage",
@@ -62,7 +73,6 @@ export default {
           validation: (Rule) => Rule.required(),
         },
       ],
-      validation: (Rule) => Rule.required(),
     },
     {
       name: "body",
@@ -77,7 +87,6 @@ export default {
         },
       ],
       description: "Full rich-text content body, supports inline images.",
-      validation: (Rule) => Rule.required(),
     },
   ],
   orderings: [

@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { urlFor } from "@/sanityClient";
 
 const FALLBACK_LINKS = [
@@ -15,6 +16,7 @@ const FALLBACK_LINKS = [
 ];
 
 export default function SiteHeader({ settings }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const links = settings?.navigation?.length
     ? settings.navigation
@@ -48,21 +50,12 @@ export default function SiteHeader({ settings }) {
             <Image
               src={logoUrl}
               alt={settings?.logo?.alt || settings?.shortName || "NC4SCM"}
-              width={150}
-              height={50}
-              className="h-9 w-auto"
+              width={260}
+              height={72}
+              className="h-9 w-auto max-w-[12rem] object-contain sm:h-10 sm:max-w-[14rem]"
               priority
             />
-          ) : (
-            <>
-              <span className="grid h-9 w-9 place-items-center rounded-full bg-forest text-xs font-bold text-ivory">
-                N4
-              </span>
-              <span className="truncate font-display text-lg font-semibold tracking-tight text-forest">
-                {settings?.shortName || "NC4SCM"}
-              </span>
-            </>
-          )}
+          ) : <span className="font-display text-xl font-semibold text-forest">{settings?.shortName || settings?.organizationName}</span>}
         </Link>
         <ul className="hidden items-center gap-1 lg:flex">
           {links.map((item) => (
@@ -70,7 +63,8 @@ export default function SiteHeader({ settings }) {
               <Link
                 href={item.href}
                 target={item.openInNewTab ? "_blank" : undefined}
-                className="rounded-full px-4 py-2 text-sm font-medium text-forest/75 transition hover:bg-sage hover:text-forest"
+                aria-current={pathname === item.href ? "page" : undefined}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/")) ? "bg-forest text-ivory shadow-[0_8px_24px_rgba(18,61,47,.18)]" : "text-forest/75 hover:bg-sage hover:text-forest"}`}
               >
                 {item.label}
               </Link>

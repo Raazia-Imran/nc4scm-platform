@@ -1,7 +1,7 @@
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
 import ContactForm from "./ContactForm";
-const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,mapEmbedUrl,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
+const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,contactPeople,mapEmbedUrl,latitude,longitude,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
 export const metadata = {
   title: "Contact — NC4SCM",
   description:
@@ -11,12 +11,16 @@ export default async function ContactPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const s = data.settings || {},
     p = data.page || {};
+  const mapUrl = s.mapEmbedUrl;
+  const contacts = s.contactPeople || [];
+  const latitude = s.latitude;
+  const longitude = s.longitude;
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">Contact</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {p.contactHeadline ||
               "Let’s turn a materials challenge into a path forward."}
           </h1>
@@ -26,50 +30,96 @@ export default async function ContactPage() {
           </p>
         </div>
       </section>
-      <section className="section-shell bg-ivory">
+      <section className="section-shell marble-surface">
         <div className="grid gap-16 lg:grid-cols-[.65fr_1.35fr]">
-          <aside>
+          <aside className="premium-card h-fit p-7 sm:p-8">
             <p className="eyebrow text-clay">Contact details</p>
             <div className="mt-7 space-y-8">
               {s.address && <Info label="Visit" value={s.address} />}{" "}
-              {s.email && (
-                <Info
-                  label="Email"
-                  value={s.email}
-                  href={`mailto:${s.email}`}
-                />
-              )}{" "}
+              <Info
+                label="Centre email"
+                value={s.email}
+                href={s.email ? "mailto:" + s.email : undefined}
+              />
               {s.phone && (
                 <Info label="Call" value={s.phone} href={`tel:${s.phone}`} />
               )}{" "}
+              {contacts.map((contact) => (
+                <ContactPerson key={contact.email} contact={contact} />
+              ))}
               {s.linkedinUrl && (
                 <Info label="Follow" value="LinkedIn ↗" href={s.linkedinUrl} />
               )}
             </div>
           </aside>
-          <div>
+          <div className="premium-card p-7 sm:p-10">
             <p className="eyebrow text-clay">Send an enquiry</p>
-            <h2 className="mt-5 mb-10 font-display text-4xl text-forest">
+            <h2 className="mb-10 mt-5 font-sans text-4xl font-semibold tracking-[-.04em] text-forest">
               Tell us what you are working on.
             </h2>
             <Suspense fallback={<p>Loading form…</p>}>
-              <ContactForm successMessage={p.contactSuccessMessage} />
+              <ContactForm successMessage={p.contactSuccessMessage} recipientEmail={s.email} />
             </Suspense>
           </div>
         </div>
-        {s.mapEmbedUrl && (
-          <div className="mt-20 overflow-hidden rounded-[2rem] bg-sage">
-            <iframe
-              src={s.mapEmbedUrl}
+        <div className="mt-20 overflow-hidden rounded-[2rem] border border-forest/10 bg-sage shadow-float">
+          <div className="grid lg:grid-cols-[.72fr_1.28fr]">
+            <div className="p-8 sm:p-10">
+              <p className="eyebrow text-clay">Find us</p>
+              <h2 className="mt-5 font-display text-4xl text-forest">
+                NED University of Engineering & Technology
+              </h2>
+              <p className="mt-5 text-sm leading-7 text-carbon/60">
+                Coordinates: {latitude}, {longitude}
+              </p>
+              <a
+                className="text-link mt-7 inline-flex"
+                href={
+                  "https://www.openstreetmap.org/?mlat=" +
+                  latitude +
+                  "&mlon=" +
+                  longitude +
+                  "#map=17/" +
+                  latitude +
+                  "/" +
+                  longitude
+                }
+                target="_blank"
+                rel="noreferrer"
+              >
+                Open full map <span>↗</span>
+              </a>
+            </div>
+            {mapUrl && <iframe
+              src={mapUrl}
               title="NC4SCM location"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
-              className="h-[420px] w-full border-0"
-            />
+              className="h-[420px] w-full border-0 lg:h-full lg:min-h-[430px]"
+            />}
           </div>
-        )}
+        </div>
       </section>
     </>
+  );
+}
+function ContactPerson({ contact }) {
+  return (
+    <div className="border-t border-forest/15 pt-5">
+      <p className="eyebrow text-carbon/40">{contact.role}</p>
+      <p className="mt-3 font-display text-2xl text-forest">{contact.name}</p>
+      <div className="mt-3 space-y-1 text-sm text-carbon/65">
+        <a className="block hover:text-clay" href={"mailto:" + contact.email}>
+          {contact.email}
+        </a>
+        <a
+          className="block hover:text-clay"
+          href={"tel:" + contact.phone.replace(/\s/g, "")}
+        >
+          {contact.phone}
+        </a>
+      </div>
+    </div>
   );
 }
 function Info({ label, value, href }) {
