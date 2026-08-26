@@ -1,0 +1,49 @@
+name: Deploy Sanity Studio
+
+on:
+  push:
+    branches:
+      - main
+      - feat/content-ui-revamp
+    paths:
+      - "cms-backend/**"
+      - ".github/workflows/deploy-sanity-studio.yml"
+  workflow_dispatch:
+
+concurrency:
+  group: sanity-studio-production
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    name: Build and deploy Studio
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: cms-backend
+    env:
+      CI: "true"
+      SANITY_STUDIO_PROJECT_ID: dxinqb51
+      SANITY_STUDIO_DATASET: production
+      SANITY_AUTH_TOKEN: ${{ secrets.SANITY_AUTH_TOKEN }}
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: cms-backend/package-lock.json
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Deploy hosted Studio
+        run: npx sanity deploy --no-minify --yes

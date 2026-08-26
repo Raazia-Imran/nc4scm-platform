@@ -10,7 +10,7 @@ import { defineCliConfig } from "sanity/cli";
 
 export default defineCliConfig({
   api: {
-    projectId: process.env.SANITY_STUDIO_PROJECT_ID || "your-project-id",
+    projectId: process.env.SANITY_STUDIO_PROJECT_ID || "dxinqb51",
     dataset: process.env.SANITY_STUDIO_DATASET || "production",
   },
   studioHost: "nc4scm-admin",
