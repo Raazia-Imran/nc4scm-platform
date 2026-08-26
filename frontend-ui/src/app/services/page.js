@@ -4,6 +4,12 @@ import { client, urlFor } from "@/sanityClient";
 import ServiceFlipRail from "@/app/components/ServiceFlipRail";
 
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"services":*[_type=="service"]|order(displayOrder asc){_id,title,slug,summary,image,methods,deliverables}}`;
+const FALLBACK_SERVICES = [
+  { _id: "service-lc3-placeholder", title: "LC3 Technology", summary: "Technical guidance for limestone calcined clay cement development and implementation.", methods: [], deliverables: [] },
+  { _id: "service-characterization-placeholder", title: "Material Characterization", summary: "Evidence-led assessment of locally available clays and supplementary cementitious materials.", methods: [], deliverables: [] },
+  { _id: "service-development-placeholder", title: "New Material Development", summary: "Applied research for lower-carbon, affordable construction-material solutions.", methods: [], deliverables: [] },
+  { _id: "service-support-placeholder", title: "Technological Support", summary: "Research-to-industry support for validation, scale-up, and practical adoption.", methods: [], deliverables: [] },
+];
 export const metadata = {
   title: "Services — NC4SCM",
   description:
@@ -11,6 +17,7 @@ export const metadata = {
 };
 export default async function ServicesPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
+  const services = data.services?.length ? data.services : FALLBACK_SERVICES;
   return (
     <>
       <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
@@ -27,11 +34,11 @@ export default async function ServicesPage() {
         </div>
       </section>
       <section className="overflow-hidden bg-[#0b282d] px-6 py-20 text-ivory sm:px-10">
-        <div className="mx-auto max-w-[1400px]"><p className="eyebrow text-mint/65">Explore capabilities</p><h2 className="mt-5 max-w-3xl font-sans text-4xl font-medium tracking-[-.045em] sm:text-6xl">Technical services, viewed from every angle.</h2><div className="mt-10"><ServiceFlipRail services={data.services || []} /></div></div>
+        <div className="mx-auto max-w-[1400px]"><p className="eyebrow text-mint/65">Explore capabilities</p><h2 className="mt-5 max-w-3xl font-sans text-4xl font-medium tracking-[-.045em] sm:text-6xl">Technical services, viewed from every angle.</h2><div className="mt-10"><ServiceFlipRail services={services} /></div></div>
       </section>
       <section className="section-shell marble-surface">
         <div className="space-y-20">
-          {(data.services || []).map((s, i) => {
+          {services.map((s, i) => {
             const image = urlFor(s.image)
               ?.width(900)
               .height(700)
@@ -51,7 +58,7 @@ export default async function ServicesPage() {
                     {s.summary}
                   </p>
                   <Link
-                    href={`/services/${s.slug?.current}`}
+                    href={s.slug?.current ? `/services/${s.slug.current}` : "/contact"}
                     className="button button-dark mt-8"
                   >
                     Explore service <span>↗</span>

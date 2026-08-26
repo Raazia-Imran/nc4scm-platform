@@ -4,6 +4,7 @@ import { urlFor } from "@/sanityClient";
 export default function TestimonialShowcase({ testimonials = [] }) {
   const placeholders = Array.from({ length: Math.max(0, 4 - testimonials.length) }, (_, i) => ({ _id: `testimonial-placeholder-${i}`, placeholder: true }));
   const items = [...testimonials, ...placeholders];
+  const loop = [...items, ...items];
   return (
     <section className="section-shell bg-[#0b282d] text-ivory">
       <div className="grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
@@ -13,11 +14,12 @@ export default function TestimonialShowcase({ testimonials = [] }) {
         </div>
         <p className="max-w-xl text-sm leading-7 text-ivory/55 lg:justify-self-end">Testimonials are managed in Sanity. Empty cards remain intentionally reserved until client-approved statements are supplied.</p>
       </div>
-      <div className="testimonial-grid mt-12">
-        {items.map((item, index) => {
+      <div className="testimonial-viewport mt-12">
+      <div className="testimonial-grid">
+        {loop.map((item, index) => {
           const portrait = item.portrait ? urlFor(item.portrait)?.width(160).height(160).fit("crop").url() : null;
           return (
-            <article key={item._id} className={`testimonial-card ${index % 2 ? "testimonial-offset" : ""}`}>
+            <article key={`${item._id}-${index}`} aria-hidden={index >= items.length || undefined} className="testimonial-card">
               {item.placeholder ? (
                 <><span className="testimonial-mark">“</span><p className="mt-14 text-sm text-forest/45">Client-approved testimonial will appear here.</p><div className="mt-8 h-px bg-forest/10" /></>
               ) : (
@@ -26,6 +28,7 @@ export default function TestimonialShowcase({ testimonials = [] }) {
             </article>
           );
         })}
+      </div>
       </div>
     </section>
   );

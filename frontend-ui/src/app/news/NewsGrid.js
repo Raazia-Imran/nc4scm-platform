@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { urlFor } from "@/sanityClient";
+import FilterIcon from "@/app/components/FilterIcon";
 export default function NewsGrid({ articles }) {
   const [category, setCategory] = useState("all");
   const [visible, setVisible] = useState(12);
@@ -16,13 +17,9 @@ export default function NewsGrid({ articles }) {
       : articles.filter((x) => x.category === category);
   return (
     <div className="mt-14">
-      <div className="flex justify-end rounded-[1.5rem] border border-forest/10 bg-white/75 p-4 shadow-[0_14px_50px_rgba(18,61,47,.06)]">
-        <label className="relative w-full sm:w-auto">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true">◇</span>
-          <select value={category} onChange={(e) => { setCategory(e.target.value); setVisible(12); }} aria-label="Filter news by category" className="field-input mt-0 w-full min-w-64 pl-10 capitalize">
-            {cats.map((x) => <option key={x} value={x}>{x === "all" ? "All news categories" : x.replaceAll("-", " ")}</option>)}
-          </select>
-        </label>
+      <div className="filter-rail" aria-label="Filter news by category">
+        <span className="filter-rail-label"><FilterIcon /> Filter</span>
+        {cats.map((x) => <button key={x} onClick={() => { setCategory(x); setVisible(12); }} className={`filter-pill ${category === x ? "is-active" : ""}`}>{x === "all" ? "All news" : x.replaceAll("-", " ")}</button>)}
       </div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {

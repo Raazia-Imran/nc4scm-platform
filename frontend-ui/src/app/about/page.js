@@ -72,7 +72,7 @@ export default async function AboutPage() {
               />
             </div>
           )}
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2">
+          <div className={hero ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2" : "grid gap-6 lg:col-span-2 lg:grid-cols-2"}>
             <Story
               label="Our mission"
               title={p.missionHeading || centreContent.mission}
@@ -123,12 +123,8 @@ export default async function AboutPage() {
             </Reveal>
           ))}
         </div>
-        <p className="relative z-10 mt-16 border-t border-carbon/10 pt-7 text-sm font-semibold tracking-wide text-teal">
-          2021 Research → 2022 Standardisation → 2023 Industry Engagement →
-          2024 Demonstration → 2025 Global Outreach → 2026 NC4SCM
-        </p>
       </section>
-      <section className="section-shell bg-sky/55">
+      <section className="section-shell bg-ivory">
         <p className="eyebrow text-clay">People</p>
         <div className="mt-5 grid gap-8 border-b border-forest/15 pb-10 lg:grid-cols-2">
           <h2 className="font-sans text-4xl font-medium leading-[1.02] tracking-[-.045em] text-ivory sm:text-6xl">
@@ -141,12 +137,12 @@ export default async function AboutPage() {
         </div>
         {Object.entries(groups).map(([key, label]) => {
           const members = (data.team || []).filter((m) => m.group === key);
-          if (!members.length) return null;
+          const cards = members.length ? members : Array.from({ length: key === "research-staff" ? 4 : 2 }, (_, index) => ({ _id: `${key}-placeholder-${index}`, placeholder: true, fullName: "Profile to be added", position: label }));
           return (
             <div key={key} className="mt-16">
               <h3 className="eyebrow text-clay">{label}</h3>
               <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {members.map((m) => (
+                {cards.map((m) => (
                   <article key={m._id} className="premium-card group p-3">
                     <div className="relative aspect-[4/5] overflow-hidden rounded-2xl bg-sage">
                       {m.avatar && (
@@ -161,6 +157,7 @@ export default async function AboutPage() {
                           className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
                         />
                       )}
+                      {m.placeholder && <div className="grid h-full place-items-center text-xs font-semibold uppercase tracking-[.15em] text-forest/30">Photo pending</div>}
                     </div>
                     <h4 className="mt-5 px-2 font-sans text-2xl font-semibold tracking-tight text-forest">
                       {m.fullName}

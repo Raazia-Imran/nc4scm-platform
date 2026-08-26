@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
+import FilterIcon from "@/app/components/FilterIcon";
 const labels = {
   conference: "Conference",
   seminar: "Seminar",
@@ -42,15 +43,10 @@ export default function EventsExplorer({ events }) {
             </button>
           ))}
         </div>
-        <label className="relative w-full sm:w-auto">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true">◇</span>
-          <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Filter events by type" className="field-input mt-0 w-full min-w-56 pl-10 capitalize">
-            <option value="all">All event types</option>
-            <option value="conference">Conferences</option>
-            <option value="seminar">Seminars</option>
-            <option value="workshop">Workshops</option>
-          </select>
-        </label>
+        <div className="filter-rail sm:max-w-[34rem]" aria-label="Filter events by type">
+          <span className="filter-rail-label"><FilterIcon /> Type</span>
+          {["all", "conference", "seminar", "workshop"].map((x) => <button key={x} onClick={() => setType(x)} className={`filter-pill ${type === x ? "is-active" : ""}`}>{x === "all" ? "All" : `${x}s`}</button>)}
+        </div>
       </div>
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {shown.length ? (

@@ -12,6 +12,7 @@
 // requests of its own — it only filters the array that's already in memory.
 // -----------------------------------------------------------------------------
 import { useMemo, useState } from "react";
+import FilterIcon, { SortIcon } from "@/app/components/FilterIcon";
 
 const CATEGORY_LABELS = {
   "lc3-technology": "LC3 Technology",
@@ -108,7 +109,7 @@ export default function PublicationsVault({ publications }) {
           ))}
         </select>
         <label className="relative">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm" aria-hidden="true">◇</span>
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-forest/60"><FilterIcon /></span>
           <select value={activeCategory} onChange={(e) => setActiveCategory(e.target.value)} aria-label="Filter by research topic" className="field-input mt-0 min-w-56 pl-10">
             <option value="all">All research topics</option>
           {availableCategories.map((category) => (
@@ -119,7 +120,7 @@ export default function PublicationsVault({ publications }) {
           </select>
         </label>
         <label className="relative">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm" aria-hidden="true">↕</span>
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-forest/60"><SortIcon /></span>
           <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Sort publications" className="field-input mt-0 min-w-48 pl-10">
             <option value="newest-year">Newest research</option>
             <option value="recently-added">Recently added</option>
