@@ -12,10 +12,10 @@ export default async function ServicesPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">Technical services</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {data.settings?.servicesHeadline ||
               "Move from material question to verified answer."}
           </h1>
@@ -25,7 +25,7 @@ export default async function ServicesPage() {
           </p>
         </div>
       </section>
-      <section className="section-shell bg-ivory">
+      <section className="section-shell marble-surface">
         <div className="space-y-20">
           {(data.services || []).map((s, i) => {
             const image = urlFor(s.image)
@@ -36,11 +36,11 @@ export default async function ServicesPage() {
             return (
               <article
                 key={s._id}
-                className="grid gap-10 border-t border-forest/15 pt-10 lg:grid-cols-[.8fr_1.2fr]"
+                className="premium-card grid gap-10 p-6 sm:p-8 lg:grid-cols-[.8fr_1.2fr]"
               >
                 <div>
                   <p className="eyebrow text-clay">Service 0{i + 1}</p>
-                  <h2 className="mt-5 font-display text-4xl leading-tight text-forest sm:text-5xl">
+                  <h2 className="mt-5 font-sans text-4xl font-semibold leading-tight tracking-[-.045em] text-forest sm:text-5xl">
                     {s.title}
                   </h2>
                   <p className="mt-6 max-w-md text-base leading-7 text-carbon/65">

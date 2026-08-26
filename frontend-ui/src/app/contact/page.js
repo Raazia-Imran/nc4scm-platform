@@ -22,10 +22,10 @@ export default async function ContactPage() {
   const longitude = s.longitude ?? centreContent.coordinates.longitude;
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">Contact</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {p.contactHeadline ||
               "Let’s turn a materials challenge into a path forward."}
           </h1>
@@ -35,9 +35,9 @@ export default async function ContactPage() {
           </p>
         </div>
       </section>
-      <section className="section-shell bg-ivory">
+      <section className="section-shell marble-surface">
         <div className="grid gap-16 lg:grid-cols-[.65fr_1.35fr]">
-          <aside>
+          <aside className="premium-card h-fit p-7 sm:p-8">
             <p className="eyebrow text-clay">Contact details</p>
             <div className="mt-7 space-y-8">
               {s.address && <Info label="Visit" value={s.address} />}{" "}
@@ -57,9 +57,9 @@ export default async function ContactPage() {
               )}
             </div>
           </aside>
-          <div>
+          <div className="premium-card p-7 sm:p-10">
             <p className="eyebrow text-clay">Send an enquiry</p>
-            <h2 className="mt-5 mb-10 font-display text-4xl text-forest">
+            <h2 className="mb-10 mt-5 font-sans text-4xl font-semibold tracking-[-.04em] text-forest">
               Tell us what you are working on.
             </h2>
             <Suspense fallback={<p>Loading form…</p>}>

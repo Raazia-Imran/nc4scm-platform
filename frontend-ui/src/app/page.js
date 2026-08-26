@@ -104,7 +104,7 @@ export default async function HomePage() {
         <div className="material-grid absolute inset-0 opacity-30" />
         <div className="relative mx-auto flex min-h-[710px] max-w-[1400px] flex-col justify-end px-6 pb-20 sm:px-10 lg:pb-24">
           <p className="eyebrow text-mint">{page.eyebrow}</p>
-          <h1 className="mt-6 max-w-5xl font-display text-[clamp(3.3rem,7.5vw,7.6rem)] font-medium leading-[.88] tracking-[-.055em]">
+          <h1 className="mt-6 max-w-5xl font-sans text-[clamp(3.3rem,7.5vw,7.6rem)] font-medium leading-[.88] tracking-[-.065em]">
             {page.headline}
           </h1>
           <div className="mt-10 grid gap-8 border-t border-ivory/25 pt-7 lg:grid-cols-[1fr_.75fr] lg:items-end">
@@ -138,11 +138,11 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="mt-20 grid border-y border-forest/15 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div
               key={s.label}
-              className="border-forest/15 py-8 sm:px-7 sm:[&:not(:nth-child(2n+1))]:border-l lg:[&:not(:first-child)]:border-l"
+              className="premium-card p-7"
             >
               <p className="font-display text-5xl text-forest">{s.value}</p>
               <p className="mt-3 max-w-[13rem] text-sm leading-6 text-carbon/60">
@@ -197,7 +197,7 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-      <section className="section-shell bg-clay text-ivory">
+      <section className="section-shell bg-[#0b282d] text-ivory">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-carbon/15">
             {flagship ? (
@@ -248,7 +248,7 @@ export default async function HomePage() {
                   }
                   target={n.externalUrl ? "_blank" : undefined}
                   rel={n.externalUrl ? "noreferrer" : undefined}
-                  className="group grid gap-5 border-b border-forest/15 py-7 sm:grid-cols-[8rem_1fr_auto] sm:items-center"
+                className="premium-card group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">
                     {(n.localImage || n.coverImage) && (
@@ -324,7 +324,7 @@ export default async function HomePage() {
           </aside>
         </div>
       </section>
-      <section className="bg-mint px-6 py-24 sm:px-10 lg:py-32">
+      <section className="marble-surface px-6 py-24 sm:px-10 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-clay">Work with NC4SCM</p>
           <div className="mt-5 grid gap-10 lg:grid-cols-[1.3fr_.7fr] lg:items-end">

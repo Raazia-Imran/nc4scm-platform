@@ -45,7 +45,7 @@ export default function NewsGrid({ articles }) {
               href={href}
               target={a.externalUrl ? "_blank" : undefined}
               rel={a.externalUrl ? "noreferrer" : undefined}
-              className="group rounded-[1.75rem] border border-forest/10 bg-white/55 p-3 pb-7 transition duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-float"
+              className="premium-card group p-3 pb-7"
             >
               <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage">
                 {image && (
@@ -67,7 +67,7 @@ export default function NewsGrid({ articles }) {
                     })
                   : ""}
               </p>
-              <h2 className="mt-3 font-display text-3xl leading-tight text-forest">
+              <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
                 {a.headline}
               </h2>
               <p className="mt-3 line-clamp-3 text-sm leading-6 text-carbon/60">

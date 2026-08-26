@@ -216,7 +216,7 @@ function Story({ label, title, body }) {
         <p className="eyebrow text-teal">{label}</p>
         <span className="mission-card-icon" aria-hidden="true">↗</span>
       </div>
-      <h2 className="mt-10 font-sans text-3xl font-medium leading-tight tracking-[-.035em] text-forest sm:text-4xl">
+      <h2 className="mt-8 font-sans text-2xl font-medium leading-[1.2] tracking-[-.03em] text-forest sm:text-3xl">
         {title}
       </h2>
       {body?.length ? (

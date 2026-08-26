@@ -19,10 +19,10 @@ export default async function NewsPage() {
   ].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
   return (
     <>
-      <section className="bg-forest px-6 pb-24 pt-44 text-ivory sm:px-10">
+      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-mint">News & insight</p>
-          <h1 className="mt-7 max-w-5xl font-display text-6xl leading-[.9] sm:text-8xl">
+          <h1 className="page-hero-title mt-7">
             {data.settings?.newsHeadline ||
               "Progress, partnerships, and practical impact."}
           </h1>

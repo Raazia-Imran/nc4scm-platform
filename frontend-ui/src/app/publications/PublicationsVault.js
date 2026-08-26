@@ -105,7 +105,7 @@ export default function PublicationsVault({ publications }) {
         <div className="flex flex-wrap gap-2">
           <button
             onClick={() => setActiveCategory("all")}
-            className={`px-3 py-1 text-xs uppercase tracking-widest ${
+            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition ${
               activeCategory === "all"
                 ? "bg-forest text-ivory"
                 : "text-carbon/60 hover:text-forest"
@@ -117,7 +117,7 @@ export default function PublicationsVault({ publications }) {
             <button
               key={category}
               onClick={() => setActiveCategory(category)}
-              className={`px-3 py-1 text-xs uppercase tracking-widest ${
+              className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition ${
                 activeCategory === category
                   ? "bg-forest text-ivory"
                   : "text-carbon/60 hover:text-forest"
@@ -132,12 +132,12 @@ export default function PublicationsVault({ publications }) {
       {/* --------------------------------------------------------------
           RESULTS LIST
       -------------------------------------------------------------- */}
-      <div className="mt-10 divide-y divide-forest/15">
+      <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {filteredPublications.length > 0 ? (
           filteredPublications.map((pub) => (
             <article
               key={pub._id}
-              className="grid gap-6 py-9 md:grid-cols-[1fr_auto] md:items-start md:gap-8"
+              className="premium-card grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-start md:gap-8"
             >
               <div>
                 <p className="text-xs uppercase tracking-widest text-accent">
@@ -150,7 +150,7 @@ export default function PublicationsVault({ publications }) {
                     </>
                   )}
                 </p>
-                <h2 className="mt-3 max-w-3xl font-display text-3xl leading-tight text-forest">
+                <h2 className="mt-3 max-w-3xl font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
                   {pub.title}
                 </h2>
                 <p className="mt-2 text-sm text-stone">
