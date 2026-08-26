@@ -119,9 +119,6 @@ export default async function AboutPage() {
                 <p className="mt-4 max-w-xl text-sm leading-7 text-carbon/58">
                   {item.description}
                 </p>
-                <div className="journey-materials mt-6" aria-hidden="true">
-                  <span /><span /><span />
-                </div>
               </article>
             </Reveal>
           ))}

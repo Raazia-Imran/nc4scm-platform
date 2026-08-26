@@ -15,6 +15,7 @@ import PublicationsVault from "./PublicationsVault";
 // not require artificial Team Member records.
 const PUBLICATIONS_QUERY = `*[_type == "publication"] | order(publicationYear desc, releaseDate desc){
   _id,
+  _createdAt,
   title,
   publicationType,
   publicationYear,

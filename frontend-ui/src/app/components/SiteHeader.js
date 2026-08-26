@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 import { urlFor } from "@/sanityClient";
 
 const FALLBACK_LINKS = [
@@ -15,6 +16,7 @@ const FALLBACK_LINKS = [
 ];
 
 export default function SiteHeader({ settings }) {
+  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const links = settings?.navigation?.length
     ? settings.navigation
@@ -70,7 +72,8 @@ export default function SiteHeader({ settings }) {
               <Link
                 href={item.href}
                 target={item.openInNewTab ? "_blank" : undefined}
-                className="rounded-full px-4 py-2 text-sm font-medium text-forest/75 transition hover:bg-sage hover:text-forest"
+                aria-current={pathname === item.href ? "page" : undefined}
+                className={`rounded-full px-4 py-2 text-sm font-medium transition ${pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/")) ? "bg-forest text-ivory shadow-[0_8px_24px_rgba(18,61,47,.18)]" : "text-forest/75 hover:bg-sage hover:text-forest"}`}
               >
                 {item.label}
               </Link>

@@ -16,19 +16,13 @@ export default function NewsGrid({ articles }) {
       : articles.filter((x) => x.category === category);
   return (
     <div className="mt-14">
-      <div className="flex flex-wrap gap-2">
-        {cats.map((x) => (
-          <button
-            key={x}
-            onClick={() => {
-              setCategory(x);
-              setVisible(12);
-            }}
-            className={`rounded-full border px-4 py-2 text-xs font-semibold capitalize ${category === x ? "border-clay bg-clay text-ivory" : "border-forest/15 text-forest"}`}
-          >
-            {x.replace("-", " ")}
-          </button>
-        ))}
+      <div className="flex justify-end rounded-[1.5rem] border border-forest/10 bg-white/75 p-4 shadow-[0_14px_50px_rgba(18,61,47,.06)]">
+        <label className="relative w-full sm:w-auto">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true">◇</span>
+          <select value={category} onChange={(e) => { setCategory(e.target.value); setVisible(12); }} aria-label="Filter news by category" className="field-input mt-0 w-full min-w-64 pl-10 capitalize">
+            {cats.map((x) => <option key={x} value={x}>{x === "all" ? "All news categories" : x.replaceAll("-", " ")}</option>)}
+          </select>
+        </label>
       </div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {

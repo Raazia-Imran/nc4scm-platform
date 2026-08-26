@@ -42,17 +42,15 @@ export default function EventsExplorer({ events }) {
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap gap-2">
-          {["all", "conference", "seminar", "workshop"].map((x) => (
-            <button
-              key={x}
-              onClick={() => setType(x)}
-              className={`rounded-full border px-4 py-2 text-xs font-semibold capitalize ${type === x ? "border-clay bg-clay text-ivory" : "border-forest/15 text-forest"}`}
-            >
-              {x}
-            </button>
-          ))}
-        </div>
+        <label className="relative w-full sm:w-auto">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2" aria-hidden="true">◇</span>
+          <select value={type} onChange={(e) => setType(e.target.value)} aria-label="Filter events by type" className="field-input mt-0 w-full min-w-56 pl-10 capitalize">
+            <option value="all">All event types</option>
+            <option value="conference">Conferences</option>
+            <option value="seminar">Seminars</option>
+            <option value="workshop">Workshops</option>
+          </select>
+        </label>
       </div>
       <div className="mt-10 grid gap-5 lg:grid-cols-2">
         {shown.length ? (

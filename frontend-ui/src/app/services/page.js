@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { client, urlFor } from "@/sanityClient";
+import ServiceFlipRail from "@/app/components/ServiceFlipRail";
 
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"services":*[_type=="service"]|order(displayOrder asc){_id,title,slug,summary,image,methods,deliverables}}`;
 export const metadata = {
@@ -24,6 +25,9 @@ export default async function ServicesPage() {
               "Rigorous testing, applied research, and implementation support designed around the realities of the construction-materials sector."}
           </p>
         </div>
+      </section>
+      <section className="overflow-hidden bg-[#0b282d] px-6 py-20 text-ivory sm:px-10">
+        <div className="mx-auto max-w-[1400px]"><p className="eyebrow text-mint/65">Explore capabilities</p><h2 className="mt-5 max-w-3xl font-sans text-4xl font-medium tracking-[-.045em] sm:text-6xl">Technical services, viewed from every angle.</h2><div className="mt-10"><ServiceFlipRail services={data.services || []} /></div></div>
       </section>
       <section className="section-shell marble-surface">
         <div className="space-y-20">

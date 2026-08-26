@@ -42,6 +42,7 @@ export default function PublicationsVault({ publications }) {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [year, setYear] = useState("all");
+  const [sort, setSort] = useState("newest-year");
 
   // useMemo avoids re-filtering the full list on every unrelated re-render;
   // it only recomputes when the search term, category, or source data
@@ -63,8 +64,12 @@ export default function PublicationsVault({ publications }) {
       const matchesYear =
         year === "all" || getPublicationYear(pub) === String(year);
       return matchesCategory && matchesSearch && matchesYear;
+    }).sort((a, b) => {
+      if (sort === "recently-added") return new Date(b._createdAt || 0) - new Date(a._createdAt || 0);
+      if (sort === "oldest-year") return Number(getPublicationYear(a)) - Number(getPublicationYear(b));
+      return Number(getPublicationYear(b)) - Number(getPublicationYear(a));
     });
-  }, [publications, searchTerm, activeCategory, year]);
+  }, [publications, searchTerm, activeCategory, year, sort]);
   const years = [
     ...new Set(publications.map(getPublicationYear).filter(Boolean)),
   ].sort((a, b) => Number(b) - Number(a));
@@ -83,7 +88,7 @@ export default function PublicationsVault({ publications }) {
       {/* --------------------------------------------------------------
           SEARCH + FILTER CONTROLS
       -------------------------------------------------------------- */}
-      <div className="grid gap-4 border-b border-forest/20 pb-7 lg:grid-cols-[1fr_auto_auto] lg:items-center">
+      <div className="grid gap-4 rounded-[1.5rem] border border-forest/10 bg-white/75 p-4 shadow-[0_14px_50px_rgba(18,61,47,.06)] lg:grid-cols-[1fr_auto_auto_auto] lg:items-center">
         <input
           type="text"
           value={searchTerm}
@@ -102,31 +107,25 @@ export default function PublicationsVault({ publications }) {
             <option key={y}>{y}</option>
           ))}
         </select>
-        <div className="flex flex-wrap gap-2">
-          <button
-            onClick={() => setActiveCategory("all")}
-            className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition ${
-              activeCategory === "all"
-                ? "bg-forest text-ivory"
-                : "text-carbon/60 hover:text-forest"
-            }`}
-          >
-            All
-          </button>
+        <label className="relative">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm" aria-hidden="true">◇</span>
+          <select value={activeCategory} onChange={(e) => setActiveCategory(e.target.value)} aria-label="Filter by research topic" className="field-input mt-0 min-w-56 pl-10">
+            <option value="all">All research topics</option>
           {availableCategories.map((category) => (
-            <button
-              key={category}
-              onClick={() => setActiveCategory(category)}
-              className={`rounded-full px-4 py-2 text-xs font-semibold uppercase tracking-widest transition ${
-                activeCategory === category
-                  ? "bg-forest text-ivory"
-                  : "text-carbon/60 hover:text-forest"
-              }`}
-            >
+            <option key={category} value={category}>
               {CATEGORY_LABELS[category] || category}
-            </button>
+            </option>
           ))}
-        </div>
+          </select>
+        </label>
+        <label className="relative">
+          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-sm" aria-hidden="true">↕</span>
+          <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Sort publications" className="field-input mt-0 min-w-48 pl-10">
+            <option value="newest-year">Newest research</option>
+            <option value="recently-added">Recently added</option>
+            <option value="oldest-year">Oldest research</option>
+          </select>
+        </label>
       </div>
 
       {/* --------------------------------------------------------------

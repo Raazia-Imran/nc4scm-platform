@@ -15,6 +15,7 @@ import siteSettings from "./siteSettings";
 import homePage from "./homePage";
 import aboutPage from "./aboutPage";
 import pageSettings from "./pageSettings";
+import testimonial from "./testimonial";
 import { link, seo, statistic } from "./objects";
 
 export const schemaTypes = [
@@ -27,6 +28,7 @@ export const schemaTypes = [
   pageSettings,
   teamMember,
   partner,
+  testimonial,
   service,
   publication,
   event,

@@ -116,7 +116,7 @@ body {
     @apply absolute -bottom-20 -right-16 h-52 w-52 rounded-full bg-sky/75 blur-2xl transition duration-700;
   }
   .mission-card:nth-child(2)::after {
-    @apply bg-sun/70;
+    @apply bg-mint/80;
   }
   .mission-card:hover {
     @apply -translate-y-1 border-teal/30 shadow-[0_28px_90px_rgba(18,61,47,.14)];
@@ -185,9 +185,8 @@ body {
   position: relative;
   overflow: hidden;
   background:
-    radial-gradient(circle at 82% 18%, rgba(23, 111, 166, 0.16), transparent 25rem),
-    radial-gradient(circle at 15% 88%, rgba(242, 215, 123, 0.25), transparent 22rem),
-    linear-gradient(135deg, #f5f7f8 0%, #e8eff4 100%);
+    radial-gradient(circle at 82% 18%, rgba(36, 91, 69, 0.14), transparent 25rem),
+    linear-gradient(135deg, #f7f5ef 0%, #e8eee6 100%);
 }
 
 .about-hero::after {
@@ -301,7 +300,7 @@ body {
 }
 
 .journey-year {
-  color: #d84f40;
+  color: #245b45;
   font-size: clamp(2.6rem, 5vw, 4.7rem);
   font-weight: 800;
   letter-spacing: 0.22em;
@@ -318,26 +317,26 @@ body {
   letter-spacing: 0.2em;
 }
 
-.journey-materials {
-  display: flex;
-  gap: 0.45rem;
-}
 
-.journey-materials span {
-  width: 3.25rem;
-  height: 2.2rem;
-  border-radius: 0.2rem;
-  background: linear-gradient(135deg, #9eaa9c, #39584d);
-  filter: grayscale(0.45);
-  opacity: 0.72;
-  transition: transform 320ms ease, filter 320ms ease, opacity 320ms ease;
-}
+.testimonial-grid { display: grid; gap: 1rem; grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.testimonial-card { min-height: 17rem; border-radius: 1.5rem; background: #f7f5ef; padding: 1.75rem; box-shadow: 0 20px 70px rgba(0,0,0,.12); transition: transform 400ms ease; }
+.testimonial-card:hover { transform: translateY(-5px); }
+.testimonial-mark { color: #245b45; font-family: Georgia, serif; font-size: 4rem; line-height: .65; }
+.testimonial-offset { transform: translateY(1.5rem); }
+.testimonial-offset:hover { transform: translateY(calc(1.5rem - 5px)); }
 
-.journey-materials span:nth-child(2) { background: linear-gradient(135deg, #d7c8af, #8f755b); }
-.journey-materials span:nth-child(3) { background: linear-gradient(135deg, #9ebdcc, #3d7483); }
-.journey-editorial-card:hover .journey-materials span { transform: translateY(-3px); filter: none; opacity: 1; }
-.journey-editorial-card:hover .journey-materials span:nth-child(2) { transition-delay: 45ms; }
-.journey-editorial-card:hover .journey-materials span:nth-child(3) { transition-delay: 90ms; }
+.flip-rail { display: grid; grid-auto-columns: minmax(17rem, 24rem); grid-auto-flow: column; gap: 1rem; overflow-x: auto; padding: .5rem .25rem 1.25rem; scroll-snap-type: x mandatory; scrollbar-width: thin; }
+.flip-card { height: 19rem; perspective: 1000px; scroll-snap-align: start; outline: none; }
+.flip-card-inner { position: relative; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform 650ms cubic-bezier(.22,1,.36,1); }
+.flip-card:hover .flip-card-inner, .flip-card:focus .flip-card-inner, .flip-card:focus-within .flip-card-inner { transform: rotateY(180deg); }
+.flip-face { position: absolute; inset: 0; display: flex; flex-direction: column; justify-content: space-between; border: 1px solid rgba(220,236,223,.18); border-radius: 1.5rem; padding: 1.75rem; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+.flip-front { background: linear-gradient(145deg, #16454b, #123d2f); }
+.flip-front span { color: rgba(220,236,223,.55); font-size: .7rem; font-weight: 700; letter-spacing: .18em; }
+.flip-front h3 { font-size: 2rem; font-weight: 600; letter-spacing: -.04em; line-height: 1.05; }
+.flip-front p { color: rgba(247,245,239,.5); font-size: .75rem; }
+.flip-back { background: #f7f5ef; color: #123d2f; transform: rotateY(180deg); }
+.flip-back p { font-size: 1rem; line-height: 1.75; }
+.flip-back a { font-size: .85rem; font-weight: 700; }
 
 .partner-rail {
   overflow-x: auto;
@@ -569,6 +568,8 @@ body {
   .mission-card {
     min-height: auto;
   }
+  .testimonial-grid { grid-template-columns: 1fr; }
+  .testimonial-offset { transform: none; }
 }
 
 @media (max-width: 900px) {

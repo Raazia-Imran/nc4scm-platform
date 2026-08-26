@@ -2,8 +2,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import { verifiedEvents, verifiedNews } from "@/content/clientContent";
+import TestimonialShowcase from "@/app/components/TestimonialShowcase";
 
-const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
+const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published!=false]|order(displayOrder asc){_id,quote,personName,role,organization,portrait},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
 
 const defaults = {
   eyebrow: "Pakistan's national hub for low-carbon materials",
@@ -324,6 +325,7 @@ export default async function HomePage() {
           </aside>
         </div>
       </section>
+      <TestimonialShowcase testimonials={data.testimonials || []} />
       <section className="marble-surface px-6 py-24 sm:px-10 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
           <p className="eyebrow text-clay">Work with NC4SCM</p>
