@@ -1,7 +1,6 @@
 import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
-import { verifiedEvents, verifiedNews } from "@/content/clientContent";
 import TestimonialShowcase from "@/app/components/TestimonialShowcase";
 
 const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published!=false]|order(displayOrder asc){_id,quote,personName,role,organization,portrait},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
@@ -56,32 +55,11 @@ export default async function HomePage() {
     .auto("format")
     .url();
   const services = data.services || [];
-  const cmsNews = data.news || [];
-  const newsIds = new Set(verifiedNews.map((item) => item._id));
-  const news = [
-    ...verifiedNews.map((fallback) => ({
-      ...fallback,
-      ...(cmsNews.find((item) => item._id === fallback._id) || {}),
-    })),
-    ...cmsNews.filter((item) => !newsIds.has(item._id)),
-  ]
-    .sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt))
-    .slice(0, 3);
-  const cmsEvents = (data.events || []).map((item) => ({
+  const news = data.news || [];
+  const events = (data.events || []).map((item) => ({
     ...item,
     externalUrl: item.registrationUrl,
   }));
-  const eventIds = new Set(verifiedEvents.map((item) => item._id));
-  const events = [
-    ...verifiedEvents.map((fallback) => ({
-      ...fallback,
-      ...(cmsEvents.find((item) => item._id === fallback._id) || {}),
-    })),
-    ...cmsEvents.filter((item) => !eventIds.has(item._id)),
-  ]
-    .filter((item) => new Date(item.eventDateTime).getTime() >= Date.now())
-    .sort((a, b) => new Date(a.eventDateTime) - new Date(b.eventDateTime))
-    .slice(0, 2);
   const stats = page.statistics || [
     { value: "40%", label: "Potential CO₂ reduction with LC3" },
     { value: "04", label: "Integrated technical service areas" },
@@ -252,12 +230,10 @@ export default async function HomePage() {
                 className="premium-card group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">
-                    {(n.localImage || n.coverImage) && (
+                    {n.coverImage && (
                       <Image
                         src={
-                          (n.coverImage &&
-                            urlFor(n.coverImage)?.width(320).height(240).url()) ||
-                          n.localImage
+                          urlFor(n.coverImage)?.width(320).height(240).url()
                         }
                         alt={n.coverImage?.alt || n.headline}
                         fill

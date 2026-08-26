@@ -1,7 +1,6 @@
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
 import ContactForm from "./ContactForm";
-import { centreContent } from "@/content/clientContent";
 const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,contactPeople,mapEmbedUrl,latitude,longitude,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
 export const metadata = {
   title: "Contact — NC4SCM",
@@ -12,14 +11,10 @@ export default async function ContactPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const s = data.settings || {},
     p = data.page || {};
-  const mapUrl =
-    s.mapEmbedUrl ||
-    "https://www.openstreetmap.org/export/embed.html?bbox=67.106924%2C24.928469%2C67.116924%2C24.938469&layer=mapnik&marker=24.933469%2C67.111924";
-  const contacts = s.contactPeople?.length
-    ? s.contactPeople
-    : centreContent.contacts;
-  const latitude = s.latitude ?? centreContent.coordinates.latitude;
-  const longitude = s.longitude ?? centreContent.coordinates.longitude;
+  const mapUrl = s.mapEmbedUrl;
+  const contacts = s.contactPeople || [];
+  const latitude = s.latitude;
+  const longitude = s.longitude;
   return (
     <>
       <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
@@ -43,8 +38,8 @@ export default async function ContactPage() {
               {s.address && <Info label="Visit" value={s.address} />}{" "}
               <Info
                 label="Centre email"
-                value={s.email || centreContent.email}
-                href={"mailto:" + (s.email || centreContent.email)}
+                value={s.email}
+                href={s.email ? "mailto:" + s.email : undefined}
               />
               {s.phone && (
                 <Info label="Call" value={s.phone} href={`tel:${s.phone}`} />
@@ -63,7 +58,7 @@ export default async function ContactPage() {
               Tell us what you are working on.
             </h2>
             <Suspense fallback={<p>Loading form…</p>}>
-              <ContactForm successMessage={p.contactSuccessMessage} />
+              <ContactForm successMessage={p.contactSuccessMessage} recipientEmail={s.email} />
             </Suspense>
           </div>
         </div>
@@ -95,13 +90,13 @@ export default async function ContactPage() {
                 Open full map <span>↗</span>
               </a>
             </div>
-            <iframe
+            {mapUrl && <iframe
               src={mapUrl}
               title="NC4SCM location"
               loading="lazy"
               referrerPolicy="no-referrer-when-downgrade"
               className="h-[420px] w-full border-0 lg:h-full lg:min-h-[430px]"
-            />
+            />}
           </div>
         </div>
       </section>

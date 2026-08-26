@@ -1,6 +1,5 @@
 import { client } from "@/sanityClient";
 import NewsGrid from "./NewsGrid";
-import { verifiedNews } from "@/content/clientContent";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"articles":*[_type=="news"]|order(publishedAt desc){_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl}}`;
 export const metadata = {
   title: "News — NC4SCM",
@@ -8,15 +7,7 @@ export const metadata = {
 };
 export default async function NewsPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
-  const cmsArticles = data.articles || [];
-  const fallbackIds = new Set(verifiedNews.map((item) => item._id));
-  const articles = [
-    ...verifiedNews.map((fallback) => ({
-      ...fallback,
-      ...(cmsArticles.find((item) => item._id === fallback._id) || {}),
-    })),
-    ...cmsArticles.filter((item) => !fallbackIds.has(item._id)),
-  ].sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
+  const articles = data.articles || [];
   return (
     <>
       <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">

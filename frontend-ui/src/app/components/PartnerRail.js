@@ -6,15 +6,7 @@ import { urlFor } from "@/sanityClient";
 
 export default function PartnerRail({ partners }) {
   const visiblePartners = partners.length ? partners : [];
-  const placeholders = Array.from(
-    { length: Math.max(0, 6 - visiblePartners.length) },
-    (_, index) => ({
-      _id: `partner-placeholder-${index}`,
-      organizationName: "Partner logo pending",
-      isPlaceholder: true,
-    }),
-  );
-  const items = [...visiblePartners, ...placeholders];
+  const items = visiblePartners;
   const loop = [...items, ...items];
 
   return (
@@ -33,9 +25,7 @@ export default function PartnerRail({ partners }) {
 }
 
 function PartnerCard({ partner, duplicate }) {
-  const image = partner.localLogo
-    ? partner.localLogo
-    : urlFor(partner.logo)?.width(360).height(180).fit("max").url();
+  const image = urlFor(partner.logo)?.width(360).height(180).fit("max").url();
   const content = (
     <>
       <div className="partner-logo-surface">

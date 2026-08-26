@@ -3,19 +3,9 @@ import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 import Reveal from "@/app/components/Reveal";
-import {
-  centreContent,
-  immediatePartners,
-  journey,
-} from "@/content/clientContent";
 
 const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
-const groups = {
-  "principal-investigator": "Principal Investigator",
-  "co-principal-investigator": "Co-Principal Investigators",
-  "project-management": "Project Management",
-  "research-staff": "Research Staff",
-};
+const groupLabels = { "principal-investigator": "Principal Investigator", "co-principal-investigator": "Co-Principal Investigators", "project-management": "Project Management", "research-staff": "Research Staff" };
 export const metadata = {
   title: "About — NC4SCM",
   description:
@@ -25,17 +15,7 @@ export const metadata = {
 export default async function AboutPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const p = data.page || {};
-  const partnerNames = new Set(
-    (data.partners || []).map((partner) =>
-      partner.organizationName.toLowerCase(),
-    ),
-  );
-  const partners = [
-    ...(data.partners || []),
-    ...immediatePartners.filter(
-      (partner) => !partnerNames.has(partner.organizationName.toLowerCase()),
-    ),
-  ];
+  const partners = data.partners || [];
   const hero = urlFor(p.heroImage)
     ?.width(1600)
     .height(1100)
@@ -75,12 +55,12 @@ export default async function AboutPage() {
           <div className={hero ? "grid gap-6 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2" : "grid gap-6 lg:col-span-2 lg:grid-cols-2"}>
             <Story
               label="Our mission"
-              title={p.missionHeading || centreContent.mission}
+              title={p.missionHeading}
               body={p.mission}
             />
             <Story
               label="Our vision"
-              title={p.visionHeading || centreContent.vision}
+              title={p.visionHeading}
               body={p.vision}
             />
           </div>
@@ -100,7 +80,7 @@ export default async function AboutPage() {
           </p>
         </div>
         <div className="journey-editorial-list relative z-10 mt-20">
-          {(p.journey?.length ? p.journey : journey).map((item, index) => (
+          {(p.journey || []).map((item, index) => (
             <Reveal
               key={item.year}
               className={`journey-editorial-row ${index % 2 ? "is-right" : "is-left"}`}
@@ -135,14 +115,14 @@ export default async function AboutPage() {
               "Researchers, engineers, and project professionals working across the full materials innovation pathway."}
           </p>
         </div>
-        {Object.entries(groups).map(([key, label]) => {
+        {Object.entries(groupLabels).map(([key, label]) => {
           const members = (data.team || []).filter((m) => m.group === key);
-          const cards = members.length ? members : Array.from({ length: key === "research-staff" ? 4 : 2 }, (_, index) => ({ _id: `${key}-placeholder-${index}`, placeholder: true, fullName: "Profile to be added", position: label }));
+          if (!members.length) return null;
           return (
             <div key={key} className="mt-16">
               <h3 className="eyebrow text-clay">{label}</h3>
               <div className="mt-6 grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-                {cards.map((m) => (
+                {members.map((m) => (
                   <article key={m._id} className="premium-card group p-3">
                     <a href={m.linkedinUrl || undefined} target={m.linkedinUrl ? "_blank" : undefined} rel={m.linkedinUrl ? "noreferrer" : undefined} aria-label={m.linkedinUrl ? `View ${m.fullName} on LinkedIn` : undefined} className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sage">
                       {m.avatar && (

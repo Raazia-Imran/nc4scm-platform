@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import FilterMenu from "@/app/components/FilterMenu";
+import { urlFor } from "@/sanityClient";
 const labels = {
   conference: "Conference",
   seminar: "Seminar",
@@ -76,10 +77,10 @@ export default function EventsExplorer({ events }) {
                 </div>
                 <div className="flex min-w-0 flex-col p-4 sm:p-5">
                 <div className="relative mb-5 aspect-[16/8] overflow-hidden rounded-xl bg-sage">
-                  {e.localImage && (
+                  {e.coverImage && (
                     <Image
-                      src={e.localImage}
-                      alt=""
+                      src={urlFor(e.coverImage)?.width(900).height(450).fit("crop").url()}
+                      alt={e.coverImage?.alt || e.title}
                       fill
                       sizes="(max-width: 1024px) 70vw, 38vw"
                       className="object-cover transition duration-500 group-hover:scale-105"

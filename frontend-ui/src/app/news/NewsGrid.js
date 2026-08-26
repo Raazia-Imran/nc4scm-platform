@@ -18,10 +18,8 @@ export default function NewsGrid({ articles }) {
       <div className="flex justify-end"><FilterMenu label="Filter news by category" value={category} options={options} onChange={(next) => { setCategory(next); setVisible(12); }} /></div>
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
-          const image =
-            (a.coverImage &&
-              urlFor(a.coverImage)?.width(800).height(520).fit("crop").url()) ||
-            a.localImage;
+          const image = a.coverImage &&
+            urlFor(a.coverImage)?.width(800).height(520).fit("crop").url();
           const href =
             a.externalUrl ||
             (a.slug?.current ? `/news/${a.slug.current}` : "/news");

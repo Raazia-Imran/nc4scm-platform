@@ -1,6 +1,5 @@
 import { client } from "@/sanityClient";
 import EventsExplorer from "./EventsExplorer";
-import { verifiedEvents } from "@/content/clientContent";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"events":*[_type=="event"]{_id,title,slug,eventType,eventDateTime,venue,description,registrationUrl,coverImage}}`;
 export const metadata = {
   title: "Events — NC4SCM",
@@ -8,18 +7,10 @@ export const metadata = {
 };
 export default async function EventsPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
-  const cmsEvents = (data.events || []).map((item) => ({
+  const events = (data.events || []).map((item) => ({
     ...item,
     externalUrl: item.registrationUrl,
   }));
-  const fallbackIds = new Set(verifiedEvents.map((item) => item._id));
-  const events = [
-    ...verifiedEvents.map((fallback) => ({
-      ...fallback,
-      ...(cmsEvents.find((item) => item._id === fallback._id) || {}),
-    })),
-    ...cmsEvents.filter((item) => !fallbackIds.has(item._id)),
-  ];
   return (
     <>
       <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">

@@ -9,10 +9,7 @@ const blank = {
   service: "",
   message: "",
 };
-const DEFAULT_ENDPOINT =
-  "https://formsubmit.co/ajax/nc4scm@cloud.neduet.edu.pk";
-
-export default function ContactForm({ successMessage }) {
+export default function ContactForm({ successMessage, recipientEmail }) {
   const params = useSearchParams();
   const [form, setForm] = useState({
     ...blank,
@@ -26,7 +23,7 @@ export default function ContactForm({ successMessage }) {
     e.preventDefault();
     setStatus("submitting");
     setError("");
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || DEFAULT_ENDPOINT;
+    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/ajax/${recipientEmail}`;
     try {
       const response = await fetch(endpoint, {
         method: "POST",
@@ -133,7 +130,7 @@ export default function ContactForm({ successMessage }) {
           {status === "submitting" ? "Sending…" : "Send enquiry"} <span>↗</span>
         </button>
         {error && (
-          <div role="alert" className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"><p>{error}</p><a className="mt-2 inline-flex font-semibold underline underline-offset-4" href="mailto:nc4scm@cloud.neduet.edu.pk">Email NC4SCM directly ↗</a></div>
+          <div role="alert" className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"><p>{error}</p>{recipientEmail && <a className="mt-2 inline-flex font-semibold underline underline-offset-4" href={`mailto:${recipientEmail}`}>Email NC4SCM directly ↗</a>}</div>
         )}
       </div>
     </form>

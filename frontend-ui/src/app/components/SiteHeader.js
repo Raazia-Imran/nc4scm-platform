@@ -46,16 +46,16 @@ export default function SiteHeader({ settings }) {
           className="flex min-w-0 items-center gap-3"
           onClick={() => setOpen(false)}
         >
-          {(
+          {logoUrl ? (
             <Image
-              src={logoUrl || "/media/brand/nc4scm-logo.webp"}
+              src={logoUrl}
               alt={settings?.logo?.alt || settings?.shortName || "NC4SCM"}
               width={260}
               height={72}
               className="h-9 w-auto max-w-[12rem] object-contain sm:h-10 sm:max-w-[14rem]"
               priority
             />
-          )}
+          ) : <span className="font-display text-xl font-semibold text-forest">{settings?.shortName || settings?.organizationName}</span>}
         </Link>
         <ul className="hidden items-center gap-1 lg:flex">
           {links.map((item) => (
