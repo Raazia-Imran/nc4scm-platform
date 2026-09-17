@@ -54,11 +54,13 @@ export default function EventsExplorer({ events }) {
               <Link
                 key={e._id}
                 href={
-                  e.externalUrl ||
-                  (e.slug?.current ? `/events/${e.slug.current}` : "/events")
+                  period === "past" && e.slug?.current
+                    ? `/events/${e.slug.current}`
+                    : e.externalUrl ||
+                      (e.slug?.current ? `/events/${e.slug.current}` : "/events")
                 }
-                target={e.externalUrl ? "_blank" : undefined}
-                rel={e.externalUrl ? "noreferrer" : undefined}
+                target={period !== "past" && e.externalUrl ? "_blank" : undefined}
+                rel={period !== "past" && e.externalUrl ? "noreferrer" : undefined}
                 className="premium-card group grid min-h-[23rem] overflow-hidden p-3 sm:grid-cols-[8.5rem_1fr]"
               >
                 <div className="flex flex-col justify-between rounded-[1.25rem] bg-forest p-5 text-ivory">

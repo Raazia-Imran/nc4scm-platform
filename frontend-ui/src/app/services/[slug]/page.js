@@ -78,18 +78,25 @@ export default async function ServiceDetail({ params }) {
   );
 }
 
-function List({ title, items = [] }) {
+function List({ title, items }) {
+  const visibleItems = Array.isArray(items) ? items : [];
   return (
     <div>
       <p className="eyebrow text-clay">{title}</p>
-      <ul className="mt-6 divide-y divide-forest/15">
-        {items.map((item, index) => (
-          <li key={item} className="flex gap-5 py-4">
-            <span className="text-xs text-clay">0{index + 1}</span>
-            <span>{item}</span>
-          </li>
-        ))}
-      </ul>
+      {visibleItems.length ? (
+        <ul className="mt-6 divide-y divide-forest/15">
+          {visibleItems.map((item, index) => (
+            <li key={item} className="flex gap-5 py-4">
+              <span className="text-xs text-clay">0{index + 1}</span>
+              <span>{item}</span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="mt-5 text-sm leading-6 text-carbon/55">
+          Details will be added by the NC4SCM team.
+        </p>
+      )}
     </div>
   );
 }

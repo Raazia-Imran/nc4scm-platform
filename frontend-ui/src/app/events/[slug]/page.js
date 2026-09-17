@@ -3,7 +3,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 
-const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,venue,description,speakers,registrationUrl,coverImage,gallery}`;
+const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
 
 export default async function EventDetail({ params }) {
   const event = await client
@@ -17,6 +17,7 @@ export default async function EventDetail({ params }) {
     .auto("format")
     .url();
   const date = new Date(event.eventDateTime);
+  const isPast = date.getTime() < Date.now();
   return (
     <>
       <section className="bg-forest px-6 pb-20 pt-44 text-ivory sm:px-10">
@@ -78,6 +79,54 @@ export default async function EventDetail({ params }) {
             )}
           </aside>
         </div>
+        {isPast && (event.pastEventRecap || event.gallery?.length > 0) && (
+          <div className="mt-20 border-t border-forest/15 pt-12 sm:mt-24 sm:pt-16">
+            <div className="grid gap-7 lg:grid-cols-[.45fr_1fr] lg:gap-16">
+              <div>
+                <p className="eyebrow text-clay">Event highlights</p>
+                <h2 className="mt-4 font-sans text-[clamp(2rem,6vw,3.5rem)] font-medium leading-[.98] tracking-[-.045em] text-forest">
+                  A look back at the event.
+                </h2>
+              </div>
+              {event.pastEventRecap && (
+                <p className="max-w-3xl whitespace-pre-line text-base leading-8 text-carbon/70 sm:text-lg">
+                  {event.pastEventRecap}
+                </p>
+              )}
+            </div>
+            {event.gallery?.length > 0 && (
+              <div className="event-gallery mt-10 sm:mt-14">
+                {event.gallery.map((item, index) => {
+                  const galleryImage = urlFor(item)
+                    ?.width(1400)
+                    .height(index % 3 === 0 ? 1050 : 900)
+                    .fit("crop")
+                    .auto("format")
+                    .url();
+                  if (!galleryImage) return null;
+                  return (
+                    <figure className="event-gallery-item" key={item._key || index}>
+                      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage sm:rounded-[1.75rem]">
+                        <Image
+                          src={galleryImage}
+                          alt={item.alt || ""}
+                          fill
+                          sizes="(max-width: 639px) 92vw, (max-width: 1023px) 45vw, 31vw"
+                          className="object-cover transition duration-500 hover:scale-[1.025]"
+                        />
+                      </div>
+                      {item.caption && (
+                        <figcaption className="mt-3 text-sm leading-6 text-carbon/55">
+                          {item.caption}
+                        </figcaption>
+                      )}
+                    </figure>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        )}
       </section>
     </>
   );

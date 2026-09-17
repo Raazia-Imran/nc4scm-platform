@@ -336,6 +336,51 @@ body {
 .filter-menu-option { display: flex; width: 100%; align-items: center; justify-content: space-between; border-radius: .8rem; padding: .75rem .85rem; text-align: left; color: #123d2f; font-size: .84rem; font-weight: 650; text-transform: capitalize; transition: background 180ms ease, color 180ms ease; }
 .filter-menu-option:hover, .filter-menu-option.is-active { background: #123d2f; color: #f7f5ef; }
 
+.research-filter-panel {
+  position: relative;
+  z-index: 20;
+  display: grid;
+  min-width: 0;
+  gap: .75rem;
+  border: 1px solid rgba(18, 61, 47, .1);
+  border-radius: 1.5rem;
+  background: rgba(255, 255, 255, .78);
+  padding: .85rem;
+  box-shadow: 0 14px 50px rgba(18, 61, 47, .06);
+}
+
+.research-search-field,
+.research-filter-panel .filter-menu {
+  width: 100%;
+  min-width: 0;
+}
+
+.research-filter-panel .filter-menu-popover {
+  max-height: min(22rem, 55vh);
+  overflow-y: auto;
+}
+
+@media (min-width: 700px) {
+  .research-filter-panel {
+    grid-template-columns: minmax(15rem, 1.4fr) repeat(2, minmax(11rem, .8fr));
+  }
+
+  .research-filter-panel > :last-child {
+    grid-column: 2 / 4;
+  }
+}
+
+@media (min-width: 1180px) {
+  .research-filter-panel {
+    grid-template-columns: minmax(16rem, 1fr) minmax(9rem, .45fr) minmax(13rem, .7fr) minmax(12rem, .65fr);
+    align-items: center;
+  }
+
+  .research-filter-panel > :last-child {
+    grid-column: auto;
+  }
+}
+
 /* News filters use visible, wrapping tags on larger screens and a dedicated
    full-viewport sheet on phones. The shared FilterMenu remains unchanged for
    Events and any future compact filter controls. */
@@ -411,7 +456,7 @@ body {
   .news-filter-sheet {
     position: fixed;
     inset: 0;
-    z-index: 120;
+    z-index: 1000;
     display: flex;
     min-height: 100dvh;
     flex-direction: column;
@@ -501,8 +546,9 @@ body {
 .stat-card:hover { background: #123d2f; }
 .stat-card:hover p { color: #f7f5ef; }
 
-.testimonial-viewport { overflow: hidden; }
-.testimonial-grid { display: flex; width: max-content; gap: 1rem; padding: .5rem; animation: testimonial-marquee 38s linear infinite; }
+.testimonial-viewport { overflow: hidden; padding-block: .5rem; }
+.testimonial-grid { display: flex; width: max-content; gap: 1rem; animation: testimonial-marquee 48s linear infinite; will-change: transform; }
+.testimonial-loop-group { display: flex; flex: 0 0 auto; gap: 1rem; }
 .testimonial-viewport:hover .testimonial-grid, .testimonial-viewport:focus-within .testimonial-grid { animation-play-state: paused; }
 .testimonial-card { width: clamp(18rem, 28vw, 25rem); min-height: 17rem; flex: 0 0 auto; border-radius: 1.5rem; background: #f7f5ef; padding: 1.75rem; box-shadow: 0 20px 70px rgba(0,0,0,.12); transition: transform 400ms ease; }
 .testimonial-card:hover { transform: translateY(-5px); }
@@ -538,8 +584,14 @@ body {
   display: flex;
   width: max-content;
   gap: 0.9rem;
-  padding-inline: 1.5rem;
-  animation: partner-marquee 34s linear infinite;
+  animation: partner-marquee 52s linear infinite;
+  will-change: transform;
+}
+
+.partner-loop-group {
+  display: flex;
+  flex: 0 0 auto;
+  gap: .9rem;
 }
 
 .partner-rail:hover .partner-track,
@@ -594,6 +646,16 @@ body {
   to {
     transform: translateX(calc(-50% - 0.45rem));
   }
+}
+
+.event-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+}
+
+.event-gallery-item {
+  min-width: 0;
 }
 
 .material-grid {
@@ -748,12 +810,12 @@ body {
 
 @media (max-width: 640px) {
   .partner-track {
-    animation-duration: 25s;
+    animation-duration: 38s;
   }
   .mission-card {
     min-height: auto;
   }
-  .testimonial-grid { animation-duration: 28s; }
+  .testimonial-grid { animation-duration: 38s; }
   .flip-rail { display: grid; grid-auto-flow: row; grid-auto-columns: auto; grid-template-columns: 1fr; overflow: visible; }
   .flip-card { height: 15rem; }
 }

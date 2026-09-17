@@ -12,7 +12,7 @@
 // requests of its own — it only filters the array that's already in memory.
 // -----------------------------------------------------------------------------
 import { useMemo, useState } from "react";
-import FilterIcon, { SortIcon } from "@/app/components/FilterIcon";
+import FilterMenu from "@/app/components/FilterMenu";
 
 const CATEGORY_LABELS = {
   "lc3-technology": "LC3 Technology",
@@ -74,6 +74,15 @@ export default function PublicationsVault({ publications }) {
   const years = [
     ...new Set(publications.map(getPublicationYear).filter(Boolean)),
   ].sort((a, b) => Number(b) - Number(a));
+  const yearOptions = [
+    { value: "all", label: "All years" },
+    ...years.map((item) => ({ value: item, label: item })),
+  ];
+  const sortOptions = [
+    { value: "newest-year", label: "Newest research" },
+    { value: "recently-added", label: "Recently added" },
+    { value: "oldest-year", label: "Oldest research" },
+  ];
 
   // Build the list of categories that actually have at least one
   // publication, so the filter bar never shows an empty, dead-end option.
@@ -83,50 +92,33 @@ export default function PublicationsVault({ publications }) {
     );
     return Array.from(set);
   }, [publications]);
+  const categoryOptions = [
+    { value: "all", label: "All research topics" },
+    ...availableCategories.map((category) => ({
+      value: category,
+      label: CATEGORY_LABELS[category] || category,
+    })),
+  ];
 
   return (
     <div className="mt-14">
       {/* --------------------------------------------------------------
           SEARCH + FILTER CONTROLS
       -------------------------------------------------------------- */}
-      <div className="grid gap-4 rounded-[1.5rem] border border-forest/10 bg-white/75 p-4 shadow-[0_14px_50px_rgba(18,61,47,.06)] lg:grid-cols-[1fr_auto_auto_auto] lg:items-center">
-        <input
-          type="text"
-          value={searchTerm}
-          onChange={(event) => setSearchTerm(event.target.value)}
-          placeholder="Search by title, author, or venue…"
-          className="field-input mt-0 w-full"
-        />
-        <select
-          value={year}
-          onChange={(e) => setYear(e.target.value)}
-          aria-label="Filter by year"
-          className="field-input mt-0 lg:w-36"
-        >
-          <option value="all">All years</option>
-          {years.map((y) => (
-            <option key={y}>{y}</option>
-          ))}
-        </select>
-        <label className="relative">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-forest/60"><FilterIcon /></span>
-          <select value={activeCategory} onChange={(e) => setActiveCategory(e.target.value)} aria-label="Filter by research topic" className="field-input mt-0 min-w-56 pl-10">
-            <option value="all">All research topics</option>
-          {availableCategories.map((category) => (
-            <option key={category} value={category}>
-              {CATEGORY_LABELS[category] || category}
-            </option>
-          ))}
-          </select>
+      <div className="research-filter-panel">
+        <label className="research-search-field">
+          <span className="sr-only">Search publications</span>
+          <input
+            type="search"
+            value={searchTerm}
+            onChange={(event) => setSearchTerm(event.target.value)}
+            placeholder="Search by title, author, or venue…"
+            className="field-input mt-0 w-full"
+          />
         </label>
-        <label className="relative">
-          <span className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-forest/60"><SortIcon /></span>
-          <select value={sort} onChange={(e) => setSort(e.target.value)} aria-label="Sort publications" className="field-input mt-0 min-w-48 pl-10">
-            <option value="newest-year">Newest research</option>
-            <option value="recently-added">Recently added</option>
-            <option value="oldest-year">Oldest research</option>
-          </select>
-        </label>
+        <FilterMenu label="Filter by year" value={year} options={yearOptions} onChange={setYear} />
+        <FilterMenu label="Filter by research topic" value={activeCategory} options={categoryOptions} onChange={setActiveCategory} />
+        <FilterMenu label="Sort publications" value={sort} options={sortOptions} onChange={setSort} />
       </div>
 
       {/* --------------------------------------------------------------
@@ -137,7 +129,7 @@ export default function PublicationsVault({ publications }) {
           filteredPublications.map((pub) => (
             <article
               key={pub._id}
-              className="premium-card grid gap-6 p-7 md:grid-cols-[1fr_auto] md:items-start md:gap-8"
+              className="premium-card grid min-w-0 gap-6 overflow-hidden p-5 sm:p-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-8"
             >
               <div>
                 <p className="text-xs uppercase tracking-widest text-accent">
@@ -150,7 +142,7 @@ export default function PublicationsVault({ publications }) {
                     </>
                   )}
                 </p>
-                <h2 className="mt-3 max-w-3xl font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
+                <h2 className="mt-3 max-w-3xl break-words font-sans text-[clamp(1.25rem,4.5vw,1.5rem)] font-semibold leading-tight tracking-[-.035em] text-forest">
                   {pub.title}
                 </h2>
                 <p className="mt-2 text-sm text-stone">
