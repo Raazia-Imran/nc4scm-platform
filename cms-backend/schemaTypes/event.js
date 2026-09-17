@@ -79,14 +79,32 @@ export default {
     {
       name: "gallery",
       title: "Past event gallery",
+      description:
+        "Add photographs after the event. These appear on the event detail page in a responsive gallery.",
       type: "array",
       of: [
         {
           type: "image",
           options: { hotspot: true },
-          fields: [{ name: "alt", title: "Alternative text", type: "string" }],
+          fields: [
+            {
+              name: "alt",
+              title: "Alternative text",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            { name: "caption", title: "Caption", type: "string" },
+          ],
         },
       ],
+    },
+    {
+      name: "pastEventRecap",
+      title: "Past event recap",
+      type: "text",
+      rows: 7,
+      description:
+        "After the event, add a short summary of what happened, key outcomes, and notable participation.",
     },
   ],
   orderings: [
