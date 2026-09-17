@@ -6,18 +6,33 @@ import { urlFor } from "@/sanityClient";
 
 export default function PartnerRail({ partners }) {
   const visiblePartners = partners.length ? partners : [];
-  const items = visiblePartners;
-  const loop = [...items, ...items];
+  if (!visiblePartners.length) return null;
+
+  // A cycle must be wider than the viewport or an ultra-wide screen can
+  // briefly expose empty rail space. Repeat the source records until each of
+  // the two identical cycles contains at least eight cards.
+  const cycle = Array.from(
+    { length: Math.max(8, visiblePartners.length) },
+    (_, index) => visiblePartners[index % visiblePartners.length],
+  );
 
   return (
     <div className="partner-rail" aria-label="NC4SCM partner organizations">
       <div className="partner-track">
-        {loop.map((partner, index) => (
-          <PartnerCard
-            key={`${partner._id}-${index}`}
-            partner={partner}
-            duplicate={index >= items.length}
-          />
+        {[0, 1].map((groupIndex) => (
+          <div
+            className="partner-loop-group"
+            key={groupIndex}
+            aria-hidden={groupIndex === 1 || undefined}
+          >
+            {cycle.map((partner, index) => (
+              <PartnerCard
+                key={`${partner._id}-${groupIndex}-${index}`}
+                partner={partner}
+                duplicate={groupIndex === 1 || index >= visiblePartners.length}
+              />
+            ))}
+          </div>
         ))}
       </div>
     </div>
