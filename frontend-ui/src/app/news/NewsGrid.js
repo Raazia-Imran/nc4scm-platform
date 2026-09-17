@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import { urlFor } from "@/sanityClient";
-import FilterMenu from "@/app/components/FilterMenu";
+import NewsCategoryFilter from "./NewsCategoryFilter";
 export default function NewsGrid({ articles }) {
   const [category, setCategory] = useState("all");
   const [visible, setVisible] = useState(12);
@@ -15,7 +15,14 @@ export default function NewsGrid({ articles }) {
   const options = cats.map((x) => ({ value: x, label: x === "all" ? "All news" : x.replaceAll("-", " ") }));
   return (
     <div className="mt-14">
-      <div className="flex justify-end"><FilterMenu label="Filter news by category" value={category} options={options} onChange={(next) => { setCategory(next); setVisible(12); }} /></div>
+      <NewsCategoryFilter
+        value={category}
+        options={options}
+        onChange={(next) => {
+          setCategory(next);
+          setVisible(12);
+        }}
+      />
       <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
           const image = a.coverImage &&
