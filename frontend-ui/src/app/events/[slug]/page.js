@@ -2,8 +2,36 @@ import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
+import JsonLd from "@/app/components/JsonLd";
+import {
+  buildMetadata,
+  ORGANIZATION_NAME,
+  SITE_URL,
+  sanityImageUrl,
+} from "@/lib/seo";
 
-const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
+const QUERY = `*[_type=="event"&&slug.current==$slug][0]{_updatedAt,title,slug,eventType,eventDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
+
+export async function generateMetadata({ params }) {
+  const event = await client
+    .fetch(QUERY, { slug: params.slug })
+    .catch(() => null);
+  if (!event) {
+    return buildMetadata({
+      title: "Event Not Found",
+      path: `/events/${params.slug}`,
+      noIndex: true,
+    });
+  }
+  return buildMetadata({
+    title: event.title,
+    description: event.description,
+    path: `/events/${event.slug.current}`,
+    image: event.coverImage,
+    imageAlt: event.coverImage?.alt || event.title,
+    keywords: [event.eventType, "NC4SCM event", "sustainable construction event"].filter(Boolean),
+  });
+}
 
 export default async function EventDetail({ params }) {
   const event = await client
@@ -18,8 +46,35 @@ export default async function EventDetail({ params }) {
     .url();
   const date = new Date(event.eventDateTime);
   const isPast = date.getTime() < Date.now();
+  const canonical = `${SITE_URL}/events/${event.slug.current}`;
+  const eventJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Event",
+    "@id": `${canonical}/#event`,
+    name: event.title,
+    description: event.description,
+    url: canonical,
+    startDate: event.eventDateTime,
+    eventStatus: isPast
+      ? "https://schema.org/EventCompleted"
+      : "https://schema.org/EventScheduled",
+    eventAttendanceMode: "https://schema.org/OfflineEventAttendanceMode",
+    image: sanityImageUrl(event.coverImage),
+    location: {
+      "@type": "Place",
+      name: event.venue,
+      address: event.venue,
+    },
+    organizer: {
+      "@type": "Organization",
+      name: ORGANIZATION_NAME,
+      url: SITE_URL,
+    },
+    sameAs: event.registrationUrl,
+  };
   return (
     <>
+      <JsonLd data={eventJsonLd} />
       <section className="bg-forest px-6 pb-20 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Link href="/events" className="eyebrow text-mint">
@@ -45,7 +100,7 @@ export default async function EventDetail({ params }) {
         <div className="relative mx-auto aspect-[16/8] max-w-[1400px]">
           <Image
             src={cover}
-            alt={event.coverImage?.alt || ""}
+            alt={event.coverImage?.alt || event.title}
             fill
             className="object-cover"
           />
@@ -109,7 +164,10 @@ export default async function EventDetail({ params }) {
                       <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage sm:rounded-[1.75rem]">
                         <Image
                           src={galleryImage}
-                          alt={item.alt || ""}
+                          alt={
+                            item.alt ||
+                            `${event.title} event photograph ${index + 1}`
+                          }
                           fill
                           sizes="(max-width: 639px) 92vw, (max-width: 1023px) 45vw, 31vw"
                           className="object-cover transition duration-500 hover:scale-[1.025]"
