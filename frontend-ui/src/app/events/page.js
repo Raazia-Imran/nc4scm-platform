@@ -1,10 +1,20 @@
 import { client } from "@/sanityClient";
 import EventsExplorer from "./EventsExplorer";
+import { buildMetadata } from "@/lib/seo";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"events":*[_type=="event"]{_id,title,slug,eventType,eventDateTime,venue,description,registrationUrl,coverImage}}`;
-export const metadata = {
-  title: "Events — NC4SCM",
-  description: "Conferences, seminars, and technical workshops from NC4SCM.",
-};
+export async function generateMetadata() {
+  const settings = await client
+    .fetch(`*[_type == "pageSettings"][0]{eventsHeadline,eventsIntroduction}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: "Conferences, Seminars & Technical Workshops",
+    description:
+      settings?.eventsIntroduction ||
+      "Explore NC4SCM conferences, seminars, and workshops on low-carbon and sustainable construction materials.",
+    path: "/events",
+    keywords: ["sustainable construction events", "LC3 conference", "materials engineering workshops"],
+  });
+}
 export default async function EventsPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const events = (data.events || []).map((item) => ({
