@@ -3,8 +3,27 @@ import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import TestimonialShowcase from "@/app/components/TestimonialShowcase";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
+import { buildMetadata, ORGANIZATION_NAME, SITE_NAME } from "@/lib/seo";
 
 const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published!=false]|order(displayOrder asc){_id,quote,personName,role,organization,portrait},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
+
+export async function generateMetadata() {
+  const page = await client
+    .fetch(`*[_type == "homePage"][0]{headline,intro,heroImage,seo}`)
+    .catch(() => null);
+  const title =
+    page?.seo?.metaTitle || `${SITE_NAME} — ${ORGANIZATION_NAME}`;
+  const metadata = buildMetadata({
+    title,
+    description: page?.seo?.metaDescription || page?.intro,
+    path: "/",
+    image: page?.seo?.shareImage || page?.heroImage,
+    imageAlt: page?.heroImage?.alt,
+    noIndex: page?.seo?.hideFromSearch,
+    keywords: ["construction materials center", "sustainable cement Pakistan"],
+  });
+  return { ...metadata, title: { absolute: title } };
+}
 
 const Action = ({ link, light = false }) =>
   link?.href ? (
@@ -45,7 +64,10 @@ export default async function HomePage() {
         {hero && (
           <Image
             src={hero}
-            alt={page.heroImage?.alt || ""}
+            alt={
+              page.heroImage?.alt ||
+              "NC4SCM sustainable construction materials research"
+            }
             fill
             priority
             sizes="100vw"
@@ -144,7 +166,11 @@ export default async function HomePage() {
             {flagship ? (
               <Image
                 src={flagship}
-                alt={page.flagshipImage?.alt || ""}
+                alt={
+                  page.flagshipImage?.alt ||
+                  page.flagshipTitle ||
+                  "NC4SCM flagship sustainable materials research project"
+                }
                 fill
                 className="object-cover"
               />
