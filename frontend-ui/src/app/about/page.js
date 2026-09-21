@@ -3,14 +3,27 @@ import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 import Reveal from "@/app/components/Reveal";
+import { buildMetadata } from "@/lib/seo";
 
 const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 const groupLabels = { "principal-investigator": "Principal Investigator", "co-principal-investigator": "Co-Principal Investigators", "project-management": "Project Management", "research-staff": "Research Staff" };
-export const metadata = {
-  title: "About — NC4SCM",
-  description:
-    "Meet the people and partners advancing sustainable construction materials in Pakistan.",
-};
+export async function generateMetadata() {
+  const page = await client
+    .fetch(`*[_type == "aboutPage"][0]{headline,introduction,heroImage,seo}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: page?.seo?.metaTitle || "About the National Center",
+    description:
+      page?.seo?.metaDescription ||
+      page?.introduction ||
+      "Meet the people and partners advancing sustainable construction materials in Pakistan.",
+    path: "/about",
+    image: page?.seo?.shareImage || page?.heroImage,
+    imageAlt: page?.heroImage?.alt,
+    noIndex: page?.seo?.hideFromSearch,
+    keywords: ["NC4SCM team", "NED University research center", "low-carbon materials Pakistan"],
+  });
+}
 
 export default async function AboutPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
@@ -46,7 +59,7 @@ export default async function AboutPage() {
             <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-forest/10 shadow-float">
               <Image
                 src={hero}
-                alt={p.heroImage?.alt || ""}
+                alt={p.heroImage?.alt || "NC4SCM sustainable materials research team"}
                 fill
                 className="object-cover"
               />
