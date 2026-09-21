@@ -1,12 +1,21 @@
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
 import ContactForm from "./ContactForm";
+import { buildMetadata } from "@/lib/seo";
 const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,contactPeople,mapEmbedUrl,latitude,longitude,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
-export const metadata = {
-  title: "Contact — NC4SCM",
-  description:
-    "Contact NC4SCM for consultancy, collaboration, media, and general enquiries.",
-};
+export async function generateMetadata() {
+  const page = await client
+    .fetch(`*[_type == "pageSettings"][0]{contactHeadline,contactIntroduction}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: "Contact NC4SCM",
+    description:
+      page?.contactIntroduction ||
+      "Contact NC4SCM for technical services, research collaboration, training, media, and institutional partnerships.",
+    path: "/contact",
+    keywords: ["contact NC4SCM", "materials research collaboration", "construction materials consultancy Pakistan"],
+  });
+}
 export default async function ContactPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const s = data.settings || {},
