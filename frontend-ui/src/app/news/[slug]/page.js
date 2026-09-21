@@ -15,9 +15,16 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
+import JsonLd from "@/app/components/JsonLd";
+import {
+  buildMetadata,
+  ORGANIZATION_NAME,
+  SITE_URL,
+  sanityImageUrl,
+} from "@/lib/seo";
 
 const ARTICLE_BY_SLUG_QUERY = `*[_type == "news" && slug.current == $slug][0]{
-  _id, headline, publishedAt, coverImage, body
+  _id, _updatedAt, headline, slug, excerpt, category, publishedAt, coverImage, body
 }`;
 
 const ALL_SLUGS_QUERY = `*[_type == "news" && defined(slug.current)]{ "slug": slug.current }`;
@@ -31,11 +38,27 @@ export async function generateStaticParams() {
 
 // Dynamic per-page metadata (browser tab title) based on the fetched article.
 export async function generateMetadata({ params }) {
-  const article = await client.fetch(ARTICLE_BY_SLUG_QUERY, {
-    slug: params.slug,
+  const article = await client
+    .fetch(ARTICLE_BY_SLUG_QUERY, { slug: params.slug })
+    .catch(() => null);
+  if (!article) {
+    return buildMetadata({
+      title: "News Article Not Found",
+      path: `/news/${params.slug}`,
+      noIndex: true,
+    });
+  }
+  return buildMetadata({
+    title: article.headline,
+    description: article.excerpt,
+    path: `/news/${article.slug.current}`,
+    image: article.coverImage,
+    imageAlt: article.coverImage?.alt || article.headline,
+    type: "article",
+    publishedTime: article.publishedAt,
+    modifiedTime: article._updatedAt,
+    keywords: [article.category, "NC4SCM news"].filter(Boolean),
   });
-  if (!article) return { title: "Article Not Found — NC4SCM" };
-  return { title: `${article.headline} — NC4SCM` };
 }
 
 export default async function NewsArticlePage({ params }) {
@@ -54,9 +77,31 @@ export default async function NewsArticlePage({ params }) {
     ?.width(1600)
     .height(900)
     .url();
+  const canonical = `${SITE_URL}/news/${article.slug.current}`;
+  const articleJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "@id": `${canonical}/#article`,
+    headline: article.headline,
+    description: article.excerpt,
+    url: canonical,
+    mainEntityOfPage: canonical,
+    datePublished: article.publishedAt,
+    dateModified: article._updatedAt || article.publishedAt,
+    image: sanityImageUrl(article.coverImage),
+    author: {
+      "@type": "Organization",
+      name: ORGANIZATION_NAME,
+      url: SITE_URL,
+    },
+    publisher: { "@id": `${SITE_URL}/#organization` },
+    articleSection: article.category,
+    inLanguage: "en-PK",
+  };
 
   return (
     <article className="mx-auto max-w-content px-6 py-24 md:px-10">
+      <JsonLd data={articleJsonLd} />
       <p className="text-xs uppercase tracking-widest text-stone">
         {article.publishedAt
           ? new Date(article.publishedAt).toLocaleDateString("en-US", {
