@@ -10,6 +10,7 @@
 // static nav/footer markup itself — only the interactive bits elsewhere in
 // the app (like the contact form) ship their own client-side bundles.
 // -----------------------------------------------------------------------------
+// src/app/layout.js
 import "./globals.css";
 import { client } from "@/sanityClient";
 import SiteHeader from "@/app/components/SiteHeader";
@@ -24,12 +25,32 @@ export const metadata = {
   title: "NC4SCM — National Center for Sustainable Construction Materials",
   description:
     "NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.",
-  openGraph: { type: "website", siteName: "NC4SCM" },
-  twitter: { card: "summary_large_image" },
+  openGraph: {
+    title: "NC4SCM — National Center for Sustainable Construction Materials",
+    description:
+      "NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.",
+    url: "https://nc4scm.com",
+    siteName: "NC4SCM",
+    images: [
+      {
+        url: "/opengraph-image.png",
+        width: 1200,
+        height: 630,
+        alt: "NC4SCM Preview Banner",
+      },
+    ],
+    locale: "en_US",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "NC4SCM — National Center for Sustainable Construction Materials",
+    description:
+      "NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.",
+    images: ["/opengraph-image.png"],
+  },
 };
 
-// Centralizing the nav links in one array means adding a new top-level page
-// later only requires one edit, instead of hunting through JSX.
 const SETTINGS_QUERY = `*[_type == "siteSettings"][0]{organizationName, shortName, logo, missionLine, navigation, headerCta, footerServiceLinks, address, email, phone, linkedinUrl, copyrightText}`;
 
 export default async function RootLayout({ children }) {
