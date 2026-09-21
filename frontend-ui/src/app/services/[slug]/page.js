@@ -3,17 +3,30 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
+import JsonLd from "@/app/components/JsonLd";
+import { buildMetadata, ORGANIZATION_NAME, SITE_URL, sanityImageUrl } from "@/lib/seo";
 
-const QUERY = `*[_type=="service"&&slug.current==$slug][0]{title,summary,image,body,methods,deliverables}`;
+const QUERY = `*[_type=="service"&&slug.current==$slug][0]{title,slug,summary,image,body,methods,deliverables}`;
 
 export async function generateMetadata({ params }) {
   const service = await client
     .fetch(QUERY, { slug: params.slug })
     .catch(() => null);
-  return {
-    title: service ? `${service.title} — NC4SCM` : "Service — NC4SCM",
-    description: service?.summary,
-  };
+  if (!service) {
+    return buildMetadata({
+      title: "Service Not Found",
+      path: `/services/${params.slug}`,
+      noIndex: true,
+    });
+  }
+  return buildMetadata({
+    title: `${service.title} Services`,
+    description: service.summary,
+    path: `/services/${service.slug.current}`,
+    image: service.image,
+    imageAlt: service.image?.alt || service.title,
+    keywords: [service.title, "construction materials technical services"],
+  });
 }
 
 export default async function ServiceDetail({ params }) {
@@ -27,8 +40,25 @@ export default async function ServiceDetail({ params }) {
     .fit("crop")
     .auto("format")
     .url();
+  const canonical = `${SITE_URL}/services/${service.slug.current}`;
+  const serviceJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "@id": `${canonical}/#service`,
+    name: service.title,
+    description: service.summary,
+    url: canonical,
+    image: sanityImageUrl(service.image),
+    provider: {
+      "@type": "Organization",
+      name: ORGANIZATION_NAME,
+      url: SITE_URL,
+    },
+    areaServed: { "@type": "Country", name: "Pakistan" },
+  };
   return (
     <>
+      <JsonLd data={serviceJsonLd} />
       <section className="bg-forest px-6 pb-20 pt-44 text-ivory sm:px-10 lg:pb-28">
         <div className="mx-auto max-w-[1400px]">
           <Link href="/services" className="eyebrow text-mint">
@@ -48,7 +78,7 @@ export default async function ServiceDetail({ params }) {
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
               <Image
                 src={image}
-                alt={service.image?.alt || ""}
+                alt={service.image?.alt || `${service.title} at NC4SCM`}
                 fill
                 className="object-cover"
               />
