@@ -1,10 +1,20 @@
 import { client } from "@/sanityClient";
 import NewsGrid from "./NewsGrid";
+import { buildMetadata } from "@/lib/seo";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"articles":*[_type=="news"]|order(publishedAt desc){_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl}}`;
-export const metadata = {
-  title: "News — NC4SCM",
-  description: "Announcements, milestones, and stories from NC4SCM.",
-};
+export async function generateMetadata() {
+  const settings = await client
+    .fetch(`*[_type == "pageSettings"][0]{newsHeadline,newsIntroduction}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: "News, Research Milestones & Industry Updates",
+    description:
+      settings?.newsIntroduction ||
+      "Announcements, research milestones, partnerships, and sustainable construction stories from NC4SCM.",
+    path: "/news",
+    keywords: ["NC4SCM news", "LC3 news", "construction research updates"],
+  });
+}
 export default async function NewsPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const articles = data.articles || [];

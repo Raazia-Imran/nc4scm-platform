@@ -9,6 +9,7 @@
 // -----------------------------------------------------------------------------
 import { client } from "@/sanityClient";
 import PublicationsVault from "./PublicationsVault";
+import { buildMetadata } from "@/lib/seo";
 
 // Publication author names are stored in official citation order. Optional
 // team-member references are fetched separately so external collaborators do
@@ -32,9 +33,19 @@ const PUBLICATIONS_QUERY = `*[_type == "publication"] | order(publicationYear de
   "pdfFilename": pdfFile.asset->originalFilename
 }`;
 
-export const metadata = {
-  title: "Publications — NC4SCM",
-};
+export async function generateMetadata() {
+  const settings = await client
+    .fetch(`*[_type == "pageSettings"][0]{researchHeadline,researchIntroduction}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: "Research Publications on Sustainable Construction Materials",
+    description:
+      settings?.researchIntroduction ||
+      "Browse NC4SCM peer-reviewed publications, conference papers, and technical reports on low-carbon construction materials.",
+    path: "/publications",
+    keywords: ["construction materials publications", "LC3 research papers", "low-carbon concrete research"],
+  });
+}
 
 export default async function PublicationsPage() {
   const [publications, settings] = await Promise.all([

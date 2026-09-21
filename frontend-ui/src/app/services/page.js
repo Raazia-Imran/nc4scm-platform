@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { client, urlFor } from "@/sanityClient";
 import ServiceFlipRail from "@/app/components/ServiceFlipRail";
+import { buildMetadata } from "@/lib/seo";
 
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"services":*[_type=="service"]|order(displayOrder asc){_id,title,slug,summary,image,methods,deliverables}}`;
 const FALLBACK_SERVICES = [
@@ -10,11 +11,19 @@ const FALLBACK_SERVICES = [
   { _id: "service-development-placeholder", title: "New Material Development", summary: "Applied research for lower-carbon, affordable construction-material solutions.", methods: [], deliverables: [] },
   { _id: "service-support-placeholder", title: "Technological Support", summary: "Research-to-industry support for validation, scale-up, and practical adoption.", methods: [], deliverables: [] },
 ];
-export const metadata = {
-  title: "Services — NC4SCM",
-  description:
-    "Technical services for LC3, material characterization, new material development, and implementation support.",
-};
+export async function generateMetadata() {
+  const settings = await client
+    .fetch(`*[_type == "pageSettings"][0]{servicesHeadline,servicesIntroduction}`)
+    .catch(() => null);
+  return buildMetadata({
+    title: "Technical Services for Low-Carbon Construction Materials",
+    description:
+      settings?.servicesIntroduction ||
+      "Technical services for LC3, material characterization, new material development, and industrial implementation support.",
+    path: "/services",
+    keywords: ["LC3 technical services", "material characterization laboratory", "cement industry technical support"],
+  });
+}
 export default async function ServicesPage() {
   const data = await client.fetch(QUERY).catch(() => ({}));
   const services = data.services?.length ? data.services : FALLBACK_SERVICES;
@@ -69,7 +78,7 @@ export default async function ServicesPage() {
                     <div className="relative min-h-72 overflow-hidden rounded-[2rem] sm:col-span-2">
                       <Image
                         src={image}
-                        alt={s.image?.alt || ""}
+                        alt={s.image?.alt || `${s.title} technical service at NC4SCM`}
                         fill
                         className="object-cover"
                       />
