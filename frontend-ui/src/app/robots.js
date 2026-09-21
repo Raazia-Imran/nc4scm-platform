@@ -1,7 +1,13 @@
+import { SITE_URL } from "@/lib/seo";
+
 export default function robots() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://nc4scm.org";
   return {
-    rules: { userAgent: "*", allow: "/" },
-    sitemap: `${base}/sitemap.xml`,
+    rules: {
+      userAgent: "*",
+      allow: "/",
+      disallow: ["/api/", "/preview/", "/studio/"],
+    },
+    sitemap: `${SITE_URL}/sitemap.xml`,
+    host: SITE_URL,
   };
 }
