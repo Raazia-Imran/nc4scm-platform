@@ -11,6 +11,7 @@
 // the app (like the contact form) ship their own client-side bundles.
 // -----------------------------------------------------------------------------
 // src/app/layout.js
+// src/app/layout.js
 import "./globals.css";
 import { client } from "@/sanityClient";
 import SiteHeader from "@/app/components/SiteHeader";
@@ -33,7 +34,7 @@ export const metadata = {
     siteName: "NC4SCM",
     images: [
       {
-        url: "/opengraph-image.png",
+        url: "/media/opengraph-image.png",
         width: 1200,
         height: 630,
         alt: "NC4SCM Preview Banner",
@@ -47,7 +48,7 @@ export const metadata = {
     title: "NC4SCM — National Center for Sustainable Construction Materials",
     description:
       "NC4SCM advances sustainable construction materials research, including LC3 technology, material characterization, and new material development.",
-    images: ["/opengraph-image.png"],
+    images: ["/media/opengraph-image.png"],
   },
 };
 
