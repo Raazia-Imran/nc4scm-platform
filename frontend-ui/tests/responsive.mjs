@@ -74,13 +74,13 @@ try {
       .map((d) => "/events/" + d.slug.current),
     "/news/dr-tariq-jamil-iep-fellowship-2026",
   ];
-  const widths = [280, 320, 375, 414, 600, 768, 1024, 1280, 1440, 1920, 2560];
+  const widths = [280, 320, 375, 414, 600, 768, 1024, 1280, 1366, 1440, 1536, 1920, 2560];
   await mkdir(new URL("../test-results/", import.meta.url), {
     recursive: true,
   });
   const results = [];
   for (const width of widths) {
-    await page.setViewportSize({ width, height: 900 });
+    await page.setViewportSize({ width, height: width >= 1024 && width <= 1536 ? 768 : 900 });
     for (const path of paths) {
       const response = await page.goto("http://127.0.0.1:3100" + path, {
         waitUntil: "networkidle",
@@ -100,16 +100,30 @@ try {
         !(await page.getByText("Application error:", { exact: false }).count()),
         `${path} server error`,
       );
+      if (width >= 1024) {
+        const hero = page.locator(".page-hero");
+        if (await hero.count()) {
+          assert.ok(await hero.evaluate((element) => element.getBoundingClientRect().height) <= 460, `${path} desktop hero too tall`);
+          assert.ok(await page.locator("h1").evaluate((element) => parseFloat(getComputedStyle(element).fontSize)) <= 52, `${path} oversized title`);
+        }
+        if (path === "/about") {
+          const portraits = page.locator(".team-portrait");
+          for (const portrait of await portraits.all()) {
+            const box = await portrait.boundingBox();
+            assert.ok(box.width <= 300 && box.height <= 320, "Team portrait should not fill the desktop row");
+          }
+        }
+      }
       results.push({ width, path, status: response.status(), overflow: false });
       if (
         (width === 375 || width === 1440) &&
-        ["/services", "/about", "/news", "/publications", "/events"].includes(
+        ["/", "/services", "/about", "/news", "/publications", "/events", "/contact", "/events/gcgc-2025", "/services/lc3-technology"].includes(
           path,
         )
       )
         await page.screenshot({
           path: new URL(
-            `../test-results/${path.slice(1)}-${width}.png`,
+            `../test-results/${path.slice(1).replaceAll("/", "-") || "home"}-${width}.png`,
             import.meta.url,
           ).pathname,
           fullPage: true,
@@ -141,11 +155,36 @@ try {
   await page.goto("http://127.0.0.1:3100/events");
   await page.getByRole("button", { name: "Past", exact: true }).click();
   assert.ok((await page.locator("main a.premium-card").count()) > 0);
+  const galleryEvent = fixture.docs.find((doc) => doc._type === "event" && doc.gallery?.length > 1);
+  await page.goto("http://127.0.0.1:3100/events/" + galleryEvent.slug.current);
+  await page.getByRole("button", { name: "Next photo", exact: true }).click();
+  await page.getByText("Second fixture caption", { exact: true }).waitFor();
+  await page.getByRole("button", { name: "Next photo", exact: true }).click();
+  await page.getByText("Local fixture caption", { exact: true }).waitFor();
+  await page.getByRole("button", { name: "Previous photo", exact: true }).click();
+  await page.getByText("Second fixture caption", { exact: true }).waitFor();
+  await page.getByText("Fixture outcome one", { exact: true }).waitFor();
+  await page.goto("http://127.0.0.1:3100/services/lc3-technology");
+  await page.getByText("Full description", { exact: true }).click();
+  assert.equal(await page.locator("details.service-overview").getAttribute("open"), "");
+  await page.goto("http://127.0.0.1:3100/publications");
+  const abstracts = page.locator(".publication-card details");
+  if (await abstracts.count()) {
+    await abstracts.first().locator("summary").click();
+    assert.equal(await abstracts.first().getAttribute("open"), "");
+  }
   await page.goto("http://127.0.0.1:3100/contact?service=lc3-technology");
   assert.equal(
     await page.getByLabel("Selected service", { exact: true }).inputValue(),
     "LC3 Technology",
   );
+  const gmailLinks = page.locator('a[href^="https://mail.google.com/mail/"]');
+  assert.ok(await gmailLinks.count() >= 3, "Centre and both contacts have Gmail compose links");
+  for (const link of await gmailLinks.all()) {
+    const url = new URL(await link.getAttribute("href"));
+    assert.ok(url.searchParams.get("to").includes("@"));
+    assert.equal(await link.getAttribute("target"), "_blank");
+  }
   const mockEmail = (success) => (route) =>
     route.fulfill({
       headers: {

@@ -1,3 +1,4 @@
+import CompactText from "@/app/components/CompactText";
 import Link from "next/link";
 import { client } from "@/sanityClient";
 import { getSiteContent } from "@/lib/content";
@@ -25,7 +26,7 @@ export default async function ServicesPage() {
           <h1 className="page-hero-title mt-6">
             {data.page?.servicesHeadline}
           </h1>
-          <p className="page-hero-intro">{data.page?.servicesIntroduction}</p>
+          <CompactText className="page-hero-intro" value={data.page?.servicesIntroduction} label={text.readMore} />
         </div>
       </section>
       <section className="section-shell marble-surface">

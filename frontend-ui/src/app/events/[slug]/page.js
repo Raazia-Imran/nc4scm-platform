@@ -1,10 +1,12 @@
+import CompactText from "@/app/components/CompactText";
+import EventGallery from "@/app/components/EventGallery";
 import { getSiteContent } from "@/lib/content";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 
-const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
+const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,venue,description,pastEventRecap,keyOutcomes,speakers,registrationUrl,coverImage,gallery}`;
 
 export async function generateMetadata({ params }) {
   const event = await client.fetch(QUERY, { slug: params.slug });
@@ -22,9 +24,7 @@ export default async function EventDetail({ params }) {
   const text = site.interfaceText || {};
   if (!event) notFound();
   const cover = urlFor(event.coverImage)
-    ?.width(1800)
-    .height(1000)
-    .fit("crop")
+    ?.width(1200)
     .auto("format")
     .url();
   const date = new Date(event.eventDateTime);
@@ -32,16 +32,16 @@ export default async function EventDetail({ params }) {
     new Date(event.endDateTime || event.eventDateTime).getTime() < Date.now();
   return (
     <>
-      <section className="bg-forest px-6 pb-20 pt-44 text-ivory sm:px-10">
-        <div className="mx-auto max-w-[1400px]">
+      <section className="page-hero text-ivory">
+        <div className="page-hero-inner">
           <Link href="/events" className="eyebrow text-mint">
             ← {text.allEvents}
           </Link>
-          <p className="eyebrow mt-10 text-mint">{event.eventType}</p>
-          <h1 className="mt-5 max-w-5xl font-display text-5xl leading-[.95] sm:text-7xl">
+          <p className="eyebrow mt-5 text-mint">{event.eventType}</p>
+          <h1 className="page-hero-title mt-4">
             {event.title}
           </h1>
-          <div className="mt-10 grid gap-4 border-t border-ivory/20 pt-6 sm:grid-cols-2">
+          <div className="mt-5 grid gap-3 border-t border-ivory/20 pt-4 text-sm sm:grid-cols-2">
             <p>
               {date.toLocaleDateString("en-US", {
                 dateStyle: "long",
@@ -59,20 +59,19 @@ export default async function EventDetail({ params }) {
         </div>
       </section>
       {cover && (
-        <div className="relative mx-auto aspect-[16/8] max-w-[1400px]">
+        <div className="event-detail-cover">
           <Image
             src={cover}
             alt={event.coverImage?.alt || event.title}
             fill
-            className="object-cover"
+            sizes="(max-width: 1200px) 100vw, 1200px"
+            className="object-contain bg-sage"
           />
         </div>
       )}
       <section className="section-shell bg-ivory">
-        <div className="grid gap-14 lg:grid-cols-[1fr_.4fr]">
-          <p className="max-w-3xl text-xl leading-9 text-carbon/70">
-            {event.description}
-          </p>
+        <div className="event-detail-copy">
+          <CompactText value={event.description} label={text.readMore} />
           <aside>
             {event.speakers?.length > 0 && (
               <>
@@ -84,7 +83,7 @@ export default async function EventDetail({ params }) {
                 </ul>
               </>
             )}
-            {event.registrationUrl && (
+            {!isPast && event.registrationUrl && (
               <a
                 href={event.registrationUrl}
                 target="_blank"
@@ -96,55 +95,26 @@ export default async function EventDetail({ params }) {
             )}
           </aside>
         </div>
-        {isPast && (event.pastEventRecap || event.gallery?.length > 0) && (
-          <div className="mt-20 border-t border-forest/15 pt-12 sm:mt-24 sm:pt-16">
-            <div className="grid gap-7 lg:grid-cols-[.45fr_1fr] lg:gap-16">
+        {isPast && (event.pastEventRecap || event.gallery?.length > 0 || event.keyOutcomes?.length > 0) && (
+          <div className="event-recap">
+            <div className="grid gap-5 lg:grid-cols-[.4fr_1fr] lg:gap-8">
               <div>
                 <p className="eyebrow text-clay">{text.eventHighlights}</p>
-                <h2 className="mt-4 font-sans text-[clamp(2rem,6vw,3.5rem)] font-medium leading-[.98] tracking-[-.045em] text-forest">
+                <h2 className="section-title mt-3">
                   {text.eventRecap}
                 </h2>
               </div>
               {event.pastEventRecap && (
-                <p className="max-w-3xl whitespace-pre-line text-base leading-8 text-carbon/70 sm:text-lg">
-                  {event.pastEventRecap}
-                </p>
+                <CompactText className="max-w-3xl text-base leading-7 text-carbon/70" value={event.pastEventRecap} label={text.readMore} />
               )}
             </div>
-            {event.gallery?.length > 0 && (
-              <div className="event-gallery mt-10 sm:mt-14">
-                {event.gallery.map((item, index) => {
-                  const galleryImage = urlFor(item)
-                    ?.width(1400)
-                    .height(index % 3 === 0 ? 1050 : 900)
-                    .fit("crop")
-                    .auto("format")
-                    .url();
-                  if (!galleryImage) return null;
-                  return (
-                    <figure
-                      className="event-gallery-item"
-                      key={item._key || index}
-                    >
-                      <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage sm:rounded-[1.75rem]">
-                        <Image
-                          src={galleryImage}
-                          alt={item.alt || event.title}
-                          fill
-                          sizes="(max-width: 639px) 92vw, (max-width: 1023px) 45vw, 31vw"
-                          className="object-cover transition duration-500 hover:scale-[1.025]"
-                        />
-                      </div>
-                      {item.caption && (
-                        <figcaption className="mt-3 text-sm leading-6 text-carbon/55">
-                          {item.caption}
-                        </figcaption>
-                      )}
-                    </figure>
-                  );
-                })}
-              </div>
+            {event.keyOutcomes?.length > 0 && (
+              <div className="mt-5"><h3 className="eyebrow text-clay">{text.eventOutcomes}</h3><ul className="event-outcomes">{event.keyOutcomes.filter((item) => typeof item === "string" && item.trim()).map((item, index) => <li key={index}>{item}</li>)}</ul></div>
             )}
+            <EventGallery images={(event.gallery || []).flatMap((item, index) => {
+              const src = urlFor(item)?.width(1400).auto("format").url();
+              return src ? [{src, alt: item.alt || event.title, caption: item.caption || "", key: item._key || String(index)}] : [];
+            })} text={text} />
           </div>
         )}
       </section>

@@ -1,4 +1,5 @@
 "use client";
+import CompactText from "@/app/components/CompactText";
 
 // src/app/publications/PublicationsVault.js
 // -----------------------------------------------------------------------------
@@ -159,7 +160,7 @@ export default function PublicationsVault({ publications }) {
           filteredPublications.map((pub) => (
             <article
               key={pub._id}
-              className="premium-card grid min-w-0 gap-6 overflow-hidden p-5 sm:p-7 md:grid-cols-[minmax(0,1fr)_auto] md:items-start md:gap-8"
+              className="premium-card publication-card min-w-0 p-5"
             >
               <div>
                 <p className="text-xs uppercase tracking-widest text-accent">
@@ -197,9 +198,7 @@ export default function PublicationsVault({ publications }) {
                   </p>
                 )}
                 {pub.abstract && (
-                  <p className="mt-3 max-w-2xl text-sm leading-relaxed text-ink/80">
-                    {pub.abstract}
-                  </p>
+                  <CompactText className="mt-3 text-sm leading-relaxed text-ink/80" value={pub.abstract} label={text.readAbstract} />
                 )}
                 {pub.keywords?.length > 0 && (
                   <div className="mt-4 flex flex-wrap gap-2">
@@ -234,7 +233,7 @@ export default function PublicationsVault({ publications }) {
                   download={pub.pdfFilename || true}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="inline-block whitespace-nowrap self-start border border-ink px-5 py-2 text-xs uppercase tracking-widest transition-colors hover:bg-ink hover:text-paper"
+                  className="mt-5 inline-block whitespace-nowrap self-start border border-ink px-5 py-2 text-xs uppercase tracking-widest transition-colors hover:bg-ink hover:text-paper"
                 >
                   {text.downloadPdf}
                 </a>

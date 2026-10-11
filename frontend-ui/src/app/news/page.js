@@ -1,3 +1,4 @@
+import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
 import { client } from "@/sanityClient";
 import NewsGrid from "./NewsGrid";
@@ -25,7 +26,7 @@ export default async function NewsPage() {
           <h1 className="page-hero-title mt-7">
             {data.settings?.newsHeadline}
           </h1>
-          <p className="page-hero-intro">{data.settings?.newsIntroduction}</p>
+          <CompactText className="page-hero-intro" value={data.settings?.newsIntroduction} label={text.readMore} />
         </div>
       </section>
       <section className="section-shell bg-ivory">

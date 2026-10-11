@@ -48,9 +48,10 @@ export default async function ServiceDetail({ params }) {
             image ? "service-description has-image" : "service-description"
           }
         >
-          <div className="service-body">
-            <RichTextRenderer value={service.body} />
-          </div>
+          <details className="service-body compact-disclosure service-overview">
+            <summary>{text.fullDescription}</summary>
+            <div className="mt-4"><RichTextRenderer value={service.body} /></div>
+          </details>
           {image && (
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
               <Image
@@ -64,8 +65,8 @@ export default async function ServiceDetail({ params }) {
           )}
         </div>
         <div className="service-detail-columns">
-          <List title={text.methods} items={service.methods} />
-          <List title={text.deliverables} items={service.deliverables} />
+          <List title={text.methods} items={service.methods} moreLabel={text.readMore} />
+          <List title={text.deliverables} items={service.deliverables} moreLabel={text.readMore} />
         </div>
       </section>
       <section className="service-contact section-shell">
@@ -81,13 +82,13 @@ export default async function ServiceDetail({ params }) {
     </>
   );
 }
-function List({ title, items }) {
+function List({ title, items, moreLabel }) {
   if (!Array.isArray(items) || !items.length) return null;
   return (
     <div className="service-detail-list">
       <h2 className="eyebrow text-clay">{title}</h2>
       <ul className="mt-6 divide-y divide-forest/15">
-        {items.map((item, index) => (
+        {items.slice(0, 4).map((item, index) => (
           <li key={index}>
             <span className="service-list-index" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}
@@ -96,6 +97,12 @@ function List({ title, items }) {
           </li>
         ))}
       </ul>
+      {items.length > 4 && (
+        <details className="compact-disclosure">
+          <summary>{moreLabel} ({items.length - 4})</summary>
+          <ul>{items.slice(4).map((item, index) => <li key={index}><span className="service-list-index" aria-hidden="true">{String(index + 5).padStart(2, "0")}</span><span>{item}</span></li>)}</ul>
+        </details>
+      )}
     </div>
   );
 }

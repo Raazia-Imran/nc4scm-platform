@@ -55,7 +55,7 @@ export default async function HomePage() {
   const stats = page.statistics || [];
   return (
     <>
-      <section className="relative min-h-[min(850px,100svh)] overflow-hidden bg-forest pt-36 text-ivory lg:min-h-screen">
+      <section className="home-hero relative overflow-hidden bg-forest text-ivory">
         {hero && (
           <Image
             src={hero}
@@ -68,9 +68,9 @@ export default async function HomePage() {
         )}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,51,38,.97)_0%,rgba(12,51,38,.76)_52%,rgba(12,51,38,.25)_100%)]" />
         <div className="material-grid absolute inset-0 opacity-30" />
-        <div className="relative mx-auto flex min-h-[min(710px,85svh)] max-w-[1400px] flex-col justify-end px-6 pb-20 sm:px-10 lg:pb-24">
+        <div className="page-hero-inner relative flex flex-col justify-end">
           <p className="eyebrow text-mint">{page.eyebrow}</p>
-          <h1 className="mt-6 max-w-5xl font-sans text-[clamp(2.5rem,7vw,7rem)] font-medium leading-[.88] tracking-[-.065em]">
+          <h1 className="page-hero-title mt-5">
             {page.headline}
           </h1>
           <div className="mt-10 grid gap-8 border-t border-ivory/25 pt-7 lg:grid-cols-[1fr_.75fr] lg:items-end">
@@ -107,10 +107,10 @@ export default async function HomePage() {
             </Link>
           </div>
         </div>
-        <div className="mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
             <div key={s.label} className="premium-card stat-card p-7">
-              <p className="font-display text-5xl text-forest">{s.value}</p>
+              <p className="section-title">{s.value}</p>
               <p className="mt-3 max-w-[13rem] text-sm leading-6 text-carbon/60">
                 {s.label}
               </p>
@@ -150,7 +150,7 @@ export default async function HomePage() {
           </div>
           <div>
             <p className="eyebrow text-ivory/70">{page.flagshipLabel}</p>
-            <h2 className="mt-6 font-display text-5xl leading-[.98] sm:text-6xl">
+            <h2 className="section-title mt-5 !text-ivory">
               {page.flagshipTitle}
             </h2>
             <p className="mt-7 max-w-xl text-base leading-8 text-ivory/75">
@@ -168,7 +168,7 @@ export default async function HomePage() {
         <div className="grid gap-14 lg:grid-cols-[1.2fr_.8fr]">
           <div>
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-forest/15 pb-6">
-              <h2 className="font-display text-5xl text-forest">
+              <h2 className="section-title">
                 {text.newsInsight}
               </h2>
               <Link className="text-link" href="/news">
@@ -256,11 +256,11 @@ export default async function HomePage() {
         </div>
       </section>
       <TestimonialShowcase testimonials={data.testimonials || []} text={text} />
-      <section className="marble-surface px-6 py-24 sm:px-10 lg:py-32">
-        <div className="mx-auto max-w-[1400px]">
+      <section className="section-shell marble-surface">
+        <div className="mx-auto max-w-[1200px]">
           <p className="eyebrow text-clay">{text.workWith}</p>
           <div className="mt-5 grid gap-10 lg:grid-cols-[1.3fr_.7fr] lg:items-end">
-            <h2 className="font-display text-5xl leading-[.96] text-forest sm:text-7xl">
+            <h2 className="section-title">
               {page.closingHeading}
             </h2>
             <div>

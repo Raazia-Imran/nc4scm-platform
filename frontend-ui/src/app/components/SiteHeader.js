@@ -35,10 +35,10 @@ export default function SiteHeader({ settings }) {
   }, []);
 
   return (
-    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
+    <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-3">
       <nav
         aria-label="Primary navigation"
-        className="mx-auto flex max-w-[1400px] items-center justify-between rounded-full border border-forest/10 bg-ivory/90 px-4 py-3 shadow-float backdrop-blur-xl sm:px-6"
+        className="mx-auto flex max-w-[1200px] items-center justify-between rounded-full border border-forest/10 bg-ivory/90 px-4 py-3 shadow-float backdrop-blur-xl sm:px-6"
       >
         <Link
           href="/"
@@ -68,7 +68,7 @@ export default function SiteHeader({ settings }) {
                 href={item.href}
                 target={item.openInNewTab ? "_blank" : undefined}
                 aria-current={pathname === item.href ? "page" : undefined}
-                className={`rounded-full px-4 py-2 text-sm font-medium transition ${pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/")) ? "bg-forest text-ivory shadow-[0_8px_24px_rgba(18,61,47,.18)]" : "text-forest/75 hover:bg-sage hover:text-forest"}`}
+                className={`rounded-full px-3 py-2 text-sm font-medium transition ${pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href + "/")) ? "bg-forest text-ivory shadow-[0_8px_24px_rgba(18,61,47,.18)]" : "text-forest/75 hover:bg-sage hover:text-forest"}`}
               >
                 {item.label}
               </Link>
@@ -105,7 +105,7 @@ export default function SiteHeader({ settings }) {
       {open && (
         <div
           id="mobile-navigation"
-          className="mx-auto mt-2 max-h-[calc(100dvh-7rem)] max-w-[1400px] overflow-y-auto rounded-[2rem] border border-forest/10 bg-ivory p-5 shadow-float xl:hidden"
+          className="mx-auto mt-2 max-h-[calc(100dvh-7rem)] max-w-[1200px] overflow-y-auto rounded-[2rem] border border-forest/10 bg-ivory p-5 shadow-float xl:hidden"
         >
           <ul className="divide-y divide-forest/10">
             {links.map((item, index) => (

@@ -1,3 +1,4 @@
+import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
 // src/app/publications/page.js
 // -----------------------------------------------------------------------------
@@ -60,7 +61,7 @@ export default async function PublicationsPage() {
         <div className="page-hero-inner">
           <p className="eyebrow text-mint">{text.researchLibrary}</p>
           <h1 className="page-hero-title mt-7">{settings?.researchHeadline}</h1>
-          <p className="page-hero-intro">{settings?.researchIntroduction}</p>
+          <CompactText className="page-hero-intro" value={settings?.researchIntroduction} label={text.readMore} />
         </div>
       </section>
       <section className="section-shell bg-ivory">

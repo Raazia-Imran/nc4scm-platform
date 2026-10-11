@@ -1,3 +1,4 @@
+import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
 import { client } from "@/sanityClient";
 import EventsExplorer from "./EventsExplorer";
@@ -28,7 +29,7 @@ export default async function EventsPage() {
           <h1 className="page-hero-title mt-7">
             {data.settings?.eventsHeadline}
           </h1>
-          <p className="page-hero-intro">{data.settings?.eventsIntroduction}</p>
+          <CompactText className="page-hero-intro" value={data.settings?.eventsIntroduction} label={text.readMore} />
         </div>
       </section>
       <section className="section-shell marble-surface">

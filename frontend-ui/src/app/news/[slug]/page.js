@@ -81,7 +81,7 @@ export default async function NewsArticlePage({ params }) {
       </h1>
 
       {coverImageUrl && (
-        <div className="relative mt-10 h-64 w-full overflow-hidden bg-stone/10 md:h-[28rem]">
+        <div className="relative mt-10 h-56 w-full overflow-hidden rounded-xl bg-stone/10 md:h-[20rem]">
           <Image
             src={coverImageUrl}
             alt={article.coverImage?.alt || article.headline}

@@ -125,5 +125,13 @@
   "notFound": "Page not found",
   "notFoundHeading": "This path ends here.",
   "notFoundBody": "The page may have moved, or the content may not yet be published.",
-  "returnHome": "Return home"
+  "returnHome": "Return home",
+  "readMore": "Read more",
+  "readAbstract": "Read abstract",
+  "fullDescription": "Full description",
+  "composeGmail": "Open Gmail",
+  "previousImage": "Previous photo",
+  "nextImage": "Next photo",
+  "viewImage": "View photo",
+  "eventOutcomes": "Key outcomes"
 }

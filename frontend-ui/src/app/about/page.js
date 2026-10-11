@@ -1,3 +1,4 @@
+import EmailLinks from "@/app/components/EmailLinks";
 import { getSiteContent } from "@/lib/content";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
@@ -37,15 +38,15 @@ export default async function AboutPage() {
     .url();
   return (
     <>
-      <section className="about-hero px-6 pb-20 pt-44 sm:px-10 lg:pb-28">
-        <div className="relative z-10 mx-auto grid max-w-[1400px] gap-12 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
+      <section className="about-hero compact-hero">
+        <div className="page-hero-inner relative z-10 grid gap-6 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
           <div>
             <p className="eyebrow text-teal">{p.eyebrow}</p>
-            <h1 className="mt-7 max-w-5xl font-sans text-6xl font-medium leading-[.92] tracking-[-.06em] text-carbon sm:text-8xl">
+            <h1 className="page-hero-title mt-5 text-carbon">
               {p.headline}
             </h1>
           </div>
-          <p className="max-w-xl border-l border-carbon/15 pl-7 text-lg leading-8 text-carbon/65">
+          <p className="max-w-xl border-l border-carbon/15 pl-5 text-base leading-7 text-carbon/65">
             {p.introduction}
           </p>
         </div>
@@ -53,7 +54,7 @@ export default async function AboutPage() {
       <section className="section-shell bg-paper">
         <div className="grid gap-8 lg:grid-cols-[.8fr_1.2fr]">
           {hero && (
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-forest/10 shadow-float">
+            <div className="about-image relative overflow-hidden rounded-[1.25rem] border border-forest/10 shadow-float">
               <Image
                 src={hero}
                 alt={p.heroImage?.alt || ""}
@@ -86,7 +87,7 @@ export default async function AboutPage() {
         <div className="relative z-10 grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
           <div>
             <p className="eyebrow text-clay">{text.journey}</p>
-            <h2 className="mt-5 font-sans text-5xl font-medium leading-[.92] tracking-[-.055em] text-carbon sm:text-7xl">
+            <h2 className="section-title mt-4 text-carbon">
               {p.foundingHeading || text.journeyHeading}
             </h2>
           </div>
@@ -94,7 +95,7 @@ export default async function AboutPage() {
             <RichTextRenderer value={p.foundingStory} />
           </div>
         </div>
-        <div className="journey-editorial-list relative z-10 mt-20">
+        <div className="journey-editorial-list relative z-10 mt-8">
           {(p.journey || []).map((item, index) => (
             <Reveal
               key={item.year}
@@ -119,8 +120,8 @@ export default async function AboutPage() {
       </section>
       <section className="section-shell bg-ivory">
         <p className="eyebrow text-clay">{text.people}</p>
-        <div className="mt-5 grid gap-8 border-b border-forest/15 pb-10 lg:grid-cols-2">
-          <h2 className="font-sans text-4xl font-medium leading-[1.02] tracking-[-.045em] text-forest sm:text-6xl">
+        <div className="mt-4 grid gap-6 border-b border-forest/15 pb-6 lg:grid-cols-2">
+          <h2 className="section-title">
             {p.teamHeading}
           </h2>
           <p className="self-end text-base leading-7 text-carbon/65">
@@ -131,11 +132,11 @@ export default async function AboutPage() {
           const members = (data.team || []).filter((m) => m.group === key);
           if (!members.length) return null;
           return (
-            <div key={key} className="mt-16">
+            <div key={key} className="mt-8">
               <h3 className="eyebrow text-clay">{label}</h3>
               <div className="team-editorial-grid mt-6">
                 {members.map((m) => (
-                  <article key={m._id} className="premium-card group p-3">
+                  <article key={m._id} className="premium-card team-card group p-3">
                     {urlFor(m.avatar) ? (
                       <a
                         href={m.linkedinUrl || undefined}
@@ -146,7 +147,7 @@ export default async function AboutPage() {
                             ? `View ${m.fullName} on LinkedIn`
                             : undefined
                         }
-                        className="relative block aspect-[4/5] overflow-hidden rounded-2xl bg-sage"
+                        className="team-portrait relative block overflow-hidden rounded-xl bg-sage"
                       >
                         {urlFor(m.avatar) && (
                           <Image
@@ -157,6 +158,7 @@ export default async function AboutPage() {
                               .url()}
                             alt={m.avatar.alt || m.fullName}
                             fill
+                            sizes="(max-width: 639px) 88vw, 280px"
                             className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
                           />
                         )}
@@ -188,7 +190,7 @@ export default async function AboutPage() {
                     )}
                     <div className="mt-3 flex gap-4 px-2 pb-3 text-xs font-semibold text-teal">
                       {m.email && (
-                        <a href={`mailto:${m.email}`}>{text.emailLabel}</a>
+                        <EmailLinks email={m.email} text={text} />
                       )}
                       {m.linkedinUrl && (
                         <a
@@ -207,8 +209,8 @@ export default async function AboutPage() {
           );
         })}
       </section>
-      <section className="overflow-hidden bg-[#0b282d] py-24 text-ivory lg:py-32">
-        <div className="px-6 sm:px-10 lg:px-[max(2.5rem,calc((100vw-1400px)/2))]">
+      <section className="section-shell overflow-hidden bg-[#0b282d] text-ivory">
+        <div className="">
           <p className="eyebrow text-mint/65">{text.partners}</p>
           <div className="mt-5 grid gap-8 lg:grid-cols-2">
             <h2 className="section-title !text-ivory">{p.partnersHeading}</h2>
@@ -231,7 +233,7 @@ function Story({ label, title, body }) {
       <div>
         <p className="eyebrow text-teal">{label}</p>
       </div>
-      <h2 className="mt-8 font-sans text-2xl font-medium leading-[1.2] tracking-[-.03em] text-forest sm:text-3xl">
+      <h2 className="mt-4 font-sans text-lg font-medium leading-relaxed tracking-tight text-forest">
         {title}
       </h2>
       {body?.length ? (
