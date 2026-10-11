@@ -209,7 +209,7 @@ body {
 .page-hero-title {
   max-width: 58rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(2rem, 3.8vw, 3.25rem);
+  font-size: clamp(2rem, 3.2vw, 3rem);
   font-weight: 500;
   letter-spacing: -0.04em;
   line-height: 1.12;
@@ -1502,3 +1502,22 @@ body {
  .journey-editorial-row + .journey-editorial-row { margin-top: 1rem; }
  .journey-editorial-card::before, .is-left .journey-editorial-card::before, .is-right .journey-editorial-card::before { display: block; left: -1.5rem; right: auto; width: 1.5rem; }
 }
+
+/* High-contrast information panels use the approved green/ivory palette. */
+.page-hero .sentence-grid > p { background: #dcecdf; color: #123d2f; border: 1px solid #b8d0bd; border-radius: .75rem; padding: .85rem 1rem; }
+.sentence-grid > p { background: #e8f0e7; color: #123d2f; border-color: #b8d0bd; }
+.home-highlight { background: #e8f0e7; border-color: #bdd0c0; }
+.team-card .email-actions { margin: 0; font-size: inherit; }
+.team-card .email-actions a, .team-card > div:last-child > a { padding-block: .4rem; line-height: 1.5; }
+.detail-return-bar { position: sticky; top: 6rem; z-index: 30; background: #f7f5eff5; border-bottom: 1px solid #123d2f26; padding: .65rem max(1rem, calc((100% - 1200px) / 2)); backdrop-filter: blur(12px); }
+.detail-return { position: static; display: inline-flex; align-items: center; min-height: 2rem; color: #123d2f; font-weight: 600; background: transparent; box-shadow: none; padding: .25rem 0; }
+.service-contact { gap: 1.25rem; }
+.service-contact .section-title { flex: 1 1 18rem; min-width: 0; overflow-wrap: anywhere; }
+.service-contact > .button { flex-shrink: 0; }
+.institution-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; padding: 1rem; background: #dcecdf; border-radius: 1.25rem; }
+.institution-logo { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; background: white; border-radius: .75rem; text-align: center; color: #123d2f; }
+.institution-logo:first-child { grid-column: 1 / -1; }
+.institution-logo img { width: 100%; height: 6rem; object-fit: contain; }
+.institution-logo p { margin-top: .65rem; font-size: .75rem; line-height: 1.5; }
+
+@media (min-width: 768px) { .page-hero-inner { padding-block: 7rem 2rem; } }
