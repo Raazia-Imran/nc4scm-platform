@@ -128,6 +128,7 @@ export default async function AboutPage() {
             {p.teamIntroduction}
           </p>
         </div>
+        <div className="team-groups">
         {Object.entries(groupLabels).map(([key, label]) => {
           const members = (data.team || []).filter((m) => m.group === key);
           if (!members.length) return null;
@@ -188,7 +189,7 @@ export default async function AboutPage() {
                         </div>
                       </details>
                     )}
-                    <div className="mt-3 flex gap-4 px-2 pb-3 text-xs font-semibold text-teal">
+                    <div className="mt-3 flex flex-wrap items-center gap-4 px-2 pb-3 text-xs font-semibold text-teal">
                       {m.email && (
                         <EmailLinks email={m.email} text={text} />
                       )}
@@ -208,9 +209,10 @@ export default async function AboutPage() {
             </div>
           );
         })}
+        </div>
       </section>
       <section className="section-shell overflow-hidden bg-[#0b282d] text-ivory">
-        <div className="">
+        <div>
           <p className="eyebrow text-mint/65">{text.partners}</p>
           <div className="mt-5 grid gap-8 lg:grid-cols-2">
             <h2 className="section-title !text-ivory">{p.partnersHeading}</h2>

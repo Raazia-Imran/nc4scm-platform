@@ -136,7 +136,7 @@ export default async function HomePage() {
       </section>
       <section className="section-shell bg-[#0b282d] text-ivory">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] bg-carbon/15">
+          <div className="home-feature-image relative overflow-hidden rounded-[1.25rem] bg-carbon/15">
             {flagship ? (
               <Image
                 src={flagship}
