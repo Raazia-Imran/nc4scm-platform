@@ -169,7 +169,10 @@ try {
   assert.ok(await page.locator(".service-overview").innerText());
   await page.locator(".service-contact").scrollIntoViewIfNeeded();
   assert.ok(await page.locator(".detail-return").isVisible());
-  await page.locator(".detail-return").click();
+  await Promise.all([
+    page.waitForURL("http://127.0.0.1:3100/services"),
+    page.locator(".detail-return").click(),
+  ]);
   assert.ok(page.url().endsWith("/services"));
   await page.goto("http://127.0.0.1:3100/publications");
   assert.equal(await page.locator(".compact-text details").count(), 0);
