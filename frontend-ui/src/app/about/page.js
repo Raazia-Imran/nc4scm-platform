@@ -4,7 +4,6 @@ import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
-import Reveal from "@/app/components/Reveal";
 
 const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
@@ -97,10 +96,9 @@ export default async function AboutPage() {
         </div>
         <div className="journey-editorial-list relative z-10 mt-8">
           {(p.journey || []).map((item, index) => (
-            <Reveal
+            <div
               key={item.year}
               className={`journey-editorial-row ${index % 2 ? "is-right" : "is-left"}`}
-              delay={(index % 3) * 90}
             >
               <article className="journey-editorial-card group">
                 <span className="journey-index" aria-hidden="true">
@@ -114,7 +112,7 @@ export default async function AboutPage() {
                   {item.description}
                 </p>
               </article>
-            </Reveal>
+            </div>
           ))}
         </div>
       </section>

@@ -1477,3 +1477,5 @@ body {
 .team-groups { display: grid; gap: 1.5rem; }
 .home-feature-image { height: clamp(14rem, 25vw, 18rem); }
 @media (min-width: 700px) { .team-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+@media (min-width: 760px) { .service-editorial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -67,7 +67,7 @@ export async function fixtureDocuments() {
     },
   ];
   past.keyOutcomes = ["Fixture outcome one", "Fixture outcome two"];
-  past.gallery.push({ ...image("event-two", "Second event photograph"), _key: "gallery-two", caption: "Second fixture caption" });
+  past.gallery.push({ ...image("eventtwo", "Second event photograph"), _key: "gallery-two", caption: "Second fixture caption" });
   return docs.map((doc) => ({
     ...doc,
     _rev: "fixture-revision-1",
