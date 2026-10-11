@@ -10,6 +10,7 @@ export default {
     "readAbstract",
     "fullDescription",
     "composeGmail",
+    "emailApp",
     "previousImage",
     "nextImage",
     "viewImage",
