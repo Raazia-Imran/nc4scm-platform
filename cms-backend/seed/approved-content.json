@@ -1,0 +1,419 @@
+{
+  "version": "client-word-2026-10-11",
+  "source": {
+    "file": "NC4SCM_Complete_Content_Master_Filled.docx",
+    "sha256": "6fe44423b58b75daa4b0db1aebc77bdd68d824c88fd81d343d172c07543a116a"
+  },
+  "documents": [
+    {
+      "type": "siteSettings",
+      "id": "siteSettings",
+      "set": {
+        "organizationName": "National Center for Sustainable Construction Materials (NC4SCM)",
+        "shortName": "NC4SCM",
+        "missionLine": "Advancing sustainable construction materials through research, material testing, technology development and industry collaboration.",
+        "address": "NED University of Engineering & Technology, University Road, Karachi, Pakistan",
+        "email": "nc4scm@cloud.neduet.edu.pk",
+        "contactPeople": [
+          {
+            "_key": "contact-0",
+            "name": "Dr Tariq Jamil",
+            "email": "tariqjamil@neduet.edu.pk",
+            "phone": "+92 332 8225815"
+          },
+          {
+            "_key": "contact-1",
+            "name": "Engr Muhammad Danyal Sheikh",
+            "email": "danyalsheikh@neduet.edu.pk",
+            "phone": "+92 331 2554771"
+          }
+        ],
+        "linkedinUrl": "https://www.linkedin.com/company/national-center-for-sustainable-construction-materials/?lipi=urn%3Ali%3Apage%3Ad_flagship3_detail_base%3Bm7esufzMQfmVooh5N9ha6g%3D%3D",
+        "latitude": 24.933469,
+        "longitude": 67.111924,
+        "copyrightText": "© 2026 NC4SCM, NED University of Engineering & Technology"
+      },
+      "defaults": {
+        "navigation": [
+          {
+            "_key": "nav-0",
+            "_type": "link",
+            "label": "About",
+            "href": "/about"
+          },
+          {
+            "_key": "nav-1",
+            "_type": "link",
+            "label": "Services",
+            "href": "/services"
+          },
+          {
+            "_key": "nav-2",
+            "_type": "link",
+            "label": "Research",
+            "href": "/publications"
+          },
+          {
+            "_key": "nav-3",
+            "_type": "link",
+            "label": "Events",
+            "href": "/events"
+          },
+          {
+            "_key": "nav-4",
+            "_type": "link",
+            "label": "News",
+            "href": "/news"
+          },
+          {
+            "_key": "nav-5",
+            "_type": "link",
+            "label": "Contact",
+            "href": "/contact"
+          }
+        ],
+        "interfaceText": {
+          "skipContent": "Skip to content",
+          "openMenu": "Open menu",
+          "closeMenu": "Close menu",
+          "home": "Home",
+          "explore": "Explore",
+          "services": "Services",
+          "connect": "Connect",
+          "linkedin": "LinkedIn",
+          "footerTagline": "Research · Industry · Impact",
+          "capabilities": "Capabilities",
+          "discoverCentre": "Discover the center",
+          "newsInsight": "News & insight",
+          "allNews": "All news",
+          "calendar": "On the calendar",
+          "upcomingEvents": "Upcoming events",
+          "emptyNews": "Published updates will appear here.",
+          "emptyEvents": "New events will be announced here.",
+          "workWith": "Work with NC4SCM",
+          "mission": "Our mission",
+          "vision": "Our vision",
+          "journey": "How we began",
+          "journeyHeading": "Our journey, built year by year.",
+          "people": "People",
+          "partners": "Organized & supported by",
+          "principalInvestigator": "Principal Investigator",
+          "coPrincipalInvestigators": "Co-Principal Investigators",
+          "projectManagement": "Project Management",
+          "researchStaff": "Research Staff",
+          "emailLabel": "Email",
+          "technicalServices": "Technical services",
+          "exploreService": "Explore service",
+          "allServices": "All services",
+          "methods": "Methods & capabilities",
+          "deliverables": "Typical deliverables",
+          "requestConsultation": "Request consultation",
+          "serviceContactHeading": "Discuss your technical requirements.",
+          "serviceLabel": "Service",
+          "knowledgeExchange": "Knowledge exchange",
+          "researchLibrary": "Research library",
+          "contact": "Contact",
+          "contactDetails": "Contact details",
+          "visit": "Visit",
+          "centreEmail": "Centre email",
+          "call": "Call",
+          "follow": "Follow",
+          "sendEnquiry": "Send an enquiry",
+          "enquiryHeading": "Tell us what you are working on.",
+          "loadingForm": "Loading form…",
+          "findUs": "Find us",
+          "mapHeading": "NED University of Engineering & Technology",
+          "coordinates": "Coordinates",
+          "openMap": "Open full map",
+          "location": "NC4SCM location",
+          "nameLabel": "Name",
+          "organizationLabel": "Organization",
+          "enquiryType": "Enquiry type",
+          "consultancy": "Consultancy",
+          "collaboration": "Collaboration",
+          "media": "Media",
+          "general": "General",
+          "selectedService": "Selected service",
+          "message": "Message",
+          "sending": "Sending…",
+          "sendAnother": "Send another message",
+          "formError": "Your message could not be sent. Please email the centre directly.",
+          "emailDirect": "Email NC4SCM directly",
+          "upcoming": "Upcoming",
+          "past": "Past",
+          "allEventTypes": "All event types",
+          "conference": "Conference",
+          "conferences": "Conferences",
+          "seminar": "Seminar",
+          "seminars": "Seminars",
+          "workshop": "Workshop",
+          "workshops": "Workshops",
+          "filterEvents": "Filter events by type",
+          "noEvents": "No events match these filters.",
+          "allEvents": "All events",
+          "speakers": "Speakers",
+          "register": "Register or learn more",
+          "eventHighlights": "Event highlights",
+          "eventRecap": "A look back at the event.",
+          "filterYear": "Filter by year",
+          "filterTopic": "Filter by research topic",
+          "sortPublications": "Sort publications",
+          "searchPublications": "Search publications",
+          "searchPlaceholder": "Search by title, author, or venue…",
+          "allYears": "All years",
+          "allResearch": "All research topics",
+          "newestResearch": "Newest research",
+          "recentlyAdded": "Recently added",
+          "oldestResearch": "Oldest research",
+          "lc3Technology": "LC3 Technology",
+          "materialCharacterisation": "Material Characterisation",
+          "newMaterialDevelopment": "New Material Development",
+          "technologicalSupport": "Technological Support",
+          "generalResearch": "General Research",
+          "journalArticle": "Journal article",
+          "conferencePaper": "Conference paper",
+          "bookChapter": "Book chapter",
+          "technicalReport": "Technical report",
+          "viewDoi": "View DOI",
+          "downloadPdf": "Download PDF",
+          "noPublications": "No publications match your search.",
+          "filterNews": "Filter news",
+          "filterCategory": "Filter by category",
+          "closeNewsFilters": "Close news filters",
+          "recognition": "Recognition",
+          "industryEngagement": "Industry Engagement",
+          "globalEngagement": "Global Engagement",
+          "milestone": "Milestone",
+          "research": "Research",
+          "policyEngagement": "Policy Engagement",
+          "publicEngagement": "Public Engagement",
+          "viewOriginal": "View original update",
+          "readStory": "Read story",
+          "loadMore": "Load more",
+          "noNews": "No news matches these filters.",
+          "resetFilters": "Reset filters",
+          "results": "Results",
+          "perspectives": "Perspectives",
+          "testimonialsHeading": "What collaborators say.",
+          "notFound": "Page not found",
+          "notFoundHeading": "This path ends here.",
+          "notFoundBody": "The page may have moved, or the content may not yet be published.",
+          "returnHome": "Return home"
+        }
+      }
+    },
+    {
+      "type": "pageSettings",
+      "id": "pageSettings",
+      "set": {
+        "servicesHeadline": "Technical Services for Sustainable Construction Materials",
+        "servicesIntroduction": "We support cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Our work connects laboratory findings with practical material and process decisions.",
+        "researchHeadline": "Research on Sustainable Construction Materials",
+        "researchIntroduction": "Our research examines local clays, supplementary cementitious materials and low-carbon cement and concrete. We study chemical and mineralogical properties of clays and SCMs include fly ash, slag, glass powder, and etc., hydration, strength, durability and also study thermo-mechanochemical activation to understand how material composition and processing affect performance.",
+        "eventsHeadline": "Events and Technical Training",
+        "eventsIntroduction": "Explore our seminars, workshops, conferences and laboratory visits on LC3, cement chemistry and sustainable construction materials. These activities bring academics, researchers, stakeholders, government bodies and industry professionals together to share research and practical experience.",
+        "newsHeadline": "News and Centre Updates",
+        "newsIntroduction": "Follow our research progress, industry collaborations, laboratory developments, publications and outreach activities.",
+        "contactHeadline": "Contact NC4SCM",
+        "contactIntroduction": "Contact us for material testing, technical consultancy, research collaboration, training or institutional partnerships. Share your material type, technical question and project requirements so we can discuss a suitable scope of work.",
+        "contactSuccessMessage": "Thank you for your enquiry. Your message has been received by NC4SCM."
+      }
+    },
+    {
+      "type": "service",
+      "id": "service-lc3-technology",
+      "slug": "lc3-technology",
+      "set": {
+        "title": "LC3 Technology",
+        "slug": {
+          "_type": "slug",
+          "current": "lc3-technology"
+        },
+        "summary": "Assessment of local raw materials, LC3 formulation and testing, with support for pilot and plant trials.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "description",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "text": "Limestone Calcined Clay Cement (LC3) combines clinker, calcined clay, limestone and gypsum to reduce clinker use. We assess local clay suitability, optimise calcination and binder composition, and evaluate mortar and concrete performance. Our team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement. We support laboratory development, staff training and the preparation and evaluation of pilot or plant trials, according to the agreed project scope.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "methods": [
+          "Clay surveys, sampling and raw-material screening.",
+          "Chemical, mineralogical and thermal characterisation using XRF, XRD and DTG–TGA.",
+          "Calcination trials, grinding and particle-size assessment.",
+          "Reactivity assessment using R3, and methylene blue value testing, interpreted alongside mineralogy and performance data.",
+          "Binder formulation, gypsum adjustment and mortar/concrete mix design optimization.",
+          "Hydration, strength and durability evaluation.",
+          "Technical assessment and monitoring of pilot or plant trials."
+        ],
+        "deliverables": [
+          "Raw-material suitability and characterisation report.",
+          "Recommended calcination conditions and LC3 trial formulations.",
+          "Reactivity, hydration, strength and selected durability results.",
+          "Feasibility assessment and pilot/plant-trial plan where included in the scope.",
+          "Technical recommendations and staff training materials."
+        ],
+        "displayOrder": 1
+      }
+    },
+    {
+      "type": "service",
+      "id": "service-material-characterization",
+      "slug": "material-characterization",
+      "set": {
+        "title": "Material Characterisation",
+        "slug": {
+          "_type": "slug",
+          "current": "material-characterization"
+        },
+        "summary": "Chemical, mineralogical, thermal and physical assessment of clays and supplementary cementitious materials.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "description",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "text": "We characterise clays, limestone, fly ash, cement and other candidate construction materials to assess their suitability for cementitious applications. Chemical composition, mineral phases, thermal behaviour and particle size are considered together with reactivity, hydration and performance results. This helps identify suitable materials, compare sources and select processing conditions. The test programme is tailored to the material and the client’s technical question, with specialist analyses coordinated through collaborating laboratories when required.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "methods": [
+          "X-ray fluorescence (XRF) for chemical composition.",
+          "X-ray diffraction (XRD) for mineral phase identification.",
+          "DTG–TGA and loss on ignition for thermal changes and mass loss.",
+          "FTIR and SEM–EDS for complementary structural and microstructural assessment.",
+          "Particle-size distribution and fineness assessment.",
+          "Isothermal calorimetry for hydration behaviour and R3 reactivity.",
+          "Methylene blue value testing for supplementary screening.",
+          "Interpretation of results alongside mortar/concrete performance."
+        ],
+        "deliverables": [
+          "Characterisation report with test conditions, results and interpretation.",
+          "Chemical composition, mineralogical and thermal findings.",
+          "Particle-size, hydration and reactivity results for the agreed tests.",
+          "Comparison of candidate materials and suitability recommendations.",
+          "Recommendations for processing or further performance testing."
+        ],
+        "displayOrder": 2
+      }
+    },
+    {
+      "type": "service",
+      "id": "service-new-material-development",
+      "slug": "new-material-development",
+      "set": {
+        "title": "New Material Development",
+        "slug": {
+          "_type": "slug",
+          "current": "new-material-development"
+        },
+        "summary": "Development and testing of low-carbon binders, blended cements and concrete using local and alternative materials.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "description",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "text": "We develop and evaluate cementitious materials through laboratory trials and performance testing. Our work includes LC3, activation of heterogeneous clays, fly ash, and other supplementary cementitious materials, recycled aggregate concrete and self-healing concrete. We examine how composition, processing and mix proportions affect hydration, strength and durability. Development begins with material assessment and proceeds through formulation and testing. Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "methods": [
+          "Screening of local and alternative raw materials.",
+          "Thermal and mechanochemical clay activation studies.",
+          "Binder formulation and mortar/concrete mix design.",
+          "Experimental comparisons and optimisation of material proportions.",
+          "Hydration, compressive, tensile and flexural testing.",
+          "Selected durability tests, including absorption, chloride-related testing and carbonation.",
+          "Research on elevated-temperature performance and self-healing behaviour.",
+          "Demonstration and trial planning for promising formulations."
+        ],
+        "deliverables": [
+          "Material assessment and development plan.",
+          "Candidate formulations and processing conditions.",
+          "Laboratory specimens and comparative performance results.",
+          "Technical report identifying promising options and limitations.",
+          "Recommendations for further optimisation, demonstration or industrial validation."
+        ],
+        "displayOrder": 3
+      }
+    },
+    {
+      "type": "service",
+      "id": "service-technological-support",
+      "slug": "technological-support",
+      "set": {
+        "title": "Technological Support",
+        "slug": {
+          "_type": "slug",
+          "current": "technological-support"
+        },
+        "summary": "Technical consultancy, trial planning and training to support industrial adoption of sustainable construction materials.",
+        "body": [
+          {
+            "_type": "block",
+            "_key": "description",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "text": "We help industry partners translate laboratory findings into practical decisions on raw materials, processing and product development. Support includes LC3 feasibility assessment, technical review of clay calcination and grinding options, trial preparation, performance monitoring and staff training. Our experience includes cement-plant consultancy and coordination between researchers, plant teams and technology providers. Recommendations reflect the available evidence, plant conditions and agreed scope, with further trials proposed where additional validation is needed.",
+                "marks": []
+              }
+            ]
+          }
+        ],
+        "methods": [
+          "Review of raw-material availability and test results.",
+          "Technical assessment of calcination, grinding and blending options.",
+          "Preliminary feasibility and conceptual engineering input.",
+          "Pilot/plant-trial planning, sampling and performance evaluation.",
+          "Quality-monitoring plans and technical documentation.",
+          "Staff training on LC3, material characterisation and testing.",
+          "Coordination with plant teams and specialist technology providers."
+        ],
+        "deliverables": [
+          "Technical feasibility and implementation recommendations.",
+          "Trial protocol with sampling and testing requirements.",
+          "Evaluation report for the agreed trials.",
+          "Quality-monitoring guidance and technical procedures.",
+          "Training sessions and supporting materials.",
+          "Recommendations on the next steps for industrial validation."
+        ],
+        "displayOrder": 4
+      }
+    },
+    {
+      "type": "homePage",
+      "id": "homePage",
+      "set": {
+        "servicesHeading": "Technical Services for Sustainable Construction Materials",
+        "servicesIntro": "We support cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Our work connects laboratory findings with practical material and process decisions."
+      }
+    }
+  ],
+  "hash": "d52d0e4c7745984b48c26010a13c8f38d025b379b55a785132093269f516351c"
+}

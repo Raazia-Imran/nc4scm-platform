@@ -2,4 +2,7 @@ node_modules/
 .env
 .env.local
 .next/
+cms-backend/seed/backups/
+cms-backend/dist/
+frontend-ui/test-results/
 cms-backend/seed/client-content.generated.ndjson

@@ -16,9 +16,11 @@ import homePage from "./homePage";
 import aboutPage from "./aboutPage";
 import pageSettings from "./pageSettings";
 import testimonial from "./testimonial";
+import interfaceText from "./interfaceText";
 import { link, seo, statistic } from "./objects";
 
 export const schemaTypes = [
+  interfaceText,
   link,
   seo,
   statistic,

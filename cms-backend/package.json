@@ -8,14 +8,22 @@
     "build": "sanity build",
     "deploy": "sanity deploy",
     "seed:prepare": "node seed/prepare-client-import.mjs",
-    "seed:client": "npm run seed:prepare && sanity dataset import seed/client-content.generated.ndjson production --replace"
+    "seed:client": "node seed/import-approved-content.mjs --apply",
+    "seed:approved:prepare": "node seed/prepare-approved-content.mjs",
+    "seed:approved:preview": "node seed/import-approved-content.mjs",
+    "seed:bootstrap": "npm run seed:prepare && sanity dataset import seed/client-content.generated.ndjson production --missing",
+    "test:content": "node --test tests/approved-content.test.mjs"
   },
   "dependencies": {
+    "@sanity/client": "7.23.0",
     "@sanity/vision": "^3.57.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-is": "^19.2.7",
     "sanity": "^3.57.0",
     "styled-components": "^6.4.3"
+  },
+  "devDependencies": {
+    "groq-js": "1.30.3"
   }
 }

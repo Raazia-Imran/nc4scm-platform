@@ -1,0 +1,43 @@
+name: Check CMS content and responsive UI
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: |
+            cms-backend/package-lock.json
+            frontend-ui/package-lock.json
+      - run: npm ci --ignore-scripts
+        working-directory: cms-backend
+      - run: npm run test:content
+        working-directory: cms-backend
+      - run: npm run build
+        working-directory: cms-backend
+        env:
+          CI: 'true'
+      - run: npm ci --ignore-scripts
+        working-directory: frontend-ui
+      - run: npm install --no-save --package-lock=false playwright@1.62.1
+        working-directory: frontend-ui
+      - run: npx playwright install --with-deps chromium
+        working-directory: frontend-ui
+      - run: node tests/responsive.mjs
+        working-directory: frontend-ui
+      - name: Save responsive screenshots and report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: responsive-ui-checks
+          path: frontend-ui/test-results/
+          if-no-files-found: ignore

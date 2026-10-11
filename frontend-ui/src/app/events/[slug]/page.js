@@ -1,14 +1,25 @@
+import { getSiteContent } from "@/lib/content";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 
-const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
+const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,venue,description,pastEventRecap,speakers,registrationUrl,coverImage,gallery}`;
 
+export async function generateMetadata({ params }) {
+  const event = await client.fetch(QUERY, { slug: params.slug });
+  return {
+    title: event?.title,
+    description: event?.description,
+    alternates: { canonical: `/events/${params.slug}` },
+  };
+}
 export default async function EventDetail({ params }) {
-  const event = await client
-    .fetch(QUERY, { slug: params.slug })
-    .catch(() => null);
+  const [event, site] = await Promise.all([
+    client.fetch(QUERY, { slug: params.slug }),
+    getSiteContent(),
+  ]);
+  const text = site.interfaceText || {};
   if (!event) notFound();
   const cover = urlFor(event.coverImage)
     ?.width(1800)
@@ -17,13 +28,14 @@ export default async function EventDetail({ params }) {
     .auto("format")
     .url();
   const date = new Date(event.eventDateTime);
-  const isPast = date.getTime() < Date.now();
+  const isPast =
+    new Date(event.endDateTime || event.eventDateTime).getTime() < Date.now();
   return (
     <>
       <section className="bg-forest px-6 pb-20 pt-44 text-ivory sm:px-10">
         <div className="mx-auto max-w-[1400px]">
           <Link href="/events" className="eyebrow text-mint">
-            ← All events
+            ← {text.allEvents}
           </Link>
           <p className="eyebrow mt-10 text-mint">{event.eventType}</p>
           <h1 className="mt-5 max-w-5xl font-display text-5xl leading-[.95] sm:text-7xl">
@@ -31,8 +43,13 @@ export default async function EventDetail({ params }) {
           </h1>
           <div className="mt-10 grid gap-4 border-t border-ivory/20 pt-6 sm:grid-cols-2">
             <p>
-              {date.toLocaleDateString("en-US", { dateStyle: "long" })} ·{" "}
+              {date.toLocaleDateString("en-US", {
+                dateStyle: "long",
+                timeZone: "Asia/Karachi",
+              })}{" "}
+              ·{" "}
               {date.toLocaleTimeString("en-US", {
+                timeZone: "Asia/Karachi",
                 hour: "numeric",
                 minute: "2-digit",
               })}
@@ -45,7 +62,7 @@ export default async function EventDetail({ params }) {
         <div className="relative mx-auto aspect-[16/8] max-w-[1400px]">
           <Image
             src={cover}
-            alt={event.coverImage?.alt || ""}
+            alt={event.coverImage?.alt || event.title}
             fill
             className="object-cover"
           />
@@ -59,7 +76,7 @@ export default async function EventDetail({ params }) {
           <aside>
             {event.speakers?.length > 0 && (
               <>
-                <p className="eyebrow text-clay">Speakers</p>
+                <p className="eyebrow text-clay">{text.speakers}</p>
                 <ul className="mt-5 space-y-3">
                   {event.speakers.map((s) => (
                     <li key={s}>{s}</li>
@@ -74,7 +91,7 @@ export default async function EventDetail({ params }) {
                 rel="noreferrer"
                 className="button button-dark mt-8"
               >
-                Register or learn more <span>↗</span>
+                {text.register} <span>↗</span>
               </a>
             )}
           </aside>
@@ -83,9 +100,9 @@ export default async function EventDetail({ params }) {
           <div className="mt-20 border-t border-forest/15 pt-12 sm:mt-24 sm:pt-16">
             <div className="grid gap-7 lg:grid-cols-[.45fr_1fr] lg:gap-16">
               <div>
-                <p className="eyebrow text-clay">Event highlights</p>
+                <p className="eyebrow text-clay">{text.eventHighlights}</p>
                 <h2 className="mt-4 font-sans text-[clamp(2rem,6vw,3.5rem)] font-medium leading-[.98] tracking-[-.045em] text-forest">
-                  A look back at the event.
+                  {text.eventRecap}
                 </h2>
               </div>
               {event.pastEventRecap && (
@@ -105,11 +122,14 @@ export default async function EventDetail({ params }) {
                     .url();
                   if (!galleryImage) return null;
                   return (
-                    <figure className="event-gallery-item" key={item._key || index}>
+                    <figure
+                      className="event-gallery-item"
+                      key={item._key || index}
+                    >
                       <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage sm:rounded-[1.75rem]">
                         <Image
                           src={galleryImage}
-                          alt={item.alt || ""}
+                          alt={item.alt || event.title}
                           fill
                           sizes="(max-width: 639px) 92vw, (max-width: 1023px) 45vw, 31vw"
                           className="object-cover transition duration-500 hover:scale-[1.025]"

@@ -12,12 +12,14 @@
 // rendering, then cached for subsequent visitors.
 // -----------------------------------------------------------------------------
 import Image from "next/image";
+import Link from "next/link";
+import { getSiteContent } from "@/lib/content";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 
 const ARTICLE_BY_SLUG_QUERY = `*[_type == "news" && slug.current == $slug][0]{
-  _id, headline, publishedAt, coverImage, body
+  _id, headline, excerpt, externalUrl, publishedAt, coverImage, body
 }`;
 
 const ALL_SLUGS_QUERY = `*[_type == "news" && defined(slug.current)]{ "slug": slug.current }`;
@@ -34,14 +36,19 @@ export async function generateMetadata({ params }) {
   const article = await client.fetch(ARTICLE_BY_SLUG_QUERY, {
     slug: params.slug,
   });
-  if (!article) return { title: "Article Not Found — NC4SCM" };
-  return { title: `${article.headline} — NC4SCM` };
+  return {
+    title: article?.headline,
+    description: article?.excerpt,
+    alternates: { canonical: `/news/${params.slug}` },
+  };
 }
 
 export default async function NewsArticlePage({ params }) {
-  const article = await client.fetch(ARTICLE_BY_SLUG_QUERY, {
-    slug: params.slug,
-  });
+  const [article, site] = await Promise.all([
+    client.fetch(ARTICLE_BY_SLUG_QUERY, { slug: params.slug }),
+    getSiteContent(),
+  ]);
+  const text = site.interfaceText || {};
 
   // If no document matches this slug (e.g. a stale/incorrect link), render
   // Next.js's built-in 404 page rather than crashing or showing a blank
@@ -56,8 +63,11 @@ export default async function NewsArticlePage({ params }) {
     .url();
 
   return (
-    <article className="mx-auto max-w-content px-6 py-24 md:px-10">
-      <p className="text-xs uppercase tracking-widest text-stone">
+    <article className="mx-auto max-w-content px-5 pb-20 pt-36 md:px-10">
+      <Link href="/news" className="eyebrow text-clay">
+        ← {text.allNews}
+      </Link>
+      <p className="mt-8 text-xs uppercase tracking-widest text-stone">
         {article.publishedAt
           ? new Date(article.publishedAt).toLocaleDateString("en-US", {
               year: "numeric",
@@ -83,7 +93,21 @@ export default async function NewsArticlePage({ params }) {
       )}
 
       <div className="mx-auto mt-12 max-w-2xl text-base text-ink/90">
+        {article.excerpt && (
+          <p className="mb-8 text-lg leading-8">{article.excerpt}</p>
+        )}
         <RichTextRenderer value={article.body} />
+        {article.externalUrl && (
+          <a
+            href={article.externalUrl}
+            target="_blank"
+            rel="noreferrer"
+            className="text-link mt-6 inline-flex"
+          >
+            {text.viewOriginal}
+            <span aria-hidden="true">↗</span>
+          </a>
+        )}
       </div>
     </article>
   );

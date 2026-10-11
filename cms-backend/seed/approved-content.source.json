@@ -1,0 +1,305 @@
+{
+  "file": "NC4SCM_Complete_Content_Master_Filled.docx",
+  "sha256": "6fe44423b58b75daa4b0db1aebc77bdd68d824c88fd81d343d172c07543a116a",
+  "tables": [
+    [
+      {
+        "field": "Organization Name",
+        "current": "NC4SCM",
+        "approved": "National Center for Sustainable Construction Materials (NC4SCM)"
+      },
+      {
+        "field": "Short Name",
+        "current": "NC4SCM",
+        "approved": "NC4SCM"
+      },
+      {
+        "field": "Primary Logo",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have the approved primary logo file."
+      },
+      {
+        "field": "Compact Logo Mark",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have the approved compact logo or icon file."
+      },
+      {
+        "field": "Footer Mission Line",
+        "current": "Advancing low-carbon construction materials through research, testing, and meaningful industry collaboration.",
+        "approved": "Advancing sustainable construction materials through research, material testing, technology development and industry collaboration."
+      },
+      {
+        "field": "Primary Navigation",
+        "current": "About, Services, Research, Events, News, Contact",
+        "approved": "Keep As Is — About, Services, Research, Events, News, Contact."
+      },
+      {
+        "field": "Address",
+        "current": "NED University of Engineering & Technology, University Road, Karachi, Pakistan",
+        "approved": "Keep As Is — NED University of Engineering & Technology, University Road, Karachi, Pakistan."
+      },
+      {
+        "field": "Email",
+        "current": "nc4scm@cloud.neduet.edu.pk",
+        "approved": "Keep As Is — nc4scm@cloud.neduet.edu.pk"
+      },
+      {
+        "field": "Phone / Key Contacts",
+        "current": "Dr Tariq Jamil: tariqjamil@neduet.edu.pk (+92 332 8225815)\nEngr Muhammad Danyal Sheikh: danyalsheikh@neduet.edu.pk (+92 331 2554771)",
+        "approved": "Keep As Is — retain the supplied contact details for Dr Tariq Jamil and Engr Muhammad Danyal Sheikh."
+      },
+      {
+        "field": "LinkedIn URL",
+        "current": "LinkedIn link",
+        "approved": "https://www.linkedin.com/company/national-center-for-sustainable-construction-materials/?lipi=urn%3Ali%3Apage%3Ad_flagship3_detail_base%3Bm7esufzMQfmVooh5N9ha6g%3D%3D "
+      },
+      {
+        "field": "Map Embed URL / Coords",
+        "current": "Coordinates: 24.933469, 67.111924",
+        "approved": "Keep As Is — 24.933469, 67.111924 (coordinates supplied in this form)."
+      },
+      {
+        "field": "Copyright Text",
+        "current": "© 2026 NC4SCM, NED University of Engineering & Technology",
+        "approved": "Keep As Is — © 2026 NC4SCM, NED University of Engineering & Technology."
+      }
+    ],
+    [
+      {
+        "field": "Services Headline & Intro",
+        "current": "Move from material question to verified answer. / Rigorous testing, applied research...",
+        "approved": "Heading: Technical Services for Sustainable Construction Materials\nIntroduction: We support cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Our work connects laboratory findings with practical material and process decisions."
+      },
+      {
+        "field": "Research Headline & Intro",
+        "current": "Research related introductory headings and text.",
+        "approved": "Heading: Research on Sustainable Construction Materials\nIntroduction: Our research examines local clays, supplementary cementitious materials and low-carbon cement and concrete. We study chemical and mineralogical properties of clays and SCMs include fly ash, slag, glass powder, and etc., hydration, strength, durability and also study thermo-mechanochemical activation to understand how material composition and processing affect performance. "
+      },
+      {
+        "field": "Events Headline & Intro",
+        "current": "Events related introductory headings and text.",
+        "approved": "Heading: Events and Technical Training\nIntroduction: Explore our seminars, workshops, conferences and laboratory visits on LC3, cement chemistry and sustainable construction materials. These activities bring academics, researchers, stakeholders, government bodies and industry professionals together to share research and practical experience."
+      },
+      {
+        "field": "News Headline & Intro",
+        "current": "News related introductory headings and text.",
+        "approved": "Heading: News and Centre Updates\nIntroduction: Follow our research progress, industry collaborations, laboratory developments, publications and outreach activities."
+      },
+      {
+        "field": "Contact Headline & Intro",
+        "current": "Heading: Let’s turn a materials challenge into a path forward.\nIntro: Contact the center about technical services, research collaboration, training, media, or institutional partnerships.",
+        "approved": "Heading: Contact NC4SCM\nIntroduction: Contact us for material testing, technical consultancy, research collaboration, training or institutional partnerships. Share your material type, technical question and project requirements so we can discuss a suitable scope of work."
+      },
+      {
+        "field": "Contact Success Message",
+        "current": "Message sent successfully! We will get back to you soon.",
+        "approved": "Thank you for your enquiry. Your message has been received by NC4SCM."
+      }
+    ],
+    [
+      {
+        "field": "Portfolio Name",
+        "current": "LC3 Technology",
+        "approved": "LC3 Technology"
+      },
+      {
+        "field": "Slug",
+        "current": "lc3-technology",
+        "approved": "Keep As Is — lc3-technology"
+      },
+      {
+        "field": "Short Summary",
+        "current": "Technical guidance for LC3 development and implementation.",
+        "approved": "Assessment of local raw materials, LC3 formulation and testing, with support for pilot and plant trials."
+      },
+      {
+        "field": "Service Image",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have an approved LC3 service image."
+      },
+      {
+        "field": "Full Description",
+        "current": "Detailed information regarding LC3 technology guidance, development, and implementation support.",
+        "approved": "Limestone Calcined Clay Cement (LC3) combines clinker, calcined clay, limestone and gypsum to reduce clinker use. We assess local clay suitability, optimise calcination and binder composition, and evaluate mortar and concrete performance. Our team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement. We support laboratory development, staff training and the preparation and evaluation of pilot or plant trials, according to the agreed project scope."
+      },
+      {
+        "field": "Methods & Capabilities",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Clay surveys, sampling and raw-material screening.\n• Chemical, mineralogical and thermal characterisation using XRF, XRD and DTG–TGA.\n• Calcination trials, grinding and particle-size assessment.\n• Reactivity assessment using R3, and methylene blue value testing, interpreted alongside mineralogy and performance data.\n• Binder formulation, gypsum adjustment and mortar/concrete mix design optimization.\n• Hydration, strength and durability evaluation.\n• Technical assessment and monitoring of pilot or plant trials."
+      },
+      {
+        "field": "Typical Deliverables",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Raw-material suitability and characterisation report.\n• Recommended calcination conditions and LC3 trial formulations.\n• Reactivity, hydration, strength and selected durability results.\n• Feasibility assessment and pilot/plant-trial plan where included in the scope.\n• Technical recommendations and staff training materials."
+      },
+      {
+        "field": "Display Order",
+        "current": "1",
+        "approved": "Keep As Is — 1"
+      }
+    ],
+    [
+      {
+        "field": "Portfolio Name",
+        "current": "Material Characterization",
+        "approved": "Material Characterisation"
+      },
+      {
+        "field": "Slug",
+        "current": "material-characterization",
+        "approved": "Keep As Is — material-characterization"
+      },
+      {
+        "field": "Short Summary",
+        "current": "Evidence-led assessment of clays and supplementary cementitious materials.",
+        "approved": "Chemical, mineralogical, thermal and physical assessment of clays and supplementary cementitious materials."
+      },
+      {
+        "field": "Service Image",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have an approved material characterisation service image."
+      },
+      {
+        "field": "Full Description",
+        "current": "Evidence-led assessment of clays and supplementary cementitious materials.",
+        "approved": "We characterise clays, limestone, fly ash, cement and other candidate construction materials to assess their suitability for cementitious applications. Chemical composition, mineral phases, thermal behaviour and particle size are considered together with reactivity, hydration and performance results. This helps identify suitable materials, compare sources and select processing conditions. The test programme is tailored to the material and the client’s technical question, with specialist analyses coordinated through collaborating laboratories when required."
+      },
+      {
+        "field": "Methods & Capabilities",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• X-ray fluorescence (XRF) for chemical composition.\n• X-ray diffraction (XRD) for mineral phase identification.\n• DTG–TGA and loss on ignition for thermal changes and mass loss.\n• FTIR and SEM–EDS for complementary structural and microstructural assessment.\n• Particle-size distribution and fineness assessment.\n• Isothermal calorimetry for hydration behaviour and R3 reactivity.\n• Methylene blue value testing for supplementary screening.\n• Interpretation of results alongside mortar/concrete performance.\n"
+      },
+      {
+        "field": "Typical Deliverables",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Characterisation report with test conditions, results and interpretation.\n• Chemical composition, mineralogical and thermal findings.\n• Particle-size, hydration and reactivity results for the agreed tests.\n• Comparison of candidate materials and suitability recommendations.\n• Recommendations for processing or further performance testing."
+      },
+      {
+        "field": "Display Order",
+        "current": "2",
+        "approved": "Keep As Is — 2"
+      }
+    ],
+    [
+      {
+        "field": "Portfolio Name",
+        "current": "New Material Development",
+        "approved": "New Material Development"
+      },
+      {
+        "field": "Slug",
+        "current": "new-material-development",
+        "approved": "Keep As Is — new-material-development"
+      },
+      {
+        "field": "Short Summary",
+        "current": "Applied research for lower-carbon, affordable construction materials.",
+        "approved": "Development and testing of low-carbon binders, blended cements and concrete using local and alternative materials."
+      },
+      {
+        "field": "Service Image",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have an approved new material development service image."
+      },
+      {
+        "field": "Full Description",
+        "current": "Applied research for lower-carbon, affordable construction materials.",
+        "approved": "We develop and evaluate cementitious materials through laboratory trials and performance testing. Our work includes LC3, activation of heterogeneous clays, fly ash, and other supplementary cementitious materials, recycled aggregate concrete and self-healing concrete. We examine how composition, processing and mix proportions affect hydration, strength and durability. Development begins with material assessment and proceeds through formulation and testing. Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements."
+      },
+      {
+        "field": "Methods & Capabilities",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Screening of local and alternative raw materials.\n• Thermal and mechanochemical clay activation studies.\n• Binder formulation and mortar/concrete mix design.\n• Experimental comparisons and optimisation of material proportions.\n• Hydration, compressive, tensile and flexural testing.\n• Selected durability tests, including absorption, chloride-related testing and carbonation.\n• Research on elevated-temperature performance and self-healing behaviour.\n• Demonstration and trial planning for promising formulations.\n."
+      },
+      {
+        "field": "Typical Deliverables",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Material assessment and development plan.\n• Candidate formulations and processing conditions.\n• Laboratory specimens and comparative performance results.\n• Technical report identifying promising options and limitations.\n• Recommendations for further optimisation, demonstration or industrial validation."
+      },
+      {
+        "field": "Display Order",
+        "current": "3",
+        "approved": "Keep As Is — 3"
+      }
+    ],
+    [
+      {
+        "field": "Portfolio Name",
+        "current": "Technological Support",
+        "approved": "Technological Support"
+      },
+      {
+        "field": "Slug",
+        "current": "technological-support",
+        "approved": "Keep As Is — technological-support"
+      },
+      {
+        "field": "Short Summary",
+        "current": "Research-to-industry support for validation, scale-up, and adoption.",
+        "approved": "Technical consultancy, trial planning and training to support industrial adoption of sustainable construction materials."
+      },
+      {
+        "field": "Service Image",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have an approved technological support service image."
+      },
+      {
+        "field": "Full Description",
+        "current": "Research-to-industry support for validation, scale-up, and adoption.",
+        "approved": "We help industry partners translate laboratory findings into practical decisions on raw materials, processing and product development. Support includes LC3 feasibility assessment, technical review of clay calcination and grinding options, trial preparation, performance monitoring and staff training. Our experience includes cement-plant consultancy and coordination between researchers, plant teams and technology providers. Recommendations reflect the available evidence, plant conditions and agreed scope, with further trials proposed where additional validation is needed."
+      },
+      {
+        "field": "Methods & Capabilities",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Review of raw-material availability and test results.\n• Technical assessment of calcination, grinding and blending options.\n• Preliminary feasibility and conceptual engineering input.\n• Pilot/plant-trial planning, sampling and performance evaluation.\n• Quality-monitoring plans and technical documentation.\n• Staff training on LC3, material characterisation and testing.\n• Coordination with plant teams and specialist technology providers.\n"
+      },
+      {
+        "field": "Typical Deliverables",
+        "current": "Details will be added by the NC4SCM team / Client input.",
+        "approved": "• Technical feasibility and implementation recommendations.\n• Trial protocol with sampling and testing requirements.\n• Evaluation report for the agreed trials.\n• Quality-monitoring guidance and technical procedures.\n• Training sessions and supporting materials.\n• Recommendations on the next steps for industrial validation."
+      },
+      {
+        "field": "Display Order",
+        "current": "4",
+        "approved": "Keep As Is — 4"
+      }
+    ],
+    [
+      {
+        "field": "Person Name",
+        "current": "[ Enter Testimonial Author Name ]",
+        "approved": "________________________\nI do not have a confirmed testimonial author’s name."
+      },
+      {
+        "field": "Role / Designation",
+        "current": "[ Enter Designation / Role ]",
+        "approved": "________________________\nI do not have the testimonial author’s role or designation."
+      },
+      {
+        "field": "Organization",
+        "current": "[ Enter Organization Name ]",
+        "approved": "________________________\nI do not have the testimonial author’s organisation."
+      },
+      {
+        "field": "Portrait",
+        "current": "[ Image File / Uploaded in Sanity ]",
+        "approved": "________________________\nI do not have the testimonial author’s approved portrait."
+      },
+      {
+        "field": "Alternative Text",
+        "current": "[ Enter Image Alt Text ]",
+        "approved": "________________________\nI do not have the portrait, so I cannot write accurate alternative text."
+      },
+      {
+        "field": "Display Order",
+        "current": "1",
+        "approved": "________________________\nI do not have the testimonial list, so I cannot assign its display order."
+      },
+      {
+        "field": "Show on Website",
+        "current": "True / Active",
+        "approved": "False / Inactive — keep this testimonial hidden until a genuine quotation and author details are provided.\nI do not have the testimonial quotation or confirmation that it may be published."
+      }
+    ]
+  ]
+}

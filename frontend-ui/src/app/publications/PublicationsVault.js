@@ -11,22 +11,23 @@
 // in as the `publications` prop, so this component does zero network
 // requests of its own — it only filters the array that's already in memory.
 // -----------------------------------------------------------------------------
+import { useContent } from "@/app/components/ContentProvider";
 import { useMemo, useState } from "react";
 import FilterMenu from "@/app/components/FilterMenu";
 
-const CATEGORY_LABELS = {
-  "lc3-technology": "LC3 Technology",
-  "material-characterization": "Material Characterization",
-  "new-material-development": "New Material Development",
-  "technological-support": "Technological Support",
-  "general-research": "General Research",
+const CATEGORY_KEYS = {
+  "lc3-technology": "lc3Technology",
+  "material-characterization": "materialCharacterisation",
+  "new-material-development": "newMaterialDevelopment",
+  "technological-support": "technologicalSupport",
+  "general-research": "generalResearch",
 };
 
-const PUBLICATION_TYPE_LABELS = {
-  "journal-article": "Journal article",
-  "conference-paper": "Conference paper",
-  "book-chapter": "Book chapter",
-  "technical-report": "Technical report",
+const PUBLICATION_TYPE_KEYS = {
+  "journal-article": "journalArticle",
+  "conference-paper": "conferencePaper",
+  "book-chapter": "bookChapter",
+  "technical-report": "technicalReport",
 };
 
 // Supports both the current citation-name strings and resolved author objects
@@ -40,6 +41,16 @@ const getPublicationYear = (publication) =>
   );
 
 export default function PublicationsVault({ publications }) {
+  const text = useContent();
+  const CATEGORY_LABELS = Object.fromEntries(
+    Object.entries(CATEGORY_KEYS).map(([value, key]) => [value, text[key]]),
+  );
+  const PUBLICATION_TYPE_LABELS = Object.fromEntries(
+    Object.entries(PUBLICATION_TYPE_KEYS).map(([value, key]) => [
+      value,
+      text[key],
+    ]),
+  );
   const [searchTerm, setSearchTerm] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
   const [year, setYear] = useState("all");
@@ -49,39 +60,43 @@ export default function PublicationsVault({ publications }) {
   // it only recomputes when the search term, category, or source data
   // actually changes.
   const filteredPublications = useMemo(() => {
-    return publications.filter((pub) => {
-      const matchesCategory =
-        activeCategory === "all" || pub.category === activeCategory;
-      const haystack = [
-        pub.title,
-        pub.abstract,
-        pub.journal,
-        pub.keywords?.join(" "),
-        pub.authors?.map(getAuthorName).filter(Boolean).join(" "),
-      ]
-        .join(" ")
-        .toLowerCase();
-      const matchesSearch = haystack.includes(searchTerm.toLowerCase());
-      const matchesYear =
-        year === "all" || getPublicationYear(pub) === String(year);
-      return matchesCategory && matchesSearch && matchesYear;
-    }).sort((a, b) => {
-      if (sort === "recently-added") return new Date(b._createdAt || 0) - new Date(a._createdAt || 0);
-      if (sort === "oldest-year") return Number(getPublicationYear(a)) - Number(getPublicationYear(b));
-      return Number(getPublicationYear(b)) - Number(getPublicationYear(a));
-    });
+    return publications
+      .filter((pub) => {
+        const matchesCategory =
+          activeCategory === "all" || pub.category === activeCategory;
+        const haystack = [
+          pub.title,
+          pub.abstract,
+          pub.journal,
+          pub.keywords?.join(" "),
+          pub.authors?.map(getAuthorName).filter(Boolean).join(" "),
+        ]
+          .join(" ")
+          .toLowerCase();
+        const matchesSearch = haystack.includes(searchTerm.toLowerCase());
+        const matchesYear =
+          year === "all" || getPublicationYear(pub) === String(year);
+        return matchesCategory && matchesSearch && matchesYear;
+      })
+      .sort((a, b) => {
+        if (sort === "recently-added")
+          return new Date(b._createdAt || 0) - new Date(a._createdAt || 0);
+        if (sort === "oldest-year")
+          return Number(getPublicationYear(a)) - Number(getPublicationYear(b));
+        return Number(getPublicationYear(b)) - Number(getPublicationYear(a));
+      });
   }, [publications, searchTerm, activeCategory, year, sort]);
   const years = [
     ...new Set(publications.map(getPublicationYear).filter(Boolean)),
   ].sort((a, b) => Number(b) - Number(a));
   const yearOptions = [
-    { value: "all", label: "All years" },
+    { value: "all", label: text.allYears },
     ...years.map((item) => ({ value: item, label: item })),
   ];
   const sortOptions = [
-    { value: "newest-year", label: "Newest research" },
-    { value: "recently-added", label: "Recently added" },
-    { value: "oldest-year", label: "Oldest research" },
+    { value: "newest-year", label: text.newestResearch },
+    { value: "recently-added", label: text.recentlyAdded },
+    { value: "oldest-year", label: text.oldestResearch },
   ];
 
   // Build the list of categories that actually have at least one
@@ -93,7 +108,7 @@ export default function PublicationsVault({ publications }) {
     return Array.from(set);
   }, [publications]);
   const categoryOptions = [
-    { value: "all", label: "All research topics" },
+    { value: "all", label: text.allResearch },
     ...availableCategories.map((category) => ({
       value: category,
       label: CATEGORY_LABELS[category] || category,
@@ -101,24 +116,39 @@ export default function PublicationsVault({ publications }) {
   ];
 
   return (
-    <div className="mt-14">
+    <div className="mt-2">
       {/* --------------------------------------------------------------
           SEARCH + FILTER CONTROLS
       -------------------------------------------------------------- */}
       <div className="research-filter-panel">
         <label className="research-search-field">
-          <span className="sr-only">Search publications</span>
+          <span className="sr-only">{text.searchPublications}</span>
           <input
             type="search"
             value={searchTerm}
             onChange={(event) => setSearchTerm(event.target.value)}
-            placeholder="Search by title, author, or venue…"
+            placeholder={text.searchPlaceholder}
             className="field-input mt-0 w-full"
           />
         </label>
-        <FilterMenu label="Filter by year" value={year} options={yearOptions} onChange={setYear} />
-        <FilterMenu label="Filter by research topic" value={activeCategory} options={categoryOptions} onChange={setActiveCategory} />
-        <FilterMenu label="Sort publications" value={sort} options={sortOptions} onChange={setSort} />
+        <FilterMenu
+          label={text.filterYear}
+          value={year}
+          options={yearOptions}
+          onChange={setYear}
+        />
+        <FilterMenu
+          label={text.filterTopic}
+          value={activeCategory}
+          options={categoryOptions}
+          onChange={setActiveCategory}
+        />
+        <FilterMenu
+          label={text.sortPublications}
+          value={sort}
+          options={sortOptions}
+          onChange={setSort}
+        />
       </div>
 
       {/* --------------------------------------------------------------
@@ -147,20 +177,16 @@ export default function PublicationsVault({ publications }) {
                 </h2>
                 <p className="mt-2 text-sm text-stone">
                   {pub.authors && pub.authors.length > 0
-                    ? pub.authors
-                        .map(getAuthorName)
-                        .filter(Boolean)
-                        .join(", ")
-                    : "Unattributed"}
+                    ? pub.authors.map(getAuthorName).filter(Boolean).join(", ")
+                    : ""}
                   {pub.releaseDate
-                    ? ` — ${new Date(`${pub.releaseDate}T00:00:00`).toLocaleDateString(
-                        "en-US",
-                        {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        },
-                      )}`
+                    ? ` — ${new Date(
+                        `${pub.releaseDate}T00:00:00`,
+                      ).toLocaleDateString("en-US", {
+                        year: "numeric",
+                        month: "long",
+                        day: "numeric",
+                      })}`
                     : getPublicationYear(pub) &&
                       ` — ${getPublicationYear(pub)}`}
                 </p>
@@ -194,7 +220,7 @@ export default function PublicationsVault({ publications }) {
                     rel="noreferrer"
                     className="text-link mt-5 inline-flex"
                   >
-                    View DOI <span>↗</span>
+                    {text.viewDoi} <span>↗</span>
                   </a>
                 )}
               </div>
@@ -210,15 +236,13 @@ export default function PublicationsVault({ publications }) {
                   rel="noopener noreferrer"
                   className="inline-block whitespace-nowrap self-start border border-ink px-5 py-2 text-xs uppercase tracking-widest transition-colors hover:bg-ink hover:text-paper"
                 >
-                  Download PDF
+                  {text.downloadPdf}
                 </a>
               )}
             </article>
           ))
         ) : (
-          <p className="py-8 text-sm text-stone">
-            No publications match your search.
-          </p>
+          <p className="py-8 text-sm text-stone">{text.noPublications}</p>
         )}
       </div>
     </div>

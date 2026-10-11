@@ -1,6 +1,7 @@
 "use client";
 import { useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { useContent } from "@/app/components/ContentProvider";
 const blank = {
   name: "",
   email: "",
@@ -8,23 +9,35 @@ const blank = {
   enquiryType: "General",
   service: "",
   message: "",
+  website: "",
 };
-export default function ContactForm({ successMessage, recipientEmail }) {
-  const params = useSearchParams();
+export default function ContactForm({
+  successMessage,
+  recipientEmail,
+  services = [],
+}) {
+  const text = useContent(),
+    params = useSearchParams();
+  const selected = services.find(
+    (service) => service.slug?.current === params.get("service"),
+  );
   const [form, setForm] = useState({
     ...blank,
-    service: params.get("service") || "",
+    service: selected?.title || "",
   });
   const [status, setStatus] = useState("idle");
-  const [error, setError] = useState("");
   const change = (e) =>
     setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
   async function submit(e) {
     e.preventDefault();
+    if (form.website) return;
     setStatus("submitting");
-    setError("");
-    const endpoint = process.env.NEXT_PUBLIC_FORM_ENDPOINT || `https://formsubmit.co/ajax/${recipientEmail}`;
+    const endpoint =
+      process.env.NEXT_PUBLIC_FORM_ENDPOINT ||
+      (recipientEmail ? `https://formsubmit.co/ajax/${recipientEmail}` : null);
     try {
+      if (!endpoint) throw new Error("Missing contact endpoint");
+      const { website, ...message } = form;
       const response = await fetch(endpoint, {
         method: "POST",
         headers: {
@@ -32,105 +45,146 @@ export default function ContactForm({ successMessage, recipientEmail }) {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          ...form,
-          _subject: "NC4SCM website enquiry: " + form.enquiryType,
+          ...message,
+          _subject: "Website enquiry: " + form.enquiryType,
           _template: "table",
-          _captcha: "false",
         }),
       });
-      if (!response.ok) throw new Error();
+      const result = await response.json();
+      if (
+        !response.ok ||
+        result.success === false ||
+        result.success === "false" ||
+        result.error
+      )
+        throw new Error("Delivery failed");
       setStatus("success");
-      setForm(blank);
+      setForm({ ...blank });
     } catch {
       setStatus("error");
-      setError(
-        "The website email service is awaiting activation. Please email the centre directly for now.",
-      );
     }
   }
   if (status === "success")
     return (
-      <div className="rounded-[2rem] bg-mint p-9">
-        <p className="eyebrow text-clay">Message received</p>
-        <h2 className="mt-5 font-display text-4xl text-forest">
-          Thank you for reaching out.
-        </h2>
-        <p className="mt-5 leading-7 text-carbon/65">
-          {successMessage ||
-            "The NC4SCM team will respond within 2–3 working days."}
-        </p>
+      <div role="status" className="rounded-[2rem] bg-mint p-6 sm:p-9">
+        <p className="text-lg leading-8 text-forest">{successMessage}</p>
         <button
+          type="button"
           onClick={() => setStatus("idle")}
           className="text-link mt-7 inline-flex"
         >
-          Send another message <span>↗</span>
+          {text.sendAnother}
+          <span aria-hidden="true">↗</span>
         </button>
       </div>
     );
   return (
-    <form onSubmit={submit} className="grid gap-6 sm:grid-cols-2">
+    <form
+      onSubmit={submit}
+      className="grid gap-6 sm:grid-cols-2"
+      aria-busy={status === "submitting"}
+    >
       <Field
-        label="Name"
+        label={text.nameLabel}
         name="name"
         value={form.name}
         onChange={change}
         required
+        autoComplete="name"
+        maxLength={160}
       />
       <Field
-        label="Email"
+        label={text.emailLabel}
         name="email"
         type="email"
         value={form.email}
         onChange={change}
         required
+        autoComplete="email"
+        maxLength={254}
       />
       <Field
-        label="Organization"
+        label={text.organizationLabel}
         name="organization"
         value={form.organization}
         onChange={change}
+        autoComplete="organization"
+        maxLength={200}
       />
       <label className="field-label">
-        Enquiry type
+        {text.enquiryType}
         <select
           name="enquiryType"
           value={form.enquiryType}
           onChange={change}
           className="field-input"
         >
-          {["Consultancy", "Collaboration", "Media", "General"].map((x) => (
-            <option key={x}>{x}</option>
+          {[
+            ["Consultancy", "consultancy"],
+            ["Collaboration", "collaboration"],
+            ["Media", "media"],
+            ["General", "general"],
+          ].map(([value, key]) => (
+            <option key={value} value={value}>
+              {text[key]}
+            </option>
           ))}
         </select>
       </label>
       {form.service && (
         <Field
-          label="Selected service"
+          label={text.selectedService}
           name="service"
           value={form.service}
           onChange={change}
+          maxLength={200}
         />
       )}
       <label className="field-label sm:col-span-2">
-        Message
+        {text.message}
         <textarea
           name="message"
           value={form.message}
           onChange={change}
           required
+          maxLength={10000}
           rows={6}
           className="field-input resize-y"
         />
       </label>
+      <input
+        type="text"
+        name="website"
+        value={form.website}
+        onChange={change}
+        tabIndex={-1}
+        aria-hidden="true"
+        autoComplete="off"
+        className="hidden"
+      />
       <div className="sm:col-span-2">
         <button
           disabled={status === "submitting"}
           className="button button-dark"
         >
-          {status === "submitting" ? "Sending…" : "Send enquiry"} <span>↗</span>
+          {status === "submitting" ? text.sending : text.sendEnquiry}
+          <span aria-hidden="true">↗</span>
         </button>
-        {error && (
-          <div role="alert" className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"><p>{error}</p>{recipientEmail && <a className="mt-2 inline-flex font-semibold underline underline-offset-4" href={`mailto:${recipientEmail}`}>Email NC4SCM directly ↗</a>}</div>
+        {status === "error" && (
+          <div
+            role="alert"
+            className="mt-4 rounded-xl border border-forest/15 bg-sage p-4 text-sm text-forest"
+          >
+            <p>{text.formError}</p>
+            {recipientEmail && (
+              <a
+                className="mt-2 inline-flex font-semibold underline underline-offset-4"
+                href={`mailto:${recipientEmail}`}
+              >
+                {text.emailDirect} ↗
+              </a>
+            )}
+          </div>
         )}
       </div>
     </form>

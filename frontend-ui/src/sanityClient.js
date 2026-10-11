@@ -48,7 +48,10 @@ export const client = createClient({
   projectId,
   dataset,
   apiVersion,
-  useCdn: true,
+  useCdn: !process.env.SANITY_API_HOST,
+  ...(process.env.SANITY_API_HOST
+    ? { apiHost: process.env.SANITY_API_HOST, useProjectHostname: false }
+    : {}),
   // Only attached if a read token was actually provided (i.e. the dataset
   // is private). Public datasets work perfectly fine with `token: undefined`.
   token: process.env.SANITY_API_READ_TOKEN || undefined,
@@ -67,6 +70,10 @@ const builder = imageUrlBuilder(client);
  * rather than needing its own try/catch.
  */
 export function urlFor(source) {
-  if (!source) return null;
+  // Empty Studio image objects would otherwise throw later at .url().
+  const ref =
+    typeof source === "string" ? source : source?.asset?._ref || source?._ref;
+  if (!ref || !/^image-[a-zA-Z0-9]+-\d+x\d+-[a-zA-Z0-9]+$/.test(ref))
+    return null;
   return builder.image(source);
 }
