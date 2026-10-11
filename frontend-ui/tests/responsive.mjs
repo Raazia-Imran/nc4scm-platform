@@ -132,9 +132,14 @@ try {
     console.log(`Verified ${paths.length} routes at ${width}px`);
   }
   await page.goto("http://127.0.0.1:3100/");
-  assert.equal(await page.locator(".home-highlight").count(), 4);
+  assert.equal(await page.locator(".home-highlight").count(), 3);
   assert.equal(await page.locator(".institution-logo").count(), 3);
   assert.equal(await page.getByText("NRPU Project No. 14074", {exact:true}).count(), 0);
+  assert.ok(await page.locator(".home-news-preview").count() <= 2);
+  assert.equal(await page.locator(".home-experience").count(), 1);
+  const homeLayout=await page.evaluate(()=>({logos:document.querySelector('.home-institutions').offsetTop,capabilities:document.querySelector('.home-capabilities').offsetTop,eventHeight:document.querySelector('.home-events').getBoundingClientRect().height}));
+  assert.ok(homeLayout.logos<homeLayout.capabilities);
+  assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
   const contactAlignment = await page.locator(".team-card").evaluateAll(cards => cards.map(card => {
     const email=card.querySelector('.email-actions a'), linkedin=card.querySelector('a[href*="linkedin"]:not(.team-portrait)');
@@ -177,11 +182,11 @@ try {
   await page.goto("http://127.0.0.1:3100/services/lc3-technology");
   assert.equal(await page.locator("details.service-overview").count(), 0);
   assert.ok(await page.locator(".service-overview").innerText());
-  await page.locator(".service-contact").scrollIntoViewIfNeeded();
+  await page.locator(".detail-return-bar").scrollIntoViewIfNeeded();
   assert.ok(await page.locator(".detail-return").isVisible());
   const returnBox=await page.locator(".detail-return-bar").boundingBox();
   const consultationBox=await page.locator(".service-contact .button").boundingBox();
-  assert.ok(returnBox.y+returnBox.height<=consultationBox.y, "Return navigation never overlaps consultation CTA");
+  assert.ok(returnBox.y>=consultationBox.y+consultationBox.height, "Return navigation never overlaps consultation CTA");
   await Promise.all([
     page.waitForURL("http://127.0.0.1:3100/services"),
     page.locator(".detail-return").click(),
