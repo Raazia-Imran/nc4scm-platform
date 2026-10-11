@@ -165,14 +165,21 @@ try {
   await page.getByText("Second fixture caption", { exact: true }).waitFor();
   await page.getByText("Fixture outcome one", { exact: true }).waitFor();
   await page.goto("http://127.0.0.1:3100/services/lc3-technology");
-  await page.getByText("Full description", { exact: true }).click();
-  assert.equal(await page.locator("details.service-overview").getAttribute("open"), "");
+  assert.equal(await page.locator("details.service-overview").count(), 0);
+  assert.ok(await page.locator(".service-overview").innerText());
+  await page.locator(".service-contact").scrollIntoViewIfNeeded();
+  assert.ok(await page.locator(".detail-return").isVisible());
+  await Promise.all([
+    page.waitForURL("http://127.0.0.1:3100/services"),
+    page.locator(".detail-return").click(),
+  ]);
+  assert.ok(page.url().endsWith("/services"));
   await page.goto("http://127.0.0.1:3100/publications");
-  const abstracts = page.locator(".publication-card details");
-  if (await abstracts.count()) {
-    await abstracts.first().locator("summary").click();
-    assert.equal(await abstracts.first().getAttribute("open"), "");
-  }
+  assert.equal(await page.locator(".compact-text details").count(), 0);
+  await page.goto("http://127.0.0.1:3100/about");
+  const heights = await page.locator(".team-card").evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
+  assert.ok(Math.max(...heights) - Math.min(...heights) < 2, "Team cards share a consistent row height");
+  assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
   await page.goto("http://127.0.0.1:3100/contact?service=lc3-technology");
   assert.equal(
     await page.getByLabel("Selected service", { exact: true }).inputValue(),

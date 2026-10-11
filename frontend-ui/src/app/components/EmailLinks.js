@@ -8,7 +8,6 @@ export default function EmailLinks({ email, text, showAddress = false }) {
         rel="noopener noreferrer"
         title={text.composeGmail}
       >{showAddress ? email : text.emailLabel} ↗</a>
-      <a href={`mailto:${email.trim()}`}>{text.emailApp} ↗</a>
     </div>
   );
 }
