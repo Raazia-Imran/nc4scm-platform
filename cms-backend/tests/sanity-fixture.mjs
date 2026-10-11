@@ -86,7 +86,12 @@ export async function createFixture(initial) {
       const url = new URL(req.url, "http://localhost");
       const send = (data, status = 200) => {
         res.writeHead(status, { "Content-Type": "application/json" });
-        res.end(JSON.stringify(data));
+        // Content Lake may return object keys in a different order.
+        res.end(JSON.stringify(data, (_, value) =>
+          value && typeof value === "object" && !Array.isArray(value)
+            ? Object.fromEntries(Object.entries(value).sort(([a], [b]) => a.localeCompare(b)))
+            : value,
+        ));
       };
       let body = "";
       for await (const chunk of req) body += chunk;
