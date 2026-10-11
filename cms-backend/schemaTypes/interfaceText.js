@@ -1,9 +1,10 @@
-// Interface wording lives in Content Lake too; this list defines editable
-// field names only, never default website content.
+import interfaceDefaults from "../seed/interface-text.json";
+
 export default {
   name: "interfaceText",
   title: "Website interface text",
   type: "object",
+  initialValue: interfaceDefaults,
   fields: [
     "skipContent",
     "openMenu",

@@ -2,14 +2,14 @@ import { createClient } from "@sanity/client";
 import { mkdir, writeFile } from "node:fs/promises";
 import { prepareContent } from "./prepare-approved-content.mjs";
 
-// No frontend imports this file. After migration, Content Lake is the only
-// source read by the website; later Studio edits are never overwritten on build.
+// Approved Word content is never imported by the frontend.
+// Later Studio edits are never overwritten on build.
 const apply = process.argv.includes("--apply");
 const payload = await prepareContent();
-const token = process.env.SANITY_AUTH_TOKEN;
+const token = process.env.SANITY_CONTENT_WRITE_TOKEN || process.env.SANITY_AUTH_TOKEN;
 if (!token && apply)
   throw new Error(
-    "SANITY_AUTH_TOKEN must be configured securely to apply CMS changes.",
+    "SANITY_CONTENT_WRITE_TOKEN (Editor role) must be configured securely to apply CMS changes.",
   );
 const client = createClient({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || "dxinqb51",
