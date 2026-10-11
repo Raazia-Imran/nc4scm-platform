@@ -1,5 +1,4 @@
 import { getSiteContent } from "@/lib/content";
-import ServiceCards from "@/app/components/ServiceCards";
 import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
@@ -14,7 +13,7 @@ export async function generateMetadata() {
     alternates: { canonical: "/" },
   };
 }
-const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary,image,displayOrder},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published==true&&publicationApproved==true]|order(displayOrder asc){_id,quote,personName,role,organization,portrait,published,publicationApproved},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&coalesce(endDateTime,eventDateTime)>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
+const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary,image,displayOrder},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published==true&&publicationApproved==true]|order(displayOrder asc){_id,quote,personName,role,organization,portrait,published,publicationApproved},"news":*[_type=="news"]|order(publishedAt desc)[0...2]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&coalesce(endDateTime,eventDateTime)>=now()]|order(eventDateTime asc)[0...1]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
 
 const Action = ({ link, light = false }) =>
   link?.href ? (
@@ -97,12 +96,9 @@ export default async function HomePage() {
                 <RichTextRenderer value={page.aboutBody} />
               </div>
             ) : null}
-            <Link href="/about" className="text-link mt-9 inline-flex">
-              {text.discoverCentre} <span>↗</span>
-            </Link>
           </div>
         </div>
-        <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-8 grid gap-3 md:grid-cols-3">
           {highlights.map((item) => (
             <article key={item._key} className="premium-card home-highlight p-5">
               <h3 className="text-lg font-semibold text-forest">{item.title}</h3>
@@ -111,23 +107,7 @@ export default async function HomePage() {
           ))}
         </div>
       </section>
-      <section className="section-shell bg-limestone">
-        <div className="flex flex-col gap-7 border-b border-forest/15 pb-10 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <p className="eyebrow text-clay">{text.capabilities}</p>
-            <h2 className="section-title mt-5 max-w-3xl">
-              {page.servicesHeading}
-            </h2>
-          </div>
-          <p className="max-w-lg text-base leading-7 text-carbon/65">
-            {page.servicesIntro}
-          </p>
-        </div>
-        <div className="mt-10">
-          <ServiceCards services={services} text={text} />
-        </div>
-      </section>
-      <section className="section-shell bg-[#0b282d] text-ivory">
+      <section className="section-shell home-institutions bg-forest text-ivory">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
           <div className="institution-collage">
             {institutions.map((item) => {
@@ -151,8 +131,26 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
+      <section className="section-shell bg-limestone home-capabilities">
+        <div className="flex flex-col gap-7 border-b border-forest/15 pb-10 lg:flex-row lg:items-end lg:justify-between">
+          <div>
+            <p className="eyebrow text-clay">{text.capabilities}</p>
+            <h2 className="section-title mt-5 max-w-3xl">
+              {page.servicesHeading}
+            </h2>
+          </div>
+          <p className="max-w-lg text-base leading-7 text-carbon/65">
+            {page.servicesIntro}
+          </p>
+        </div>
+        <div className="mt-10">
+          <div className="grid gap-3 sm:grid-cols-2">
+            {services.map(service => service.slug?.current && <Link key={service._id} href={`/services/${service.slug.current}`} className="premium-card flex items-center justify-between gap-4 p-5 text-forest"><h3 className="text-lg font-semibold">{service.title}</h3><span aria-hidden="true">↗</span></Link>)}
+          </div>
+        </div>
+      </section>
       <section className="section-shell bg-ivory">
-        <div className="grid gap-14 lg:grid-cols-[1.2fr_.8fr]">
+        <div className="grid items-start gap-8 lg:grid-cols-[1.2fr_.8fr] home-updates">
           <div>
             <div className="flex flex-wrap items-end justify-between gap-4 border-b border-forest/15 pb-6">
               <h2 className="section-title">
@@ -172,7 +170,7 @@ export default async function HomePage() {
                   }
                   target={n.externalUrl ? "_blank" : undefined}
                   rel={n.externalUrl ? "noreferrer" : undefined}
-                  className="premium-card group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
+                  className="premium-card home-news-preview group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">
                     {urlFor(n.coverImage) && (
@@ -199,12 +197,14 @@ export default async function HomePage() {
               <p className="py-8 text-carbon/55">{text.emptyNews}</p>
             )}
           </div>
-          <aside className="rounded-[2rem] bg-forest p-8 text-ivory">
+          <div className="grid gap-5">
+          {page.experienceBody && <article className="premium-card home-experience p-6"><h2 className="text-xl font-semibold text-forest">{page.experienceHeading}</h2><p className="mt-3 text-sm leading-6 text-carbon/80">{page.experienceBody}</p></article>}
+          <aside className="home-events rounded-2xl bg-forest p-6 text-ivory">
             <p className="eyebrow text-mint">{text.calendar}</p>
-            <h2 className="mt-5 font-display text-4xl">
+            <h2 className="mt-3 font-display text-2xl">
               {text.upcomingEvents}
             </h2>
-            <div className="mt-8 divide-y divide-ivory/15">
+            <div className="mt-4 divide-y divide-ivory/15">
               {events.length ? (
                 events.map((e) => (
                   <Link
@@ -239,7 +239,9 @@ export default async function HomePage() {
                 <p className="py-6 text-sm text-ivory/60">{text.emptyEvents}</p>
               )}
             </div>
+            <Link href="/events" className="text-link inline-flex text-ivory">{text.allEvents} <span aria-hidden="true">↗</span></Link>
           </aside>
+          </div>
         </div>
       </section>
       <TestimonialShowcase testimonials={data.testimonials || []} text={text} />

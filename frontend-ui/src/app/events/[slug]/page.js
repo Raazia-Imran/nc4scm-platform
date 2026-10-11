@@ -58,7 +58,6 @@ export default async function EventDetail({ params }) {
           </div>
         </div>
       </section>
-      <nav className="detail-return-bar"><Link href="/events" className="detail-return">← {text.allEvents}</Link></nav>
       {cover && (
         <div className="event-detail-cover">
           <Image
@@ -119,6 +118,7 @@ export default async function EventDetail({ params }) {
           </div>
         )}
       </section>
+      <nav className="detail-return-bar"><Link href="/events" className="detail-return">← {text.allEvents}</Link></nav>
     </>
   );
 }

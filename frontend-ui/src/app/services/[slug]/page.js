@@ -42,7 +42,6 @@ export default async function ServiceDetail({ params }) {
           <p className="page-hero-intro">{service.summary}</p>
         </div>
       </section>
-      <nav className="detail-return-bar"><Link href="/services" className="detail-return">← {text.allServices}</Link></nav>
       <section className="section-shell bg-ivory">
         <div
           className={
@@ -80,6 +79,7 @@ export default async function ServiceDetail({ params }) {
           <span aria-hidden="true">↗</span>
         </Link>
       </section>
+      <nav className="detail-return-bar"><Link href="/services" className="detail-return">← {text.allServices}</Link></nav>
     </>
   );
 }

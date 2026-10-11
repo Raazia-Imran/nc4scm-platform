@@ -1521,3 +1521,13 @@ body {
 .institution-logo p { margin-top: .65rem; font-size: .75rem; line-height: 1.5; }
 
 @media (min-width: 768px) { .page-hero-inner { padding-block: 7rem 2rem; } }
+
+/* Detail navigation occupies its own bottom row, clear of CTAs and the footer. */
+.detail-return-bar { position:static; border-top:1px solid #123d2f26; border-bottom:0; padding-block:1rem; }
+.home-hero .page-hero-inner { min-height:clamp(29rem,65vh,38rem); padding-top:8rem; padding-bottom:3rem; }
+.home-hero .page-hero-title { max-width:22ch; font-size:clamp(2.2rem,4.5vw,4rem); }
+.home-institutions { padding-block:clamp(3rem,6vw,5rem); }
+.home-institutions .institution-logo img { height:clamp(6rem,12vw,10rem); }
+.home-institutions .institution-logo:first-child img { height:7rem; }
+.home-events { align-self:start; }
+@media(max-width:600px) { .home-hero .page-hero-inner { min-height:0; padding-top:8rem; padding-bottom:2.5rem; } }
