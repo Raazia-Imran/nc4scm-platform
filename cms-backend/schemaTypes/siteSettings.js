@@ -4,6 +4,13 @@ export default {
   type: "document",
   fields: [
     {
+      name: "interfaceText",
+      title: "Website interface text",
+      type: "interfaceText",
+      description:
+        "Editable section labels, buttons, filters and form messages.",
+    },
+    {
       name: "organizationName",
       title: "Organization name",
       type: "string",

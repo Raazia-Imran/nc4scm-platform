@@ -1,6 +1,6 @@
 import { client } from "@/sanityClient";
 export default async function sitemap() {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || "https://nc4scm.org";
+  const base = "https://www.nc4scm.com";
   const staticRoutes = [
     "",
     "/about",

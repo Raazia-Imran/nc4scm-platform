@@ -1,5 +1,10 @@
 # NC4SCM Platform — Setup & Launch Guide
 
+The October 2026 client Word update and CMS editing/import instructions are in
+[the approved content guide](cms-backend/seed/README.md). Content is imported into
+Sanity once through the secure GitHub deployment workflow; the frontend reads the
+CMS and does not use seed files as hardcoded fallback copy.
+
 This repo has two independent projects:
 
 - `cms-backend/` — Sanity Studio v3 (content editing UI)

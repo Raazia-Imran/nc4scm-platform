@@ -1,142 +1,149 @@
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
+import { getSiteContent } from "@/lib/content";
 import ContactForm from "./ContactForm";
-const QUERY = `{"settings":*[_type=="siteSettings"][0]{address,email,phone,contactPeople,mapEmbedUrl,latitude,longitude,linkedinUrl},"page":*[_type=="pageSettings"][0]{contactHeadline,contactIntroduction,contactSuccessMessage}}`;
-export const metadata = {
-  title: "Contact — NC4SCM",
-  description:
-    "Contact NC4SCM for consultancy, collaboration, media, and general enquiries.",
-};
+export async function generateMetadata() {
+  const p = await client.fetch('*[_type=="pageSettings"][0]');
+  return {
+    title: p?.contactHeadline,
+    description: p?.contactIntroduction,
+    alternates: { canonical: "/contact" },
+  };
+}
 export default async function ContactPage() {
-  const data = await client.fetch(QUERY).catch(() => ({}));
-  const s = data.settings || {},
-    p = data.page || {};
-  const mapUrl = s.mapEmbedUrl;
-  const contacts = s.contactPeople || [];
-  const latitude = s.latitude;
-  const longitude = s.longitude;
+  const [site, page, services] = await Promise.all([
+    getSiteContent(),
+    client.fetch('*[_type=="pageSettings"][0]'),
+    client.fetch('*[_type=="service"]{title,slug}'),
+  ]);
+  const text = site.interfaceText || {},
+    coordinates =
+      Number.isFinite(site.latitude) && Number.isFinite(site.longitude);
+  const map = site.mapEmbedUrl;
   return (
     <>
-      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
-        <div className="mx-auto max-w-[1400px]">
-          <p className="eyebrow text-mint">Contact</p>
-          <h1 className="page-hero-title mt-7">
-            {p.contactHeadline ||
-              "Let’s turn a materials challenge into a path forward."}
-          </h1>
-          <p className="mt-9 max-w-2xl text-lg leading-8 text-ivory/70">
-            {p.contactIntroduction ||
-              "Contact the center about technical services, research collaboration, training, media, or institutional partnerships."}
-          </p>
+      <section className="page-hero text-ivory">
+        <div className="page-hero-inner">
+          <p className="eyebrow text-mint">{text.contact}</p>
+          <h1 className="page-hero-title mt-6">{page?.contactHeadline}</h1>
+          <p className="page-hero-intro">{page?.contactIntroduction}</p>
         </div>
       </section>
       <section className="section-shell marble-surface">
-        <div className="grid gap-16 lg:grid-cols-[.65fr_1.35fr]">
-          <aside className="premium-card h-fit p-7 sm:p-8">
-            <p className="eyebrow text-clay">Contact details</p>
-            <div className="mt-7 space-y-8">
-              {s.address && <Info label="Visit" value={s.address} />}{" "}
+        <div className="contact-layout">
+          <aside className="contact-information">
+            <h2 className="eyebrow text-clay">{text.contactDetails}</h2>
+            {site.address && <Info label={text.visit} value={site.address} />}
+            {site.email && (
               <Info
-                label="Centre email"
-                value={s.email}
-                href={s.email ? "mailto:" + s.email : undefined}
+                label={text.centreEmail}
+                value={site.email}
+                href={`mailto:${site.email}`}
               />
-              {s.phone && (
-                <Info label="Call" value={s.phone} href={`tel:${s.phone}`} />
-              )}{" "}
-              {contacts.map((contact) => (
-                <ContactPerson key={contact.email} contact={contact} />
-              ))}
-              {s.linkedinUrl && (
-                <Info label="Follow" value="LinkedIn ↗" href={s.linkedinUrl} />
-              )}
-            </div>
+            )}
+            {site.phone && (
+              <Info
+                label={text.call}
+                value={site.phone}
+                href={`tel:${site.phone.replace(/\s/g, "")}`}
+              />
+            )}
+            {(site.contactPeople || []).map((person) => (
+              <div key={person._key || person.email} className="contact-person">
+                <p className="eyebrow text-clay">{person.role}</p>
+                <h3 className="mt-3 text-xl text-forest">{person.name}</h3>
+                {person.email && (
+                  <a
+                    href={`mailto:${person.email}`}
+                    className="mt-3 block text-sm"
+                  >
+                    {person.email}
+                  </a>
+                )}
+                {person.phone && (
+                  <a
+                    href={`tel:${person.phone.replace(/\s/g, "")}`}
+                    className="mt-2 block text-sm"
+                  >
+                    {person.phone}
+                  </a>
+                )}
+              </div>
+            ))}
+            {site.linkedinUrl && (
+              <Info
+                label={text.follow}
+                value={text.linkedin}
+                href={site.linkedinUrl}
+              />
+            )}
           </aside>
-          <div className="premium-card p-7 sm:p-10">
-            <p className="eyebrow text-clay">Send an enquiry</p>
-            <h2 className="mb-10 mt-5 font-sans text-4xl font-semibold tracking-[-.04em] text-forest">
-              Tell us what you are working on.
+          <div className="premium-card p-5 sm:p-10">
+            <p className="eyebrow text-clay">{text.sendEnquiry}</p>
+            <h2 className="mb-8 mt-5 text-[clamp(1.6rem,3vw,2.5rem)] font-medium leading-tight text-forest">
+              {text.enquiryHeading}
             </h2>
-            <Suspense fallback={<p>Loading form…</p>}>
-              <ContactForm successMessage={p.contactSuccessMessage} recipientEmail={s.email} />
+            <Suspense fallback={<p>{text.loadingForm}</p>}>
+              <ContactForm
+                successMessage={page?.contactSuccessMessage}
+                recipientEmail={site.email}
+                services={services}
+              />
             </Suspense>
           </div>
         </div>
-        <div className="mt-20 overflow-hidden rounded-[2rem] border border-forest/10 bg-sage shadow-float">
-          <div className="grid lg:grid-cols-[.72fr_1.28fr]">
-            <div className="p-8 sm:p-10">
-              <p className="eyebrow text-clay">Find us</p>
-              <h2 className="mt-5 font-display text-4xl text-forest">
-                NED University of Engineering & Technology
-              </h2>
-              <p className="mt-5 text-sm leading-7 text-carbon/60">
-                Coordinates: {latitude}, {longitude}
-              </p>
-              <a
-                className="text-link mt-7 inline-flex"
-                href={
-                  "https://www.openstreetmap.org/?mlat=" +
-                  latitude +
-                  "&mlon=" +
-                  longitude +
-                  "#map=17/" +
-                  latitude +
-                  "/" +
-                  longitude
-                }
-                target="_blank"
-                rel="noreferrer"
-              >
-                Open full map <span>↗</span>
-              </a>
+        {(map || coordinates) && (
+          <div className="mt-12 overflow-hidden rounded-[2rem] border border-forest/15 bg-sage">
+            <div className={map ? "grid lg:grid-cols-[.72fr_1.28fr]" : ""}>
+              <div className="p-6 sm:p-10">
+                <p className="eyebrow text-clay">{text.findUs}</p>
+                <h2 className="mt-5 text-3xl text-forest">{text.mapHeading}</h2>
+                {coordinates && (
+                  <>
+                    <p className="mt-5 text-sm">
+                      {text.coordinates}: {site.latitude}, {site.longitude}
+                    </p>
+                    <a
+                      className="text-link mt-7 inline-flex"
+                      href={`https://www.openstreetmap.org/?mlat=${site.latitude}&mlon=${site.longitude}#map=17/${site.latitude}/${site.longitude}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {text.openMap}
+                      <span aria-hidden="true">↗</span>
+                    </a>
+                  </>
+                )}
+              </div>
+              {map && (
+                <iframe
+                  src={map}
+                  title={text.location}
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="h-[350px] w-full border-0 lg:h-full lg:min-h-[400px]"
+                />
+              )}
             </div>
-            {mapUrl && <iframe
-              src={mapUrl}
-              title="NC4SCM location"
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              className="h-[420px] w-full border-0 lg:h-full lg:min-h-[430px]"
-            />}
           </div>
-        </div>
+        )}
       </section>
     </>
   );
 }
-function ContactPerson({ contact }) {
-  return (
-    <div className="border-t border-forest/15 pt-5">
-      <p className="eyebrow text-carbon/40">{contact.role}</p>
-      <p className="mt-3 font-display text-2xl text-forest">{contact.name}</p>
-      <div className="mt-3 space-y-1 text-sm text-carbon/65">
-        <a className="block hover:text-clay" href={"mailto:" + contact.email}>
-          {contact.email}
-        </a>
-        <a
-          className="block hover:text-clay"
-          href={"tel:" + contact.phone.replace(/\s/g, "")}
-        >
-          {contact.phone}
-        </a>
-      </div>
-    </div>
-  );
-}
 function Info({ label, value, href }) {
-  const content = (
-    <p className="whitespace-pre-line text-base leading-7 text-carbon/70">
-      {value}
-    </p>
-  );
   return (
-    <div className="border-t border-forest/15 pt-5">
-      <p className="eyebrow mb-3 text-carbon/40">{label}</p>
+    <div className="contact-person">
+      <p className="eyebrow text-clay">{label}</p>
       {href ? (
-        <a href={href} className="hover:text-clay">
-          {content}
+        <a
+          href={href}
+          className="mt-3 block text-base leading-7 hover:underline"
+        >
+          {value}
         </a>
       ) : (
-        content
+        <p className="mt-3 whitespace-pre-line leading-7">{value}</p>
       )}
     </div>
   );

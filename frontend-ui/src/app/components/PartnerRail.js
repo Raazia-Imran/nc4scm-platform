@@ -2,22 +2,45 @@
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useRef, useState } from "react";
 import { urlFor } from "@/sanityClient";
 
 export default function PartnerRail({ partners }) {
+  const rail = useRef(null);
+  const [copies, setCopies] = useState(1);
   const visiblePartners = partners.length ? partners : [];
+  useEffect(() => {
+    if (!rail.current || !visiblePartners.length) return;
+    const resize = () => {
+      const card = rail.current.querySelector(".partner-rail-card");
+      if (!card) return;
+      const stride = card.getBoundingClientRect().width + 14.4;
+      setCopies(
+        Math.max(
+          1,
+          Math.ceil(
+            rail.current.clientWidth / (stride * visiblePartners.length),
+          ) + 1,
+        ),
+      );
+    };
+    const observer = new ResizeObserver(resize);
+    observer.observe(rail.current);
+    resize();
+    return () => observer.disconnect();
+  }, [visiblePartners.length]);
   if (!visiblePartners.length) return null;
 
   // A cycle must be wider than the viewport or an ultra-wide screen can
-  // briefly expose empty rail space. Repeat the source records until each of
-  // the two identical cycles contains at least eight cards.
+  // briefly expose empty rail space. Each identical cycle is measured to fill
+  // the current viewport, including ultra-wide screens.
   const cycle = Array.from(
-    { length: Math.max(8, visiblePartners.length) },
+    { length: copies * visiblePartners.length },
     (_, index) => visiblePartners[index % visiblePartners.length],
   );
 
   return (
-    <div className="partner-rail" aria-label="NC4SCM partner organizations">
+    <div className="partner-rail" ref={rail}>
       <div className="partner-track">
         {[0, 1].map((groupIndex) => (
           <div
@@ -54,12 +77,12 @@ function PartnerCard({ partner, duplicate }) {
           />
         ) : (
           <span className="partner-placeholder" aria-hidden="true">
-            <span>Logo</span>
+            ↗
           </span>
         )}
       </div>
       <p className="mt-4 text-sm font-semibold text-ivory">
-        {partner.isPlaceholder ? "Partner to be confirmed" : partner.organizationName}
+        {partner.organizationName}
       </p>
     </>
   );

@@ -46,6 +46,20 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "endDateTime",
+      title: "Event end date & time",
+      type: "datetime",
+      description:
+        "Optional. Multi-day events remain upcoming until this time.",
+      validation: (Rule) =>
+        Rule.custom(
+          (value, context) =>
+            !value ||
+            new Date(value) >= new Date(context.document.eventDateTime) ||
+            "End time must follow the start time.",
+        ),
+    },
+    {
       name: "venue",
       title: "Venue Location",
       type: "string",

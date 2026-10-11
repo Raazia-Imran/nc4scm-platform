@@ -1,3 +1,4 @@
+import { getSiteContent } from "@/lib/content";
 // src/app/publications/page.js
 // -----------------------------------------------------------------------------
 // The Research Hub's Technical Publications Vault. This page itself stays a
@@ -32,33 +33,34 @@ const PUBLICATIONS_QUERY = `*[_type == "publication"] | order(publicationYear de
   "pdfFilename": pdfFile.asset->originalFilename
 }`;
 
-export const metadata = {
-  title: "Publications — NC4SCM",
-};
+export async function generateMetadata() {
+  const p = await client.fetch('*[_type=="pageSettings"][0]');
+  return {
+    title: p?.researchHeadline,
+    description: p?.researchIntroduction,
+    alternates: { canonical: "/publications" },
+  };
+}
 
 export default async function PublicationsPage() {
-  const [publications, settings] = await Promise.all([
+  const [publications, settings, site] = await Promise.all([
     client.fetch(PUBLICATIONS_QUERY),
     client
       .fetch(
         `*[_type == "pageSettings"][0]{researchHeadline,researchIntroduction}`,
       )
       .catch(() => null),
+    getSiteContent(),
   ]);
+  const text = site.interfaceText || {};
 
   return (
     <>
-      <section className="page-hero px-6 pb-24 pt-44 text-ivory sm:px-10">
-        <div className="mx-auto max-w-[1400px]">
-          <p className="eyebrow text-mint">Research library</p>
-          <h1 className="page-hero-title mt-7">
-            {settings?.researchHeadline ||
-              "Evidence designed to travel beyond the laboratory."}
-          </h1>
-          <p className="mt-9 max-w-2xl text-lg leading-8 text-ivory/70">
-            {settings?.researchIntroduction ||
-              "Search peer-reviewed publications, conference work, and technical reports by topic, author, or year."}
-          </p>
+      <section className="page-hero text-ivory">
+        <div className="page-hero-inner">
+          <p className="eyebrow text-mint">{text.researchLibrary}</p>
+          <h1 className="page-hero-title mt-7">{settings?.researchHeadline}</h1>
+          <p className="page-hero-intro">{settings?.researchIntroduction}</p>
         </div>
       </section>
       <section className="section-shell bg-ivory">

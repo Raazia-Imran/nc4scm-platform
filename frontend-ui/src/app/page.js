@@ -1,10 +1,20 @@
+import { getSiteContent } from "@/lib/content";
+import ServiceCards from "@/app/components/ServiceCards";
 import Link from "next/link";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import TestimonialShowcase from "@/app/components/TestimonialShowcase";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 
-const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published!=false]|order(displayOrder asc){_id,quote,personName,role,organization,portrait},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&eventDateTime>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
+export async function generateMetadata() {
+  const p = await client.fetch('*[_type=="homePage"][0]');
+  return {
+    title: p?.seo?.title || p?.headline,
+    description: p?.seo?.description || p?.intro,
+    alternates: { canonical: "/" },
+  };
+}
+const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary,image,displayOrder},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published==true&&publicationApproved==true]|order(displayOrder asc){_id,quote,personName,role,organization,portrait,published,publicationApproved},"news":*[_type=="news"]|order(publishedAt desc)[0...6]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&coalesce(endDateTime,eventDateTime)>=now()]|order(eventDateTime asc)[0...4]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
 
 const Action = ({ link, light = false }) =>
   link?.href ? (
@@ -18,7 +28,11 @@ const Action = ({ link, light = false }) =>
   ) : null;
 
 export default async function HomePage() {
-  const data = await client.fetch(QUERY).catch(() => ({}));
+  const [data, site] = await Promise.all([
+    client.fetch(QUERY),
+    getSiteContent(),
+  ]);
+  const text = site.interfaceText || {};
   const page = data.page || {};
   const hero = urlFor(page.heroImage)
     ?.width(1800)
@@ -41,7 +55,7 @@ export default async function HomePage() {
   const stats = page.statistics || [];
   return (
     <>
-      <section className="relative min-h-[850px] overflow-hidden bg-forest pt-36 text-ivory lg:min-h-screen">
+      <section className="relative min-h-[min(850px,100svh)] overflow-hidden bg-forest pt-36 text-ivory lg:min-h-screen">
         {hero && (
           <Image
             src={hero}
@@ -54,9 +68,9 @@ export default async function HomePage() {
         )}
         <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(12,51,38,.97)_0%,rgba(12,51,38,.76)_52%,rgba(12,51,38,.25)_100%)]" />
         <div className="material-grid absolute inset-0 opacity-30" />
-        <div className="relative mx-auto flex min-h-[710px] max-w-[1400px] flex-col justify-end px-6 pb-20 sm:px-10 lg:pb-24">
+        <div className="relative mx-auto flex min-h-[min(710px,85svh)] max-w-[1400px] flex-col justify-end px-6 pb-20 sm:px-10 lg:pb-24">
           <p className="eyebrow text-mint">{page.eyebrow}</p>
-          <h1 className="mt-6 max-w-5xl font-sans text-[clamp(3.3rem,7.5vw,7.6rem)] font-medium leading-[.88] tracking-[-.065em]">
+          <h1 className="mt-6 max-w-5xl font-sans text-[clamp(2.5rem,7vw,7rem)] font-medium leading-[.88] tracking-[-.065em]">
             {page.headline}
           </h1>
           <div className="mt-10 grid gap-8 border-t border-ivory/25 pt-7 lg:grid-cols-[1fr_.75fr] lg:items-end">
@@ -65,13 +79,15 @@ export default async function HomePage() {
             </p>
             <div className="flex flex-wrap gap-3 lg:justify-end">
               <Action link={page.primaryCta} light />
-              <Link
-                href={page.secondaryCta?.href}
-                className="button button-ghost"
-              >
-                {page.secondaryCta?.label}
-                <span>→</span>
-              </Link>
+              {page.secondaryCta?.href && (
+                <Link
+                  href={page.secondaryCta.href}
+                  className="button button-ghost"
+                >
+                  {page.secondaryCta.label}
+                  <span aria-hidden="true">→</span>
+                </Link>
+              )}
             </div>
           </div>
         </div>
@@ -81,18 +97,19 @@ export default async function HomePage() {
           <p className="eyebrow text-clay">{page.aboutKicker}</p>
           <div>
             <h2 className="section-title max-w-4xl">{page.aboutHeading}</h2>
-            {page.aboutBody?.length ? <div className="mt-8 max-w-2xl text-lg leading-8 text-carbon/65"><RichTextRenderer value={page.aboutBody} /></div> : null}
+            {page.aboutBody?.length ? (
+              <div className="mt-8 max-w-2xl text-lg leading-8 text-carbon/65">
+                <RichTextRenderer value={page.aboutBody} />
+              </div>
+            ) : null}
             <Link href="/about" className="text-link mt-9 inline-flex">
-              Discover the center <span>↗</span>
+              {text.discoverCentre} <span>↗</span>
             </Link>
           </div>
         </div>
         <div className="mt-20 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((s) => (
-            <div
-              key={s.label}
-              className="premium-card stat-card p-7"
-            >
+            <div key={s.label} className="premium-card stat-card p-7">
               <p className="font-display text-5xl text-forest">{s.value}</p>
               <p className="mt-3 max-w-[13rem] text-sm leading-6 text-carbon/60">
                 {s.label}
@@ -104,7 +121,7 @@ export default async function HomePage() {
       <section className="section-shell bg-limestone">
         <div className="flex flex-col gap-7 border-b border-forest/15 pb-10 lg:flex-row lg:items-end lg:justify-between">
           <div>
-            <p className="eyebrow text-clay">Capabilities</p>
+            <p className="eyebrow text-clay">{text.capabilities}</p>
             <h2 className="section-title mt-5 max-w-3xl">
               {page.servicesHeading}
             </h2>
@@ -113,29 +130,8 @@ export default async function HomePage() {
             {page.servicesIntro}
           </p>
         </div>
-        <div className="grid lg:grid-cols-2">
-          {services.map((s, i) => (
-            <Link
-              key={s._id || s.title}
-              href={
-                s.slug?.current ? `/services/${s.slug.current}` : "/services"
-              }
-              className="service-row group"
-            >
-              <span className="text-xs text-clay">0{i + 1}</span>
-              <div>
-                <h3 className="font-display text-3xl text-forest sm:text-4xl">
-                  {s.title}
-                </h3>
-                {s.summary && (
-                  <p className="mt-3 max-w-xl text-sm leading-6 text-carbon/60">
-                    {s.summary}
-                  </p>
-                )}
-              </div>
-              <span className="service-arrow">↗</span>
-            </Link>
-          ))}
+        <div className="mt-10">
+          <ServiceCards services={services} text={text} />
         </div>
       </section>
       <section className="section-shell bg-[#0b282d] text-ivory">
@@ -171,12 +167,12 @@ export default async function HomePage() {
       <section className="section-shell bg-ivory">
         <div className="grid gap-14 lg:grid-cols-[1.2fr_.8fr]">
           <div>
-            <div className="flex items-end justify-between border-b border-forest/15 pb-6">
+            <div className="flex flex-wrap items-end justify-between gap-4 border-b border-forest/15 pb-6">
               <h2 className="font-display text-5xl text-forest">
-                News & insight
+                {text.newsInsight}
               </h2>
               <Link className="text-link" href="/news">
-                All news <span>↗</span>
+                {text.allNews} <span>↗</span>
               </Link>
             </div>
             {news.length ? (
@@ -189,14 +185,12 @@ export default async function HomePage() {
                   }
                   target={n.externalUrl ? "_blank" : undefined}
                   rel={n.externalUrl ? "noreferrer" : undefined}
-                className="premium-card group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
+                  className="premium-card group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">
-                    {n.coverImage && (
+                    {urlFor(n.coverImage) && (
                       <Image
-                        src={
-                          urlFor(n.coverImage)?.width(320).height(240).url()
-                        }
+                        src={urlFor(n.coverImage)?.width(320).height(240).url()}
                         alt={n.coverImage?.alt || n.headline}
                         fill
                         className="object-cover"
@@ -205,7 +199,7 @@ export default async function HomePage() {
                   </div>
                   <div>
                     <p className="text-xs uppercase tracking-[.16em] text-clay">
-                      {n.category || "Update"}
+                      {n.category?.replaceAll("-", " ")}
                     </p>
                     <h3 className="mt-2 font-display text-2xl text-forest">
                       {n.headline}
@@ -215,14 +209,14 @@ export default async function HomePage() {
                 </Link>
               ))
             ) : (
-              <p className="py-8 text-carbon/55">
-                Published updates will appear here.
-              </p>
+              <p className="py-8 text-carbon/55">{text.emptyNews}</p>
             )}
           </div>
           <aside className="rounded-[2rem] bg-forest p-8 text-ivory">
-            <p className="eyebrow text-mint">On the calendar</p>
-            <h2 className="mt-5 font-display text-4xl">Upcoming events</h2>
+            <p className="eyebrow text-mint">{text.calendar}</p>
+            <h2 className="mt-5 font-display text-4xl">
+              {text.upcomingEvents}
+            </h2>
             <div className="mt-8 divide-y divide-ivory/15">
               {events.length ? (
                 events.map((e) => (
@@ -255,18 +249,16 @@ export default async function HomePage() {
                   </Link>
                 ))
               ) : (
-                <p className="py-6 text-sm text-ivory/60">
-                  New events will be announced here.
-                </p>
+                <p className="py-6 text-sm text-ivory/60">{text.emptyEvents}</p>
               )}
             </div>
           </aside>
         </div>
       </section>
-      <TestimonialShowcase testimonials={data.testimonials || []} />
+      <TestimonialShowcase testimonials={data.testimonials || []} text={text} />
       <section className="marble-surface px-6 py-24 sm:px-10 lg:py-32">
         <div className="mx-auto max-w-[1400px]">
-          <p className="eyebrow text-clay">Work with NC4SCM</p>
+          <p className="eyebrow text-clay">{text.workWith}</p>
           <div className="mt-5 grid gap-10 lg:grid-cols-[1.3fr_.7fr] lg:items-end">
             <h2 className="font-display text-5xl leading-[.96] text-forest sm:text-7xl">
               {page.closingHeading}

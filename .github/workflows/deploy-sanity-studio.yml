@@ -12,7 +12,7 @@ on:
 
 concurrency:
   group: sanity-studio-production
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 permissions:
   contents: read
@@ -44,6 +44,22 @@ jobs:
 
       - name: Install locked dependencies
         run: npm ci --ignore-scripts
+
+      - name: Verify approved content mapping
+        run: npm run test:content
+
+      - name: Import approved Word content once
+        if: github.ref == 'refs/heads/main'
+        run: npm run seed:client
+
+      - name: Save pre-import backup
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sanity-content-backup
+          path: cms-backend/seed/backups/
+          if-no-files-found: ignore
+          retention-days: 30
 
       - name: Deploy hosted Studio
         run: ./node_modules/.bin/sanity deploy --no-minify --yes

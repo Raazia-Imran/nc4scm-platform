@@ -6,21 +6,13 @@ import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import { urlFor } from "@/sanityClient";
 
-const FALLBACK_LINKS = [
-  { label: "About", href: "/about" },
-  { label: "Services", href: "/services" },
-  { label: "Research", href: "/publications" },
-  { label: "Events", href: "/events" },
-  { label: "News", href: "/news" },
-  { label: "Contact", href: "/contact" },
-];
-
 export default function SiteHeader({ settings }) {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
-  const links = settings?.navigation?.length
-    ? settings.navigation
-    : FALLBACK_LINKS;
+  const links = (settings?.navigation || []).filter(
+    (item) => item.href && item.label,
+  );
+  const text = settings?.interfaceText || {};
   const logoUrl = urlFor(settings?.logo)
     ?.width(360)
     .height(120)
@@ -28,11 +20,19 @@ export default function SiteHeader({ settings }) {
     .url();
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [open]);
+  useEffect(() => {
+    const close = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">
@@ -42,22 +42,26 @@ export default function SiteHeader({ settings }) {
       >
         <Link
           href="/"
-          aria-label="NC4SCM home"
+          aria-label={settings?.shortName}
           className="flex min-w-0 items-center gap-3"
           onClick={() => setOpen(false)}
         >
           {logoUrl ? (
             <Image
               src={logoUrl}
-              alt={settings?.logo?.alt || settings?.shortName || "NC4SCM"}
+              alt={settings?.logo?.alt || settings?.shortName || ""}
               width={260}
               height={72}
               className="h-9 w-auto max-w-[12rem] object-contain sm:h-10 sm:max-w-[14rem]"
               priority
             />
-          ) : <span className="font-display text-xl font-semibold text-forest">{settings?.shortName || settings?.organizationName}</span>}
+          ) : (
+            <span className="font-display text-xl font-semibold text-forest">
+              {settings?.shortName || settings?.organizationName}
+            </span>
+          )}
         </Link>
-        <ul className="hidden items-center gap-1 lg:flex">
+        <ul className="hidden items-center gap-1 xl:flex">
           {links.map((item) => (
             <li key={`${item.href}-${item.label}`}>
               <Link
@@ -71,12 +75,12 @@ export default function SiteHeader({ settings }) {
             </li>
           ))}
         </ul>
-        <div className="flex items-center gap-2">
+        <div className="flex shrink-0 items-center gap-2">
           <Link
             href={settings?.headerCta?.href || "/contact"}
-            className="hidden rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-ivory transition hover:-translate-y-0.5 hover:bg-moss sm:inline-flex"
+            className="hidden shrink-0 rounded-full bg-forest px-5 py-2.5 text-sm font-semibold text-ivory transition hover:-translate-y-0.5 hover:bg-moss xl:inline-flex"
           >
-            {settings?.headerCta?.label || "Start a conversation"}
+            {settings?.headerCta?.label}
             <span aria-hidden="true" className="ml-2">
               ↗
             </span>
@@ -85,11 +89,13 @@ export default function SiteHeader({ settings }) {
             type="button"
             aria-expanded={open}
             aria-controls="mobile-navigation"
-            aria-label={open ? "Close menu" : "Open menu"}
+            aria-label={open ? text.closeMenu : text.openMenu}
             onClick={() => setOpen(!open)}
-            className="grid h-10 w-10 place-items-center rounded-full border border-forest/15 text-forest lg:hidden"
+            className="grid h-10 w-10 place-items-center rounded-full border border-forest/15 text-forest xl:hidden"
           >
-            <span className="sr-only">Menu</span>
+            <span className="sr-only">
+              {open ? text.closeMenu : text.openMenu}
+            </span>
             <span aria-hidden="true" className="text-xl leading-none">
               {open ? "×" : "≡"}
             </span>
@@ -99,7 +105,7 @@ export default function SiteHeader({ settings }) {
       {open && (
         <div
           id="mobile-navigation"
-          className="mx-auto mt-2 max-w-[1400px] overflow-hidden rounded-[2rem] border border-forest/10 bg-ivory p-5 shadow-float lg:hidden"
+          className="mx-auto mt-2 max-h-[calc(100dvh-7rem)] max-w-[1400px] overflow-y-auto rounded-[2rem] border border-forest/10 bg-ivory p-5 shadow-float xl:hidden"
         >
           <ul className="divide-y divide-forest/10">
             {links.map((item, index) => (
@@ -122,7 +128,7 @@ export default function SiteHeader({ settings }) {
             onClick={() => setOpen(false)}
             className="mt-5 flex justify-center rounded-full bg-forest px-5 py-3 text-sm font-semibold text-ivory"
           >
-            {settings?.headerCta?.label || "Start a conversation"}
+            {settings?.headerCta?.label}
           </Link>
         </div>
       )}

@@ -91,6 +91,27 @@ const components = {
 export default function RichTextRenderer({ value }) {
   // Guard against empty/undefined rich-text fields so this component can
   // always be rendered unconditionally by its callers.
-  if (!value || value.length === 0) return null;
-  return <PortableText value={value} components={components} />;
+  if (typeof value === "string")
+    return <p className="whitespace-pre-line leading-relaxed">{value}</p>;
+  if (!Array.isArray(value)) return null;
+  const valid = value
+    .filter(
+      (block) =>
+        block &&
+        typeof block === "object" &&
+        (block._type === "image" ||
+          (block._type === "block" && Array.isArray(block.children))),
+    )
+    .map((block) =>
+      block._type !== "block"
+        ? block
+        : {
+            ...block,
+            children: block.children.filter(
+              (child) => child && typeof child.text === "string",
+            ),
+          },
+    );
+  if (!valid.length) return null;
+  return <PortableText value={valid} components={components} />;
 }
