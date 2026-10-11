@@ -1,6 +1,6 @@
 # Approved content imports
 
-The website reads only Sanity Content Lake. Seed files are migration inputs, never frontend fallback content.
+Approved client page content is read from Sanity Content Lake. Word seed files are migration inputs, never frontend fallback content. Shared interface defaults keep buttons and filters usable when a newly introduced CMS field has not yet been saved; explicit Studio values always override them.
 
 ## October 2026 Word update
 
@@ -12,13 +12,13 @@ Missing logos, service photographs and testimonial information are not invented.
 
 ## Automatic publishing after merge
 
-The existing **Deploy Sanity Studio** GitHub Action uses the existing `SANITY_AUTH_TOKEN` repository secret for project `dxinqb51`, dataset `production`. On `main`, it tests the source mapping, imports approved fields once, verifies them, and deploys Studio. A backup is saved as the **sanity-content-backup** workflow artifact for 30 days. Never put a write token in frontend variables, source code or chat.
+The existing **Deploy Sanity Studio** GitHub Action uses `SANITY_CONTENT_WRITE_TOKEN` (an Editor token) for content writes, falling back to `SANITY_AUTH_TOKEN` if absent. Studio deployment uses the existing `SANITY_AUTH_TOKEN` repository secret for project `dxinqb51`, dataset `production`. On `main`, it tests the source mapping, imports approved fields once and verifies them. Studio deployment still runs if content import fails, while the workflow remains failed so the uncompleted import is visible. A backup is saved as the **sanity-content-backup** workflow artifact for 30 days. Never put a write token in frontend variables, source code or chat.
 
 The migration matches existing service slugs rather than assuming document IDs. It preserves assets, unrelated fields, contact roles and keys, and uses an atomic transaction with revision checks. Duplicate singleton/slug records or unpublished drafts stop the import before writes. Resolve those in Studio and rerun the failed action. The stored migration hash prevents later deploys from overwriting Studio edits. Changed inputs require a new migration version.
 
 ## Local preview and apply
 
-From `cms-backend`, with an Editor token securely configured as `SANITY_AUTH_TOKEN`:
+From `cms-backend`, with an Editor token securely configured as `SANITY_CONTENT_WRITE_TOKEN` (or `SANITY_AUTH_TOKEN`):
 
 ```bash
 npm run test:content
@@ -51,3 +51,7 @@ The Word form provides no replacement publications, article bodies, event recaps
 For local browser checks: install Playwright separately (`npm install --no-save --package-lock=false playwright@1.62.1` inside `frontend-ui`), run `npx playwright install chromium`, then `node tests/responsive.mjs`. This runner starts its own fixture API and production server; fixture content is not bundled into the deployed site.
 
 After merge, verify **Deploy Sanity Studio** succeeded, then allow the site's 60-second CMS revalidation window and check the live Services page. A GitHub merge alone is not proof of a successful CMS import.
+
+## Permission failure recovery
+
+If the import reports `Insufficient permissions; permission "update" required`, the existing deploy token cannot write content. In Sanity project `dxinqb51` → API → Tokens, create an Editor token and save it directly in GitHub repository Settings → Secrets and variables → Actions as `SANITY_CONTENT_WRITE_TOKEN`. Do not send the token in chat. Rerun **Deploy Sanity Studio** from `main`. The failed atomic transaction changed no content and saved a backup.

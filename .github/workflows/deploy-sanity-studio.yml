@@ -43,13 +43,17 @@ jobs:
           cache-dependency-path: cms-backend/package-lock.json
 
       - name: Install locked dependencies
+        id: install
         run: npm ci --ignore-scripts
 
       - name: Verify approved content mapping
+        id: verify
         run: npm run test:content
 
       - name: Import approved Word content once
         if: github.ref == 'refs/heads/main'
+        env:
+          SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
         run: npm run seed:client
 
       - name: Save pre-import backup
@@ -62,4 +66,5 @@ jobs:
           retention-days: 30
 
       - name: Deploy hosted Studio
+        if: always() && steps.install.outcome == 'success' && steps.verify.outcome == 'success'
         run: ./node_modules/.bin/sanity deploy --no-minify --yes
