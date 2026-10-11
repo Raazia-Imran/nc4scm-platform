@@ -1,3 +1,5 @@
+import EmailLinks from "@/app/components/EmailLinks";
+import CompactText from "@/app/components/CompactText";
 import { Suspense } from "react";
 import { client } from "@/sanityClient";
 import { getSiteContent } from "@/lib/content";
@@ -26,7 +28,7 @@ export default async function ContactPage() {
         <div className="page-hero-inner">
           <p className="eyebrow text-mint">{text.contact}</p>
           <h1 className="page-hero-title mt-6">{page?.contactHeadline}</h1>
-          <p className="page-hero-intro">{page?.contactIntroduction}</p>
+          <CompactText className="page-hero-intro" value={page?.contactIntroduction} label={text.readMore} />
         </div>
       </section>
       <section className="section-shell marble-surface">
@@ -35,11 +37,7 @@ export default async function ContactPage() {
             <h2 className="eyebrow text-clay">{text.contactDetails}</h2>
             {site.address && <Info label={text.visit} value={site.address} />}
             {site.email && (
-              <Info
-                label={text.centreEmail}
-                value={site.email}
-                href={`mailto:${site.email}`}
-              />
+              <div className="contact-person"><p className="eyebrow text-clay">{text.centreEmail}</p><EmailLinks email={site.email} text={text} showAddress /></div>
             )}
             {site.phone && (
               <Info
@@ -53,12 +51,7 @@ export default async function ContactPage() {
                 <p className="eyebrow text-clay">{person.role}</p>
                 <h3 className="mt-3 text-xl text-forest">{person.name}</h3>
                 {person.email && (
-                  <a
-                    href={`mailto:${person.email}`}
-                    className="mt-3 block text-sm"
-                  >
-                    {person.email}
-                  </a>
+                  <EmailLinks email={person.email} text={text} showAddress />
                 )}
                 {person.phone && (
                   <a
@@ -78,9 +71,9 @@ export default async function ContactPage() {
               />
             )}
           </aside>
-          <div className="premium-card p-5 sm:p-10">
+          <div className="premium-card contact-form-card p-5 sm:p-6">
             <p className="eyebrow text-clay">{text.sendEnquiry}</p>
-            <h2 className="mb-8 mt-5 text-[clamp(1.6rem,3vw,2.5rem)] font-medium leading-tight text-forest">
+            <h2 className="mb-5 mt-3 text-[clamp(1.4rem,2vw,1.75rem)] font-medium leading-tight text-forest">
               {text.enquiryHeading}
             </h2>
             <Suspense fallback={<p>{text.loadingForm}</p>}>
@@ -121,7 +114,7 @@ export default async function ContactPage() {
                   title={text.location}
                   loading="lazy"
                   referrerPolicy="no-referrer-when-downgrade"
-                  className="h-[350px] w-full border-0 lg:h-full lg:min-h-[400px]"
+                  className="h-[260px] w-full border-0 lg:h-full lg:min-h-[280px]"
                 />
               )}
             </div>

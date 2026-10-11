@@ -42,7 +42,7 @@ export default function NewsGrid({ articles }) {
           setVisible(12);
         }}
       />
-      <div className="mt-10 grid gap-x-7 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
         {filtered.slice(0, visible).map((a) => {
           const image =
             a.coverImage &&
@@ -56,9 +56,9 @@ export default function NewsGrid({ articles }) {
               href={href}
               target={a.externalUrl ? "_blank" : undefined}
               rel={a.externalUrl ? "noreferrer" : undefined}
-              className="premium-card group p-3 pb-7"
+              className="premium-card news-card group p-3 pb-5"
             >
-              <div className="relative aspect-[4/3] overflow-hidden rounded-[1.25rem] bg-sage">
+              <div className="news-card-photo relative aspect-[16/10] overflow-hidden rounded-[1.25rem] bg-sage">
                 {image && (
                   <Image
                     src={image}
@@ -81,10 +81,10 @@ export default function NewsGrid({ articles }) {
                       })
                     : ""}
                 </p>
-                <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
+                <h2 className="mt-3 font-sans text-xl font-semibold leading-tight tracking-[-.035em] text-forest">
                   {a.headline}
                 </h2>
-                <p className="mt-3 line-clamp-3 text-sm leading-6 text-carbon/60">
+                <p className="mt-3 line-clamp-2 text-sm leading-6 text-carbon/60">
                   {a.excerpt}
                 </p>
                 <span className="text-link mt-5 inline-flex">

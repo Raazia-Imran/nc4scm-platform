@@ -51,6 +51,7 @@ export async function fixtureDocuments() {
   const site = docs.find((doc) => doc._type === "siteSettings");
   site.logo = image("logo", "NC4SCM logo");
   for (const doc of docs) {
+    if (doc._type === "teamMember") doc.avatar = image("portrait", doc.fullName);
     if (doc._type === "partner")
       doc.logo = image("partner", doc.organizationName);
     if (doc._type === "news") doc.coverImage = image("news", doc.headline);
@@ -65,6 +66,8 @@ export async function fixtureDocuments() {
       caption: "Local fixture caption",
     },
   ];
+  past.keyOutcomes = ["Fixture outcome one", "Fixture outcome two"];
+  past.gallery.push({ ...image("eventtwo", "Second event photograph"), _key: "gallery-two", caption: "Second fixture caption" });
   return docs.map((doc) => ({
     ...doc,
     _rev: "fixture-revision-1",

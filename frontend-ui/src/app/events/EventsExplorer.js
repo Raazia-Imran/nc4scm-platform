@@ -80,11 +80,11 @@ export default function EventsExplorer({ events, now }) {
                 rel={
                   period !== "past" && e.externalUrl ? "noreferrer" : undefined
                 }
-                className="premium-card group grid min-h-[23rem] overflow-hidden p-3 sm:grid-cols-[8.5rem_1fr]"
+                className="premium-card event-card group grid overflow-hidden p-3 sm:grid-cols-[4.5rem_1fr]"
               >
-                <div className="flex flex-col justify-between rounded-[1.25rem] bg-forest p-5 text-ivory">
+                <div className="flex flex-col justify-between rounded-[1.25rem] bg-forest p-3 text-ivory">
                   <div>
-                    <p className="font-sans text-5xl font-medium tracking-[-.05em]">
+                    <p className="font-sans text-3xl font-medium tracking-[-.05em]">
                       {d
                         .toLocaleDateString("en-US", {
                           day: "2-digit",
@@ -105,7 +105,7 @@ export default function EventsExplorer({ events, now }) {
                   </span>
                 </div>
                 <div className="flex min-w-0 flex-col p-4 sm:p-5">
-                  <div className="relative mb-5 aspect-[16/8] overflow-hidden rounded-xl bg-sage">
+                  <div className="event-card-photo relative mb-4 aspect-[16/8] overflow-hidden rounded-xl bg-sage">
                     {urlFor(e.coverImage) && (
                       <Image
                         src={urlFor(e.coverImage)
@@ -124,12 +124,12 @@ export default function EventsExplorer({ events, now }) {
                     <p className="eyebrow text-clay">
                       {labels[e.eventType] || e.eventType}
                     </p>
-                    <h2 className="mt-3 font-sans text-2xl font-semibold leading-tight tracking-[-.035em] text-forest">
+                    <h2 className="mt-3 font-sans text-xl font-semibold leading-tight tracking-[-.035em] text-forest">
                       {e.title}
                     </h2>
                     <p className="mt-3 text-sm text-carbon/55">{e.venue}</p>
                     {e.description && (
-                      <p className="mt-3 max-w-2xl text-sm leading-6 text-carbon/55">
+                      <p className="mt-3 line-clamp-2 max-w-2xl text-sm leading-6 text-carbon/55">
                         {e.description}
                       </p>
                     )}

@@ -1,3 +1,4 @@
+import EmailLinks from "./EmailLinks";
 import Link from "next/link";
 import Image from "next/image";
 import { urlFor } from "@/sanityClient";
@@ -12,8 +13,8 @@ export default function SiteFooter({ settings }) {
     .url();
   return (
     <footer className="bg-forest text-ivory">
-      <div className="mx-auto max-w-[1400px] px-6 py-16 sm:px-10 lg:py-24">
-        <div className="grid gap-12 border-b border-ivory/15 pb-14 lg:grid-cols-[1.35fr_.65fr_.65fr_.85fr]">
+      <div className="mx-auto max-w-[1200px] px-6 py-10 sm:px-8 lg:py-12">
+        <div className="grid gap-7 border-b border-ivory/15 pb-8 lg:grid-cols-[1.35fr_.65fr_.65fr_.85fr]">
           <div>
             {logoUrl ? (
               <div className="inline-flex rounded-xl bg-ivory px-4 py-3">
@@ -22,7 +23,7 @@ export default function SiteFooter({ settings }) {
                   alt={settings?.logo?.alt || settings?.organizationName || ""}
                   width={260}
                   height={72}
-                  className="h-12 w-auto object-contain"
+                  className="h-10 w-auto object-contain"
                 />
               </div>
             ) : (
@@ -67,12 +68,7 @@ export default function SiteFooter({ settings }) {
               {settings?.address && (
                 <p className="whitespace-pre-line">{settings.address}</p>
               )}
-              <a
-                className="footer-link block"
-                href={settings?.email ? `mailto:${settings.email}` : undefined}
-              >
-                {settings?.email}
-              </a>
+              <EmailLinks email={settings?.email} text={text} showAddress />
               {settings?.phone && (
                 <a className="footer-link block" href={`tel:${settings.phone}`}>
                   {settings.phone}

@@ -24,7 +24,7 @@ export default function ServiceCards({ services = [], text = {} }) {
               </span>
             </div>
             {image && (
-              <div className="relative mb-6 aspect-[3/2] overflow-hidden rounded-2xl">
+              <div className="service-card-photo relative mb-4 aspect-[3/2] overflow-hidden rounded-2xl">
                 <Image
                   src={image}
                   alt={service.image?.alt || service.title}

@@ -9,6 +9,10 @@ export default {
   name: "event",
   title: "Event",
   type: "document",
+  groups: [
+    { name: "details", title: "Event details", default: true },
+    { name: "recap", title: "After the event" },
+  ],
   fields: [
     {
       name: "slug",
@@ -92,9 +96,10 @@ export default {
     },
     {
       name: "gallery",
+      group: "recap",
       title: "Past event gallery",
       description:
-        "Add photographs after the event. These appear on the event detail page in a responsive gallery.",
+        "Add, reorder or replace photographs after the event. Visitors can switch photos in a compact gallery. Add alternative text and optional captions to each photo.",
       type: "array",
       of: [
         {
@@ -114,13 +119,22 @@ export default {
     },
     {
       name: "pastEventRecap",
+      group: "recap",
       title: "Past event recap",
       type: "text",
-      rows: 7,
+      rows: 3,
       description:
         "After the event, add a short summary of what happened, key outcomes, and notable participation.",
     },
-  ],
+    {
+      name: "keyOutcomes",
+      title: "Key outcomes",
+      group: "recap",
+      description: "Optional short bullets about what happened or was achieved. These appear after the event ends.",
+      type: "array",
+      of: [{ type: "string" }],
+    },
+  ].map((field) => ({ ...field, group: field.group || "details" })),
   orderings: [
     {
       title: "Event Date, Soonest First",

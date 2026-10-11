@@ -7,8 +7,10 @@ export async function prepareContent() {
   const source = JSON.parse(
     await readFile(new URL("approved-content.source.json", here), "utf8"),
   );
+  // Freeze the defaults used by this completed migration so later UI labels
+  // cannot change its hash or overwrite client edits when Studio is deployed.
   const ui = JSON.parse(
-    await readFile(new URL("interface-text.json", here), "utf8"),
+    await readFile(new URL("approved-interface-text.json", here), "utf8"),
   );
   const tables = source.tables.map((rows) =>
     Object.fromEntries(rows.map((row) => [row.field, row])),

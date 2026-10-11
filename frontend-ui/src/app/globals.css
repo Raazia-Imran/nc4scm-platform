@@ -96,13 +96,13 @@ body {
     @apply fixed left-4 top-4 z-[100] -translate-y-24 rounded-full bg-ivory px-5 py-3 font-semibold text-forest shadow-float transition focus:translate-y-0;
   }
   .section-shell {
-    @apply relative px-6 py-24 sm:px-10 lg:px-[max(2.5rem,calc((100vw-1400px)/2))] lg:py-32;
+    @apply relative px-6 py-10 sm:px-8 sm:py-12 lg:px-[max(2rem,calc((100vw-1200px)/2))] lg:py-14;
   }
   .eyebrow {
     @apply text-[.68rem] font-bold uppercase tracking-[.22em];
   }
   .section-title {
-    @apply font-display text-4xl font-medium leading-[1.02] tracking-[-.035em] text-forest sm:text-6xl;
+    @apply font-sans text-[clamp(1.6rem,3vw,2.25rem)] font-medium leading-[1.15] tracking-[-.035em] text-forest;
   }
   .button {
     @apply inline-flex min-h-12 items-center justify-center gap-4 rounded-full px-6 py-3 text-sm font-semibold transition duration-300;
@@ -141,7 +141,7 @@ body {
     @apply rounded-[1.75rem] border border-forest/10 bg-white/80 shadow-[0_18px_60px_rgba(18,61,47,.08)] transition duration-500 hover:-translate-y-1 hover:border-teal/30 hover:shadow-[0_24px_80px_rgba(18,61,47,.14)];
   }
   .mission-card {
-    @apply relative min-h-[17rem] overflow-hidden rounded-[1.5rem] border border-forest/10 bg-white p-7 shadow-[0_16px_55px_rgba(18,61,47,.07)] transition duration-500 sm:p-8;
+    @apply relative overflow-hidden rounded-[1.25rem] border border-forest/10 bg-white p-5 shadow-[0_16px_55px_rgba(18,61,47,.07)] transition duration-500 sm:p-6;
   }
   .mission-card::after {
     content: "";
@@ -207,34 +207,34 @@ body {
 }
 
 .page-hero-title {
-  max-width: 68rem;
+  max-width: 58rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  font-size: clamp(2.25rem, 6.4vw, 6rem);
+  font-size: clamp(2rem, 3.8vw, 3.25rem);
   font-weight: 500;
-  letter-spacing: -0.06em;
-  line-height: 1.04;
+  letter-spacing: -0.04em;
+  line-height: 1.12;
 }
 
 .page-hero-inner {
-  width: min(100% - 2 * clamp(1rem, 4vw, 2.5rem), 1400px);
+  width: min(100% - 2 * clamp(1rem, 4vw, 2.5rem), 1200px);
   margin-inline: auto;
-  padding-block: clamp(8rem, 14vw, 11rem) clamp(3rem, 7vw, 6rem);
+  padding-block: 7.5rem 2.5rem;
 }
 .page-hero-intro {
   max-width: 48rem;
-  margin-top: 1.75rem;
-  font-size: clamp(1rem, 1.6vw, 1.15rem);
-  line-height: 1.9;
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.65;
   color: rgba(247, 245, 239, 0.78);
 }
 .service-editorial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
   gap: clamp(1rem, 3vw, 2rem);
 }
 .team-editorial-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 16rem), 18rem));
   gap: 1.5rem;
   max-width: 70rem;
 }
@@ -257,7 +257,7 @@ body {
   position: relative;
   border-radius: 1.75rem;
   border: 1px solid rgba(18, 61, 47, 0.16);
-  padding: clamp(1.25rem, 3vw, 2.75rem);
+  padding: 1.5rem;
   background: #f7f5ef;
   transition:
     border-color 250ms,
@@ -277,7 +277,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: clamp(1.75rem, 4vw, 3rem);
+  margin-bottom: 1.25rem;
 }
 .service-icon {
   display: grid;
@@ -295,17 +295,17 @@ body {
 }
 .service-card-title {
   max-width: 26rem;
-  font-size: clamp(1.75rem, 3.2vw, 2.75rem);
+  font-size: clamp(1.4rem, 2vw, 1.75rem);
   font-weight: 500;
   line-height: 1.13;
   letter-spacing: -0.04em;
   color: #123d2f;
 }
 .service-card-summary {
-  margin-block: 1.25rem 2rem;
+  margin-block: 0.85rem 1.25rem;
   max-width: 32rem;
   font-size: 1rem;
-  line-height: 1.85;
+  line-height: 1.65;
   color: #385348;
 }
 .service-card-link {
@@ -343,18 +343,18 @@ body {
 }
 .service-body {
   max-width: 58rem;
-  font-size: clamp(1.05rem, 1.5vw, 1.25rem);
+  font-size: 1rem;
   line-height: 1.9;
   color: #385348;
 }
 .service-detail-columns {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
-  gap: clamp(1.5rem, 4vw, 4rem);
-  margin-top: clamp(3rem, 6vw, 5rem);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+  gap: 1.25rem;
+  margin-top: 1.5rem;
 }
 .service-detail-list {
-  padding: clamp(1.25rem, 3vw, 2.5rem);
+  padding: 1.5rem;
   border: 1px solid rgba(18, 61, 47, 0.15);
   border-radius: 1.5rem;
   background: #fff;
@@ -362,9 +362,9 @@ body {
 .service-detail-list li {
   display: flex;
   gap: 1rem;
-  padding-block: 1.25rem;
-  font-size: 1rem;
-  line-height: 1.8;
+  padding-block: 0.65rem;
+  font-size: 0.95rem;
+  line-height: 1.6;
   color: #385348;
 }
 .service-list-index {
@@ -961,14 +961,14 @@ body {
   gap: clamp(2rem, 4vw, 4rem);
 }
 .contact-information {
-  padding: clamp(1.25rem, 3vw, 2.5rem);
+  padding: 1.5rem;
   background: #dcecdf;
   border-radius: 1.75rem;
   align-self: start;
 }
 .contact-person {
-  margin-top: 1.5rem;
-  padding-top: 1.5rem;
+  margin-top: 1rem;
+  padding-top: 1rem;
   border-top: 1px solid rgba(18, 61, 47, 0.15);
   color: #385348;
 }
@@ -1403,3 +1403,79 @@ body {
     letter-spacing: 0.12em;
   }
 }
+
+/* Shared density scale: readable type and bounded media on laptops and desktops. */
+.compact-text > p { margin: 0; }
+.compact-disclosure { margin-top: .75rem; }
+.compact-disclosure > summary {
+  width: fit-content;
+  cursor: pointer;
+  font-size: .875rem;
+  font-weight: 600;
+  padding-block: .45rem;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.sentence-grid { display: grid; gap: .75rem; margin-top: .75rem; }
+.sentence-grid > p { margin: 0; border-left: 2px solid currentColor; padding-left: .85rem; }
+.service-overview { padding: 1rem 1.25rem; border: 1px solid #123d2f26; border-radius: 1rem; background: white; }
+.service-overview > summary { font-size: 1rem; }
+.service-detail-list ul { margin-top: 1rem; }
+.team-portrait { aspect-ratio: 4 / 5; max-height: 20rem; }
+.team-card h4 { font-size: 1.15rem; margin-top: 1rem; }
+.team-card { align-self: start; }
+.about-image { height: clamp(14rem, 30vw, 22rem); }
+.journey-editorial-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 20rem), 1fr)); gap: 1rem; }
+.journey-editorial-list::before, .journey-editorial-card::before { display: none; }
+.journey-editorial-row.is-left, .journey-editorial-row.is-right { padding: 0; }
+.journey-editorial-row + .journey-editorial-row { margin-top: 0; }
+.journey-editorial-card { width: 100%; min-height: 0; padding: 1.25rem; border-radius: 1rem; }
+.journey-year { font-size: 1.75rem; letter-spacing: -.03em; line-height: 1.15; }
+.journey-editorial-card h3 { font-size: 1rem; }
+.journey-editorial-card p:last-child { line-height: 1.65; margin-top: .65rem; }
+.email-actions { display: flex; flex-wrap: wrap; align-items: center; gap: .5rem 1rem; margin-top: .65rem; font-size: .875rem; }
+.email-actions a { text-decoration: underline; text-underline-offset: 3px; padding-block: .4rem; }
+.contact-layout { gap: 1.5rem; }
+.contact-information { padding: 1.25rem; }
+.contact-person h3 { font-size: 1rem; margin-top: .5rem; }
+.contact-person p, .contact-person > a { line-height: 1.6; }
+.publication-card { align-self: start; }
+.publication-card h2 { font-size: 1.15rem; }
+.news-card-photo { max-height: 12rem; }
+.event-card-photo { max-height: 11rem; }
+.event-card h2, .news-card h2 { font-size: 1.15rem; }
+.event-detail-cover { position: relative; height: clamp(12rem, 30vw, 20rem); max-width: 1200px; margin: 1.5rem auto 0; border-radius: 1rem; overflow: hidden; }
+.event-detail-copy { display: grid; gap: 2rem; }
+.event-detail-copy > .compact-text { font-size: 1rem; line-height: 1.7; }
+.event-recap { margin-top: 2rem; border-top: 1px solid #123d2f26; padding-top: 2rem; }
+.event-photo-viewer { max-width: 720px; margin-top: 1.5rem; }
+.event-photo-stage { position: relative; height: clamp(13rem, 35vw, 22rem); border-radius: 1rem; overflow: hidden; background: #e8eee6; }
+.event-photo-viewer figcaption { font-size: .875rem; line-height: 1.6; padding-top: .65rem; }
+.gallery-controls { display: flex; align-items: center; gap: 1rem; margin-block: .75rem; }
+.gallery-controls button { width: 44px; height: 44px; border: 1px solid #123d2f66; border-radius: 50%; }
+.gallery-controls button:hover { background: #dcecdf; }
+.gallery-thumbnails { display: flex; gap: .5rem; overflow-x: auto; padding: .3rem; }
+.gallery-thumbnails button { position: relative; width: 80px; height: 60px; flex: 0 0 auto; overflow: hidden; border-radius: .5rem; opacity: .65; }
+.gallery-thumbnails button[aria-pressed="true"] { opacity: 1; outline: 2px solid #123d2f; outline-offset: 2px; }
+.event-outcomes { display: grid; gap: .65rem; margin-top: 1rem; }
+.event-outcomes li { padding: .75rem 1rem; border: 1px solid #123d2f26; border-radius: .75rem; background: white; font-size: .95rem; }
+.partner-rail-card { width: clamp(13rem, 18vw, 16rem); }
+.partner-logo-surface { min-height: 6rem; padding: .75rem; }
+@media (min-width: 768px) {
+  .event-detail-copy { grid-template-columns: minmax(0, 1fr) minmax(14rem, .45fr); }
+}
+@media (max-width: 639px) {
+  .page-hero-inner { padding-block: 7rem 2rem; }
+  .team-editorial-grid { grid-template-columns: minmax(0, 1fr); max-width: 22rem; }
+  .section-shell { padding-block: 2.5rem; }
+}
+
+.service-card-photo { max-height: 11rem; }
+.service-description.has-image > div { max-height: 18rem; }
+.home-hero .page-hero-title { max-width: 54rem; }
+
+.team-groups { display: grid; gap: 1.5rem; }
+.home-feature-image { height: clamp(14rem, 25vw, 18rem); }
+@media (min-width: 700px) { .team-groups { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+@media (min-width: 760px) { .service-editorial-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }

@@ -81,7 +81,7 @@ export default function ContactForm({
   return (
     <form
       onSubmit={submit}
-      className="grid gap-6 sm:grid-cols-2"
+      className="grid gap-4 sm:grid-cols-2"
       aria-busy={status === "submitting"}
     >
       <Field
@@ -148,7 +148,7 @@ export default function ContactForm({
           onChange={change}
           required
           maxLength={10000}
-          rows={6}
+          rows={4}
           className="field-input resize-y"
         />
       </label>
