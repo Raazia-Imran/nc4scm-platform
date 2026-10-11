@@ -12,7 +12,7 @@
     "seed:approved:prepare": "node seed/prepare-approved-content.mjs",
     "seed:approved:preview": "node seed/import-approved-content.mjs",
     "seed:bootstrap": "npm run seed:prepare && sanity dataset import seed/client-content.generated.ndjson production --missing",
-    "test:content": "node --test tests/approved-content.test.mjs"
+    "test:content": "node --test tests/approved-content.test.mjs tests/home-refresh.test.mjs"
   },
   "dependencies": {
     "@sanity/client": "7.23.0",

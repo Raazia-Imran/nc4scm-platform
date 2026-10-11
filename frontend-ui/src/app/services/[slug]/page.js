@@ -29,7 +29,6 @@ export default async function ServiceDetail({ params }) {
     .url();
   return (
     <>
-      <Link href="/services" className="detail-return button button-dark">← {text.allServices}</Link>
       <section className="page-hero text-ivory">
         <div className="page-hero-inner">
           <Link href="/services" className="eyebrow text-mint">
@@ -43,6 +42,7 @@ export default async function ServiceDetail({ params }) {
           <p className="page-hero-intro">{service.summary}</p>
         </div>
       </section>
+      <nav className="detail-return-bar"><Link href="/services" className="detail-return">← {text.allServices}</Link></nav>
       <section className="section-shell bg-ivory">
         <div
           className={

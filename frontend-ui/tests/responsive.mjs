@@ -131,6 +131,16 @@ try {
     }
     console.log(`Verified ${paths.length} routes at ${width}px`);
   }
+  await page.goto("http://127.0.0.1:3100/");
+  assert.equal(await page.locator(".home-highlight").count(), 4);
+  assert.equal(await page.locator(".institution-logo").count(), 3);
+  assert.equal(await page.getByText("NRPU Project No. 14074", {exact:true}).count(), 0);
+  await page.goto("http://127.0.0.1:3100/about");
+  const contactAlignment = await page.locator(".team-card").evaluateAll(cards => cards.map(card => {
+    const email=card.querySelector('.email-actions a'), linkedin=card.querySelector('a[href*="linkedin"]:not(.team-portrait)');
+    return !email || !linkedin || Math.abs(email.getBoundingClientRect().y-linkedin.getBoundingClientRect().y)<2;
+  }));
+  assert.ok(contactAlignment.every(Boolean), "Email and LinkedIn align on the same row");
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto("http://127.0.0.1:3100/news");
   await page.getByRole("button", { name: "Recognition", exact: true }).click();
@@ -169,6 +179,9 @@ try {
   assert.ok(await page.locator(".service-overview").innerText());
   await page.locator(".service-contact").scrollIntoViewIfNeeded();
   assert.ok(await page.locator(".detail-return").isVisible());
+  const returnBox=await page.locator(".detail-return-bar").boundingBox();
+  const consultationBox=await page.locator(".service-contact .button").boundingBox();
+  assert.ok(returnBox.y+returnBox.height<=consultationBox.y, "Return navigation never overlaps consultation CTA");
   await Promise.all([
     page.waitForURL("http://127.0.0.1:3100/services"),
     page.locator(".detail-return").click(),

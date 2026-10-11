@@ -3,6 +3,7 @@ import { createServer } from "node:http";
 import { parse, evaluate } from "groq-js";
 import { readFile } from "node:fs/promises";
 import { fileURLToPath } from "node:url";
+import { homeRefresh } from "../seed/home-refresh.mjs";
 import { prepareContent } from "../seed/prepare-approved-content.mjs";
 
 export async function fixtureDocuments() {
@@ -38,6 +39,11 @@ export async function fixtureDocuments() {
     }
     Object.assign(doc, entry.defaults, entry.set);
   }
+  const home = docs.find(doc => doc._type === "homePage");
+  Object.assign(home, await homeRefresh());
+  delete home.statistics;
+  delete home.flagshipTitle;
+  home.institutionLogos = ["NC4SCM", "NED University", "Higher Education Commission"].map((name, i) => ({_key: String(i), name, image: {_type: "image", alt: name + " logo", asset: {_type: "reference", _ref: "image-logo-800x600-jpg"}}}));
   // Missing assets and malformed legacy rich text are deliberate regressions.
   const services = docs.filter((doc) => doc._type === "service");
   services[0].image = {};

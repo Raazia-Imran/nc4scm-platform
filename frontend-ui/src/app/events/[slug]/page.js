@@ -32,7 +32,6 @@ export default async function EventDetail({ params }) {
     new Date(event.endDateTime || event.eventDateTime).getTime() < Date.now();
   return (
     <>
-      <Link href="/events" className="detail-return button button-dark">← {text.allEvents}</Link>
       <section className="page-hero text-ivory">
         <div className="page-hero-inner">
           <Link href="/events" className="eyebrow text-mint">
@@ -59,6 +58,7 @@ export default async function EventDetail({ params }) {
           </div>
         </div>
       </section>
+      <nav className="detail-return-bar"><Link href="/events" className="detail-return">← {text.allEvents}</Link></nav>
       {cover && (
         <div className="event-detail-cover">
           <Image

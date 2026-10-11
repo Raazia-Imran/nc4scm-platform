@@ -40,19 +40,14 @@ export default async function HomePage() {
     .fit("crop")
     .auto("format")
     .url();
-  const flagship = urlFor(page.flagshipImage)
-    ?.width(1200)
-    .height(900)
-    .fit("crop")
-    .auto("format")
-    .url();
   const services = data.services || [];
   const news = data.news || [];
   const events = (data.events || []).map((item) => ({
     ...item,
     externalUrl: item.registrationUrl,
   }));
-  const stats = page.statistics || [];
+  const highlights = page.highlights || [];
+  const institutions = page.institutionLogos || [];
   return (
     <>
       <section className="home-hero relative overflow-hidden bg-forest text-ivory">
@@ -108,13 +103,11 @@ export default async function HomePage() {
           </div>
         </div>
         <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
-          {stats.map((s) => (
-            <div key={s.label} className="premium-card stat-card p-7">
-              <p className="section-title">{s.value}</p>
-              <p className="mt-3 max-w-[13rem] text-sm leading-6 text-carbon/60">
-                {s.label}
-              </p>
-            </div>
+          {highlights.map((item) => (
+            <article key={item._key} className="premium-card home-highlight p-5">
+              <h3 className="text-lg font-semibold text-forest">{item.title}</h3>
+              <p className="mt-3 text-sm leading-6 text-carbon/80">{item.description}</p>
+            </article>
           ))}
         </div>
       </section>
@@ -136,29 +129,23 @@ export default async function HomePage() {
       </section>
       <section className="section-shell bg-[#0b282d] text-ivory">
         <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="home-feature-image relative overflow-hidden rounded-[1.25rem] bg-carbon/15">
-            {flagship ? (
-              <Image
-                src={flagship}
-                alt={page.flagshipImage?.alt || ""}
-                fill
-                className="object-cover"
-              />
-            ) : (
-              <div className="material-sample h-full w-full" />
-            )}
+          <div className="institution-collage">
+            {institutions.map((item) => {
+              const src = urlFor(item.image)?.width(640).fit("max").url();
+              return src ? <div key={item._key} className="institution-logo"><Image src={src} alt={item.image.alt || item.name} width={320} height={160} className="object-contain" /><p>{item.name}</p></div> : null;
+            })}
           </div>
           <div>
-            <p className="eyebrow text-ivory/70">{page.flagshipLabel}</p>
+            <p className="eyebrow text-ivory/70">{page.featureLabel}</p>
             <h2 className="section-title mt-5 !text-ivory">
-              {page.flagshipTitle}
+              {page.featureTitle}
             </h2>
             <p className="mt-7 max-w-xl text-base leading-8 text-ivory/75">
-              {page.flagshipSummary}
+              {page.featureSummary}
             </p>
-            {page.flagshipLink && (
+            {page.featureLink && (
               <div className="mt-9">
-                <Action link={page.flagshipLink} light />
+                <Action link={page.featureLink} light />
               </div>
             )}
           </div>
