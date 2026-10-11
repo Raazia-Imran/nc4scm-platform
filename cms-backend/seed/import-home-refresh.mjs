@@ -11,7 +11,7 @@ const home = homes[0];
 if (await client.getDocument(`drafts.${home._id}`)) throw Error('Home Page has unpublished edits; publish or discard them first.');
 const site = await client.fetch('*[_type == "siteSettings"][0]');
 if (!site?.logo?.asset?._ref) throw Error('Existing NC4SCM logo is required.');
-const logos = [{_key:'nc4scm',name:'NC4SCM',image:site.logo}];
+const logos = [{_key:'nc4scm',name:'NC4SCM',image:{...site.logo,crop:{_type:'sanity.imageCrop',left:0,right:0,top:0.3,bottom:0.3}}}];
 for (const item of [{key:'ned',name:'NED University of Engineering & Technology',file:'ned.png'},{key:'hec',name:'Higher Education Commission',file:'hec.png'}]) {
  const asset = await client.assets.upload('image',await readFile(new URL(`./logos/${item.file}`,import.meta.url)),{filename:item.file});
  logos.push({_key:item.key,name:item.name,image:{_type:'image',alt:`${item.name} logo`,asset:{_type:'reference',_ref:asset._id},...(item.key==='ned'?{crop:{_type:'sanity.imageCrop',left:0,right:0.55,top:0,bottom:0}}:{})}});

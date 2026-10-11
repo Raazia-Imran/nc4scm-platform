@@ -46,7 +46,7 @@ export default {
     { name: "featureTitle", title: "Centre feature title", type: "string" },
     { name: "featureSummary", title: "Centre feature summary", type: "text", rows: 3 },
     { name: "featureLink", title: "Centre feature link", type: "link" },
-    { name: "institutionLogos", title: "Centre and institution logo collage", type: "array", of: [{type: "object", fields: [{name: "name", title: "Institution name", type: "string"}, {name: "image", title: "Logo", type: "image", fields: [{name: "alt", title: "Alternative text", type: "string", validation: Rule => Rule.required()}]}]}] },
+    { name: "institutionLogos", title: "Centre and institution logo collage", type: "array", of: [{type: "object", fields: [{name: "name", title: "Institution name", type: "string"}, {name: "image", title: "Logo", type: "image", options: {hotspot: true}, fields: [{name: "alt", title: "Alternative text", type: "string", validation: Rule => Rule.required()}]}]}] },
     { name: "servicesHeading", title: "Services heading", type: "string" },
     {
       name: "servicesIntro",

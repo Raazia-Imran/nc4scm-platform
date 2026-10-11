@@ -1519,3 +1519,5 @@ body {
 .institution-logo:first-child { grid-column: 1 / -1; }
 .institution-logo img { width: 100%; height: 6rem; object-fit: contain; }
 .institution-logo p { margin-top: .65rem; font-size: .75rem; line-height: 1.5; }
+
+@media (min-width: 768px) { .page-hero-inner { padding-block: 7rem 2rem; } }
