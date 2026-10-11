@@ -29,6 +29,7 @@ export default async function ServiceDetail({ params }) {
     .url();
   return (
     <>
+      <Link href="/services" className="detail-return button button-dark">← {text.allServices}</Link>
       <section className="page-hero text-ivory">
         <div className="page-hero-inner">
           <Link href="/services" className="eyebrow text-mint">
@@ -48,10 +49,10 @@ export default async function ServiceDetail({ params }) {
             image ? "service-description has-image" : "service-description"
           }
         >
-          <details className="service-body compact-disclosure service-overview">
-            <summary>{text.fullDescription}</summary>
+          <div className="service-body service-overview">
+            <h2 className="eyebrow text-clay">{text.fullDescription}</h2>
             <div className="mt-4"><RichTextRenderer value={service.body} /></div>
-          </details>
+          </div>
           {image && (
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem]">
               <Image
@@ -88,7 +89,7 @@ function List({ title, items, moreLabel }) {
     <div className="service-detail-list">
       <h2 className="eyebrow text-clay">{title}</h2>
       <ul className="mt-6 divide-y divide-forest/15">
-        {items.slice(0, 4).map((item, index) => (
+        {items.map((item, index) => (
           <li key={index}>
             <span className="service-list-index" aria-hidden="true">
               {String(index + 1).padStart(2, "0")}
@@ -97,12 +98,7 @@ function List({ title, items, moreLabel }) {
           </li>
         ))}
       </ul>
-      {items.length > 4 && (
-        <details className="compact-disclosure">
-          <summary>{moreLabel} ({items.length - 4})</summary>
-          <ul>{items.slice(4).map((item, index) => <li key={index}><span className="service-list-index" aria-hidden="true">{String(index + 5).padStart(2, "0")}</span><span>{item}</span></li>)}</ul>
-        </details>
-      )}
+
     </div>
   );
 }

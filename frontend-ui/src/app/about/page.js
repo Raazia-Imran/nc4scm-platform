@@ -37,15 +37,15 @@ export default async function AboutPage() {
     .url();
   return (
     <>
-      <section className="about-hero compact-hero">
+      <section className="page-hero text-ivory">
         <div className="page-hero-inner relative z-10 grid gap-6 lg:grid-cols-[1.15fr_.85fr] lg:items-end">
           <div>
-            <p className="eyebrow text-teal">{p.eyebrow}</p>
-            <h1 className="page-hero-title mt-5 text-carbon">
+            <p className="eyebrow text-mint">{p.eyebrow}</p>
+            <h1 className="page-hero-title mt-5">
               {p.headline}
             </h1>
           </div>
-          <p className="max-w-xl border-l border-carbon/15 pl-5 text-base leading-7 text-carbon/65">
+          <p className="max-w-xl border-l border-ivory/20 pl-5 text-base leading-7 text-ivory/80">
             {p.introduction}
           </p>
         </div>
@@ -131,11 +131,11 @@ export default async function AboutPage() {
           const members = (data.team || []).filter((m) => m.group === key);
           if (!members.length) return null;
           return (
-            <div key={key} className="mt-8">
-              <h3 className="eyebrow text-clay">{label}</h3>
-              <div className="team-editorial-grid mt-6">
+            <div key={key} className="team-group">
+              <div className="team-editorial-grid">
                 {members.map((m) => (
                   <article key={m._id} className="premium-card team-card group p-3">
+                    <h3 className="team-role eyebrow text-clay">{label}</h3>
                     {urlFor(m.avatar) ? (
                       <a
                         href={m.linkedinUrl || undefined}
@@ -231,7 +231,7 @@ function Story({ label, title, body }) {
   return (
     <article className="mission-card group">
       <div>
-        <p className="eyebrow text-teal">{label}</p>
+        <p className="eyebrow text-mint">{label}</p>
       </div>
       <h2 className="mt-4 font-sans text-lg font-medium leading-relaxed tracking-tight text-forest">
         {title}
