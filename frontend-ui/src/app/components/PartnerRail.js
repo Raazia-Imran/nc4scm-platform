@@ -32,8 +32,8 @@ export default function PartnerRail({ partners }) {
   if (!visiblePartners.length) return null;
 
   // A cycle must be wider than the viewport or an ultra-wide screen can
-  // briefly expose empty rail space. Repeat the source records until each of
-  // the two identical cycles contains at least eight cards.
+  // briefly expose empty rail space. Each identical cycle is measured to fill
+  // the current viewport, including ultra-wide screens.
   const cycle = Array.from(
     { length: copies * visiblePartners.length },
     (_, index) => visiblePartners[index % visiblePartners.length],

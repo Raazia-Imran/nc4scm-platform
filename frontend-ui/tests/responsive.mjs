@@ -86,6 +86,7 @@ try {
         waitUntil: "networkidle",
       });
       assert.equal(response.status(), 200, `${width}px ${path} status`);
+      assert.deepEqual(errors, [], `${width}px ${path} browser errors`);
       const dimensions = await page.evaluate(() => ({
         width: document.documentElement.clientWidth,
         scroll: document.documentElement.scrollWidth,

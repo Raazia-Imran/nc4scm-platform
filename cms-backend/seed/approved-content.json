@@ -96,6 +96,7 @@
           "journey": "How we began",
           "journeyHeading": "Our journey, built year by year.",
           "people": "People",
+          "biography": "Biography",
           "partners": "Organized & supported by",
           "principalInvestigator": "Principal Investigator",
           "coPrincipalInvestigators": "Co-Principal Investigators",
@@ -415,5 +416,5 @@
       }
     }
   ],
-  "hash": "d52d0e4c7745984b48c26010a13c8f38d025b379b55a785132093269f516351c"
+  "hash": "e5f5b9e2804d6237dce549bf5d9ac2ec592cf9a14f4fd2ace0d36b53523ad3af"
 }

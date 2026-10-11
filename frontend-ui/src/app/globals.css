@@ -232,6 +232,24 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(min(100%, 25rem), 1fr));
   gap: clamp(1rem, 3vw, 2rem);
 }
+.team-editorial-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 18rem), 1fr));
+  gap: 1.5rem;
+  max-width: 70rem;
+}
+.team-monogram {
+  display: grid;
+  place-items: center;
+  width: 5rem;
+  height: 5rem;
+  margin: 1rem 0.5rem;
+  border: 1px solid #52705b;
+  border-radius: 50%;
+  color: #123d2f;
+  font-size: 1.3rem;
+  letter-spacing: 0.05em;
+}
 .service-editorial-card {
   min-width: 0;
   display: flex;
@@ -744,10 +762,9 @@ body {
 
 @media (min-width: 1180px) {
   .research-filter-panel {
-    grid-template-columns: minmax(16rem, 1fr) minmax(9rem, 0.45fr) minmax(
-        13rem,
-        0.7fr
-      ) minmax(12rem, 0.65fr);
+    grid-template-columns:
+      minmax(16rem, 1fr) minmax(9rem, 0.45fr) minmax(13rem, 0.7fr)
+      minmax(12rem, 0.65fr);
     align-items: center;
   }
 

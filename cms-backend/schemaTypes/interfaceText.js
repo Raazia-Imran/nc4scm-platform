@@ -28,6 +28,7 @@ export default {
     "journey",
     "journeyHeading",
     "people",
+    "biography",
     "partners",
     "principalInvestigator",
     "coPrincipalInvestigators",

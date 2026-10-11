@@ -20,18 +20,19 @@ export default function SiteHeader({ settings }) {
     .url();
 
   useEffect(() => {
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = open ? "hidden" : "";
-    useEffect(() => {
-      const close = (event) => {
-        if (event.key === "Escape") setOpen(false);
-      };
-      document.addEventListener("keydown", close);
-      return () => document.removeEventListener("keydown", close);
-    }, []);
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
     };
   }, [open]);
+  useEffect(() => {
+    const close = (event) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("keydown", close);
+    return () => document.removeEventListener("keydown", close);
+  }, []);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-5 sm:pt-5">

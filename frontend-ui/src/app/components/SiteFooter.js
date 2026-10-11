@@ -49,7 +49,10 @@ export default function SiteFooter({ settings }) {
           <div>
             <p className="footer-label">{text.services}</p>
             <ul className="mt-5 space-y-3">
-              {(settings?.footerServiceLinks || []).map((item) => (
+              {(settings?.footerServiceLinks?.length
+                ? settings.footerServiceLinks
+                : settings?.resolvedServiceLinks || []
+              ).map((item) => (
                 <li key={`${item.href}-${item.label}`}>
                   <Link className="footer-link" href={item.href}>
                     {item.label}
