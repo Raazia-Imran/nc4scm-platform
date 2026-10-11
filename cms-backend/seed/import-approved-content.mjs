@@ -1,3 +1,4 @@
+import { isDeepStrictEqual } from "node:util";
 import { createClient } from "@sanity/client";
 import { mkdir, writeFile } from "node:fs/promises";
 import { prepareContent } from "./prepare-approved-content.mjs";
@@ -139,7 +140,7 @@ await transaction.commit({ visibility: "sync" });
 for (const { id, set } of targets) {
   const updated = await client.getDocument(id);
   for (const [key, value] of Object.entries(set)) {
-    if (JSON.stringify(updated[key]) !== JSON.stringify(value))
+    if (!isDeepStrictEqual(updated[key], value))
       throw new Error(
         `Verification failed for ${id}.${key}. Check backup before retrying.`,
       );
