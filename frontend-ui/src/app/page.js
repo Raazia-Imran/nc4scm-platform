@@ -45,8 +45,6 @@ export default async function HomePage() {
     ...item,
     externalUrl: item.registrationUrl,
   }));
-  const highlights = page.highlights || [];
-  const institutions = page.institutionLogos || [];
   return (
     <>
       <section className="home-hero relative overflow-hidden bg-forest text-ivory">
@@ -84,31 +82,6 @@ export default async function HomePage() {
               )}
             </div>
           </div>
-        </div>
-      </section>
-      <section className="section-shell home-institutions bg-forest text-ivory">
-        <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
-          <div>
-            <p className="eyebrow text-mint">{page.featureLabel}</p>
-            <h2 className="section-title mt-5 !text-ivory">{page.featureTitle}</h2>
-            <p className="mt-6 max-w-xl text-base leading-8 text-ivory/80">{page.featureSummary}</p>
-            <div className="institution-collage mt-8">
-              {institutions.map((item) => {
-                const src = urlFor(item.image)?.width(640).fit("max").url();
-                return src ? <div key={item._key} className="institution-logo"><Image src={src} alt={item.image.alt || item.name} width={320} height={160} className="object-contain" /><p>{item.name}</p></div> : null;
-              })}
-            </div>
-          </div>
-          <ol className="home-process">
-            {highlights.map((item) => (
-              <li key={item._key} className="home-highlight">
-                <div>
-                  <h3 className="text-xl font-semibold text-ivory">{item.title}</h3>
-                  <p className="mt-3 text-base leading-7 text-ivory/80">{item.description}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
         </div>
       </section>
       <section className="section-shell bg-limestone home-capabilities">

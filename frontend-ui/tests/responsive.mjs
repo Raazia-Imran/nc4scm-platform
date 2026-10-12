@@ -137,13 +137,11 @@ try {
     console.log(`Verified ${paths.length} routes at ${width}px`);
   }
   await page.goto("http://127.0.0.1:3100/");
-  assert.equal(await page.locator(".home-highlight").count(), 3);
-  assert.equal(await page.locator(".institution-logo").count(), 2);
+  assert.equal(await page.locator(".home-institutions").count(), 0);
   assert.equal(await page.getByText("NRPU Project No. 14074", {exact:true}).count(), 0);
   assert.ok(await page.locator(".home-news-preview").count() <= 2);
   assert.equal(await page.locator(".home-experience").count(), 1);
-  const homeLayout=await page.evaluate(()=>({logos:document.querySelector('.home-institutions').offsetTop,capabilities:document.querySelector('.home-capabilities').offsetTop,eventHeight:document.querySelector('.home-events').getBoundingClientRect().height}));
-  assert.ok(homeLayout.logos<homeLayout.capabilities);
+  const homeLayout=await page.evaluate(()=>({eventHeight:document.querySelector('.home-events').getBoundingClientRect().height}));
   assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
   assert.deepEqual(await page.locator('.team-card h4').allTextContents(), ['Dr Tariq Jamil', 'Dr Shamsoon Fareed', 'Prof. Dr. Fayaz Hussain', 'Engr Muhammad Danyal Sheikh']);

@@ -1,7 +1,7 @@
 import {createClient} from '@sanity/client';
 import {readFile, mkdir, writeFile} from 'node:fs/promises';
 import {isDeepStrictEqual} from 'node:util';
-import {buildEditorialPlan, fieldValue, hydrateMedia} from './editorial-plan.mjs';
+import {appliedMarkerId, buildEditorialPlan, fieldValue, hydrateMedia} from './editorial-plan.mjs';
 
 const recipe = JSON.parse(await readFile(new URL('./editorial-update.json', import.meta.url), 'utf8'));
 const token = process.env.SANITY_CONTENT_WRITE_TOKEN || process.env.SANITY_AUTH_TOKEN;
@@ -12,14 +12,16 @@ if (!plan) {
   console.log('News and team editorial update already published; subsequent Studio edits preserved.');
   process.exit(0);
 }
-console.log(`Prepared ${plan.updates.length} document updates and ${plan.creates.length} new records.`);
+console.log(`Prepared ${plan.updates.length} document updates and ${plan.creates.length} new records; ${plan.blocked.length} unpublished draft(s) protected.`);
 if (!process.argv.includes('--apply')) {
   console.log('Preview only. Pass --apply with an Editor token to upload media and publish.');
   process.exit(0);
 }
 if (!token) throw Error('An Editor token is required for publishing.');
+if (!plan.updates.length && !plan.creates.length && plan.blocked.length)
+  throw Error(`Unpublished edits still need review: ${plan.blocked.join(', ')}`);
 await mkdir(new URL('./backups/', import.meta.url), {recursive: true});
-await writeFile(new URL('./backups/editorial-before.json', import.meta.url), JSON.stringify({migrationId: recipe.migrationId, before: plan.updates.map(update => update.document), createdIds: plan.creates.map(document => document._id)}, null, 2));
+await writeFile(new URL('./backups/editorial-before.json', import.meta.url), JSON.stringify({migrationId: recipe.migrationId, before: plan.updates.map(update => update.document), createdIds: plan.creates.map(document => document._id), protectedDraftIds: plan.blocked}, null, 2));
 
 const uploads = new Map();
 const upload = file => {
@@ -37,8 +39,12 @@ for (const document of plan.creates) creates.push(await hydrateMedia(document, u
 let transaction = client.transaction();
 for (const update of updates) transaction = transaction.patch(update.document._id, patch => patch.ifRevisionId(update.document._rev).set(update.set));
 for (const document of creates) transaction = transaction.create(document);
-transaction = transaction.create({_id: recipe.migrationId, _type: 'contentMigration', completedAt: new Date().toISOString(), source: 'Client instructions, supplied team biography and portrait, verified LinkedIn posts', documentIds: [...updates.map(update => update.document._id), ...creates.map(document => document._id)], assetCount: uploads.size});
-await transaction.commit();
+const completedIds = [...updates.map(update => update.document._id), ...creates.map(document => document._id)];
+for (const id of completedIds)
+  transaction = transaction.create({_id: appliedMarkerId(recipe, id), _type: 'contentMigration', completedAt: new Date().toISOString(), source: 'NC4SCM editorial import', documentIds: [id]});
+if (!plan.blocked.length)
+  transaction = transaction.create({_id: recipe.migrationId, _type: 'contentMigration', completedAt: new Date().toISOString(), source: 'Client instructions, supplied team biography and portrait, verified LinkedIn posts', documentIds: [...recipe.updates.map(update => update.id), ...recipe.creates.map(document => document._id)], assetCount: uploads.size});
+await transaction.commit({visibility: 'sync'});
 const saved = await client.getDocuments([...updates.map(update => update.document._id), ...creates.map(document => document._id)]);
 for (const [index, update] of updates.entries()) {
   for (const [field, expected] of Object.entries(update.set)) {
@@ -51,3 +57,5 @@ for (const [index, document] of creates.entries()) {
   }
 }
 console.log(`Verified ${updates.length} updated records, ${creates.length} created records and ${uploads.size} uploaded assets. All article text, photos and team profiles remain CMS-editable.`);
+if (plan.blocked.length)
+  throw Error(`Unpublished draft(s) preserved and skipped: ${plan.blocked.join(', ')}. Review the draft before completing this import.`);
