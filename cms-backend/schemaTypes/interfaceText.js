@@ -13,6 +13,8 @@ export default {
     "emailApp",
     "previousImage",
     "nextImage",
+    "articlePhotos",
+    "academicProfile",
     "viewImage",
     "eventOutcomes",
     "skipContent",

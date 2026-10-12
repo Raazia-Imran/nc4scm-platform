@@ -1,0 +1,1437 @@
+{
+  "migrationId": "migration.news-team-editorial-2026-10-12",
+  "updates": [
+    {
+      "id": "homePage",
+      "type": "homePage",
+      "expected": {
+        "featureLabel": "NC4SCM",
+        "featureTitle": "National Center for Sustainable Construction Materials (NC4SCM)",
+        "featureSummary": "Advancing sustainable construction materials through research, material testing, technology development and industry collaboration.",
+        "highlights": [
+          {
+            "_key": "assessment",
+            "description": "This helps identify suitable materials, compare sources and select processing conditions.",
+            "title": "Material assessment"
+          },
+          {
+            "_key": "testing",
+            "description": "We examine how composition, processing and mix proportions affect hydration, strength and durability.",
+            "title": "Formulation and testing"
+          },
+          {
+            "_key": "validation",
+            "description": "Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements.",
+            "title": "Industrial validation"
+          }
+        ],
+        "institutionLogos": [
+          {
+            "_key": "nc4scm",
+            "image": {
+              "_type": "image",
+              "alt": "NC4SCM logo",
+              "asset": {
+                "_ref": "image-b14ab6a6eda25c80f5580de7b5de9a9f1edaf989-3750x3750-png",
+                "_type": "reference"
+              },
+              "crop": {
+                "_type": "sanity.imageCrop",
+                "bottom": 0.3,
+                "left": 0,
+                "right": 0,
+                "top": 0.3
+              }
+            },
+            "name": "NC4SCM"
+          },
+          {
+            "_key": "ned",
+            "image": {
+              "_type": "image",
+              "alt": "NED University of Engineering & Technology logo",
+              "asset": {
+                "_ref": "image-c34ddc2341ec8bc3d4fcf1d5bf6f3492b94602e6-1430x1435-jpg",
+                "_type": "reference"
+              }
+            },
+            "name": "NED University of Engineering & Technology"
+          },
+          {
+            "_key": "hec",
+            "image": {
+              "_type": "image",
+              "alt": "Higher Education Commission logo",
+              "asset": {
+                "_ref": "image-5f00bfea77f7abcf7d8f6bce0ad7709964153662-279x300-png",
+                "_type": "reference"
+              }
+            },
+            "name": "Higher Education Commission"
+          }
+        ],
+        "aboutBody": [
+          {
+            "_key": "about-body",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "about-text",
+                "_type": "span",
+                "marks": [],
+                "text": "We connect academic rigor with the realities of materials supply, cement production, standards, and infrastructure delivery."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ],
+        "primaryCta.label": "Explore our services",
+        "secondaryCta.label": "View our research",
+        "servicesIntro": "We support cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Our work connects laboratory findings with practical material and process decisions.",
+        "experienceBody": "Our team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement.",
+        "closingHeading": "Have a material challenge worth solving?",
+        "closingBody": "Talk to our researchers about testing, technical support, collaborative research, or industry implementation."
+      },
+      "set": {
+        "featureLabel": "From material to application",
+        "featureTitle": "A practical route from local materials to industrial trials",
+        "featureSummary": "Raw-material assessment, formulation and performance testing provide the evidence needed to evaluate sustainable construction materials. Each stage informs the next technical decision, with demonstration or industrial trials considered when the results support further validation.",
+        "highlights": [
+          {
+            "_key": "assessment",
+            "title": "Assess material suitability",
+            "description": "Chemical, mineralogical, thermal and physical assessment helps compare local raw materials and identify suitable processing conditions."
+          },
+          {
+            "_key": "testing",
+            "title": "Develop and test formulations",
+            "description": "Binder formulation and mortar or concrete trials establish how composition and processing affect hydration, strength and durability."
+          },
+          {
+            "_key": "validation",
+            "title": "Prepare industrial validation",
+            "description": "Promising formulations can progress to demonstration or pilot and plant trials, according to the evidence and agreed project scope."
+          }
+        ],
+        "institutionLogos": [
+          {
+            "_key": "nc4scm",
+            "image": {
+              "_type": "image",
+              "alt": "NC4SCM logo",
+              "asset": {
+                "_ref": "image-b14ab6a6eda25c80f5580de7b5de9a9f1edaf989-3750x3750-png",
+                "_type": "reference"
+              },
+              "crop": {
+                "_type": "sanity.imageCrop",
+                "bottom": 0.3,
+                "left": 0,
+                "right": 0,
+                "top": 0.3
+              }
+            },
+            "name": "NC4SCM"
+          },
+          {
+            "_key": "ned",
+            "image": {
+              "_type": "image",
+              "alt": "NED University of Engineering & Technology logo",
+              "asset": {
+                "_ref": "image-c34ddc2341ec8bc3d4fcf1d5bf6f3492b94602e6-1430x1435-jpg",
+                "_type": "reference"
+              }
+            },
+            "name": "NED University of Engineering & Technology"
+          }
+        ],
+        "aboutBody": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "NC4SCM connects academic research with materials supply, cement production, standards and infrastructure delivery."
+              }
+            ]
+          }
+        ],
+        "primaryCta.label": "Explore services",
+        "secondaryCta.label": "View research",
+        "servicesIntro": "NC4SCM supports cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Laboratory findings inform practical material and process decisions.",
+        "experienceBody": "The NC4SCM team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement.",
+        "closingHeading": "Technical collaboration and support",
+        "closingBody": "NC4SCM provides a point of contact for material testing, technical consultancy, collaborative research and industrial implementation."
+      }
+    },
+    {
+      "id": "aboutPage",
+      "type": "aboutPage",
+      "expected": {
+        "foundingHeading": "How We Began - Our Journey",
+        "partnersIntroduction": "Our academic and industry partners strengthen the route from research to adoption.",
+        "teamIntroduction": "The center is led by its Principal Investigator and Project Manager. Additional team profiles can be added in Sanity as they are approved."
+      },
+      "set": {
+        "foundingHeading": "The NC4SCM journey",
+        "partnersIntroduction": "Academic and industry partnerships support the progression from research to practical adoption.",
+        "teamIntroduction": "NC4SCM brings together its Principal Investigator, Co-Principal Investigators and Project Manager, combining expertise in construction materials, structural engineering and materials characterisation."
+      }
+    },
+    {
+      "id": "pageSettings",
+      "type": "pageSettings",
+      "expected": {
+        "servicesIntroduction": "We support cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Our work connects laboratory findings with practical material and process decisions.",
+        "researchIntroduction": "Our research examines local clays, supplementary cementitious materials and low-carbon cement and concrete. We study chemical and mineralogical properties of clays and SCMs include fly ash, slag, glass powder, and etc., hydration, strength, durability and also study thermo-mechanochemical activation to understand how material composition and processing affect performance.",
+        "eventsIntroduction": "Explore our seminars, workshops, conferences and laboratory visits on LC3, cement chemistry and sustainable construction materials. These activities bring academics, researchers, stakeholders, government bodies and industry professionals together to share research and practical experience.",
+        "newsIntroduction": "Follow our research progress, industry collaborations, laboratory developments, publications and outreach activities.",
+        "contactIntroduction": "Contact us for material testing, technical consultancy, research collaboration, training or institutional partnerships. Share your material type, technical question and project requirements so we can discuss a suitable scope of work.",
+        "contactSuccessMessage": "Thank you for your enquiry. Your message has been received by NC4SCM."
+      },
+      "set": {
+        "servicesIntroduction": "NC4SCM supports cement manufacturers, concrete producers and researchers through raw-material assessment, material characterisation, LC3 development, performance testing and technical consultancy. Laboratory findings inform practical material and process decisions.",
+        "researchIntroduction": "NC4SCM research examines local clays, supplementary cementitious materials and low-carbon cement and concrete. Studies cover the chemical and mineralogical properties of clays and materials such as fly ash, slag and glass powder, alongside hydration, strength, durability and thermo-mechanochemical activation. The work investigates how material composition and processing affect performance.",
+        "eventsIntroduction": "Seminars, workshops, conferences and laboratory visits cover LC3, cement chemistry and sustainable construction materials. These activities bring academics, researchers, stakeholders, government bodies and industry professionals together to share research and practical experience.",
+        "newsIntroduction": "Updates cover research progress, industry collaboration, laboratory developments, publications and outreach activities.",
+        "contactIntroduction": "NC4SCM welcomes enquiries about material testing, technical consultancy, research collaboration, training and institutional partnerships. Material type, the technical question and project requirements help establish a suitable scope of work.",
+        "contactSuccessMessage": "The enquiry has been received by NC4SCM."
+      }
+    },
+    {
+      "id": "service-lc3",
+      "type": "service",
+      "expected": {
+        "body": [
+          {
+            "_key": "description",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text",
+                "_type": "span",
+                "marks": [],
+                "text": "Limestone Calcined Clay Cement (LC3) combines clinker, calcined clay, limestone and gypsum to reduce clinker use. We assess local clay suitability, optimise calcination and binder composition, and evaluate mortar and concrete performance. Our team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement. We support laboratory development, staff training and the preparation and evaluation of pilot or plant trials, according to the agreed project scope."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Limestone Calcined Clay Cement (LC3) combines clinker, calcined clay, limestone and gypsum to reduce clinker use. NC4SCM assesses local clay suitability, optimises calcination and binder composition, and evaluates mortar and concrete performance."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The team’s experience includes national clay exploration, LC3 research and demonstration at NED UET, and technical work with Cherat Cement and Power Cement. Support covers laboratory development, staff training and the preparation and evaluation of pilot or plant trials, according to the agreed project scope."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service-material-characterization",
+      "type": "service",
+      "expected": {
+        "body": [
+          {
+            "_key": "description",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text",
+                "_type": "span",
+                "marks": [],
+                "text": "We characterise clays, limestone, fly ash, cement and other candidate construction materials to assess their suitability for cementitious applications. Chemical composition, mineral phases, thermal behaviour and particle size are considered together with reactivity, hydration and performance results. This helps identify suitable materials, compare sources and select processing conditions. The test programme is tailored to the material and the client’s technical question, with specialist analyses coordinated through collaborating laboratories when required."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "NC4SCM characterises clays, limestone, fly ash, cement and other candidate construction materials to assess their suitability for cementitious applications. Chemical composition, mineral phases, thermal behaviour and particle size are considered alongside reactivity, hydration and performance results."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The assessment helps identify suitable materials, compare sources and select processing conditions. Test programmes are tailored to the material and the client’s technical question, with specialist analyses coordinated through collaborating laboratories when required."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service-new-material-development",
+      "type": "service",
+      "expected": {
+        "body": [
+          {
+            "_key": "description",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text",
+                "_type": "span",
+                "marks": [],
+                "text": "We develop and evaluate cementitious materials through laboratory trials and performance testing. Our work includes LC3, activation of heterogeneous clays, fly ash, and other supplementary cementitious materials, recycled aggregate concrete and self-healing concrete. We examine how composition, processing and mix proportions affect hydration, strength and durability. Development begins with material assessment and proceeds through formulation and testing. Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "NC4SCM develops and evaluates cementitious materials through laboratory trials and performance testing. Research includes LC3, activation of heterogeneous clays, fly ash and other supplementary cementitious materials, recycled aggregate concrete and self-healing concrete."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "Studies examine how composition, processing and mix proportions affect hydration, strength and durability. Development begins with material assessment and proceeds through formulation and testing. Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "service-technological-support",
+      "type": "service",
+      "expected": {
+        "body": [
+          {
+            "_key": "description",
+            "_type": "block",
+            "children": [
+              {
+                "_key": "text",
+                "_type": "span",
+                "marks": [],
+                "text": "We help industry partners translate laboratory findings into practical decisions on raw materials, processing and product development. Support includes LC3 feasibility assessment, technical review of clay calcination and grinding options, trial preparation, performance monitoring and staff training. Our experience includes cement-plant consultancy and coordination between researchers, plant teams and technology providers. Recommendations reflect the available evidence, plant conditions and agreed scope, with further trials proposed where additional validation is needed."
+              }
+            ],
+            "markDefs": [],
+            "style": "normal"
+          }
+        ]
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "NC4SCM supports industry partners in translating laboratory findings into practical decisions on raw materials, processing and product development. Services include LC3 feasibility assessment, technical review of clay calcination and grinding options, trial preparation, performance monitoring and staff training."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The team’s experience includes cement-plant consultancy and coordination between researchers, plant teams and technology providers. Recommendations reflect the available evidence, plant conditions and agreed scope, with further trials proposed where additional validation is needed."
+              }
+            ]
+          }
+        ]
+      }
+    },
+    {
+      "id": "siteSettings",
+      "type": "siteSettings",
+      "expected": {
+        "interfaceText.mission": "Our mission",
+        "interfaceText.vision": "Our vision",
+        "interfaceText.journey": "How we began",
+        "interfaceText.journeyHeading": "Our journey, built year by year.",
+        "interfaceText.serviceContactHeading": "Discuss your technical requirements.",
+        "interfaceText.enquiryHeading": "Tell us what you are working on.",
+        "interfaceText.findUs": "Find us",
+        "interfaceText.formError": "Your message could not be sent. Please email the centre directly.",
+        "interfaceText.noPublications": "No publications match your search.",
+        "interfaceText.articlePhotos": null,
+        "interfaceText.academicProfile": null
+      },
+      "set": {
+        "interfaceText.mission": "Mission",
+        "interfaceText.vision": "Vision",
+        "interfaceText.journey": "How NC4SCM began",
+        "interfaceText.journeyHeading": "The development of NC4SCM",
+        "interfaceText.serviceContactHeading": "Technical enquiries and project requirements",
+        "interfaceText.enquiryHeading": "Enquiry details",
+        "interfaceText.findUs": "Location",
+        "interfaceText.formError": "The message could not be sent. NC4SCM can be contacted by email.",
+        "interfaceText.noPublications": "No publications match the search.",
+        "interfaceText.articlePhotos": "Article photographs",
+        "interfaceText.academicProfile": "Academic profile"
+      }
+    },
+    {
+      "id": "news-epfl-workshop-2025",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "LC3 workshop at EPFL",
+          "asset": {
+            "_ref": "image-e99a51f0605e52cb451757de010dfce65e8c4cc2-800x450-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Dr Tariq Jamil took part as an invited speaker in a workshop organised by EPFL and the LC3 Project global team in Lausanne, Switzerland, on 15–16 September 2025. The meeting addressed sustainable construction materials and the effective use of resources in meeting housing demand."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The presentation highlighted LC3 cement, efficient material use to reduce cement demand while maintaining concrete performance, and straightforward structural and architectural design. The participation connected Pakistan’s LC3 research with the international materials research community."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-epfl-workshop-2025-1.jpg",
+          "_key": "photo-1",
+          "alt": "Pakistan’s LC³ progress shared at EPFL workshop in Lausanne — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-epfl-workshop-2025-2.jpg",
+            "_key": "photo-2",
+            "alt": "Pakistan’s LC³ progress shared at EPFL workshop in Lausanne — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-epfl-workshop-2025-3.jpg",
+            "_key": "photo-3",
+            "alt": "Pakistan’s LC³ progress shared at EPFL workshop in Lausanne — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-epfl-workshop-2025-4.jpg",
+            "_key": "photo-4",
+            "alt": "Pakistan’s LC³ progress shared at EPFL workshop in Lausanne — photograph 4"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-gcgc-structural-demonstration-2025",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "GCGC 2025 and LC3 structural demonstration",
+          "asset": {
+            "_ref": "image-aa2c812a13711b4320b6bd1b92bff6954f1bf14c-1111x739-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "The Global Conference on Green Construction Materials and Practices took place at NED University of Engineering & Technology on 5–6 February 2025. Researchers and industry representatives discussed low-carbon construction materials and practical approaches to cement decarbonisation."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The programme included contributions from Dr Karen Scrivener of EPFL and the LC3 Project, and Laurent Grimmeissen of Cementis. An LC3 model civil structure was inaugurated, providing a practical demonstration alongside the conference discussions."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p2",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t2",
+                "marks": [],
+                "text": "The organising team, academic contributors and ACI NEDUET Student Chapter supported the conference. The event provided a setting for knowledge exchange between researchers, engineering professionals and Pakistan’s cement industry."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-gcgc-structural-demonstration-2025-1.jpg",
+          "_key": "photo-1",
+          "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-2.jpg",
+            "_key": "photo-2",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-3.jpg",
+            "_key": "photo-3",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-4.jpg",
+            "_key": "photo-4",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 4"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-5.jpg",
+            "_key": "photo-5",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 5"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-6.jpg",
+            "_key": "photo-6",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 6"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-7.jpg",
+            "_key": "photo-7",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 7"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-8.jpg",
+            "_key": "photo-8",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 8"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-9.jpg",
+            "_key": "photo-9",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 9"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-10.jpg",
+            "_key": "photo-10",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 10"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-11.jpg",
+            "_key": "photo-11",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 11"
+          },
+          {
+            "_localImage": "news-media/news-gcgc-structural-demonstration-2025-12.jpg",
+            "_key": "photo-12",
+            "alt": "GCGC 2025 advances green construction knowledge and LC³ demonstration — photograph 12"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-icec-2024",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "LC3 presentation at ICEC 2024",
+          "asset": {
+            "_ref": "image-fb4b67d77d9f62741f56f20b71d9d577d1634d66-800x532-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Dr Tariq Jamil presented the progress of the LC3 project in Pakistan at the International Conference on Civil Engineering. The Institution of Engineers Pakistan and NED University of Engineering & Technology jointly organised the conference on 15–16 November 2024 at the IEP Building on Shahrah-e-Faisal, Karachi."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The presentation took place on the second day following an invitation from Dr Shamsoon Fareed and Dr Abdul Jabbar Sangi. It brought current LC3 research into discussion with the conference’s civil engineering participants."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-icec-2024-1.jpg",
+          "_key": "photo-1",
+          "alt": "LC³ Pakistan progress presented at ICEC 2024 — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-icec-2024-2.jpg",
+            "_key": "photo-2",
+            "alt": "LC³ Pakistan progress presented at ICEC 2024 — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-icec-2024-3.jpg",
+            "_key": "photo-3",
+            "alt": "LC³ Pakistan progress presented at ICEC 2024 — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-icec-2024-4.jpg",
+            "_key": "photo-4",
+            "alt": "LC³ Pakistan progress presented at ICEC 2024 — photograph 4"
+          },
+          {
+            "_localImage": "news-media/news-icec-2024-5.jpg",
+            "_key": "photo-5",
+            "alt": "LC³ Pakistan progress presented at ICEC 2024 — photograph 5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-iep-fellowship-2026",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "Dr Tariq Jamil receiving IEP Fellowship recognition",
+          "asset": {
+            "_ref": "image-ef91f60634156de0e55868d97cc5e9957d7ed726-800x532-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Dr Tariq Jamil, Principal Investigator of NC4SCM, received IEP Fellowship at the Institution of Engineers Pakistan’s 78th Foundation Ceremony on 9 May 2026 at the IEP Convention Center, Karachi. The recognition acknowledged his contribution to engineering and the research community."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "During the ceremony, Dr Jamil discussed the impact and outcomes of GCGC 2025, held at NED University in February 2025. Prof. Dr Muhammad Tufail, Vice Chancellor of NED University, also presented the conference proceedings to IEP President Engr Sohail Bashir."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-iep-fellowship-2026-1.jpg",
+          "_key": "photo-1",
+          "alt": "Dr Tariq Jamil honoured with IEP Fellowship — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-iep-fellowship-2026-2.jpg",
+            "_key": "photo-2",
+            "alt": "Dr Tariq Jamil honoured with IEP Fellowship — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-iep-fellowship-2026-3.jpg",
+            "_key": "photo-3",
+            "alt": "Dr Tariq Jamil honoured with IEP Fellowship — photograph 3"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-lc3-at-hvacr-trends-2025",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "LC3 presentation at HVACR Trends",
+          "asset": {
+            "_ref": "image-5aa87bf0b7a45eec39d143872399cf277ce5c2c0-800x449-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Dr Tariq Jamil participated as a speaker and panellist at HVACR Trends 5.0, hosted at Marriott Karachi on 13–14 December 2025. The ASHRAE Pakistan Chapter provided a platform for NED University to present research related to innovation and sustainable development."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "His contributions addressed academic research and capacity development, alongside a panel discussion on AI, innovation and decarbonisation in Pakistan. LC3 and its development in Pakistan were presented during the sessions and exhibition to contractors, consultants and investors."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-1.jpg",
+          "_key": "photo-1",
+          "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-2.jpg",
+            "_key": "photo-2",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-3.jpg",
+            "_key": "photo-3",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-4.jpg",
+            "_key": "photo-4",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 4"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-5.jpg",
+            "_key": "photo-5",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 5"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-6.jpg",
+            "_key": "photo-6",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 6"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-7.jpg",
+            "_key": "photo-7",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 7"
+          },
+          {
+            "_localImage": "news-media/news-lc3-at-hvacr-trends-2025-8.jpg",
+            "_key": "photo-8",
+            "alt": "LC³ journey presented at HVACR Trends 5.0 — photograph 8"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-shec-showcase-2022",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "LC3 at Sindh HEC showcase",
+          "asset": {
+            "_ref": "image-726dcaaf6b6214a30c814f4aa20a19e479f4e955-800x533-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "LC3 research using local raw materials was presented at the Sindh HEC Research and Technology Showcase on 19–20 May 2022. Sindh Higher Education Commission and NED University jointly organised the event at Karachi Expo Centre."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "The display introduced the environmental motivation for low-carbon cement and the laboratory work carried out at NED University, including assessment of concrete’s mechanical properties and durability. It provided an opportunity to discuss LC3 research and its potential development with visitors and prospective collaborators."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-shec-showcase-2022-1.jpg",
+          "_key": "photo-1",
+          "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-2.jpg",
+            "_key": "photo-2",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-3.jpg",
+            "_key": "photo-3",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-4.jpg",
+            "_key": "photo-4",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 4"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-5.jpg",
+            "_key": "photo-5",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 5"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-6.jpg",
+            "_key": "photo-6",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 6"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-7.jpg",
+            "_key": "photo-7",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 7"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-8.jpg",
+            "_key": "photo-8",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 8"
+          },
+          {
+            "_localImage": "news-media/news-shec-showcase-2022-9.jpg",
+            "_key": "photo-9",
+            "alt": "LC³ showcased at Sindh HEC Research and Technology Showcase — photograph 9"
+          }
+        ]
+      }
+    },
+    {
+      "id": "news-spar6c-2024",
+      "type": "news",
+      "expected": {
+        "body": null,
+        "coverImage": {
+          "_type": "image",
+          "alt": "SPAR6C cement decarbonisation workshop",
+          "asset": {
+            "_ref": "image-c6bc4722e533c5004b9a797ab5ad0b754414f0d7-800x533-jpg",
+            "_type": "reference"
+          }
+        },
+        "gallery": null
+      },
+      "set": {
+        "body": [
+          {
+            "_type": "block",
+            "_key": "p0",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t0",
+                "marks": [],
+                "text": "Dr Tariq Jamil presented LC3 at a capacity-building workshop on technology, financing and demand for cement-sector decarbonisation in Pakistan. The meeting took place at Avari Towers, Karachi, on 18–19 April 2024."
+              }
+            ]
+          },
+          {
+            "_type": "block",
+            "_key": "p1",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "t1",
+                "marks": [],
+                "text": "UNEP Copenhagen Climate Centre organised the workshop under the auspices of Pakistan’s Ministry of Climate Change and Environment. The presentation connected LC3 research with discussion among environmental and policy stakeholders about low-carbon cement and technical support."
+              }
+            ]
+          }
+        ],
+        "coverImage": {
+          "_localImage": "news-media/news-spar6c-2024-1.jpg",
+          "_key": "photo-1",
+          "alt": "LC³ featured in national cement decarbonisation workshop — photograph 1"
+        },
+        "gallery": [
+          {
+            "_localImage": "news-media/news-spar6c-2024-2.jpg",
+            "_key": "photo-2",
+            "alt": "LC³ featured in national cement decarbonisation workshop — photograph 2"
+          },
+          {
+            "_localImage": "news-media/news-spar6c-2024-3.jpg",
+            "_key": "photo-3",
+            "alt": "LC³ featured in national cement decarbonisation workshop — photograph 3"
+          },
+          {
+            "_localImage": "news-media/news-spar6c-2024-4.jpg",
+            "_key": "photo-4",
+            "alt": "LC³ featured in national cement decarbonisation workshop — photograph 4"
+          },
+          {
+            "_localImage": "news-media/news-spar6c-2024-5.jpg",
+            "_key": "photo-5",
+            "alt": "LC³ featured in national cement decarbonisation workshop — photograph 5"
+          }
+        ]
+      }
+    },
+    {
+      "id": "team-muhammad-danyal-sheikh",
+      "type": "teamMember",
+      "expected": {
+        "displayPriority": 2
+      },
+      "set": {
+        "displayPriority": 4
+      }
+    }
+  ],
+  "creates": [
+    {
+      "_id": "news-icssc-2026",
+      "_type": "news",
+      "headline": "NC4SCM shares LC3 progress at ICSSC 2026",
+      "slug": {
+        "_type": "slug",
+        "current": "nc4scm-lc3-keynote-icssc-2026"
+      },
+      "category": "research",
+      "excerpt": "Dr Tariq Jamil delivered the closing-session keynote on LC3 in Pakistan at ICSSC 2026, jointly organised by DHA Suffa University and Sir Syed University.",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t0",
+              "marks": [],
+              "text": "Dr Tariq Jamil, Principal Investigator of NC4SCM at NED University, delivered the closing-session keynote at the second International Conference on Sustainable and Smart Cities. DHA Suffa University and Sir Syed University of Engineering and Technology jointly organised ICSSC 2026 on 18–19 August 2026."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t1",
+              "marks": [],
+              "text": "The keynote examined the current progress and future prospects of LC3 in Pakistan. It brought low-carbon cement research into the conference’s wider discussion of sustainable urban development."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t2",
+              "marks": [],
+              "text": "Prof. Dr Ahmed Saeed Minhas, Vice Chancellor of DHA Suffa University, and Prof. Dr Muhammad Afzal Haq, Vice Chancellor of Sir Syed University, presented Dr Jamil with a Shield of Appreciation for his conference contribution."
+            }
+          ]
+        }
+      ],
+      "coverImage": {
+        "_localImage": "news-media/news-icssc-2026-1.jpg",
+        "_key": "photo-1",
+        "alt": "NC4SCM shares LC3 progress at ICSSC 2026 — photograph 1"
+      },
+      "gallery": [
+        {
+          "_localImage": "news-media/news-icssc-2026-2.jpg",
+          "_key": "photo-2",
+          "alt": "NC4SCM shares LC3 progress at ICSSC 2026 — photograph 2"
+        },
+        {
+          "_localImage": "news-media/news-icssc-2026-3.jpg",
+          "_key": "photo-3",
+          "alt": "NC4SCM shares LC3 progress at ICSSC 2026 — photograph 3"
+        }
+      ],
+      "externalUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7498739554267435008/",
+      "publishedAt": "2026-08-27T13:53:49.556Z"
+    },
+    {
+      "_id": "news-student-lc3-seminar-2026",
+      "_type": "news",
+      "headline": "NC4SCM introduces students to LC3 and cement chemistry",
+      "slug": {
+        "_type": "slug",
+        "current": "student-seminar-lc3-cement-chemistry-2026"
+      },
+      "category": "public-engagement",
+      "excerpt": "The NC4SCM Seminar Series introduced Architecture and Civil Engineering students to low-carbon cement and cement chemistry on 4 September 2026.",
+      "body": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t0",
+              "marks": [],
+              "text": "A student seminar on LC3 and cement chemistry took place on 4 September 2026 as part of the NC4SCM Seminar Series. Project Manager Engr Muhammad Danyal Sheikh delivered the session for Architecture and Civil Engineering students."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t1",
+              "marks": [],
+              "text": "The programme covered the environmental impacts of ordinary Portland cement production, alternatives for low-carbon construction, the composition and role of Limestone Calcined Clay Cement, and the fundamentals of cement chemistry."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t2",
+              "marks": [],
+              "text": "Dr Tariq Jamil, Ar. Rahat Arsalan, Hamza Khanzada, Muhammad Umer and Azmat Chandio supported event coordination. The seminar series introduces sustainable construction materials to future architects, engineers and other built-environment professionals."
+            }
+          ]
+        }
+      ],
+      "coverImage": {
+        "_localImage": "news-media/news-student-lc3-seminar-2026-1.jpg",
+        "_key": "photo-1",
+        "alt": "NC4SCM introduces students to LC3 and cement chemistry — photograph 1"
+      },
+      "gallery": [
+        {
+          "_localImage": "news-media/news-student-lc3-seminar-2026-2.jpg",
+          "_key": "photo-2",
+          "alt": "NC4SCM introduces students to LC3 and cement chemistry — photograph 2"
+        },
+        {
+          "_localImage": "news-media/news-student-lc3-seminar-2026-3.jpg",
+          "_key": "photo-3",
+          "alt": "NC4SCM introduces students to LC3 and cement chemistry — photograph 3"
+        }
+      ],
+      "externalUrl": "https://www.linkedin.com/feed/update/urn:li:activity:7502736757143134208/",
+      "publishedAt": "2026-09-07T14:37:16.982Z"
+    },
+    {
+      "_id": "team-shamsoon-fareed",
+      "_type": "teamMember",
+      "fullName": "Dr Shamsoon Fareed",
+      "slug": {
+        "_type": "slug",
+        "current": "shamsoon-fareed"
+      },
+      "position": "Co-Principal Investigator (NC4SCM)",
+      "group": "co-principal-investigator",
+      "displayPriority": 2,
+      "email": "sfareed@neduet.edu.pk",
+      "profileUrl": "https://ced.neduet.edu.pk/dr-shamsoon-fareed-bio",
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t0",
+              "marks": [],
+              "text": "Dr Shamsoon Fareed is a Professor in the Department of Civil Engineering at NED University of Engineering & Technology. He holds a PhD in Civil Engineering from Heriot-Watt University, United Kingdom, with research involving experimental and numerical investigation of subsea pipes under impact loading."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t1",
+              "marks": [],
+              "text": "His research covers structural engineering, recycled aggregate concrete, ultra-high-strength concrete, accidental loading and structural strengthening using fibre-reinforced composites. Further interests include shear behaviour of reinforced concrete, structural health monitoring and retrofitting. He serves as a Co-Principal Investigator of NC4SCM."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "_id": "team-fayaz-hussain",
+      "_type": "teamMember",
+      "fullName": "Prof. Dr. Fayaz Hussain",
+      "slug": {
+        "_type": "slug",
+        "current": "fayaz-hussain"
+      },
+      "position": "Co-Principal Investigator (NC4SCM)",
+      "group": "co-principal-investigator",
+      "displayPriority": 3,
+      "email": "fhussain@neduet.edu.pk",
+      "avatar": {
+        "_localImage": "team-media/fayaz-hussain.png",
+        "alt": "Prof. Dr. Fayaz Hussain"
+      },
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t0",
+              "marks": [],
+              "text": "Prof. Dr. Fayaz Hussain is Professor and Chairman of the Department of Materials Engineering at NED University of Engineering & Technology. He joined the department in 2007 after working in the steel industry and completed his PhD in Functional Materials and Devices at the University of Sheffield, United Kingdom, in 2017."
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "t1",
+              "marks": [],
+              "text": "His research focuses on lead-free piezoelectric ceramics, multilayer capacitors and actuators, multiferroic materials, thermoelectric ceramics and microwave dielectrics. His work includes ceramic fabrication and characterisation using electrical, magnetic, diffraction and microscopy techniques. He serves as a Co-Principal Investigator of NC4SCM."
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "id": "news-epfl-workshop-2025",
+      "source": "https://www.linkedin.com/posts/tariq-jamil-38236715_i-am-grateful-to-the-lc3-project-low-carbon-ugcPost-7374777397281206272-rPsm/",
+      "sourcePublishedAt": "2025-09-19T12:12:28.463Z",
+      "images": [
+        "news-epfl-workshop-2025-1.jpg",
+        "news-epfl-workshop-2025-2.jpg",
+        "news-epfl-workshop-2025-3.jpg",
+        "news-epfl-workshop-2025-4.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-gcgc-structural-demonstration-2025",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7296123475767795714/",
+      "sourcePublishedAt": "2025-02-14T11:09:52.033Z",
+      "images": [
+        "news-gcgc-structural-demonstration-2025-1.jpg",
+        "news-gcgc-structural-demonstration-2025-2.jpg",
+        "news-gcgc-structural-demonstration-2025-3.jpg",
+        "news-gcgc-structural-demonstration-2025-4.jpg",
+        "news-gcgc-structural-demonstration-2025-5.jpg",
+        "news-gcgc-structural-demonstration-2025-6.jpg",
+        "news-gcgc-structural-demonstration-2025-7.jpg",
+        "news-gcgc-structural-demonstration-2025-8.jpg",
+        "news-gcgc-structural-demonstration-2025-9.jpg",
+        "news-gcgc-structural-demonstration-2025-10.jpg",
+        "news-gcgc-structural-demonstration-2025-11.jpg",
+        "news-gcgc-structural-demonstration-2025-12.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-icec-2024",
+      "source": "https://www.linkedin.com/posts/tariq-jamil-38236715_i-am-delighted-to-share-my-experience-presenting-ugcPost-7269200421066330114-qqGr/",
+      "sourcePublishedAt": "2024-12-02T04:07:15.773Z",
+      "images": [
+        "news-icec-2024-1.jpg",
+        "news-icec-2024-2.jpg",
+        "news-icec-2024-3.jpg",
+        "news-icec-2024-4.jpg",
+        "news-icec-2024-5.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-iep-fellowship-2026",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7459893496817303552",
+      "sourcePublishedAt": "2026-05-12T09:13:27.734Z",
+      "images": [
+        "news-iep-fellowship-2026-1.jpg",
+        "news-iep-fellowship-2026-2.jpg",
+        "news-iep-fellowship-2026-3.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-lc3-at-hvacr-trends-2025",
+      "source": "https://www.linkedin.com/posts/tariq-jamil-38236715_im-honoured-to-be-invited-as-a-speaker-and-ugcPost-7406770035320389632-pEKM/",
+      "sourcePublishedAt": "2025-12-16T18:59:47.793Z",
+      "images": [
+        "news-lc3-at-hvacr-trends-2025-1.jpg",
+        "news-lc3-at-hvacr-trends-2025-2.jpg",
+        "news-lc3-at-hvacr-trends-2025-3.jpg",
+        "news-lc3-at-hvacr-trends-2025-4.jpg",
+        "news-lc3-at-hvacr-trends-2025-5.jpg",
+        "news-lc3-at-hvacr-trends-2025-6.jpg",
+        "news-lc3-at-hvacr-trends-2025-7.jpg",
+        "news-lc3-at-hvacr-trends-2025-8.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-shec-showcase-2022",
+      "source": "https://www.linkedin.com/posts/tariq-jamil-38236715_concrete-innovation-cement-share-6937305927704281089-e3Hq/",
+      "sourcePublishedAt": "2022-05-31T07:37:03.043Z",
+      "images": [
+        "news-shec-showcase-2022-1.jpg",
+        "news-shec-showcase-2022-2.jpg",
+        "news-shec-showcase-2022-3.jpg",
+        "news-shec-showcase-2022-4.jpg",
+        "news-shec-showcase-2022-5.jpg",
+        "news-shec-showcase-2022-6.jpg",
+        "news-shec-showcase-2022-7.jpg",
+        "news-shec-showcase-2022-8.jpg",
+        "news-shec-showcase-2022-9.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-spar6c-2024",
+      "source": "https://www.linkedin.com/posts/tariq-jamil-38236715_spar6c-ugcPost-7189151766247067648-X73M/",
+      "sourcePublishedAt": "2024-04-25T06:42:29.460Z",
+      "images": [
+        "news-spar6c-2024-1.jpg",
+        "news-spar6c-2024-2.jpg",
+        "news-spar6c-2024-3.jpg",
+        "news-spar6c-2024-4.jpg",
+        "news-spar6c-2024-5.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-icssc-2026",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7498739554267435008/",
+      "sourcePublishedAt": "2026-08-27T13:53:49.556Z",
+      "images": [
+        "news-icssc-2026-1.jpg",
+        "news-icssc-2026-2.jpg",
+        "news-icssc-2026-3.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    },
+    {
+      "id": "news-student-lc3-seminar-2026",
+      "source": "https://www.linkedin.com/feed/update/urn:li:activity:7502736757143134208/",
+      "sourcePublishedAt": "2026-09-07T14:37:16.982Z",
+      "images": [
+        "news-student-lc3-seminar-2026-1.jpg",
+        "news-student-lc3-seminar-2026-2.jpg",
+        "news-student-lc3-seminar-2026-3.jpg"
+      ],
+      "editorialNote": "Institutional paraphrase of the original post; event dates distinguished from posting date."
+    }
+  ],
+  "teamSources": [
+    {
+      "person": "Dr Shamsoon Fareed",
+      "source": "https://ced.neduet.edu.pk/dr-shamsoon-fareed-bio",
+      "portrait": "Left empty at client request."
+    },
+    {
+      "person": "Prof. Dr. Fayaz Hussain",
+      "source": "Client supplied Pasted markdown.md and portrait on 12 October 2026."
+    }
+  ]
+}

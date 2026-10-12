@@ -20,6 +20,7 @@ export default {
       type: "slug",
       description: "Used to build the article URL: /news/<slug>",
       options: { source: "headline", maxLength: 96 },
+      validation: (Rule) => Rule.required(),
     },
     {
       name: "category",
@@ -58,7 +59,7 @@ export default {
       title: "Original external source",
       type: "url",
       description:
-        "Optional. Use for a verified LinkedIn or partner update. When supplied, the news card opens the original source.",
+        "Optional source link displayed inside the article. News cards always open the full article on this website.",
     },
     {
       name: "coverImage",
@@ -75,6 +76,16 @@ export default {
       ],
     },
     {
+      name: "gallery",
+      title: "Article photo gallery",
+      type: "array",
+      description: "Additional photographs in a compact viewer. Drag to reorder. The cover photo remains separate; inline photos can also be added in Article Body.",
+      of: [{ type: "image", options: { hotspot: true }, fields: [
+        { name: "alt", title: "Alternative text", type: "string", validation: (Rule) => Rule.required() },
+        { name: "caption", title: "Caption", type: "string" },
+      ] }],
+    },
+    {
       name: "body",
       title: "Article Body",
       type: "array",
@@ -83,10 +94,13 @@ export default {
         {
           type: "image",
           options: { hotspot: true },
-          fields: [{ name: "alt", title: "Alternative text", type: "string" }],
+          fields: [
+            { name: "alt", title: "Alternative text", type: "string", validation: (Rule) => Rule.required() },
+            { name: "caption", title: "Caption", type: "string" },
+          ],
         },
       ],
-      description: "Full rich-text content body, supports inline images.",
+      description: "Full article shown after opening a card. Add paragraphs, headings, lists and as many relevant photographs as needed. Add a description and optional caption to each photo.",
     },
   ],
   orderings: [

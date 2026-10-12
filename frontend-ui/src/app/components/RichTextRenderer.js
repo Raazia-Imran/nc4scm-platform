@@ -71,18 +71,21 @@ const components = {
   types: {
     // Inline images embedded in a rich-text body (used by the news schema).
     image: ({ value }) => {
-      const imageUrl = urlFor(value)?.width(1200).url();
+      const imageUrl = urlFor(value)?.ignoreImageParams().width(1200).fit("max").url();
       if (!imageUrl) return null;
+      const dimensions = value.asset?._ref?.match(/-(\d+)x(\d+)-[a-zA-Z0-9]+$/);
       return (
-        <span className="my-8 block">
+        <figure className="my-8">
           <Image
             src={imageUrl}
             alt={value.alt || ""}
-            width={1200}
-            height={800}
-            className="h-auto w-full object-cover"
+            width={Number(dimensions?.[1]) || 1200}
+            height={Number(dimensions?.[2]) || 800}
+            sizes="(max-width: 767px) 90vw, 720px"
+            className="h-auto w-full rounded-xl object-contain"
           />
-        </span>
+          {value.caption && <figcaption className="mt-3 text-sm leading-6 text-carbon/70">{value.caption}</figcaption>}
+        </figure>
       );
     },
   },

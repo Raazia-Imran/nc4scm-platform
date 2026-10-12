@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Image from "next/image";
 
-export default function EventGallery({ images, text }) {
+export default function EventGallery({ images, text, label = text.eventHighlights }) {
   const [index, setIndex] = useState(0);
   if (!images.length) return null;
   const item = images[index];
@@ -22,7 +22,7 @@ export default function EventGallery({ images, text }) {
             <p role="status" aria-live="polite">{index + 1} / {images.length}</p>
             <button type="button" onClick={() => move(1)} aria-label={text.nextImage}>→</button>
           </div>
-          <div className="gallery-thumbnails" aria-label={text.eventHighlights}>
+          <div className="gallery-thumbnails" aria-label={label}>
             {images.map((image, position) => (
               <button type="button" key={image.key} aria-label={`${text.viewImage} ${position + 1}`} aria-pressed={position === index} onClick={() => setIndex(position)}>
                 <Image src={image.src} alt="" fill sizes="80px" className="object-cover" />

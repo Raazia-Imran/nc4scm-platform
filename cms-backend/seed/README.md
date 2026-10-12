@@ -46,6 +46,16 @@ The Word form provides no replacement publications, article bodies, event recaps
 
 ## Verification
 
+### October 12 news and team update
+
+`editorial-update.json` is a reviewed, one-time import recipe. It rewrites informational copy in an institutional voice, removes HEC from the Home logo collection, explains the material-to-application process, adds two Co-PI profiles after Dr Tariq Jamil, and creates two unique news articles. It also provides full body text and all 52 photographs retrieved from the nine linked original posts. Prof. Dr. Fayaz Hussain uses the supplied portrait; Dr Shamsoon Fareed's portrait remains empty at the client's request. Original URLs and source posting dates are recorded in the recipe. Earlier publication citations are unchanged.
+
+News cards on both Home and News open `/news/<slug>`. The original external source is a separate link within the article. Editors can add text and inline images under **Article Body**, and reorder additional photos under **Article photo gallery**. Inline images support alternative text and captions. New article slugs are required. Published article pages revalidate after 60 seconds.
+
+The migration previews with `npm run seed:editorial:preview` and publishes with `npm run seed:editorial`. The deployment workflow applies it once on `main`, using the existing Editor secret. Every affected field must still match its reviewed value; duplicate new slugs, changed content or affected unpublished drafts stop the import before media upload. A revision-guarded transaction publishes all documents together. The importer verifies the saved values and writes a pre-import backup to the workflow artifact. A completed marker protects later Studio edits from reruns.
+
+Partner images render the complete source asset without applying photo crop or hotspot parameters. The logo surface preserves proportions using `object-fit: contain`.
+
 `npm run test:content` checks Word mapping, full service lists, asset preservation, migration idempotence and draft/duplicate safeguards. The **Check CMS content and responsive UI** Action builds both apps and runs browser checks across 280–2560px, with local CMS responses and intercepted email delivery. Screenshots/report are uploaded as **responsive-ui-checks**. No test message is delivered to the client.
 
 For local browser checks: install Playwright separately (`npm install --no-save --package-lock=false playwright@1.62.1` inside `frontend-ui`), run `npx playwright install chromium`, then `node tests/responsive.mjs`. This runner starts its own fixture API and production server; fixture content is not bundled into the deployed site.

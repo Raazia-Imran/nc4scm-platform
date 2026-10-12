@@ -1486,12 +1486,12 @@ body {
 .sentence-grid > p { padding: .65rem .85rem; border-left: 2px solid currentColor; background: #81958a0c; border-radius: .25rem; font-size: .95rem; line-height: 1.65; }
 .page-hero-intro:has(.sentence-grid) { max-width: none; }
 .service-overview { max-width: none; }
-.service-body > div > p { padding: .85rem 1rem; border-left: 2px solid #123d2f33; background: #f7f5ef; border-radius: .5rem; margin-bottom: .75rem; }
+.service-body > div > p { margin-bottom: 1.25rem; line-height: 1.8; }
 .team-groups { grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 18rem)); align-items: stretch; justify-content: start; margin-top: 2rem; }
 .team-group, .team-group > .team-editorial-grid { display: contents; }
 .team-card { align-self: stretch; display: flex; flex-direction: column; }
 .team-role { min-height: 2.5rem; margin: .25rem .5rem .75rem; }
-.team-card h4 { min-height: 3.5rem; line-height: 1.5; }
+.team-card h4 { min-height: 4.5rem; line-height: 1.5; }
 .team-card > p { min-height: 2.5rem; }
 .team-card > div:last-child { margin-top: auto; padding-top: .5rem; }
 .team-portrait, .team-monogram { flex-shrink: 0; height: 20rem; width: 100%; aspect-ratio: auto; border-radius: .75rem; }
@@ -1531,3 +1531,15 @@ body {
 .home-institutions .institution-logo:first-child img { height:7rem; }
 .home-events { align-self:start; }
 @media(max-width:600px) { .home-hero .page-hero-inner { min-height:0; padding-top:8rem; padding-bottom:2.5rem; } }
+
+/* Full partner marks and a practical, CMS-authored material-to-application story. */
+.partner-logo-surface { height: 10rem; min-height: 0; padding: 1rem; overflow: hidden; }
+.partner-logo-image { width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
+.home-process { display: grid; gap: 1rem; counter-reset: process; }
+.home-process .home-highlight { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; background: transparent; border: 0; border-top: 1px solid #dcecdf40; border-radius: 0; padding: 1.25rem 0 0; }
+.home-process .home-highlight::before { counter-increment: process; content: counter(process, decimal-leading-zero); color: #dcecdf; font-size: 1rem; padding-top: .2rem; }
+.home-institutions .institution-collage { grid-template-columns: repeat(2,minmax(0,1fr)); background: transparent; padding: 0; max-width: 26rem; }
+.home-institutions .institution-logo:first-child { grid-column: auto; }
+.home-institutions .institution-logo img, .home-institutions .institution-logo:first-child img { height: 5rem; }
+.team-portrait-empty { background: #e4ece6; border: 1px solid #123d2f18; }
+.team-bio { min-height: 1.5rem; }

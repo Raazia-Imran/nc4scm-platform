@@ -86,49 +86,29 @@ export default async function HomePage() {
           </div>
         </div>
       </section>
-      <section className="section-shell bg-ivory">
-        <div className="grid gap-12 lg:grid-cols-[.7fr_1.3fr]">
-          <p className="eyebrow text-clay">{page.aboutKicker}</p>
-          <div>
-            <h2 className="section-title max-w-4xl">{page.aboutHeading}</h2>
-            {page.aboutBody?.length ? (
-              <div className="mt-8 max-w-2xl text-lg leading-8 text-carbon/65">
-                <RichTextRenderer value={page.aboutBody} />
-              </div>
-            ) : null}
-          </div>
-        </div>
-        <div className="mt-8 grid gap-3 md:grid-cols-3">
-          {highlights.map((item) => (
-            <article key={item._key} className="premium-card home-highlight p-5">
-              <h3 className="text-lg font-semibold text-forest">{item.title}</h3>
-              <p className="mt-3 text-sm leading-6 text-carbon/80">{item.description}</p>
-            </article>
-          ))}
-        </div>
-      </section>
       <section className="section-shell home-institutions bg-forest text-ivory">
-        <div className="grid gap-12 lg:grid-cols-2 lg:items-center">
-          <div className="institution-collage">
-            {institutions.map((item) => {
-              const src = urlFor(item.image)?.width(640).fit("max").url();
-              return src ? <div key={item._key} className="institution-logo"><Image src={src} alt={item.image.alt || item.name} width={320} height={160} className="object-contain" /><p>{item.name}</p></div> : null;
-            })}
-          </div>
+        <div className="grid gap-10 lg:grid-cols-2 lg:items-start">
           <div>
-            <p className="eyebrow text-ivory/70">{page.featureLabel}</p>
-            <h2 className="section-title mt-5 !text-ivory">
-              {page.featureTitle}
-            </h2>
-            <p className="mt-7 max-w-xl text-base leading-8 text-ivory/75">
-              {page.featureSummary}
-            </p>
-            {page.featureLink && (
-              <div className="mt-9">
-                <Action link={page.featureLink} light />
-              </div>
-            )}
+            <p className="eyebrow text-mint">{page.featureLabel}</p>
+            <h2 className="section-title mt-5 !text-ivory">{page.featureTitle}</h2>
+            <p className="mt-6 max-w-xl text-base leading-8 text-ivory/80">{page.featureSummary}</p>
+            <div className="institution-collage mt-8">
+              {institutions.map((item) => {
+                const src = urlFor(item.image)?.width(640).fit("max").url();
+                return src ? <div key={item._key} className="institution-logo"><Image src={src} alt={item.image.alt || item.name} width={320} height={160} className="object-contain" /><p>{item.name}</p></div> : null;
+              })}
+            </div>
           </div>
+          <ol className="home-process">
+            {highlights.map((item) => (
+              <li key={item._key} className="home-highlight">
+                <div>
+                  <h3 className="text-xl font-semibold text-ivory">{item.title}</h3>
+                  <p className="mt-3 text-base leading-7 text-ivory/80">{item.description}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
       <section className="section-shell bg-limestone home-capabilities">
@@ -164,12 +144,7 @@ export default async function HomePage() {
               news.map((n) => (
                 <Link
                   key={n._id}
-                  href={
-                    n.externalUrl ||
-                    (n.slug?.current ? `/news/${n.slug.current}` : "/news")
-                  }
-                  target={n.externalUrl ? "_blank" : undefined}
-                  rel={n.externalUrl ? "noreferrer" : undefined}
+                  href={n.slug?.current ? `/news/${n.slug.current}` : "/news"}
                   className="premium-card home-news-preview group mt-4 grid gap-5 p-3 sm:grid-cols-[8rem_1fr_auto] sm:items-center sm:pr-6"
                 >
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">

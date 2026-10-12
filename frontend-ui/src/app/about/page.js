@@ -5,7 +5,7 @@ import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 
-const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
+const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
   return {
@@ -163,13 +163,7 @@ export default async function AboutPage() {
                         )}
                       </a>
                     ) : (
-                      <div className="team-monogram" aria-hidden="true">
-                        {m.fullName
-                          ?.split(" ")
-                          .map((name) => name[0])
-                          .slice(0, 3)
-                          .join("")}
-                      </div>
+                      <div className="team-portrait team-portrait-empty" aria-hidden="true" />
                     )}
                     <h4 className="mt-5 px-2 font-sans text-2xl font-semibold tracking-tight text-forest">
                       {m.fullName}
@@ -177,8 +171,9 @@ export default async function AboutPage() {
                     <p className="mt-1 px-2 text-sm text-carbon/55">
                       {m.position}
                     </p>
+                    <div className="team-bio mx-2 mt-5">
                     {m.bio?.length > 0 && (
-                      <details className="mx-2 mt-5">
+                      <details>
                         <summary className="cursor-pointer text-sm font-semibold text-forest">
                           {text.biography}
                         </summary>
@@ -187,6 +182,7 @@ export default async function AboutPage() {
                         </div>
                       </details>
                     )}
+                    </div>
                     <div className="mt-3 flex flex-wrap items-center gap-4 px-2 pb-3 text-xs font-semibold text-teal">
                       {m.email && (
                         <EmailLinks email={m.email} text={text} />
@@ -200,6 +196,7 @@ export default async function AboutPage() {
                           {text.linkedin} ↗
                         </a>
                       )}
+                      {m.profileUrl && <a href={m.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} ↗</a>}
                     </div>
                   </article>
                 ))}

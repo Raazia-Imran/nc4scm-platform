@@ -47,15 +47,11 @@ export default function NewsGrid({ articles }) {
           const image =
             a.coverImage &&
             urlFor(a.coverImage)?.width(800).height(520).fit("crop").url();
-          const href =
-            a.externalUrl ||
-            (a.slug?.current ? `/news/${a.slug.current}` : "/news");
+          const href = a.slug?.current ? `/news/${a.slug.current}` : "/news";
           return (
             <Link
               key={a._id}
               href={href}
-              target={a.externalUrl ? "_blank" : undefined}
-              rel={a.externalUrl ? "noreferrer" : undefined}
               className="premium-card news-card group p-3 pb-5"
             >
               <div className="news-card-photo relative aspect-[16/10] overflow-hidden rounded-[1.25rem] bg-sage">
@@ -88,7 +84,7 @@ export default function NewsGrid({ articles }) {
                   {a.excerpt}
                 </p>
                 <span className="text-link mt-5 inline-flex">
-                  {a.externalUrl ? text.viewOriginal : text.readStory}{" "}
+                  {text.readStory}{" "}
                   <span>↗</span>
                 </span>
               </div>
