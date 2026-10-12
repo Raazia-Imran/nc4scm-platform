@@ -6,6 +6,7 @@ import { fileURLToPath } from "node:url";
 import { homeStory } from "../seed/home-story.mjs";
 import { homeRefresh } from "../seed/home-refresh.mjs";
 import { prepareContent } from "../seed/prepare-approved-content.mjs";
+import { hydrateMedia } from "../seed/editorial-plan.mjs";
 
 export async function fixtureDocuments() {
   const docs = (
@@ -52,7 +53,7 @@ export async function fixtureDocuments() {
   services[2].image = { asset: { _ref: "invalid" } };
   const image = (name, alt) => ({
     _type: "image",
-    asset: { _type: "reference", _ref: `image-${name}-800x600-jpg` },
+    asset: { _type: "reference", _ref: `image-${name.replace(/[^a-zA-Z0-9]/g,'')}-800x600-jpg` },
     alt,
   });
   const site = docs.find((doc) => doc._type === "siteSettings");
@@ -60,7 +61,7 @@ export async function fixtureDocuments() {
   for (const doc of docs) {
     if (doc._type === "teamMember") doc.avatar = image("portrait", doc.fullName);
     if (doc._type === "partner")
-      doc.logo = image("partner", doc.organizationName);
+      doc.logo = {...image(`partner-${doc.organizationName.toLowerCase().replaceAll(' ','-')}`, doc.organizationName), crop:{_type:'sanity.imageCrop',top:.2,bottom:.2,left:.1,right:.1}};
     if (doc._type === "news") doc.coverImage = image("news", doc.headline);
     if (doc._type === "event") doc.coverImage = image("event", doc.title);
   }
@@ -75,6 +76,14 @@ export async function fixtureDocuments() {
   ];
   past.keyOutcomes = ["Fixture outcome one", "Fixture outcome two"];
   past.gallery.push({ ...image("eventtwo", "Second event photograph"), _key: "gallery-two", caption: "Second fixture caption" });
+  const editorial = JSON.parse(await readFile(new URL('../seed/editorial-update.json', import.meta.url), 'utf8'));
+  for (const update of editorial.updates) {
+    const doc = docs.find(doc => doc._id === update.id);
+    if (!doc) throw Error(`Missing editorial fixture: ${update.id}`);
+    const set = await hydrateMedia(update.set, async file => `image-${file.split('/').at(-1).replace(/\.(jpg|png)$/, '').replace(/[^a-z0-9]/g,'')}-800x600-jpg`);
+    for (const [path,value] of Object.entries(set)) setPath(doc,path,value);
+  }
+  docs.push(...await hydrateMedia(editorial.creates, async file => `image-${file.split('/').at(-1).replace(/\.(jpg|png)$/, '').replace(/[^a-z0-9]/g,'')}-800x600-jpg`));
   return docs.map((doc) => ({
     ...doc,
     _rev: "fixture-revision-1",

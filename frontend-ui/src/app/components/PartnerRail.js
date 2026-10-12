@@ -63,7 +63,8 @@ export default function PartnerRail({ partners }) {
 }
 
 function PartnerCard({ partner, duplicate }) {
-  const image = urlFor(partner.logo)?.width(360).height(180).fit("max").url();
+  // Logos must retain the full asset, even when an editor has saved a photo crop.
+  const image = urlFor(partner.logo)?.ignoreImageParams().width(640).fit("max").url();
   const content = (
     <>
       <div className="partner-logo-surface">
@@ -71,9 +72,9 @@ function PartnerCard({ partner, duplicate }) {
           <Image
             src={image}
             alt={duplicate ? "" : partner.logo?.alt || partner.organizationName}
-            width={220}
-            height={110}
-            className="h-20 w-full object-contain sm:h-24"
+            width={320}
+            height={200}
+            className="partner-logo-image"
           />
         ) : (
           <span className="partner-placeholder" aria-hidden="true">
@@ -89,7 +90,7 @@ function PartnerCard({ partner, duplicate }) {
   const className = "partner-rail-card group";
 
   return partner.targetUrl && !duplicate ? (
-    <Link href={partner.targetUrl} target="_blank" className={className}>
+    <Link href={partner.targetUrl} target="_blank" rel="noopener noreferrer" className={className}>
       {content}
     </Link>
   ) : (

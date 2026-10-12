@@ -17,9 +17,12 @@ import { getSiteContent } from "@/lib/content";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
+import EventGallery from "@/app/components/EventGallery";
+
+export const revalidate = 60;
 
 const ARTICLE_BY_SLUG_QUERY = `*[_type == "news" && slug.current == $slug][0]{
-  _id, headline, excerpt, externalUrl, publishedAt, coverImage, body
+  _id, headline, excerpt, externalUrl, publishedAt, coverImage, body, gallery
 }`;
 
 const ALL_SLUGS_QUERY = `*[_type == "news" && defined(slug.current)]{ "slug": slug.current }`;
@@ -58,9 +61,17 @@ export default async function NewsArticlePage({ params }) {
   }
 
   const coverImageUrl = urlFor(article.coverImage)
+    ?.ignoreImageParams()
     ?.width(1600)
-    .height(900)
+    .fit("max")
     .url();
+  const dimensions = article.coverImage?.asset?._ref?.match(/-(\d+)x(\d+)-[a-zA-Z0-9]+$/);
+  const gallery = (article.gallery || []).map((item, index) => ({
+    key: item._key || String(index),
+    src: urlFor(item)?.ignoreImageParams().width(1400).fit("max").url(),
+    alt: item.alt || article.headline,
+    caption: item.caption,
+  })).filter((item) => item.src);
 
   return (
     <article className="mx-auto max-w-content px-5 pb-20 pt-36 md:px-10">
@@ -81,22 +92,28 @@ export default async function NewsArticlePage({ params }) {
       </h1>
 
       {coverImageUrl && (
-        <div className="relative mt-10 h-56 w-full overflow-hidden rounded-xl bg-stone/10 md:h-[20rem]">
+        <div className="mt-10 overflow-hidden rounded-xl bg-stone/10">
           <Image
             src={coverImageUrl}
             alt={article.coverImage?.alt || article.headline}
-            fill
+            width={Number(dimensions?.[1]) || 1600}
+            height={Number(dimensions?.[2]) || 900}
             priority
-            className="object-cover"
+            sizes="(max-width: 767px) 90vw, 1200px"
+            className="mx-auto max-h-[32rem] w-full object-contain"
           />
         </div>
       )}
 
       <div className="mx-auto mt-12 max-w-2xl text-base text-ink/90">
-        {article.excerpt && (
+        {!article.body?.length && article.excerpt && (
           <p className="mb-8 text-lg leading-8">{article.excerpt}</p>
         )}
         <RichTextRenderer value={article.body} />
+        {gallery.length > 0 && <section className="mt-10" aria-label={text.articlePhotos}>
+          <h2 className="mb-5 text-xl font-semibold text-forest">{text.articlePhotos}</h2>
+          <EventGallery images={gallery} text={text} label={text.articlePhotos} />
+        </section>}
         {article.externalUrl && (
           <a
             href={article.externalUrl}

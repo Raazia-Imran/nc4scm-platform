@@ -1,8 +1,9 @@
 import { createRequire } from "node:module";
 import { spawn } from "node:child_process";
-import { readFile, mkdir, writeFile } from "node:fs/promises";
+import { readFile, mkdir, writeFile, readdir } from "node:fs/promises";
 import assert from "node:assert/strict";
 import { createFixture } from "../../cms-backend/tests/sanity-fixture.mjs";
+import { verifyNewsEditor } from './news-editor.mjs';
 const { chromium } = createRequire(import.meta.url)("playwright");
 const fixture = await createFixture();
 const env = {
@@ -37,7 +38,7 @@ try {
     } catch {}
     await new Promise((resolve) => setTimeout(resolve, 200));
   }
-  browser = await chromium.launch({ headless: true, args: ["--no-sandbox"] });
+  browser = await chromium.launch({ headless: true, args: ["--no-sandbox", "--disable-dev-shm-usage"], ...(process.env.CHROMIUM_EXECUTABLE_PATH ? {executablePath:process.env.CHROMIUM_EXECUTABLE_PATH} : {}) });
   const page = await browser.newPage();
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
@@ -50,14 +51,16 @@ try {
       import.meta.url,
     ),
   );
-  await page.route("**/_next/image?**", (route) =>
-    route.fulfill({
-      contentType: route.request().url().includes("logo")
-        ? "image/webp"
-        : "image/jpeg",
-      body: route.request().url().includes("logo") ? logo : photo,
-    }),
-  );
+  const media = [];
+  for (const file of await readdir(new URL('../../cms-backend/seed/news-media/',import.meta.url)))
+    media.push({key:file.replace('.jpg','').replace(/[^a-z0-9]/g,''),body:await readFile(new URL('../../cms-backend/seed/news-media/'+file,import.meta.url)),type:'image/jpeg'});
+  media.push({key:'fayazhussain',body:await readFile(new URL('../../cms-backend/seed/team-media/fayaz-hussain.png',import.meta.url)),type:'image/png'});
+  for (const file of ['bestway-cement.jpeg','cherat-cement.jpeg','power-cement.png'])
+    media.push({key:('partner-'+file.replace(/\.(jpeg|png)$/,'')).replace(/[^a-z0-9]/g,''),body:await readFile(new URL('../public/media/partners/'+file,import.meta.url)),type:file.endsWith('.png')?'image/png':'image/jpeg'});
+  await page.route("**/_next/image?**", route => {
+    const matching = media.find(item=>route.request().url().includes(item.key+'-800x600'));
+    return route.fulfill({contentType:matching?.type || (route.request().url().includes('logo')?'image/webp':'image/jpeg'),body:matching?.body || (route.request().url().includes('logo')?logo:photo)});
+  });
   const paths = [
     "/",
     "/about",
@@ -73,6 +76,8 @@ try {
       .filter((d) => d._type === "event")
       .map((d) => "/events/" + d.slug.current),
     "/news/dr-tariq-jamil-iep-fellowship-2026",
+    "/news/nc4scm-lc3-keynote-icssc-2026",
+    "/news/student-seminar-lc3-cement-chemistry-2026",
   ];
   const widths = [280, 320, 375, 414, 600, 768, 1024, 1280, 1366, 1440, 1536, 1920, 2560];
   await mkdir(new URL("../test-results/", import.meta.url), {
@@ -133,7 +138,7 @@ try {
   }
   await page.goto("http://127.0.0.1:3100/");
   assert.equal(await page.locator(".home-highlight").count(), 3);
-  assert.equal(await page.locator(".institution-logo").count(), 3);
+  assert.equal(await page.locator(".institution-logo").count(), 2);
   assert.equal(await page.getByText("NRPU Project No. 14074", {exact:true}).count(), 0);
   assert.ok(await page.locator(".home-news-preview").count() <= 2);
   assert.equal(await page.locator(".home-experience").count(), 1);
@@ -141,12 +146,30 @@ try {
   assert.ok(homeLayout.logos<homeLayout.capabilities);
   assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
+  assert.deepEqual(await page.locator('.team-card h4').allTextContents(), ['Dr Tariq Jamil', 'Dr Shamsoon Fareed', 'Prof. Dr. Fayaz Hussain', 'Engr Muhammad Danyal Sheikh']);
+  assert.equal(await page.locator('.team-portrait-empty').count(),1);
+  assert.ok(await page.locator('.partner-logo-image').count() >= 3);
+  for (const img of await page.locator('.partner-logo-image').all()) {
+    const source = new URL(await img.getAttribute('src'),'http://127.0.0.1:3100').searchParams.get('url');
+    assert.ok(!new URL(source).searchParams.has('rect'), 'Logo processing retains the complete asset');
+    assert.equal(await img.evaluate(element=>getComputedStyle(element).objectFit),'contain');
+  }
   const contactAlignment = await page.locator(".team-card").evaluateAll(cards => cards.map(card => {
     const email=card.querySelector('.email-actions a'), linkedin=card.querySelector('a[href*="linkedin"]:not(.team-portrait)');
     return !email || !linkedin || Math.abs(email.getBoundingClientRect().y-linkedin.getBoundingClientRect().y)<2;
   }));
   assert.ok(contactAlignment.every(Boolean), "Email and LinkedIn align on the same row");
   await page.setViewportSize({ width: 375, height: 667 });
+  await page.goto("http://127.0.0.1:3100/news");
+  const articleCard = page.locator('.news-card').first();
+  assert.ok((await articleCard.getAttribute('href')).startsWith('/news/'));
+  assert.equal(await articleCard.getAttribute('target'),null);
+  await articleCard.click();
+  await page.waitForURL('**/news/student-seminar-lc3-cement-chemistry-2026');
+  assert.ok(await page.getByText('A student seminar on LC3 and cement chemistry', {exact:false}).count());
+  assert.ok(await page.locator('a[href*="7502736757143134208"]').count());
+  await page.getByRole('button',{name:'Next photo',exact:true}).click();
+  await page.locator('.gallery-controls [role="status"]').getByText('2 / 2',{exact:true}).waitFor();
   await page.goto("http://127.0.0.1:3100/news");
   await page.getByRole("button", { name: "Recognition", exact: true }).click();
   assert.equal(await page.locator("main a.premium-card").count(), 1);
@@ -237,11 +260,12 @@ try {
     .click();
   await page
     .getByText(
-      "Thank you for your enquiry. Your message has been received by NC4SCM.",
+      "The enquiry has been received by NC4SCM.",
       { exact: true },
     )
     .waitFor();
   assert.deepEqual(errors, []);
+  await verifyNewsEditor(page,fixture,'http://127.0.0.1:3100');
   await writeFile(
     new URL("../test-results/responsive.json", import.meta.url),
     JSON.stringify(
