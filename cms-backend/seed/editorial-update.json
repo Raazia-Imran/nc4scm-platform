@@ -5,71 +5,6 @@
       "id": "homePage",
       "type": "homePage",
       "expected": {
-        "featureLabel": "NC4SCM",
-        "featureTitle": "National Center for Sustainable Construction Materials (NC4SCM)",
-        "featureSummary": "Advancing sustainable construction materials through research, material testing, technology development and industry collaboration.",
-        "highlights": [
-          {
-            "_key": "assessment",
-            "description": "This helps identify suitable materials, compare sources and select processing conditions.",
-            "title": "Material assessment"
-          },
-          {
-            "_key": "testing",
-            "description": "We examine how composition, processing and mix proportions affect hydration, strength and durability.",
-            "title": "Formulation and testing"
-          },
-          {
-            "_key": "validation",
-            "description": "Promising formulations can then be considered for demonstration or industrial validation, based on the results and project requirements.",
-            "title": "Industrial validation"
-          }
-        ],
-        "institutionLogos": [
-          {
-            "_key": "nc4scm",
-            "image": {
-              "_type": "image",
-              "alt": "NC4SCM logo",
-              "asset": {
-                "_ref": "image-b14ab6a6eda25c80f5580de7b5de9a9f1edaf989-3750x3750-png",
-                "_type": "reference"
-              },
-              "crop": {
-                "_type": "sanity.imageCrop",
-                "bottom": 0.3,
-                "left": 0,
-                "right": 0,
-                "top": 0.3
-              }
-            },
-            "name": "NC4SCM"
-          },
-          {
-            "_key": "ned",
-            "image": {
-              "_type": "image",
-              "alt": "NED University of Engineering & Technology logo",
-              "asset": {
-                "_ref": "image-c34ddc2341ec8bc3d4fcf1d5bf6f3492b94602e6-1430x1435-jpg",
-                "_type": "reference"
-              }
-            },
-            "name": "NED University of Engineering & Technology"
-          },
-          {
-            "_key": "hec",
-            "image": {
-              "_type": "image",
-              "alt": "Higher Education Commission logo",
-              "asset": {
-                "_ref": "image-5f00bfea77f7abcf7d8f6bce0ad7709964153662-279x300-png",
-                "_type": "reference"
-              }
-            },
-            "name": "Higher Education Commission"
-          }
-        ],
         "aboutBody": [
           {
             "_key": "about-body",
@@ -94,59 +29,6 @@
         "closingBody": "Talk to our researchers about testing, technical support, collaborative research, or industry implementation."
       },
       "set": {
-        "featureLabel": "From material to application",
-        "featureTitle": "A practical route from local materials to industrial trials",
-        "featureSummary": "Raw-material assessment, formulation and performance testing provide the evidence needed to evaluate sustainable construction materials. Each stage informs the next technical decision, with demonstration or industrial trials considered when the results support further validation.",
-        "highlights": [
-          {
-            "_key": "assessment",
-            "title": "Assess material suitability",
-            "description": "Chemical, mineralogical, thermal and physical assessment helps compare local raw materials and identify suitable processing conditions."
-          },
-          {
-            "_key": "testing",
-            "title": "Develop and test formulations",
-            "description": "Binder formulation and mortar or concrete trials establish how composition and processing affect hydration, strength and durability."
-          },
-          {
-            "_key": "validation",
-            "title": "Prepare industrial validation",
-            "description": "Promising formulations can progress to demonstration or pilot and plant trials, according to the evidence and agreed project scope."
-          }
-        ],
-        "institutionLogos": [
-          {
-            "_key": "nc4scm",
-            "image": {
-              "_type": "image",
-              "alt": "NC4SCM logo",
-              "asset": {
-                "_ref": "image-b14ab6a6eda25c80f5580de7b5de9a9f1edaf989-3750x3750-png",
-                "_type": "reference"
-              },
-              "crop": {
-                "_type": "sanity.imageCrop",
-                "bottom": 0.3,
-                "left": 0,
-                "right": 0,
-                "top": 0.3
-              }
-            },
-            "name": "NC4SCM"
-          },
-          {
-            "_key": "ned",
-            "image": {
-              "_type": "image",
-              "alt": "NED University of Engineering & Technology logo",
-              "asset": {
-                "_ref": "image-c34ddc2341ec8bc3d4fcf1d5bf6f3492b94602e6-1430x1435-jpg",
-                "_type": "reference"
-              }
-            },
-            "name": "NED University of Engineering & Technology"
-          }
-        ],
         "aboutBody": [
           {
             "_type": "block",

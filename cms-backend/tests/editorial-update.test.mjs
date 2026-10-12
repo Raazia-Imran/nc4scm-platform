@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFile, stat} from 'node:fs/promises';
-import {buildEditorialPlan, hydrateMedia} from '../seed/editorial-plan.mjs';
+import {appliedMarkerId, buildEditorialPlan, hydrateMedia} from '../seed/editorial-plan.mjs';
 const recipe = JSON.parse(await readFile(new URL('../seed/editorial-update.json', import.meta.url), 'utf8'));
 function baseline() {
   return recipe.updates.map(update => {
@@ -24,9 +24,24 @@ test('one-time plan adds two unique articles and two Co-PIs without changing pub
   assert.equal(docs.at(-1).title, 'Existing paper');
   assert.equal(buildEditorialPlan([...docs,{_id:recipe.migrationId}], recipe), null);
 });
-test('unpublished edits, changed fields and duplicate new slugs stop the import', () => {
-  assert.throws(() => buildEditorialPlan([...baseline(),{_id:'drafts.homePage'}],recipe), /Unpublished edits/);
-  const changed = baseline();changed[0].featureTitle = 'Client edited title';
+test('an unpublished draft is preserved while unrelated updates can be imported once', () => {
+  const protectedId = 'news-gcgc-structural-demonstration-2025';
+  const first = buildEditorialPlan([...baseline(),{_id:`drafts.${protectedId}`}],recipe);
+  assert.deepEqual(first.blocked,[protectedId]);
+  assert.equal(first.updates.length,recipe.updates.length-1);
+  assert.equal(first.creates.length,recipe.creates.length);
+  const markers = [...first.updates.map(item=>item.document._id),...first.creates.map(item=>item._id)]
+    .map(id=>({_id:appliedMarkerId(recipe,id),_type:'contentMigration'}));
+  const retry = buildEditorialPlan([...baseline(),...markers,{_id:`drafts.${protectedId}`}],recipe);
+  assert.deepEqual(retry.blocked,[protectedId]);
+  assert.equal(retry.updates.length,0);
+  assert.equal(retry.creates.length,0);
+  const ready = buildEditorialPlan([...baseline(),...markers],recipe);
+  assert.deepEqual(ready.updates.map(item=>item.document._id),[protectedId]);
+  assert.equal(ready.creates.length,0);
+});
+test('changed fields and duplicate new slugs still stop the import', () => {
+  const changed = baseline();changed[0].servicesIntro = 'Client edited introduction';
   assert.throws(() => buildEditorialPlan(changed,recipe), /Content changed since review/);
   const duplicate = {_id:'different-id',_type:'news',slug:recipe.creates.find(doc=>doc._type==='news').slug};
   assert.throws(() => buildEditorialPlan([...baseline(),duplicate],recipe), /duplicate slug/);
@@ -51,8 +66,8 @@ test('all nine articles have complete body text and all 52 sourced photos are in
 test('institutional copy removes first-person narration and preserves the requested team order', () => {
   assert.doesNotMatch(JSON.stringify(recipe.updates.map(update=>update.set)), /\b(we|our|us|you|your)\b/i);
   const home = recipe.updates.find(update=>update.type==='homePage').set;
-  assert.equal(home.institutionLogos.length,2);
-  assert.ok(!home.institutionLogos.some(logo=>logo._key==='hec'));
+  assert.ok(!('institutionLogos' in home));
+  assert.ok(!('highlights' in home));
   const team = recipe.creates.filter(doc=>doc._type==='teamMember').sort((a,b)=>a.displayPriority-b.displayPriority);
   assert.deepEqual(team.map(doc=>doc.displayPriority),[2,3]);
   assert.equal(team[0].avatar,undefined);

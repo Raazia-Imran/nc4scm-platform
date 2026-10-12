@@ -4,28 +4,41 @@ export function fieldValue(document, path) {
   return path.split('.').reduce((value, key) => value?.[key], document);
 }
 
+export function appliedMarkerId(recipe, id) {
+  return `${recipe.migrationId}.applied.${id}`;
+}
+
 export function buildEditorialPlan(documents, recipe) {
   if (documents.some(document => document._id === recipe.migrationId)) return null;
-  const updates = recipe.updates.map(update => {
+  const applied = id => documents.some(document => document._id === appliedMarkerId(recipe, id));
+  const hasDraft = id => documents.some(document => document._id === `drafts.${id}`);
+  const blocked = [];
+  const updates = recipe.updates.flatMap(update => {
+    if (applied(update.id)) return [];
+    if (hasDraft(update.id)) {
+      blocked.push(update.id);
+      return [];
+    }
     const document = documents.find(document => document._id === update.id);
     if (!document || document._type !== update.type) throw Error(`Missing or incorrect document: ${update.id}`);
     for (const [field, expected] of Object.entries(update.expected)) {
       if (!isDeepStrictEqual(fieldValue(document, field) ?? null, expected))
         throw Error(`Content changed since review: ${update.id}.${field}. Review the Studio edit before importing.`);
     }
-    return {document, set: update.set};
+    return [{document, set: update.set}];
   });
-  for (const create of recipe.creates) {
+  const creates = recipe.creates.filter(create => {
+    if (applied(create._id)) return false;
+    if (hasDraft(create._id)) {
+      blocked.push(create._id);
+      return false;
+    }
     if (documents.some(document => document._id === create._id ||
       (document._type === create._type && document.slug?.current === create.slug?.current)))
       throw Error(`Existing record or duplicate slug: ${create._id}`);
-  }
-  const ids = [...recipe.updates.map(update => update.id), ...recipe.creates.map(create => create._id)];
-  for (const id of ids) {
-    if (documents.some(document => document._id === `drafts.${id}`))
-      throw Error(`Unpublished edits: ${id}. Publish or discard the draft before importing.`);
-  }
-  return {updates, creates: recipe.creates};
+    return true;
+  });
+  return {updates, creates, blocked};
 }
 
 export async function hydrateMedia(value, upload) {

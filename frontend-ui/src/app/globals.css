@@ -1506,7 +1506,6 @@ body {
 /* High-contrast information panels use the approved green/ivory palette. */
 .page-hero .sentence-grid > p { background: #dcecdf; color: #123d2f; border: 1px solid #b8d0bd; border-radius: .75rem; padding: .85rem 1rem; }
 .sentence-grid > p { background: #e8f0e7; color: #123d2f; border-color: #b8d0bd; }
-.home-highlight { background: #e8f0e7; border-color: #bdd0c0; }
 .team-card .email-actions { margin: 0; font-size: inherit; }
 .team-card .email-actions a, .team-card > div:last-child > a { padding-block: .4rem; line-height: 1.5; }
 .detail-return-bar { position: sticky; top: 6rem; z-index: 30; background: #f7f5eff5; border-bottom: 1px solid #123d2f26; padding: .65rem max(1rem, calc((100% - 1200px) / 2)); backdrop-filter: blur(12px); }
@@ -1514,11 +1513,6 @@ body {
 .service-contact { gap: 1.25rem; }
 .service-contact .section-title { flex: 1 1 18rem; min-width: 0; overflow-wrap: anywhere; }
 .service-contact > .button { flex-shrink: 0; }
-.institution-collage { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: .75rem; padding: 1rem; background: #dcecdf; border-radius: 1.25rem; }
-.institution-logo { display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem; background: white; border-radius: .75rem; text-align: center; color: #123d2f; }
-.institution-logo:first-child { grid-column: 1 / -1; }
-.institution-logo img { width: 100%; height: 6rem; object-fit: contain; }
-.institution-logo p { margin-top: .65rem; font-size: .75rem; line-height: 1.5; }
 
 @media (min-width: 768px) { .page-hero-inner { padding-block: 7rem 2rem; } }
 
@@ -1526,20 +1520,11 @@ body {
 .detail-return-bar { position:static; border-top:1px solid #123d2f26; border-bottom:0; padding-block:1rem; }
 .home-hero .page-hero-inner { min-height:clamp(29rem,65vh,38rem); padding-top:8rem; padding-bottom:3rem; }
 .home-hero .page-hero-title { max-width:22ch; font-size:clamp(2.2rem,4.5vw,4rem); }
-.home-institutions { padding-block:clamp(3rem,6vw,5rem); }
-.home-institutions .institution-logo img { height:clamp(6rem,12vw,10rem); }
-.home-institutions .institution-logo:first-child img { height:7rem; }
 .home-events { align-self:start; }
 @media(max-width:600px) { .home-hero .page-hero-inner { min-height:0; padding-top:8rem; padding-bottom:2.5rem; } }
 
-/* Full partner marks and a practical, CMS-authored material-to-application story. */
+/* Full partner marks retain their original proportions. */
 .partner-logo-surface { height: 10rem; min-height: 0; padding: 1rem; overflow: hidden; }
 .partner-logo-image { width: 100%; height: 100%; min-width: 0; min-height: 0; object-fit: contain; }
-.home-process { display: grid; gap: 1rem; counter-reset: process; }
-.home-process .home-highlight { display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; background: transparent; border: 0; border-top: 1px solid #dcecdf40; border-radius: 0; padding: 1.25rem 0 0; }
-.home-process .home-highlight::before { counter-increment: process; content: counter(process, decimal-leading-zero); color: #dcecdf; font-size: 1rem; padding-top: .2rem; }
-.home-institutions .institution-collage { grid-template-columns: repeat(2,minmax(0,1fr)); background: transparent; padding: 0; max-width: 26rem; }
-.home-institutions .institution-logo:first-child { grid-column: auto; }
-.home-institutions .institution-logo img, .home-institutions .institution-logo:first-child img { height: 5rem; }
 .team-portrait-empty { background: #e4ece6; border: 1px solid #123d2f18; }
 .team-bio { min-height: 1.5rem; }
