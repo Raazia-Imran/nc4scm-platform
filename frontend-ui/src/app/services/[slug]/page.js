@@ -6,6 +6,10 @@ import { getSiteContent } from "@/lib/content";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import ServiceIcon from "@/app/components/ServiceIcon";
 const QUERY = `*[_type=="service"&&slug.current==$slug][0]{title,summary,image,body,methods,deliverables,displayOrder}`;
+export async function generateStaticParams() {
+  const slugs = await client.fetch('*[_type=="service"&&defined(slug.current)]{"slug":slug.current}');
+  return (slugs || []).map(({ slug }) => ({ slug }));
+}
 export async function generateMetadata({ params }) {
   const service = await client.fetch(QUERY, { slug: params.slug });
   return {

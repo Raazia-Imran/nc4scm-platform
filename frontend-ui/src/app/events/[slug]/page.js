@@ -8,6 +8,11 @@ import { client, urlFor } from "@/sanityClient";
 
 const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,venue,description,pastEventRecap,keyOutcomes,speakers,registrationUrl,coverImage,gallery}`;
 
+export async function generateStaticParams() {
+  const slugs = await client.fetch('*[_type=="event"&&defined(slug.current)]{"slug":slug.current}');
+  return (slugs || []).map(({ slug }) => ({ slug }));
+}
+
 export async function generateMetadata({ params }) {
   const event = await client.fetch(QUERY, { slug: params.slug });
   return {
