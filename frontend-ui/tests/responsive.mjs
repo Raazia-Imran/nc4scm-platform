@@ -137,9 +137,9 @@ try {
         assert.ok(navigation.y >= content.y + content.height - 1, "Return link must follow article content");
       }
       if(path==='/about'){
-        const cards=await page.locator('.team-profile-card').evaluateAll(elements=>elements.map(el=>({height:el.clientHeight,white:getComputedStyle(el.querySelector('.team-portrait')).backgroundColor,summaryHeight:el.querySelector('.team-profile-summary').clientHeight})));
+        const cards=await page.locator('.team-profile-card').evaluateAll(elements=>elements.map(el=>({height:el.clientHeight,white:getComputedStyle(el.querySelector('.team-portrait')).backgroundColor,summaryHeight:el.querySelector('.team-profile-summary').clientHeight,summaryScrollHeight:el.querySelector('.team-profile-summary').scrollHeight})));
         assert.ok(Math.max(...cards.map(x=>x.height))-Math.min(...cards.map(x=>x.height))<2,'Consistent tile height');
-        assert.ok(cards.every(x=>x.white==='rgb(255, 255, 255)' && x.summaryHeight<90),'White portraits and compact summaries');
+        assert.ok(cards.every(x=>x.white==='rgb(255, 255, 255)' && x.summaryScrollHeight<=x.summaryHeight+1),'White portraits and fully visible summaries without clipping');
         const first=page.locator('.team-profile-actions button').first();await first.click();
         const modal=page.getByRole('dialog');await modal.waitFor({state:'visible'});
         const box=await modal.boundingBox();assert.ok(box.width<=width && box.height<=900,'Responsive profile dialog');
