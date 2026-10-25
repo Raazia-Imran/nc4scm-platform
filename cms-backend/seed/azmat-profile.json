@@ -1,0 +1,40 @@
+{
+  "migrationId": "migration.azmat-profile-2026-10-25",
+  "documents": [
+    {
+      "_id": "team-azmat-chandio",
+      "_type": "teamMember",
+      "fullName": "Azmat Chandio",
+      "slug": {
+        "_type": "slug",
+        "current": "azmat-chandio"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "eng.azmat08@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/azmat-chandio/",
+      "displayPriority": 106,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "profile",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "text",
+              "text": "Azmat Chandio is a Research Assistant at NC4SCM, NED University of Engineering & Technology, driven by a strong commitment to advancing sustainable materials, waste valorization, and eco-friendly infrastructure solutions. He holds a Bachelor of Engineering in Metallurgy and Materials Engineering from Mehran University and a master’s degree in Materials Engineering from NED University of Engineering & Technology. Blending his academic foundation with hands-on industrial experience as a Production and Quality Assurance Engineer in major steel manufacturing facilities, his research integrates advanced nanomaterial synthesis, electrochemical testing, and the development of sustainable, low-carbon building solutions. He has worked on multiple peer-reviewed publications in international journals focusing on catalytic applications, polymer nanocomposites, and corrosion behavior.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "avatar": {
+        "_type": "image",
+        "alt": "Portrait of Azmat Chandio",
+        "_upload": "october-2026-media/azmat-chandio.jpg"
+      }
+    }
+  ]
+}
