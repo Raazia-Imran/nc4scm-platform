@@ -1,11 +1,11 @@
-import EmailLinks from "@/app/components/EmailLinks";
+import TeamDirectory from "@/app/components/TeamDirectory";
 import { getSiteContent } from "@/lib/content";
 import Image from "next/image";
 import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 
-const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,secondaryEmail,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
+const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,cardSummary,researchInterests,qualification,portraitPlaceholder,email,secondaryEmail,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
   return {
@@ -21,12 +21,6 @@ export default async function AboutPage() {
     getSiteContent(),
   ]);
   const text = site.interfaceText || {};
-  const groupLabels = {
-    "principal-investigator": text.principalInvestigator,
-    "co-principal-investigator": text.coPrincipalInvestigators,
-    "project-management": text.projectManagement,
-    "research-staff": text.researchStaff,
-  };
   const p = data.page || {};
   const partners = data.partners || [];
   const hero = urlFor(p.heroImage)
@@ -126,85 +120,7 @@ export default async function AboutPage() {
             {p.teamIntroduction}
           </p>
         </div>
-        <div className="team-groups">
-        {Object.entries(groupLabels).map(([key, label]) => {
-          const members = (data.team || []).filter((m) => m.group === key);
-          if (!members.length) return null;
-          return (
-            <div key={key} className="team-group">
-              <div className="team-editorial-grid">
-                {members.map((m) => (
-                  <article key={m._id} className="premium-card team-card group p-3">
-                    <h3 className="team-role eyebrow text-clay">{key === "research-staff" ? m.position : label}</h3>
-                    {urlFor(m.avatar) ? (
-                      <a
-                        href={m.linkedinUrl || undefined}
-                        target={m.linkedinUrl ? "_blank" : undefined}
-                        rel={m.linkedinUrl ? "noreferrer" : undefined}
-                        aria-label={
-                          m.linkedinUrl
-                            ? `View ${m.fullName} on LinkedIn`
-                            : undefined
-                        }
-                        className="team-portrait relative block overflow-hidden rounded-xl bg-sage"
-                      >
-                        {urlFor(m.avatar) && (
-                          <Image
-                            src={urlFor(m.avatar)
-                              ?.width(600)
-                              .height(750)
-                              .fit("crop")
-                              .url()}
-                            alt={m.avatar.alt || m.fullName}
-                            fill
-                            sizes="(max-width: 639px) 88vw, 280px"
-                            className="object-cover grayscale transition duration-500 group-hover:grayscale-0"
-                          />
-                        )}
-                      </a>
-                    ) : (
-                      <div className="team-portrait team-portrait-empty" aria-hidden="true" />
-                    )}
-                    <h4 className="mt-5 px-2 font-sans text-2xl font-semibold tracking-tight text-forest">
-                      {m.fullName}
-                    </h4>
-                    <p className="mt-1 px-2 text-sm text-carbon/55">
-                      {m.position}
-                    </p>
-                    <div className="team-bio mx-2 mt-5">
-                    {m.bio?.length > 0 && (
-                      <details>
-                        <summary className="cursor-pointer text-sm font-semibold text-forest">
-                          {text.biography}
-                        </summary>
-                        <div className="mt-4 text-sm leading-7 text-carbon/65">
-                          <RichTextRenderer value={m.bio} />
-                        </div>
-                      </details>
-                    )}
-                    </div>
-                    <div className="mt-3 flex flex-wrap items-center gap-4 px-2 pb-3 text-xs font-semibold text-teal">
-                      {(m.email || m.secondaryEmail) && (
-                        <EmailLinks email={m.email || m.secondaryEmail} text={text} />
-                      )}
-                      {m.linkedinUrl && (
-                        <a
-                          href={m.linkedinUrl}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          {text.linkedin} ↗
-                        </a>
-                      )}
-                      {m.profileUrl && <a href={m.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} ↗</a>}
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          );
-        })}
-        </div>
+        <TeamDirectory members={data.team || []} text={text} />
       </section>
       <section className="section-shell overflow-hidden bg-[#0b282d] text-ivory">
         <div>

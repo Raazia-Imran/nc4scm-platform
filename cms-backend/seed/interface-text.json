@@ -137,5 +137,7 @@
   "emailApp": "Use mail app",
   "articlePhotos": "Article photographs",
   "academicProfile": "Academic profile",
-  "viewFullImage": "View full image"
+  "viewFullImage": "View full image",
+  "researchFocus": "Research focus",
+  "closeProfile": "Close profile"
 }
