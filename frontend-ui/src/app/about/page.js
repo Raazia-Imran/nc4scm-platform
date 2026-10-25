@@ -135,7 +135,7 @@ export default async function AboutPage() {
               <div className="team-editorial-grid">
                 {members.map((m) => (
                   <article key={m._id} className="premium-card team-card group p-3">
-                    <h3 className="team-role eyebrow text-clay">{label}</h3>
+                    <h3 className="team-role eyebrow text-clay">{key === "research-staff" ? m.position : label}</h3>
                     {urlFor(m.avatar) ? (
                       <a
                         href={m.linkedinUrl || undefined}
@@ -184,10 +184,9 @@ export default async function AboutPage() {
                     )}
                     </div>
                     <div className="mt-3 flex flex-wrap items-center gap-4 px-2 pb-3 text-xs font-semibold text-teal">
-                      {m.email && (
-                        <EmailLinks email={m.email} text={text} />
+                      {(m.email || m.secondaryEmail) && (
+                        <EmailLinks email={m.email || m.secondaryEmail} text={text} />
                       )}
-                      {m.secondaryEmail && <EmailLinks email={m.secondaryEmail} text={text} showAddress />}
                       {m.linkedinUrl && (
                         <a
                           href={m.linkedinUrl}
