@@ -84,6 +84,13 @@ export async function fixtureDocuments() {
     for (const [path,value] of Object.entries(set)) setPath(doc,path,value);
   }
   docs.push(...await hydrateMedia(editorial.creates, async file => `image-${file.split('/').at(-1).replace(/\.(jpg|png)$/, '').replace(/[^a-z0-9]/g,'')}-800x600-jpg`));
+  for (const source of ['research-assistants-2026-10-25.json','azmat-profile.json']) {
+    const recipe=JSON.parse(await readFile(new URL('../seed/'+source,import.meta.url),'utf8'));
+    for(const member of recipe.documents) if(!docs.some(d=>d._id===member._id)) docs.push(await hydrateMember(member));
+  }
+  const shamsoon=docs.find(d=>d._id==="team-shamsoon-fareed"); if(shamsoon) shamsoon.avatar=image("portrait",shamsoon.fullName);
+  const directory=JSON.parse(await readFile(new URL('../seed/team-directory-refresh.json',import.meta.url),'utf8'));
+  for(const update of directory.updates){const member=docs.find(d=>d._id===update.id);if(member){const {portraitFile,...fields}=update.set;Object.assign(member,fields);}}
   const poster = {_type: "image", alt: "Tall poster fixture", asset: {_type: "reference", _ref: "image-poster-1013x1800-jpg"}};
   docs.push({_id: "fixture-poster-event", _type: "event", title: "Portrait poster event", slug: {current: "portrait-poster"}, eventType: "conference", eventDateTime: "2030-04-10T00:00:00+05:00", endDateTime: "2030-04-11T23:59:59+05:00", dateOnly: true, venue: "Karachi", description: "A tall cover must stay compact without cropping.", registrationUrl: "https://example.org/conference", coverImage: poster});
   docs.push({_id: "fixture-poster-news", _type: "news", headline: "Portrait poster article", slug: {current: "portrait-poster"}, category: "announcement", publishedAt: "2020-01-01T00:00:00Z", excerpt: "A tall cover must stay compact without cropping.", body: [{_type: "block", _key: "p", style: "normal", markDefs: [], children: [{_type: "span", _key: "s", text: "Article body beneath a compact poster.", marks: []}]}], coverImage: poster});
@@ -177,4 +184,13 @@ export async function createFixture(initial) {
 if (process.argv[1] === fileURLToPath(import.meta.url)) {
   const fixture = await createFixture();
   console.log(fixture.host);
+}
+
+async function hydrateMember(value){
+ if(Array.isArray(value))return Promise.all(value.map(hydrateMember));
+ if(!value||typeof value!=='object')return value;
+ const {_upload,...rest}=value;
+ const result=Object.fromEntries(await Promise.all(Object.entries(rest).map(async([k,v])=>[k,await hydrateMember(v)])));
+ if(_upload)result.asset={_type:'reference',_ref:'image-portrait-800x600-jpg'};
+ return result;
 }

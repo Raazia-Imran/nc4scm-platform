@@ -1,0 +1,151 @@
+{
+  "migrationId": "migration.compact-team-directory-2026-10-25",
+  "updates": [
+    {
+      "id": "team-tariq-jamil",
+      "expectedRevision": "Aen22h1ZYKhFm15GDUgmcG",
+      "set": {
+        "cardSummary": "Dr Tariq Jamil is NC4SCM’s Principal Investigator and an Associate Professor at NED. His research focuses on sustainable construction materials, cement and clay chemistry, and LC³ development in Pakistan.",
+        "researchInterests": [
+          "LC³ development",
+          "Cement chemistry",
+          "Sustainable construction"
+        ],
+        "qualification": "PhD in Chemical Engineering, University of Colorado Boulder",
+        "portraitFile": "team-white-portraits/team-tariq-jamil.jpg"
+      }
+    },
+    {
+      "id": "team-shamsoon-fareed",
+      "expectedRevision": "Skp1ox8FhSBqY1bFSrwlEh",
+      "set": {
+        "cardSummary": "Dr Shamsoon Fareed is a Professor of Civil Engineering at NED and a Co-Principal Investigator of NC4SCM. His research covers structural engineering, recycled aggregate concrete and strengthening using fibre-reinforced composites.",
+        "researchInterests": [
+          "Structural engineering",
+          "Recycled aggregate concrete",
+          "Structural strengthening"
+        ],
+        "qualification": "PhD in Civil Engineering, Heriot-Watt University"
+      }
+    },
+    {
+      "id": "team-fayaz-hussain",
+      "expectedRevision": "Skp1ox8FhSBqY1bFSs0Z1Z",
+      "set": {
+        "cardSummary": "Prof. Dr. Fayaz Hussain is Professor and Chairman of Materials Engineering at NED and a Co-Principal Investigator of NC4SCM. His research focuses on functional ceramics, material fabrication and characterization.",
+        "researchInterests": [
+          "Functional ceramics",
+          "Material characterization",
+          "Electronic materials"
+        ],
+        "qualification": "PhD in Functional Materials and Devices, University of Sheffield",
+        "portraitFile": "team-white-portraits/team-fayaz-hussain.jpg"
+      }
+    },
+    {
+      "id": "team-muhammad-danyal-sheikh",
+      "expectedRevision": "Baj2HLIF3XsvgplVvwWlKv",
+      "set": {
+        "cardSummary": "Engr Muhammad Danyal Sheikh serves as Project Manager at the National Center for Sustainable Construction Materials (NC4SCM).",
+        "researchInterests": [],
+        "qualification": ""
+      }
+    },
+    {
+      "id": "team-ayesha-bint-e-arif",
+      "expectedRevision": "9vBJ6Ub6lWDD4ohjAQ7G8w",
+      "set": {
+        "cardSummary": "Ayesha Bint e Arif is a Physics graduate pursuing an MS in Medical Physics at NED. Her research focuses on computational materials modelling, aerosol cloud-condensation activity and zeolite structures for potential Gd-based MRI contrast agents.",
+        "researchInterests": [
+          "Computational physics",
+          "Materials modelling",
+          "Radiation physics"
+        ],
+        "qualification": "Physics graduate; MS in Medical Physics in progress, NED",
+        "portraitPlaceholder": "female"
+      }
+    },
+    {
+      "id": "team-dua-arif",
+      "expectedRevision": "9vBJ6Ub6lWDD4ohjAQ7G8w",
+      "set": {
+        "cardSummary": "Dua Arif is a Physics graduate pursuing an MS in Medical Physics at NED. Her research uses computational simulations to investigate ion adsorption and radiation-induced effects in hydroxyapatite.",
+        "researchInterests": [
+          "Molecular dynamics",
+          "Materials modelling",
+          "Radiation physics"
+        ],
+        "qualification": "Physics graduate; MS in Medical Physics in progress, NED"
+      }
+    },
+    {
+      "id": "team-mah-e-rukh-mustafa",
+      "expectedRevision": "Skp1ox8FhSBqY1bFSsLfjw",
+      "set": {
+        "cardSummary": "Mah-E-Rukh Mustafa holds a master’s degree in Materials Engineering from HUST, China. Her research in NC4SCM’s GetInnovative4Impact project focuses on high-entropy alloys, metal additive manufacturing and processing–microstructure–property relationships.",
+        "researchInterests": [
+          "High-entropy alloys",
+          "Additive manufacturing",
+          "Material characterization"
+        ],
+        "qualification": "Master of Engineering in Materials Engineering, HUST",
+        "portraitFile": "team-white-portraits/team-mah-e-rukh-mustafa.jpg"
+      }
+    },
+    {
+      "id": "team-muhammad-hamza",
+      "expectedRevision": "Skp1ox8FhSBqY1bFSsLfjw",
+      "set": {
+        "cardSummary": "Muhammad Hamza works as a Research Assistant at NC4SCM. His research interests include activating iron-rich kaolinite clay for LC³, cement and clay chemistry, and concrete technology.",
+        "researchInterests": [
+          "LC³ clay activation",
+          "Cement and clay chemistry",
+          "Concrete technology"
+        ],
+        "qualification": "",
+        "portraitFile": "team-white-portraits/team-muhammad-hamza.jpg"
+      }
+    },
+    {
+      "id": "team-muhammad-umer",
+      "expectedRevision": "9vBJ6Ub6lWDD4ohjAQ7G8w",
+      "set": {
+        "cardSummary": "Muhammad Umer is a Civil Engineering graduate who joined NC4SCM in July 2026. His research focuses on LC³ and other sustainable cementitious systems, building on his final-year project on limestone calcined clay cement.",
+        "researchInterests": [
+          "LC³ cement",
+          "Cementitious systems",
+          "Sustainable materials"
+        ],
+        "qualification": "Civil Engineering graduate, 2026",
+        "portraitFile": "team-white-portraits/team-muhammad-umer.jpg"
+      }
+    },
+    {
+      "id": "team-rumaisa-ali",
+      "expectedRevision": "Skp1ox8FhSBqY1bFSsLfjw",
+      "set": {
+        "cardSummary": "Rumaisa Ali is a Civil Engineering graduate pursuing a master’s degree in Structural Earthquake Engineering at NED. Her research focuses on LC³, recycled aggregate concrete and sustainable materials for earthquake-resistant construction.",
+        "researchInterests": [
+          "LC³ and recycled aggregates",
+          "Seismic design",
+          "Concrete durability"
+        ],
+        "qualification": "B.E. in Civil Engineering; master’s degree in Structural Earthquake Engineering in progress",
+        "portraitPlaceholder": "female"
+      }
+    },
+    {
+      "id": "team-azmat-chandio",
+      "expectedRevision": "bTDIAP2iTgilcCe2MYqTRt",
+      "set": {
+        "cardSummary": "Azmat Chandio holds degrees in Metallurgy and Materials Engineering from Mehran University and Materials Engineering from NED. His research combines nanomaterial synthesis, electrochemical testing and low-carbon building solutions.",
+        "researchInterests": [
+          "Sustainable materials",
+          "Nanomaterial synthesis",
+          "Electrochemical testing"
+        ],
+        "qualification": "B.E. in Metallurgy and Materials Engineering; master’s degree in Materials Engineering"
+      }
+    }
+  ]
+}

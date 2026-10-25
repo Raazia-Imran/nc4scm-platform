@@ -79,6 +79,10 @@ export default {
         "Lower numbers are shown first in the Team Directory grid (e.g. 1 = shown first).",
       validation: (Rule) => Rule.required().integer().min(0),
     },
+    { name: "cardSummary", title: "Short directory summary", type: "text", rows: 3, description: "Two short third-person sentences about qualifications and research focus. Full details remain in Biography.", validation: Rule => Rule.max(400) },
+    { name: "researchInterests", title: "Research interests", type: "array", of: [{type:"string"}], validation: Rule => Rule.max(6) },
+    { name: "qualification", title: "Qualification summary", type: "string" },
+    { name: "portraitPlaceholder", title: "Portrait placeholder", type: "string", options: {list:[{title:"Neutral illustration",value:"neutral"},{title:"Female illustration",value:"female"}]}, description: "Only used when no portrait has been provided." },
     {
       name: "bio",
       title: "Biography",

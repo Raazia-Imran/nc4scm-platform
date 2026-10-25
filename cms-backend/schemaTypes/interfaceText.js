@@ -41,6 +41,8 @@ export default {
     "journeyHeading",
     "people",
     "biography",
+    "researchFocus",
+    "closeProfile",
     "partners",
     "principalInvestigator",
     "coPrincipalInvestigators",

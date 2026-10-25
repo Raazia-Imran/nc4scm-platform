@@ -136,6 +136,15 @@ try {
         const navigation = await page.locator('.detail-return-bar').boundingBox();
         assert.ok(navigation.y >= content.y + content.height - 1, "Return link must follow article content");
       }
+      if(path==='/about'){
+        const cards=await page.locator('.team-profile-card').evaluateAll(elements=>elements.map(el=>({height:el.clientHeight,white:getComputedStyle(el.querySelector('.team-portrait')).backgroundColor,summaryHeight:el.querySelector('.team-profile-summary').clientHeight})));
+        assert.ok(Math.max(...cards.map(x=>x.height))-Math.min(...cards.map(x=>x.height))<2,'Consistent tile height');
+        assert.ok(cards.every(x=>x.white==='rgb(255, 255, 255)' && x.summaryHeight<90),'White portraits and compact summaries');
+        const first=page.locator('.team-profile-actions button').first();await first.click();
+        const modal=page.getByRole('dialog');await modal.waitFor({state:'visible'});
+        const box=await modal.boundingBox();assert.ok(box.width<=width && box.height<=900,'Responsive profile dialog');
+        await page.keyboard.press('Escape');
+      }
       results.push({ width, path, status: response.status(), overflow: false });
       if (
         (width === 375 || width === 1440) &&
@@ -161,19 +170,27 @@ try {
   const homeLayout=await page.evaluate(()=>({eventHeight:document.querySelector('.home-events').getBoundingClientRect().height}));
   assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
-  assert.deepEqual(await page.locator('.team-card h4').allTextContents(), ['Dr Tariq Jamil', 'Dr Shamsoon Fareed', 'Prof. Dr. Fayaz Hussain', 'Engr Muhammad Danyal Sheikh']);
-  assert.equal(await page.locator('.team-portrait-empty').count(),1);
+  assert.deepEqual(await page.locator('.team-profile-card h4').allTextContents(), fixture.docs.filter(d=>d._type==='teamMember').sort((a,b)=>a.displayPriority-b.displayPriority).map(d=>d.fullName));
+  assert.equal(await page.locator('.team-portrait-empty').count(),2);
   assert.ok(await page.locator('.partner-logo-image').count() >= 3);
   for (const img of await page.locator('.partner-logo-image').all()) {
     const source = new URL(await img.getAttribute('src'),'http://127.0.0.1:3100').searchParams.get('url');
     assert.ok(!new URL(source).searchParams.has('rect'), 'Logo processing retains the complete asset');
     assert.equal(await img.evaluate(element=>getComputedStyle(element).objectFit),'contain');
   }
-  const contactAlignment = await page.locator(".team-card").evaluateAll(cards => cards.map(card => {
-    const email=card.querySelector('.email-actions a'), linkedin=card.querySelector('a[href*="linkedin"]:not(.team-portrait)');
+  const contactAlignment = await page.locator(".team-profile-card").evaluateAll(cards => cards.map(card => {
+    const email=card.querySelector('.email-actions a'), linkedin=card.querySelector('a[href*="linkedin"]');
     return !email || !linkedin || Math.abs(email.getBoundingClientRect().y-linkedin.getBoundingClientRect().y)<2;
   }));
   assert.ok(contactAlignment.every(Boolean), "Email and LinkedIn align on the same row");
+  const profileButton=page.locator('.team-profile-actions button').first();
+  await profileButton.click();
+  await page.getByRole('dialog').waitFor({state:'visible'});
+  assert.ok(await page.locator('#team-dialog-name').innerText());
+  await page.keyboard.press('Escape');
+  assert.equal(await page.getByRole('dialog').isVisible(),false);
+  assert.equal(await profileButton.evaluate(el=>el===document.activeElement),true,'Focus returns to opener');
+
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto("http://127.0.0.1:3100/news");
   const articleCard = page.locator('.news-card').first();
@@ -233,7 +250,7 @@ try {
   await page.goto("http://127.0.0.1:3100/publications");
   assert.equal(await page.locator(".compact-text details").count(), 0);
   await page.goto("http://127.0.0.1:3100/about");
-  const heights = await page.locator(".team-card").evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
+  const heights = await page.locator(".team-profile-card").evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
   assert.ok(Math.max(...heights) - Math.min(...heights) < 2, "Team cards share a consistent row height");
   assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
   await page.goto("http://127.0.0.1:3100/contact?service=lc3-technology");
