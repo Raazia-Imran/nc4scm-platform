@@ -21,12 +21,6 @@ export default async function AboutPage() {
     getSiteContent(),
   ]);
   const text = site.interfaceText || {};
-  const groupLabels = {
-    "principal-investigator": text.principalInvestigator,
-    "co-principal-investigator": text.coPrincipalInvestigators,
-    "project-management": text.projectManagement,
-    "research-staff": text.researchStaff,
-  };
   const p = data.page || {};
   const partners = data.partners || [];
   const hero = urlFor(p.heroImage)

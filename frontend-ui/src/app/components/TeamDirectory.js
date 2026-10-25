@@ -22,9 +22,10 @@ function Portrait({member, large=false}) {
     {src ? <Image src={src} alt={member.avatar.alt || member.fullName} fill sizes={large?"180px":"120px"} className="team-directory-photo"/> : <Placeholder female={member.portraitPlaceholder==="female"}/>}
   </div>;
 }
-function Contacts({member,text}) {
+function Contacts({member,text,full=false}) {
  return <div className="team-contact-links">
   {(member.email||member.secondaryEmail)&&<EmailLinks email={member.email||member.secondaryEmail} text={text}/>}
+  {full&&member.email&&member.secondaryEmail&&<EmailLinks email={member.secondaryEmail} text={text} showAddress/>}
   {member.linkedinUrl&&<a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer">{text.linkedin} <span aria-hidden="true">↗</span></a>}
   {member.profileUrl&&<a href={member.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} <span aria-hidden="true">↗</span></a>}
  </div>;
@@ -44,12 +45,12 @@ export default function TeamDirectory({members,text}) {
     <Contacts member={member} text={text}/>
    </article>)}
   </div>
-  <dialog ref={dialog} className="team-profile-dialog" aria-labelledby="team-dialog-name" onCancel={e=>{e.preventDefault();close();}} onClick={e=>{if(e.target===dialog.current)close();}}>
+  <dialog ref={dialog} className="team-profile-dialog" aria-labelledby="team-dialog-name" onCancel={e=>{e.preventDefault();close();}}>
    {selected&&<div className="team-dialog-sheet"><button type="button" className="team-dialog-close" onClick={close} aria-label={text.closeProfile} autoFocus>×</button>
     <div className="team-dialog-header"><Portrait member={selected} large/><div><p className="team-profile-role">{selected.position}</p><h2 id="team-dialog-name">{selected.fullName}</h2>{selected.qualification&&<p className="team-qualification">{selected.qualification}</p>}</div></div>
     {selected.researchInterests?.length>0&&<section className="team-dialog-focus"><h3>{text.researchFocus}</h3><ul className="team-focus-tags">{selected.researchInterests.map(item=><li key={item}>{item}</li>)}</ul></section>}
     {selected.bio?.length>0&&<div className="team-dialog-bio"><RichTextRenderer value={selected.bio}/></div>}
-    <Contacts member={selected} text={text}/>
+    <Contacts member={selected} text={text} full/>
    </div>}
   </dialog>
  </>;

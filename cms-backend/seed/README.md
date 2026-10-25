@@ -74,4 +74,37 @@ The conference spans 10–11 April 2027 in Karachi. It is marked **Dates only �
 
 Preview with `npm run seed:october:preview`; publish with `npm run seed:october` using the existing Editor secret. The workflow runs this on `main`. Both records and a completion marker are created in one transaction. Existing IDs, slugs and drafts block the import; successful reruns preserve later Studio edits. The workflow retains a backup and verifies saved field values. Edit the published records under **Event** and **News Article**. The frontend reads Sanity, never this recipe.
 
-The Team Member schema now also supports an **Additional public email**, displayed on the About page when filled in Studio. No new RA personal records or portraits are included in this import.
+The Team Member schema now also supports an **Additional public email**, displayed in the full profile when filled in Studio. No new RA personal records or portraits are included in this import.
+
+## Compact team directory — October 25
+
+The About page uses equal-height cards with white portrait surfaces, subtle hover depth, a short summary and up to three research tags. **Biography** opens the full profile, qualification, all research interests and public contact links. Close with the × button or Escape; keyboard focus returns to the opening button. Reduced-motion preferences disable the hover movement.
+
+The one-time `import-team-directory-refresh.mjs --apply` migration updates 11 existing members, uploads five edited portraits and selects female illustrations for Ayesha Bint e Arif and Rumaisa Ali, whose photographs were withheld. Umer's most recently supplied portrait replaces his older one; his repeated form does not create another member. Full biographies and existing contact fields are preserved. The importer checks revisions and drafts, saves a backup, writes atomically, verifies the saved fields and records a completion marker. Subsequent workflow runs preserve later Studio edits.
+
+### Add a member in Sanity
+
+Open **Team Member → Create new document**, check for an existing record first, and complete the following fields. These are fields on a member record; no schema or code change is needed for each new person.
+
+| Studio field | What to enter |
+| --- | --- |
+| Full Name | The person's approved display name. |
+| Slug | Click **Generate** after entering the name; keep it unique. |
+| Position / Role | For example, Research Assistant. |
+| Team group | Select Research Assistants for an RA; use the matching leadership group for other roles. |
+| Display Priority | A non-negative whole number; lower numbers appear first. Use the next available number for a new person at the end. |
+| Avatar Image | An approved portrait with a white background. Leave empty if the person withholds their photo. |
+| Alternative text | Describe the uploaded portrait, e.g. Portrait of [Full Name]. |
+| Portrait placeholder | Choose Female illustration or Neutral illustration when Avatar Image is empty. This is a faceless drawing, not a photograph. |
+| Short directory summary | Two short third-person sentences, ideally 35–45 words and at most 400 characters: qualification/current study first, then research focus. Include only supplied facts. |
+| Research interests | Prefer three concise tags. Up to six can be saved; the first three appear on the card and all appear in the full profile. |
+| Qualification summary | One line covering the completed degree and/or current programme. Leave empty if not supplied. |
+| Biography | The complete approved third-person profile. It appears in the full-profile dialog and does not stretch the card. |
+| Public email / Additional public email | Only addresses approved for public display; the additional address appears in the full profile. |
+| LinkedIn URL / Official academic profile | Approved full URLs; optional fields can remain empty. |
+
+Use this summary structure: **[Name] holds [qualification] / is pursuing [programme] at [institution]. Their research focuses on [two or three supplied areas].** Omit any part that was not provided; do not add qualifications or research interests to fill space.
+
+Click **Publish**, allow the site's approximately 60-second revalidation window, then open **About → People** and test the new member's **Biography** button. Confirm the name, portrait/placeholder, research tags and links. If someone later supplies a photograph, upload it to Avatar Image; it takes precedence over the placeholder. A white card surface does not remove a coloured background inside a new uploaded image: prepare the portrait on white before uploading.
+
+The four new fields are **Short directory summary**, **Research interests**, **Qualification summary** and **Portrait placeholder**. Existing Biography remains the full profile. Interface labels, including **Research focus**, **Biography** and **Close profile**, remain editable in **Global Site Settings → Website interface text**.

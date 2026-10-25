@@ -1527,7 +1527,7 @@ body {
 .detail-return { min-height: 44px; }
 
 /* A compact directory with layered surfaces and accessible full profiles. */
-.team-directory-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr)); gap:1.5rem; margin-top:2rem; perspective:1200px; }
+.team-directory-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(min(100%,21rem),1fr)); grid-auto-rows:1fr; gap:1.5rem; margin-top:2rem; perspective:1200px; }
 .team-profile-card { position:relative; isolation:isolate; min-width:0; padding:1.25rem; display:flex; flex-direction:column; border:1px solid #d3e2d9; border-radius:1.5rem; background:linear-gradient(145deg,#fff 55%,#f3f7f4); box-shadow:0 2px 0 #fff inset,0 6px 0 -2px #dce8e0,0 18px 40px -24px #123d2f70; transition:transform .25s ease,box-shadow .25s ease; }
 .team-profile-card:before { content:""; position:absolute; inset:0; z-index:-1; border-radius:inherit; border-top:3px solid #a6c4b3; pointer-events:none; }
 @media (hover:hover) and (prefers-reduced-motion:no-preference) { .team-profile-card:hover { transform:translateY(-6px) rotateX(1deg); box-shadow:0 2px 0 #fff inset,0 6px 0 -2px #dce8e0,0 26px 50px -24px #123d2f80; } }
@@ -1561,4 +1561,3 @@ body {
 .team-dialog-bio { font-size:.95rem; line-height:1.8; color:#465b50; margin-top:1.5rem; }
 @media(max-width:359px) { .team-profile-top { grid-template-columns:4.5rem minmax(0,1fr); gap:.75rem; } .team-profile-card .team-portrait { width:4.5rem; height:6rem; } .team-dialog-header { grid-template-columns:1fr; gap:1rem; } }
 @media(prefers-reduced-motion:reduce) { .team-profile-card { transition:none; transform:none; } }
-.team-directory-grid { grid-auto-rows:1fr; }
