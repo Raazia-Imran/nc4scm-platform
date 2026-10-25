@@ -123,10 +123,10 @@ export default async function HomePage() {
                   <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-sage">
                     {urlFor(n.coverImage) && (
                       <Image
-                        src={urlFor(n.coverImage)?.width(320).height(240).url()}
+                        src={urlFor(n.coverImage)?.ignoreImageParams().width(640).fit("max").url()}
                         alt={n.coverImage?.alt || n.headline}
                         fill
-                        className="object-cover"
+                        className="object-contain"
                       />
                     )}
                   </div>
@@ -157,23 +157,17 @@ export default async function HomePage() {
                 events.map((e) => (
                   <Link
                     key={e._id}
-                    href={
-                      e.externalUrl ||
-                      (e.slug?.current
-                        ? `/events/${e.slug.current}`
-                        : "/events")
-                    }
-                    target={e.externalUrl ? "_blank" : undefined}
-                    rel={e.externalUrl ? "noreferrer" : undefined}
+                    href={e.slug?.current ? `/events/${e.slug.current}` : "/events"}
                     className="grid grid-cols-[4rem_1fr] gap-5 py-6"
                   >
                     <div>
                       <p className="font-display text-3xl">
-                        {new Date(e.eventDateTime).getDate()}
+                        {new Date(e.eventDateTime).toLocaleDateString("en-US", {day: "numeric", timeZone: "Asia/Karachi"})}
                       </p>
                       <p className="text-xs uppercase text-mint">
                         {new Date(e.eventDateTime).toLocaleDateString("en-US", {
                           month: "short",
+                          timeZone: "Asia/Karachi",
                         })}
                       </p>
                     </div>

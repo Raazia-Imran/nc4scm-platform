@@ -46,7 +46,7 @@ export default function NewsGrid({ articles }) {
         {filtered.slice(0, visible).map((a) => {
           const image =
             a.coverImage &&
-            urlFor(a.coverImage)?.width(800).height(520).fit("crop").url();
+            urlFor(a.coverImage)?.ignoreImageParams().width(800).fit("max").url();
           const href = a.slug?.current ? `/news/${a.slug.current}` : "/news";
           return (
             <Link
@@ -61,7 +61,7 @@ export default function NewsGrid({ articles }) {
                     alt={a.coverImage?.alt || a.headline}
                     fill
                     sizes="(max-width: 767px) 90vw, (max-width: 1023px) 45vw, 30vw"
-                    className="object-cover transition duration-500 group-hover:scale-105"
+                    className="object-contain"
                   />
                 )}
               </div>

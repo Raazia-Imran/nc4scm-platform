@@ -92,7 +92,7 @@ export default async function NewsArticlePage({ params }) {
       </h1>
 
       {coverImageUrl && (
-        <div className="mt-10 overflow-hidden rounded-xl bg-stone/10">
+        <div className="content-detail-cover mt-10 overflow-hidden rounded-xl bg-stone/10">
           <Image
             src={coverImageUrl}
             alt={article.coverImage?.alt || article.headline}
@@ -100,7 +100,7 @@ export default async function NewsArticlePage({ params }) {
             height={Number(dimensions?.[2]) || 900}
             priority
             sizes="(max-width: 767px) 90vw, 1200px"
-            className="mx-auto max-h-[32rem] w-full object-contain"
+            className="mx-auto h-auto w-full object-contain"
           />
         </div>
       )}

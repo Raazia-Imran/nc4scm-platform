@@ -29,9 +29,12 @@ export default async function EventDetail({ params }) {
   const text = site.interfaceText || {};
   if (!event) notFound();
   const cover = urlFor(event.coverImage)
-    ?.width(1200)
+    ?.ignoreImageParams()
+    .width(1200)
+    .fit("max")
     .auto("format")
     .url();
+  const dimensions = event.coverImage?.asset?._ref?.match(/-(\d+)x(\d+)-[a-zA-Z0-9]+$/);
   const date = new Date(event.eventDateTime);
   const isPast =
     new Date(event.endDateTime || event.eventDateTime).getTime() < Date.now();
@@ -68,15 +71,16 @@ export default async function EventDetail({ params }) {
           <Image
             src={cover}
             alt={event.coverImage?.alt || event.title}
-            fill
-            sizes="(max-width: 1200px) 100vw, 1200px"
-            className="object-contain bg-sage"
+            width={Number(dimensions?.[1]) || 1200}
+            height={Number(dimensions?.[2]) || 800}
+            sizes="(max-width: 767px) 90vw, 720px"
+            className="h-auto w-full object-contain bg-sage"
           />
         </div>
       )}
       <section className="section-shell bg-ivory">
         <div className="event-detail-copy">
-          <CompactText value={event.description} label={text.readMore} />
+          <div className="event-description">{(event.description || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}</div>
           <aside>
             {event.speakers?.length > 0 && (
               <>
@@ -88,7 +92,7 @@ export default async function EventDetail({ params }) {
                 </ul>
               </>
             )}
-            {!isPast && event.registrationUrl && (
+            {event.registrationUrl && (
               <a
                 href={event.registrationUrl}
                 target="_blank"

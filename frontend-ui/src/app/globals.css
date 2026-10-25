@@ -1426,10 +1426,11 @@ body {
 .contact-person p, .contact-person > a { line-height: 1.6; }
 .publication-card { align-self: start; }
 .publication-card h2 { font-size: 1.15rem; }
-.news-card-photo { max-height: 12rem; }
-.event-card-photo { max-height: 11rem; }
+.news-card-photo, .event-card-photo { height: clamp(14rem, 24vw, 20rem); aspect-ratio: auto; }
 .event-card h2, .news-card h2 { font-size: 1.15rem; }
-.event-detail-cover { position: relative; height: clamp(12rem, 30vw, 20rem); max-width: 1200px; margin: 1.5rem auto 0; border-radius: 1rem; overflow: hidden; }
+.event-detail-cover { width: min(90%, 720px); margin: 1.5rem auto 0; border-radius: 1rem; overflow: hidden; }
+.content-detail-cover { max-width: 720px; margin-inline: auto; }
+.event-description { display: grid; gap: 1.25rem; font-size: 1rem; line-height: 1.7; }
 .event-detail-copy { display: grid; gap: 2rem; }
 .event-detail-copy > .compact-text { font-size: 1rem; line-height: 1.7; }
 .event-recap { margin-top: 2rem; border-top: 1px solid #123d2f26; padding-top: 2rem; }

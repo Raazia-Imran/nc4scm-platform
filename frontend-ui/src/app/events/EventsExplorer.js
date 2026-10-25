@@ -66,20 +66,7 @@ export default function EventsExplorer({ events, now }) {
             return (
               <Link
                 key={e._id}
-                href={
-                  period === "past" && e.slug?.current
-                    ? `/events/${e.slug.current}`
-                    : e.externalUrl ||
-                      (e.slug?.current
-                        ? `/events/${e.slug.current}`
-                        : "/events")
-                }
-                target={
-                  period !== "past" && e.externalUrl ? "_blank" : undefined
-                }
-                rel={
-                  period !== "past" && e.externalUrl ? "noreferrer" : undefined
-                }
+                href={e.slug?.current ? `/events/${e.slug.current}` : "/events"}
                 className="premium-card event-card group grid overflow-hidden p-3 sm:grid-cols-[4.5rem_1fr]"
               >
                 <div className="flex flex-col justify-between rounded-[1.25rem] bg-forest p-3 text-ivory">
@@ -109,14 +96,14 @@ export default function EventsExplorer({ events, now }) {
                     {urlFor(e.coverImage) && (
                       <Image
                         src={urlFor(e.coverImage)
-                          ?.width(900)
-                          .height(450)
-                          .fit("crop")
+                          ?.ignoreImageParams()
+                          .width(900)
+                          .fit("max")
                           .url()}
                         alt={e.coverImage?.alt || e.title}
                         fill
                         sizes="(max-width: 1024px) 70vw, 38vw"
-                        className="object-cover transition duration-500 group-hover:scale-105"
+                        className="object-contain"
                       />
                     )}
                   </div>
