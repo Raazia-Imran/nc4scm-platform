@@ -65,3 +65,13 @@ After merge, verify **Deploy Sanity Studio** succeeded, then allow the site's 60
 ## Permission failure recovery
 
 If the import reports `Insufficient permissions; permission "update" required`, the existing deploy token cannot write content. In Sanity project `dxinqb51` → API → Tokens, create an Editor token and save it directly in GitHub repository Settings → Secrets and variables → Actions as `SANITY_CONTENT_WRITE_TOKEN`. Do not send the token in chat. Rerun **Deploy Sanity Studio** from `main`. The failed atomic transaction changed no content and saved a backup.
+
+### October 25 GCGC 2027 additions
+
+`october-2026-additions.json` imports one upcoming Event and one News Article from the supplied GCGC 2027 poster. Both cover images are uploaded to Sanity as one shared image asset. The description and news body retain all three tracks, nine topic areas, proposed important dates, intended audience, author resources, website and enquiry email. No speakers, precise venue, fees or post-event outcomes were supplied; these optional fields stay empty.
+
+The conference spans 10–11 April 2027 in Karachi. It is marked **Dates only — time not announced**; stored day boundaries support Upcoming/Past classification and do not claim session times. The news timestamp is the actual import time, not the call-for-papers opening date.
+
+Preview with `npm run seed:october:preview`; publish with `npm run seed:october` using the existing Editor secret. The workflow runs this on `main`. Both records and a completion marker are created in one transaction. Existing IDs, slugs and drafts block the import; successful reruns preserve later Studio edits. The workflow retains a backup and verifies saved field values. Edit the published records under **Event** and **News Article**. The frontend reads Sanity, never this recipe.
+
+The Team Member schema now also supports an **Additional public email**, displayed on the About page when filled in Studio. No new RA personal records or portraits are included in this import.

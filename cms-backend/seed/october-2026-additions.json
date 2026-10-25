@@ -1,0 +1,284 @@
+{
+  "migrationId": "migration.gcgc-2027-2026-10-25",
+  "documents": [
+    {
+      "_id": "event-gcgc-2027",
+      "_type": "event",
+      "title": "Global Conference on Green Construction Materials and Practices 2027",
+      "slug": {
+        "_type": "slug",
+        "current": "gcgc-2027"
+      },
+      "eventType": "conference",
+      "eventDateTime": "2027-04-10T00:00:00+05:00",
+      "endDateTime": "2027-04-11T23:59:59+05:00",
+      "dateOnly": true,
+      "venue": "Karachi, Pakistan",
+      "description": "The Global Conference on Green Construction Materials and Practices (GCGC 2027) will take place on 10–11 April 2027 in Karachi, Pakistan. The conference is jointly organized by UET Lahore and the National Center for Sustainable Construction Materials (NC4SCM).\n\nThe conference is intended for researchers and academics, civil and materials engineers, industry professionals, sustainability practitioners, students and emerging researchers, and policy and standards experts.\n\nConference tracks\n\nGreen construction materials: Low-carbon cementitious materials; Minerals and chemical admixtures; Waste-derived construction materials.\n\nSustainable construction: Performance and durability of sustainable structures; Modelling, simulation and digital engineering; Sustainable structural design and construction practices.\n\nCase studies and best practices: Industrial decarbonisation and best practices; Policy, standards and green construction; Sustainable cities, climate action and case studies.\n\nProposed important dates\n\n15 September 2026 — Call for papers opens\n\n1 January 2027 — Paper submission deadline\n\n15 January 2027 — First review decision\n\n30 January 2027 — Revised paper submission\n\n15 February 2027 — Final acceptance notification\n\n25 February 2027 — Camera-ready submission\n\n1 March 2027 — Author registration deadline\n\n10–11 April 2027 — Conference\n\nThe important dates above are proposed. Please check the conference portal for updates.\n\nPaper templates and Springer Nature proceedings guidelines are available on the conference website: https://gcgc.nc4scm.com. For enquiries, contact nc4scm@cloud.neduet.edu.pk.",
+      "speakers": [],
+      "registrationUrl": "https://gcgc.nc4scm.com",
+      "coverImage": {
+        "_type": "image",
+        "alt": "GCGC 2027 conference poster with 10–11 April 2027 dates, Karachi venue, conference tracks and proposed submission deadlines",
+        "_upload": "october-2026-media/gcgc-2027-poster.jpg"
+      }
+    },
+    {
+      "_id": "news-gcgc-2027-announcement",
+      "_type": "news",
+      "headline": "GCGC 2027 announced for 10–11 April in Karachi",
+      "slug": {
+        "_type": "slug",
+        "current": "gcgc-2027-karachi-announcement"
+      },
+      "category": "announcement",
+      "excerpt": "UET Lahore and NC4SCM will jointly organize GCGC 2027 in Karachi on 10–11 April, covering green materials, sustainable construction and case studies.",
+      "externalUrl": "https://gcgc.nc4scm.com",
+      "coverImage": {
+        "_type": "image",
+        "alt": "GCGC 2027 conference poster with 10–11 April 2027 dates, Karachi venue, conference tracks and proposed submission deadlines",
+        "_upload": "october-2026-media/gcgc-2027-poster.jpg"
+      },
+      "body": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "The Global Conference on Green Construction Materials and Practices (GCGC 2027) will take place on 10–11 April 2027 in Karachi, Pakistan. The conference is jointly organized by UET Lahore and the National Center for Sustainable Construction Materials (NC4SCM).",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1",
+              "text": "The conference is intended for researchers and academics, civil and materials engineers, industry professionals, sustainability practitioners, students and emerging researchers, and policy and standards experts.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2",
+              "text": "Conference tracks",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p3",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s3",
+              "text": "Green construction materials: Low-carbon cementitious materials; Minerals and chemical admixtures; Waste-derived construction materials.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p4",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s4",
+              "text": "Sustainable construction: Performance and durability of sustainable structures; Modelling, simulation and digital engineering; Sustainable structural design and construction practices.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p5",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s5",
+              "text": "Case studies and best practices: Industrial decarbonisation and best practices; Policy, standards and green construction; Sustainable cities, climate action and case studies.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p6",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s6",
+              "text": "Proposed important dates",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p7",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s7",
+              "text": "15 September 2026 — Call for papers opens",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p8",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s8",
+              "text": "1 January 2027 — Paper submission deadline",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p9",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s9",
+              "text": "15 January 2027 — First review decision",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p10",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s10",
+              "text": "30 January 2027 — Revised paper submission",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p11",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s11",
+              "text": "15 February 2027 — Final acceptance notification",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p12",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s12",
+              "text": "25 February 2027 — Camera-ready submission",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p13",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s13",
+              "text": "1 March 2027 — Author registration deadline",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p14",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s14",
+              "text": "10–11 April 2027 — Conference",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p15",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s15",
+              "text": "The important dates above are proposed. Please check the conference portal for updates.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p16",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s16",
+              "text": "Paper templates and Springer Nature proceedings guidelines are available on the conference website: https://gcgc.nc4scm.com. For enquiries, contact nc4scm@cloud.neduet.edu.pk.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

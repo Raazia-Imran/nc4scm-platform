@@ -6,7 +6,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
 
-const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,venue,description,pastEventRecap,keyOutcomes,speakers,registrationUrl,coverImage,gallery}`;
+const QUERY = `*[_type=="event"&&slug.current==$slug][0]{title,eventType,eventDateTime,endDateTime,dateOnly,venue,description,pastEventRecap,keyOutcomes,speakers,registrationUrl,coverImage,gallery}`;
 
 export async function generateStaticParams() {
   const slugs = await client.fetch('*[_type=="event"&&defined(slug.current)]{"slug":slug.current}');
@@ -52,12 +52,12 @@ export default async function EventDetail({ params }) {
                 dateStyle: "long",
                 timeZone: "Asia/Karachi",
               })}{" "}
-              ·{" "}
-              {date.toLocaleTimeString("en-US", {
+              {event.dateOnly && event.endDateTime && new Date(event.endDateTime).toLocaleDateString("en-CA", { timeZone: "Asia/Karachi" }) !== date.toLocaleDateString("en-CA", { timeZone: "Asia/Karachi" }) && <>–{new Date(event.endDateTime).toLocaleDateString("en-US", { dateStyle: "long", timeZone: "Asia/Karachi" })}</>}
+              {!event.dateOnly && <>·{" "}{date.toLocaleTimeString("en-US", {
                 timeZone: "Asia/Karachi",
                 hour: "numeric",
                 minute: "2-digit",
-              })}
+              })}</>}
             </p>
             <p>{event.venue}</p>
           </div>

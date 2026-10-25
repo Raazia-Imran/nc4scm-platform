@@ -5,7 +5,7 @@ import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 
-const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
+const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,email,secondaryEmail,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
   return {
@@ -187,6 +187,7 @@ export default async function AboutPage() {
                       {m.email && (
                         <EmailLinks email={m.email} text={text} />
                       )}
+                      {m.secondaryEmail && <EmailLinks email={m.secondaryEmail} text={text} showAddress />}
                       {m.linkedinUrl && (
                         <a
                           href={m.linkedinUrl}

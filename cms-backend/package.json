@@ -12,9 +12,11 @@
     "seed:approved:prepare": "node seed/prepare-approved-content.mjs",
     "seed:approved:preview": "node seed/import-approved-content.mjs",
     "seed:bootstrap": "npm run seed:prepare && sanity dataset import seed/client-content.generated.ndjson production --missing",
-    "test:content": "node --test tests/approved-content.test.mjs tests/home-refresh.test.mjs tests/home-story.test.mjs tests/editorial-update.test.mjs",
+    "test:content": "node --test tests/approved-content.test.mjs tests/home-refresh.test.mjs tests/home-story.test.mjs tests/editorial-update.test.mjs tests/october-2026.test.mjs",
     "seed:editorial:preview": "node seed/import-editorial-update.mjs",
-    "seed:editorial": "node seed/import-editorial-update.mjs --apply"
+    "seed:editorial": "node seed/import-editorial-update.mjs --apply",
+    "seed:october:preview": "node seed/import-october-2026-additions.mjs",
+    "seed:october": "node seed/import-october-2026-additions.mjs --apply"
   },
   "dependencies": {
     "@sanity/client": "7.23.0",

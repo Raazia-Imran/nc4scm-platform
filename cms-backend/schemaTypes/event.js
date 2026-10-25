@@ -50,6 +50,13 @@ export default {
       validation: (Rule) => Rule.required(),
     },
     {
+      name: "dateOnly",
+      title: "Dates only — time not announced",
+      description: "Hide clock times when only the event dates have been confirmed. Keep the start and end dates set for sorting.",
+      type: "boolean",
+      initialValue: false,
+    },
+    {
       name: "endDateTime",
       title: "Event end date & time",
       type: "datetime",
