@@ -1,0 +1,238 @@
+{
+  "migrationId": "migration.ra-profiles-2026-10-25",
+  "documents": [
+    {
+      "_id": "team-ayesha-bint-e-arif",
+      "_type": "teamMember",
+      "fullName": "Ayesha Bint e Arif",
+      "slug": {
+        "_type": "slug",
+        "current": "ayesha-bint-e-arif"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "ayesha08arif@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/ayesha-binte-arif-55948726b",
+      "displayPriority": 100,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "Ayesha Bint e Arif is a Physics graduate from NED University of Engineering and Technology and is currently pursuing an MS in Medical Physics at NED. She works as a Research Assistant at the National Centre for Sustainable Construction Materials (NC4SCM). Her research interests include computational physics, molecular dynamics simulations, materials modelling, and radiation physics. Her current research focuses on investigating radiation effect on cloud condensation activity of Aerosol, modelling zeolite structure as potential Gd-based Mri contrast agent.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "profileUrl": "https://orcid.org/0009-0004-2363-4716"
+    },
+    {
+      "_id": "team-dua-arif",
+      "_type": "teamMember",
+      "fullName": "Dua Arif",
+      "slug": {
+        "_type": "slug",
+        "current": "dua-arif"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "duaarif08@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/dua-arif-682494247",
+      "displayPriority": 101,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "Dua Arif is a Physics graduate from NED University of Engineering and Technology and is currently pursuing an MS in Medical Physics at NED. She works as a Research Assistant at the National Centre for Sustainable Construction Materials (NC4SCM). Her research interests include computational physics, molecular dynamics simulations, materials modelling, and radiation physics. Her current research focuses on investigating ion adsorption and radiation induced effects in hydroxyapatite using computational simulation techniques.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "profileUrl": "https://orcid.org/0009-0006-7606-4045",
+      "secondaryEmail": "Arif.pg4500067@cloud.neduet.edu.pk",
+      "avatar": {
+        "_type": "image",
+        "alt": "Portrait of Dua Arif",
+        "_upload": "october-2026-media/dua-arif.jpg"
+      }
+    },
+    {
+      "_id": "team-mah-e-rukh-mustafa",
+      "_type": "teamMember",
+      "fullName": "Mah-E-Rukh Mustafa",
+      "slug": {
+        "_type": "slug",
+        "current": "mah-e-rukh-mustafa"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "mahee.rukh@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/mah-e-rukh-mustafa/",
+      "displayPriority": 102,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "I hold a Master of Engineering in Materials Engineering from Huazhong University of Science and Technology (HUST), China. As part of the GetInnovative4Impact project at NC4SCM, my research focuses on high-entropy alloys and metal additive manufacturing, with an emphasis on understanding the relationships between processing, microstructure, and material properties. My broader research interests include sheet metal forming, failure analysis, and advanced materials characterization, with the goal of contributing to the development of high-performance materials for advanced engineering applications.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "profileUrl": "https://orcid.org/0009-0008-2531-6665",
+      "avatar": {
+        "_type": "image",
+        "alt": "Portrait of Mah-E-Rukh Mustafa",
+        "_upload": "october-2026-media/mah-e-rukh-mustafa.jpg"
+      }
+    },
+    {
+      "_id": "team-muhammad-hamza",
+      "_type": "teamMember",
+      "fullName": "Muhammad Hamza",
+      "slug": {
+        "_type": "slug",
+        "current": "muhammad-hamza"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "mhamza172385@gmail.com",
+      "linkedinUrl": "http://www.linkedin.com/in/hamzakz",
+      "displayPriority": 103,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "Fe-rich kaolinite clay activation for LC3, Cement and Clay Chemistry, Concrete Technology",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "avatar": {
+        "_type": "image",
+        "alt": "Portrait of Muhammad Hamza",
+        "_upload": "october-2026-media/muhammad-hamza.jpg"
+      }
+    },
+    {
+      "_id": "team-muhammad-umer",
+      "_type": "teamMember",
+      "fullName": "Muhammad Umer",
+      "slug": {
+        "_type": "slug",
+        "current": "muhammad-umer"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "mu03128817@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/muhammad-umer-2b0910405",
+      "displayPriority": 104,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "Muhammad Umer graduated in Civil Engineering in 2026 and joined the National Center for Sustainable Construction Materials (NC4SCM) at NED University of Engineering & Technology as a Research Assistant in July 2026.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p1",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s1",
+              "text": "He developed his interest in sustainable construction materials during his Final Year Project on Limestone Calcined Clay Cement (LC3). Motivated to build a strong professional career in low-carbon, sustainable materials, he joined NC4SCM to further develop his research expertise.",
+              "marks": []
+            }
+          ]
+        },
+        {
+          "_type": "block",
+          "_key": "p2",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s2",
+              "text": "Currently, he is actively involved in multiple research projects at the center focused on LC3 and other sustainable cementitious systems, contributing to innovative and environmentally friendly solutions for the construction industry.",
+              "marks": []
+            }
+          ]
+        }
+      ],
+      "profileUrl": "https://www.researchgate.net/profile/Muhammad-Umer-165",
+      "avatar": {
+        "_type": "image",
+        "alt": "Portrait of Muhammad Umer",
+        "_upload": "october-2026-media/muhammad-umer.jpg"
+      }
+    },
+    {
+      "_id": "team-rumaisa-ali",
+      "_type": "teamMember",
+      "fullName": "Rumaisa Ali",
+      "slug": {
+        "_type": "slug",
+        "current": "rumaisa-ali"
+      },
+      "position": "Research Assistant",
+      "group": "research-staff",
+      "email": "rumaisaali60@gmail.com",
+      "linkedinUrl": "https://www.linkedin.com/in/rumaisa-ali-418727230",
+      "displayPriority": 105,
+      "bio": [
+        {
+          "_type": "block",
+          "_key": "p0",
+          "style": "normal",
+          "markDefs": [],
+          "children": [
+            {
+              "_type": "span",
+              "_key": "s0",
+              "text": "I graduated with a B.E. in Civil Engineering from NED and am currently pursuing a Master's degree in Structural Earthquake Engineering from NED. My research interests include sustainable construction materials, recycled aggregate concrete, and performance-based seismic design. At NC4SCM, I am working on a review article examining the combined mechanical and durability performance of LC³ and recycled aggregate and my thesis is contributing to research on sustainable materials in earthquake-resistant construction.",
+              "marks": []
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

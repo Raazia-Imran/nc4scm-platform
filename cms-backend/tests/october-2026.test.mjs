@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {access} from 'node:fs/promises';
+import {access, readFile} from 'node:fs/promises';
 import {recipe, planAdditions, hydrate} from '../seed/october-2026-plan.mjs';
 test('poster produces an event and announcement with honest dates and existing media', async () => {
   const docs = planAdditions([]);
@@ -27,4 +27,20 @@ test('asset placeholders become editable Sanity image references', async () => {
     assert.equal(file, 'poster.jpg'); return 'image-abc-100x200-jpg';
   });
   assert.deepEqual(result,{coverImage:{_type:'image',alt:'Poster',asset:{_type:'reference',_ref:'image-abc-100x200-jpg'}}});
+});
+
+test('RA import retains six unique profiles, four identified portraits and supplied contacts', async () => {
+  const input = JSON.parse(await readFile(new URL('../seed/research-assistants-2026-10-25.json', import.meta.url), 'utf8'));
+  const docs = planAdditions([], input);
+  assert.equal(docs.length, 6);
+  assert.equal(docs.filter(d => d.fullName === 'Muhammad Umer').length, 1);
+  assert.equal(docs.filter(d => d.avatar).length, 4);
+  assert.ok(docs.every(d => d.group === 'research-staff' && d.bio.length && d.email && d.linkedinUrl));
+  assert.deepEqual(docs.map(d => d.displayPriority), [100,101,102,103,104,105]);
+  assert.equal(docs.find(d => d.fullName === 'Dua Arif').secondaryEmail, 'Arif.pg4500067@cloud.neduet.edu.pk');
+  assert.ok(docs.find(d => d.fullName === 'Muhammad Hamza').bio[0].children[0].text.includes('Fe-rich kaolinite'));
+  await hydrate(docs, async file => {await access(new URL('../seed/' + file, import.meta.url)); return 'image-test';});
+  assert.deepEqual(planAdditions([{_id:input.migrationId}], input), []);
+  const person = docs[0];
+  assert.throws(() => planAdditions([{_id:'other',_type:'teamMember',fullName:person.fullName.toUpperCase()}], input), /protected/);
 });
