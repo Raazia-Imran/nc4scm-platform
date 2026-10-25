@@ -133,6 +133,7 @@ export default {
     "policyEngagement",
     "publicEngagement",
     "viewOriginal",
+    "viewFullImage",
     "readStory",
     "loadMore",
     "noNews",

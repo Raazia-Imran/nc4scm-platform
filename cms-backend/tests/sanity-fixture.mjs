@@ -84,6 +84,9 @@ export async function fixtureDocuments() {
     for (const [path,value] of Object.entries(set)) setPath(doc,path,value);
   }
   docs.push(...await hydrateMedia(editorial.creates, async file => `image-${file.split('/').at(-1).replace(/\.(jpg|png)$/, '').replace(/[^a-z0-9]/g,'')}-800x600-jpg`));
+  const poster = {_type: "image", alt: "Tall poster fixture", asset: {_type: "reference", _ref: "image-poster-1013x1800-jpg"}};
+  docs.push({_id: "fixture-poster-event", _type: "event", title: "Portrait poster event", slug: {current: "portrait-poster"}, eventType: "conference", eventDateTime: "2030-04-10T00:00:00+05:00", endDateTime: "2030-04-11T23:59:59+05:00", dateOnly: true, venue: "Karachi", description: "A tall cover must stay compact without cropping.", registrationUrl: "https://example.org/conference", coverImage: poster});
+  docs.push({_id: "fixture-poster-news", _type: "news", headline: "Portrait poster article", slug: {current: "portrait-poster"}, category: "announcement", publishedAt: "2020-01-01T00:00:00Z", excerpt: "A tall cover must stay compact without cropping.", body: [{_type: "block", _key: "p", style: "normal", markDefs: [], children: [{_type: "span", _key: "s", text: "Article body beneath a compact poster.", marks: []}]}], coverImage: poster});
   return docs.map((doc) => ({
     ...doc,
     _rev: "fixture-revision-1",

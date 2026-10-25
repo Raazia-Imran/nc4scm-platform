@@ -51,6 +51,7 @@ try {
       import.meta.url,
     ),
   );
+  const poster = await readFile(new URL("../../cms-backend/seed/october-2026-media/gcgc-2027-poster.jpg", import.meta.url));
   const media = [];
   for (const file of await readdir(new URL('../../cms-backend/seed/news-media/',import.meta.url)))
     media.push({key:file.replace('.jpg','').replace(/[^a-z0-9]/g,''),body:await readFile(new URL('../../cms-backend/seed/news-media/'+file,import.meta.url)),type:'image/jpeg'});
@@ -58,6 +59,7 @@ try {
   for (const file of ['bestway-cement.jpeg','cherat-cement.jpeg','power-cement.png'])
     media.push({key:('partner-'+file.replace(/\.(jpeg|png)$/,'')).replace(/[^a-z0-9]/g,''),body:await readFile(new URL('../public/media/partners/'+file,import.meta.url)),type:file.endsWith('.png')?'image/png':'image/jpeg'});
   await page.route("**/_next/image?**", route => {
+    if (route.request().url().includes("poster-1013x1800")) return route.fulfill({contentType:"image/jpeg",body:poster});
     const matching = media.find(item=>route.request().url().includes(item.key+'-800x600'));
     return route.fulfill({contentType:matching?.type || (route.request().url().includes('logo')?'image/webp':'image/jpeg'),body:matching?.body || (route.request().url().includes('logo')?logo:photo)});
   });
@@ -78,6 +80,7 @@ try {
     "/news/dr-tariq-jamil-iep-fellowship-2026",
     "/news/nc4scm-lc3-keynote-icssc-2026",
     "/news/student-seminar-lc3-cement-chemistry-2026",
+    "/news/portrait-poster",
   ];
   const widths = [280, 320, 375, 414, 600, 768, 1024, 1280, 1366, 1440, 1536, 1920, 2560];
   await mkdir(new URL("../test-results/", import.meta.url), {
@@ -118,6 +121,20 @@ try {
             assert.ok(box.width <= 300 && box.height <= 320, "Team portrait should not fill the desktop row");
           }
         }
+      }
+      for (const image of await page.locator(".content-image-preview").all()) {
+        const size = await image.evaluate(img => ({width: img.clientWidth, height: img.clientHeight, naturalWidth: img.naturalWidth, naturalHeight: img.naturalHeight, viewportHeight: innerHeight, fit: getComputedStyle(img).objectFit}));
+        assert.ok(size.height <= Math.min(480, size.viewportHeight * .6) + 2, `${width}px ${path} cover exceeds compact height`);
+        assert.equal(size.fit, "contain");
+        if (size.naturalWidth && size.naturalHeight) assert.ok(Math.abs(size.width / size.height - size.naturalWidth / size.naturalHeight) < .03, `${width}px ${path} image stretched`);
+      }
+      if (path.startsWith("/news/")) {
+        const back = page.locator('.detail-return-bar a[href="/news"]');
+        assert.equal(await back.count(), 1, `${path} needs a bottom return link`);
+        assert.ok((await back.boundingBox()).height >= 44, "Return link touch target");
+        const content = await page.locator('main article').boundingBox();
+        const navigation = await page.locator('.detail-return-bar').boundingBox();
+        assert.ok(navigation.y >= content.y + content.height - 1, "Return link must follow article content");
       }
       results.push({ width, path, status: response.status(), overflow: false });
       if (
