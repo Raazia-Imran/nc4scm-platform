@@ -1,7 +1,7 @@
 import CompactText from "@/app/components/CompactText";
 import EventGallery from "@/app/components/EventGallery";
 import { getSiteContent } from "@/lib/content";
-import Image from "next/image";
+import ContentImage from "@/app/components/ContentImage";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { client, urlFor } from "@/sanityClient";
@@ -28,13 +28,6 @@ export default async function EventDetail({ params }) {
   ]);
   const text = site.interfaceText || {};
   if (!event) notFound();
-  const cover = urlFor(event.coverImage)
-    ?.ignoreImageParams()
-    .width(1200)
-    .fit("max")
-    .auto("format")
-    .url();
-  const dimensions = event.coverImage?.asset?._ref?.match(/-(\d+)x(\d+)-[a-zA-Z0-9]+$/);
   const date = new Date(event.eventDateTime);
   const isPast =
     new Date(event.endDateTime || event.eventDateTime).getTime() < Date.now();
@@ -66,18 +59,7 @@ export default async function EventDetail({ params }) {
           </div>
         </div>
       </section>
-      {cover && (
-        <div className="event-detail-cover">
-          <Image
-            src={cover}
-            alt={event.coverImage?.alt || event.title}
-            width={Number(dimensions?.[1]) || 1200}
-            height={Number(dimensions?.[2]) || 800}
-            sizes="(max-width: 767px) 90vw, 720px"
-            className="h-auto w-full object-contain bg-sage"
-          />
-        </div>
-      )}
+      <ContentImage image={event.coverImage} fallbackAlt={event.title} viewLabel={text.viewFullImage} className="event-content-image" />
       <section className="section-shell bg-ivory">
         <div className="event-detail-copy">
           <div className="event-description">{(event.description || "").split(/\n\s*\n/).filter(Boolean).map((paragraph, index) => <p key={index} className="whitespace-pre-line">{paragraph}</p>)}</div>

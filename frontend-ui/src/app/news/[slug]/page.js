@@ -11,7 +11,7 @@
 // last build is still handled gracefully by Next.js's on-demand fallback
 // rendering, then cached for subsequent visitors.
 // -----------------------------------------------------------------------------
-import Image from "next/image";
+import ContentImage from "@/app/components/ContentImage";
 import Link from "next/link";
 import { getSiteContent } from "@/lib/content";
 import { notFound } from "next/navigation";
@@ -60,12 +60,6 @@ export default async function NewsArticlePage({ params }) {
     notFound();
   }
 
-  const coverImageUrl = urlFor(article.coverImage)
-    ?.ignoreImageParams()
-    ?.width(1600)
-    .fit("max")
-    .url();
-  const dimensions = article.coverImage?.asset?._ref?.match(/-(\d+)x(\d+)-[a-zA-Z0-9]+$/);
   const gallery = (article.gallery || []).map((item, index) => ({
     key: item._key || String(index),
     src: urlFor(item)?.ignoreImageParams().width(1400).fit("max").url(),
@@ -74,7 +68,8 @@ export default async function NewsArticlePage({ params }) {
   })).filter((item) => item.src);
 
   return (
-    <article className="mx-auto max-w-content px-5 pb-20 pt-36 md:px-10">
+    <>
+    <article className="news-article mx-auto max-w-content px-5 pb-12 pt-36 md:px-10">
       <Link href="/news" className="eyebrow text-clay">
         ← {text.allNews}
       </Link>
@@ -91,19 +86,7 @@ export default async function NewsArticlePage({ params }) {
         {article.headline}
       </h1>
 
-      {coverImageUrl && (
-        <div className="content-detail-cover mt-10 overflow-hidden rounded-xl bg-stone/10">
-          <Image
-            src={coverImageUrl}
-            alt={article.coverImage?.alt || article.headline}
-            width={Number(dimensions?.[1]) || 1600}
-            height={Number(dimensions?.[2]) || 900}
-            priority
-            sizes="(max-width: 767px) 90vw, 1200px"
-            className="mx-auto h-auto w-full object-contain"
-          />
-        </div>
-      )}
+      <ContentImage image={article.coverImage} fallbackAlt={article.headline} viewLabel={text.viewFullImage} priority className="mt-10" />
 
       <div className="mx-auto mt-12 max-w-2xl text-base text-ink/90">
         {!article.body?.length && article.excerpt && (
@@ -127,5 +110,7 @@ export default async function NewsArticlePage({ params }) {
         )}
       </div>
     </article>
+    <nav className="detail-return-bar"><Link href="/news" className="detail-return">← {text.allNews}</Link></nav>
+    </>
   );
 }
