@@ -46,6 +46,7 @@ export default {
             value: "co-principal-investigator",
           },
           { title: "Project Management", value: "project-management" },
+          { title: "Finance", value: "finance" },
           { title: "Research Staff", value: "research-staff" },
         ],
       },
