@@ -1,0 +1,255 @@
+{
+  "migrationId": "migration.supplied-ayesha-nousheen-owais-2026-10-26",
+  "updates": [
+    {
+      "id": "team-tariq-jamil",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 1
+      }
+    },
+    {
+      "id": "team-shamsoon-fareed",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 2
+      }
+    },
+    {
+      "id": "team-fayaz-hussain",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 3
+      }
+    },
+    {
+      "id": "team-muhammad-danyal-sheikh",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 4
+      }
+    },
+    {
+      "id": "team-rumaisa-ali",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 6
+      }
+    },
+    {
+      "id": "team-azmat-chandio",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 7
+      }
+    },
+    {
+      "id": "team-ayesha-bint-e-arif",
+      "expectedRevision": "JeRK3SUZThOXgJ6mS0UKFj",
+      "set": {
+        "displayPriority": 8,
+        "bio": [
+          {
+            "_type": "block",
+            "_key": "profile",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "marks": [],
+                "text": "Ayesha Bint e Arif is a Physics graduate from NED University of Engineering and Technology and is currently pursuing an MS in Physics at NED. She works as a Research Assistant at the National Centre for Sustainable Construction Materials (NC4SCM). Her research interests include computational physics, molecular dynamics simulations, materials modelling, and radiation physics. Her current research focuses on investigating radiation effect on different minerals."
+              }
+            ]
+          }
+        ],
+        "cardSummary": "Ayesha Bint e Arif is a Physics graduate pursuing an MS in Physics at NED University. Her research focuses on computational materials modelling of irradiated systems containing minerals using MD simulations.",
+        "portraitFile": "team-members-oct26/ayesha.jpeg"
+      }
+    },
+    {
+      "id": "team-dua-arif",
+      "expectedRevision": "JeRK3SUZThOXgJ6mS0UKFj",
+      "set": {
+        "displayPriority": 9,
+        "cardSummary": "Dua Arif is a Physics graduate pursuing an MS in Physics at NED. Her research uses computational simulations to investigate ion adsorption and radiation-induced effects in minerals."
+      }
+    },
+    {
+      "id": "team-nausheen",
+      "expectedRevision": "Aen22h1ZYKhFm15GDWydl6",
+      "set": {
+        "displayPriority": 10,
+        "fullName": "Ms. Nousheen Iqbal",
+        "slug": {
+          "_type": "slug",
+          "current": "nousheen-iqbal"
+        },
+        "email": "nousheeniqbal54@gmail.com",
+        "linkedinUrl": "https://www.linkedin.com/in/nousheen-iqbal/",
+        "qualification": "Bachelor’s degree and MS in Industrial Chemistry",
+        "cardSummary": "Nousheen Iqbal holds a bachelor’s degree and an MS in Industrial Chemistry. Her research focuses on cement chemistry, hydration, material characterization, and the performance and durability of cement-based materials.",
+        "researchInterests": [
+          "Cement chemistry",
+          "Cement hydration",
+          "Material characterization"
+        ],
+        "bio": [
+          {
+            "_type": "block",
+            "_key": "profile",
+            "style": "normal",
+            "markDefs": [],
+            "children": [
+              {
+                "_type": "span",
+                "_key": "text",
+                "marks": [],
+                "text": "Nousheen Iqbal holds a bachelor’s degree and an MS in Industrial Chemistry. Her research interests focus on cement chemistry, particularly cement composition, hydration, material characterization, and improving the performance and durability of cement-based materials. At NC4SCM, she works on cement and construction materials research and quality evaluation."
+              }
+            ]
+          }
+        ],
+        "portraitFile": "team-members-oct26/nousheen.jpeg"
+      }
+    },
+    {
+      "id": "team-muhammad-hamza",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 11
+      }
+    },
+    {
+      "id": "team-muhammad-umer",
+      "expectedRevision": "Aen22h1ZYKhFm15GDVF48q",
+      "set": {
+        "displayPriority": 12
+      }
+    },
+    {
+      "id": "team-salahuddin",
+      "expectedRevision": "JeRK3SUZThOXgJ6mS0UKFj",
+      "set": {
+        "displayPriority": 13
+      }
+    }
+  ],
+  "create": {
+    "_id": "team-muhammad-owais",
+    "_type": "teamMember",
+    "fullName": "Engr. Muhammad Owais",
+    "slug": {
+      "_type": "slug",
+      "current": "muhammad-owais"
+    },
+    "position": "Research Associate (PhD Scholar)",
+    "group": "research-staff",
+    "displayPriority": 5,
+    "email": "owaismunir246@gmail.com",
+    "secondaryEmail": "owaismunir@cloud.neduet.edu.pk",
+    "profileUrl": "https://scholar.google.com/citations?user=WyzIOs4AAAAJ&hl=en",
+    "qualification": "B.E. Civil Engineering with First Position Distinction; M.E. Structural Engineering; PhD in progress at NEDUET",
+    "cardSummary": "Engr. Muhammad Owais holds B.E. and M.E. degrees from NEDUET and is pursuing a PhD in Civil Engineering. His research focuses on carbon sequestration using agricultural and industrial wastes, sustainable construction materials, and structural modelling.",
+    "researchInterests": [
+      "Carbon sequestration",
+      "Finite element modelling",
+      "FRP-reinforced structures",
+      "Materials engineering"
+    ],
+    "bio": [
+      {
+        "_type": "block",
+        "_key": "profile-1",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "text",
+            "marks": [],
+            "text": "Engr. Muhammad Owais is an Academic Researcher, Visiting Faculty Lecturer, and Doctoral Candidate in the Department of Civil Engineering at NED University of Engineering & Technology (NEDUET). He earned his B.E. in Civil Engineering with First Position Distinction and M.E. in Structural Engineering from NEDUET and is a Registered Engineer (RE) with the Pakistan Engineering Council."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "_key": "profile-2",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "text",
+            "marks": [],
+            "text": "Engr. Owais is currently pursuing his PhD, focusing on sustainable construction materials through carbon sequestration using agricultural and industrial wastes to develop eco-friendly engineering products. Alongside his doctoral studies, he serves as a Visiting Faculty Lecturer in the Department of Civil Engineering and works as a Research Associate across the Departments of Civil and Mechanical Engineering on the NC4SCM project at NEDUET. His research interests span advanced finite element modelling (ATENA 2D/3D), FRP-reinforced concrete structures, and sustainable material development."
+          }
+        ]
+      },
+      {
+        "_type": "block",
+        "_key": "academic-links",
+        "style": "normal",
+        "markDefs": [
+          {
+            "_key": "orcid",
+            "_type": "link",
+            "href": "https://orcid.org/0009-0004-2899-7938"
+          },
+          {
+            "_key": "researchgate",
+            "_type": "link",
+            "href": "https://www.researchgate.net/profile/Muhammad-Munir-94?ev=hdr_xprf"
+          }
+        ],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "text",
+            "marks": [],
+            "text": "Academic profiles: "
+          },
+          {
+            "_type": "span",
+            "_key": "orcid-text",
+            "marks": [
+              "orcid"
+            ],
+            "text": "ORCID"
+          },
+          {
+            "_type": "span",
+            "_key": "separator",
+            "marks": [],
+            "text": " · "
+          },
+          {
+            "_type": "span",
+            "_key": "researchgate-text",
+            "marks": [
+              "researchgate"
+            ],
+            "text": "ResearchGate"
+          }
+        ]
+      }
+    ],
+    "portraitFile": "team-members-oct26/owais.jpeg"
+  },
+  "order": [
+    "team-tariq-jamil",
+    "team-shamsoon-fareed",
+    "team-fayaz-hussain",
+    "team-muhammad-danyal-sheikh",
+    "team-muhammad-owais",
+    "team-rumaisa-ali",
+    "team-azmat-chandio",
+    "team-ayesha-bint-e-arif",
+    "team-dua-arif",
+    "team-nausheen",
+    "team-muhammad-hamza",
+    "team-muhammad-umer",
+    "team-salahuddin"
+  ]
+}
