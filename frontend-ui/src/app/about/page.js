@@ -5,7 +5,7 @@ import { client, urlFor } from "@/sanityClient";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 import PartnerRail from "@/app/components/PartnerRail";
 
-const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,cardSummary,researchInterests,qualification,portraitPlaceholder,email,secondaryEmail,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
+const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember" && hideFromDirectory != true]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,cardSummary,researchInterests,qualification,portraitPlaceholder,email,secondaryEmail,linkedinUrl,profileUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
   return {

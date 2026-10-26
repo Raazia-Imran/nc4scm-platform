@@ -11,6 +11,7 @@ export default {
   title: "Team Member",
   type: "document",
   fields: [
+    {name:"hideFromDirectory",title:"Hide from public team directory",type:"boolean",initialValue:false,description:"Hide a former member while preserving their profile for records."},
     {
       name: "fullName",
       title: "Full Name",
