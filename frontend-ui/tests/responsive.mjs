@@ -199,7 +199,7 @@ try {
   await page.keyboard.press('Escape');
   assert.equal(await page.getByRole('dialog').isVisible(),false);
   assert.equal(await profileButton.evaluate(el=>el===document.activeElement),true,'Focus returns to opener');
-  await page.getByRole('button',{name:'Profile: Dua Arif',exact:true}).click();
+  await page.locator('.team-profile-card').filter({hasText:'Dua Arif'}).getByRole('button').click();
   assert.equal(await page.getByRole('dialog').locator('.email-actions').count(),1,'Full profile has one email action');
   assert.equal(await page.getByRole('dialog').getByRole('link',{name:/@/}).count(),0,'Email addresses are not exposed as duplicate link labels');
   await page.keyboard.press('Escape');
