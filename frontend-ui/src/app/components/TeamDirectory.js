@@ -26,6 +26,7 @@ function Contacts({member,text}) {
  return <div className="team-contact-links">
   {(member.email||member.secondaryEmail)&&<EmailLinks email={member.email||member.secondaryEmail} text={text}/>}
   {member.linkedinUrl&&<a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer">{text.linkedin} <span aria-hidden="true">↗</span></a>}
+  {member.githubUrl&&<a href={member.githubUrl} target="_blank" rel="noopener noreferrer">{text.github} <span aria-hidden="true">↗</span></a>}
   {member.profileUrl&&<a href={member.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} <span aria-hidden="true">↗</span></a>}
  </div>;
 }

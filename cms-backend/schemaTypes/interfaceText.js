@@ -25,6 +25,7 @@ export default {
     "services",
     "connect",
     "linkedin",
+    "github",
     "footerTagline",
     "capabilities",
     "discoverCentre",

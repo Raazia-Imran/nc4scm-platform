@@ -73,6 +73,7 @@ export default {
     { name: "email", title: "Public email", type: "string" },
     { name: "secondaryEmail", title: "Additional public email", type: "string" },
     { name: "linkedinUrl", title: "LinkedIn URL", type: "url" },
+    { name: "githubUrl", title: "GitHub URL", type: "url" },
     { name: "profileUrl", title: "Official academic profile", type: "url" },
     {
       name: "displayPriority",

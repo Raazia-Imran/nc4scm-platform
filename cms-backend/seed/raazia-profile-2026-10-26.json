@@ -1,0 +1,42 @@
+{
+  "migrationId": "migration.raazia-complete-profile-2026-10-26",
+  "id": "team-razia",
+  "expectedRevision": "Cr6GuNdekma2M3LSKhbOaT",
+  "portraitFile": "team-raazia/raazia-white.jpeg",
+  "set": {
+    "fullName": "Raazia Imran Reshamwala",
+    "position": "Software Engineer (Digital Infrastructure)",
+    "group": "digital-platforms",
+    "slug": {
+      "_type": "slug",
+      "current": "raazia-imran-reshamwala"
+    },
+    "email": "raaziaimran2024@gmail.com",
+    "linkedinUrl": "https://www.linkedin.com/in/raazia-imran-reshamwala",
+    "githubUrl": "https://github.com/Raazia-Imran",
+    "profileUrl": "https://scholar.google.com/citations?user=vpdse3sAAAAJ",
+    "qualification": "Undergraduate degree in Software Engineering in progress, NED University of Engineering & Technology",
+    "cardSummary": "Raazia Imran Reshamwala is a Software Engineering undergraduate at NED and Software Engineer (Digital Infrastructure) at NC4SCM. She leads the centre’s main website, headless CMS and conference platform, with responsibility for UI/UX, deployment, SEO and ongoing maintenance.",
+    "researchInterests": [
+      "Scalable web technologies",
+      "AI safety",
+      "Resilient software systems"
+    ],
+    "bio": [
+      {
+        "_type": "block",
+        "_key": "profile",
+        "style": "normal",
+        "markDefs": [],
+        "children": [
+          {
+            "_type": "span",
+            "_key": "text",
+            "marks": [],
+            "text": "Raazia Imran Reshamwala is an undergraduate pursuing a degree in Software Engineering at NED University of Engineering & Technology. At NC4SCM, she serves as a Web Platform Engineer and Technical Product Engineer, taking full ownership of the center's digital infrastructure. She architected, deployed, and manages the official global web platform, operating as the end-to-end technical lead. She oversees the complete product lifecycle, with responsibilities spanning UI/UX design, decoupled Headless CMS architecture (Next.js/Sanity.io), SEO optimization, QA testing, server deployment, and ongoing system maintenance. Her research interests bridge scalable web technologies with Artificial Intelligence safety, highlighted by her recent Q1 publication in Springer Nature's AI and Ethics journal. Raazia is passionate about engineering resilient, data-driven software systems that connect global research communities."
+          }
+        ]
+      }
+    ]
+  }
+}
