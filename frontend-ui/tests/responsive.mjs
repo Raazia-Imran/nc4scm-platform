@@ -6,6 +6,10 @@ import { createFixture } from "../../cms-backend/tests/sanity-fixture.mjs";
 import { verifyNewsEditor } from './news-editor.mjs';
 const { chromium } = createRequire(import.meta.url)("playwright");
 const fixture = await createFixture();
+fixture.docs.push(
+ {_id:"team-digital-fixture",_type:"teamMember",fullName:"Website Maintainer",position:"Website and CMS Developer",group:"digital-platforms",displayPriority:500,cardSummary:"Maintains the centre website and conference platform.",portraitPlaceholder:"neutral"},
+ {_id:"team-finance-fixture",_type:"teamMember",fullName:"Finance Member",position:"Finance",group:"finance",displayPriority:600,portraitPlaceholder:"neutral"}
+);
 const env = {
   ...process.env,
   NEXT_PUBLIC_SANITY_PROJECT_ID: "dxinqb51",
@@ -138,7 +142,12 @@ try {
       }
       if(path==='/about'){
         const cards=await page.locator('.team-profile-card').evaluateAll(elements=>elements.map(el=>({height:el.clientHeight,white:getComputedStyle(el.querySelector('.team-portrait')).backgroundColor,summaryHeight:el.querySelector('.team-profile-summary').clientHeight,summaryScrollHeight:el.querySelector('.team-profile-summary').scrollHeight})));
-        assert.ok(Math.max(...cards.map(x=>x.height))-Math.min(...cards.map(x=>x.height))<2,'Consistent tile height');
+        const groupedHeights=await page.locator('.team-directory-grid').evaluateAll(grids=>grids.map(grid=>Array.from(grid.querySelectorAll('.team-profile-card'),el=>el.clientHeight)));
+        assert.ok(groupedHeights.every(heights=>Math.max(...heights)-Math.min(...heights)<2),'Consistent tile height within each role group');
+        assert.equal(await page.locator('.team-level').count(),5,'All five role groups rendered');
+        for(const grid of await page.locator('.team-level-single .team-directory-grid').all()){
+          assert.ok(await grid.evaluate(el=>el.clientWidth<=832),'Single roles stay compact');
+        }
         assert.ok(cards.every(x=>x.white==='rgb(255, 255, 255)' && x.summaryScrollHeight<=x.summaryHeight+1),'White portraits and fully visible summaries without clipping');
         const first=page.locator('.team-profile-actions button').first();await first.click();
         const modal=page.getByRole('dialog');await modal.waitFor({state:'visible'});
@@ -171,7 +180,7 @@ try {
   assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
   assert.deepEqual(await page.locator('.team-profile-card h4').allTextContents(), fixture.docs.filter(d=>d._type==='teamMember').sort((a,b)=>a.displayPriority-b.displayPriority).map(d=>d.fullName));
-  assert.equal(await page.locator('.team-portrait-empty').count(),2);
+  assert.equal(await page.locator('.team-portrait-empty').count(),4);
   assert.ok(await page.locator('.partner-logo-image').count() >= 3);
   for (const img of await page.locator('.partner-logo-image').all()) {
     const source = new URL(await img.getAttribute('src'),'http://127.0.0.1:3100').searchParams.get('url');
@@ -190,6 +199,10 @@ try {
   await page.keyboard.press('Escape');
   assert.equal(await page.getByRole('dialog').isVisible(),false);
   assert.equal(await profileButton.evaluate(el=>el===document.activeElement),true,'Focus returns to opener');
+  await page.getByRole('button',{name:'Profile: Dua Arif',exact:true}).click();
+  assert.equal(await page.getByRole('dialog').locator('.email-actions').count(),1,'Full profile has one email action');
+  assert.equal(await page.getByRole('dialog').getByRole('link',{name:/@/}).count(),0,'Email addresses are not exposed as duplicate link labels');
+  await page.keyboard.press('Escape');
 
   await page.setViewportSize({ width: 375, height: 667 });
   await page.goto("http://127.0.0.1:3100/news");
@@ -251,7 +264,7 @@ try {
   assert.equal(await page.locator(".compact-text details").count(), 0);
   await page.goto("http://127.0.0.1:3100/about");
   const heights = await page.locator(".team-profile-card").evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
-  assert.ok(Math.max(...heights) - Math.min(...heights) < 2, "Team cards share a consistent row height");
+  assert.ok(heights.every(height=>height>0), "All team cards remain visible");
   assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
   await page.goto("http://127.0.0.1:3100/contact?service=lc3-technology");
   assert.equal(

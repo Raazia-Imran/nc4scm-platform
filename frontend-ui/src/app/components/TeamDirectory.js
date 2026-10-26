@@ -22,10 +22,9 @@ function Portrait({member, large=false}) {
     {src ? <Image src={src} alt={member.avatar.alt || member.fullName} fill sizes={large?"180px":"120px"} className="team-directory-photo"/> : <Placeholder female={member.portraitPlaceholder==="female"}/>}
   </div>;
 }
-function Contacts({member,text,full=false}) {
+function Contacts({member,text}) {
  return <div className="team-contact-links">
   {(member.email||member.secondaryEmail)&&<EmailLinks email={member.email||member.secondaryEmail} text={text}/>}
-  {full&&member.email&&member.secondaryEmail&&<EmailLinks email={member.secondaryEmail} text={text} showAddress/>}
   {member.linkedinUrl&&<a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer">{text.linkedin} <span aria-hidden="true">↗</span></a>}
   {member.profileUrl&&<a href={member.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} <span aria-hidden="true">↗</span></a>}
  </div>;
@@ -36,21 +35,36 @@ export default function TeamDirectory({members,text}) {
  const close=()=>{dialog.current?.close();setSelected(null);opener.current?.focus();};
  const open=(member,event)=>{opener.current=event.currentTarget;setSelected(member);};
  return <>
-  <div className="team-directory-grid">
-   {members.map(member=><article className="team-profile-card" key={member._id}>
+  <div className="team-hierarchy">
+  {[
+    {id:"leadership",label:text.teamLeadership,groups:["principal-investigator","co-principal-investigator"]},
+    {id:"management",label:text.projectManagement,groups:["project-management"]},
+    {id:"research",label:text.teamResearch,groups:["research-staff"]},
+    {id:"digital",label:text.teamDigital,groups:["digital-platforms"]},
+    {id:"finance",label:text.teamFinance,groups:["finance"]}
+  ].map(level=>{
+   const levelMembers=members.filter(member=>level.groups.includes(member.group));
+   if(!levelMembers.length)return null;
+   return <section className={`team-level ${levelMembers.length===1?"team-level-single":""}`} key={level.id} aria-labelledby={`team-level-${level.id}`}>
+    <div className="team-level-heading"><span aria-hidden="true" className="team-level-marker"/><h3 id={`team-level-${level.id}`}>{level.label}</h3></div>
+    <div className="team-directory-grid">
+   {levelMembers.map(member=><article className="team-profile-card" key={member._id}>
     <div className="team-profile-top"><Portrait member={member}/><div className="team-profile-identity"><p className="team-profile-role">{member.position}</p><h4>{member.fullName}</h4></div></div>
     <p className="team-profile-summary">{member.cardSummary || (member.bio||[]).flatMap(b=>b.children||[]).map(x=>x.text||"").join(" ").split(/(?<=[.!?])\s/).slice(0,2).join(" ") || member.position}</p>
     <ul className="team-focus-tags" aria-label={text.researchFocus}>{(member.researchInterests||[]).slice(0,3).map(item=><li key={item}>{item}</li>)}</ul>
-    <div className="team-profile-actions"><button type="button" onClick={e=>open(member,e)} aria-label={`${text.biography}: ${member.fullName}`}>{text.biography}<span aria-hidden="true">↗</span></button></div>
+    {(member.bio?.length || member.qualification || member.researchInterests?.length) ? <div className="team-profile-actions"><button type="button" onClick={e=>open(member,e)} aria-label={`${text.biography}: ${member.fullName}`}>{text.biography}<span aria-hidden="true">↗</span></button></div> : null}
     <Contacts member={member} text={text}/>
    </article>)}
+    </div>
+   </section>;
+  })}
   </div>
   <dialog ref={dialog} className="team-profile-dialog" aria-labelledby="team-dialog-name" onCancel={e=>{e.preventDefault();close();}}>
    {selected&&<div className="team-dialog-sheet"><button type="button" className="team-dialog-close" onClick={close} aria-label={text.closeProfile} autoFocus>×</button>
     <div className="team-dialog-header"><Portrait member={selected} large/><div><p className="team-profile-role">{selected.position}</p><h2 id="team-dialog-name">{selected.fullName}</h2>{selected.qualification&&<p className="team-qualification">{selected.qualification}</p>}</div></div>
     {selected.researchInterests?.length>0&&<section className="team-dialog-focus"><h3>{text.researchFocus}</h3><ul className="team-focus-tags">{selected.researchInterests.map(item=><li key={item}>{item}</li>)}</ul></section>}
     {selected.bio?.length>0&&<div className="team-dialog-bio"><RichTextRenderer value={selected.bio}/></div>}
-    <Contacts member={selected} text={text} full/>
+    <Contacts member={selected} text={text}/>
    </div>}
   </dialog>
  </>;
