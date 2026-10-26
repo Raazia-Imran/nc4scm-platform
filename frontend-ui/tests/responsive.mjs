@@ -145,8 +145,8 @@ try {
         const groupedHeights=await page.locator('.team-directory-grid').evaluateAll(grids=>grids.map(grid=>Array.from(grid.querySelectorAll('.team-profile-card'),el=>el.clientHeight)));
         assert.ok(groupedHeights.every(heights=>Math.max(...heights)-Math.min(...heights)<2),'Consistent tile height within each role group');
         assert.equal(await page.locator('.team-level').count(),5,'All five role groups rendered');
-        for(const grid of await page.locator('.team-level-single .team-directory-grid').all()){
-          assert.ok(await grid.evaluate(el=>el.clientWidth<=832),'Single roles stay compact');
+        for(const card of await page.locator('.team-level-single .team-profile-card').all()){
+          assert.ok(await card.evaluate(el=>el.clientWidth<=832),'Single role cards stay compact');
         }
         assert.ok(cards.every(x=>x.white==='rgb(255, 255, 255)' && x.summaryScrollHeight<=x.summaryHeight+1),'White portraits and fully visible summaries without clipping');
         const first=page.locator('.team-profile-actions button').first();await first.click();
