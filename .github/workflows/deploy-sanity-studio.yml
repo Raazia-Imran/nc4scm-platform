@@ -140,6 +140,12 @@ jobs:
           SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
         run: node seed/import-rumaisa-orcid.mjs --apply
 
+      - name: Add missing member honorifics once
+        if: github.ref == 'refs/heads/main'
+        env:
+          SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
+        run: node seed/import-team-honorifics.mjs --apply
+
       - name: Save pre-import backup
         # Each importer writes its snapshot before changing public content.
         if: always()
