@@ -48,6 +48,7 @@ export default {
           },
           { title: "Project Management", value: "project-management" },
           { title: "Finance", value: "finance" },
+          { title: "Web and digital platforms", value: "digital-platforms" },
           { title: "Research Staff", value: "research-staff" },
         ],
       },

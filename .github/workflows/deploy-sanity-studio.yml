@@ -122,6 +122,12 @@ jobs:
           SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
         run: node seed/import-supplied-profiles-oct26.mjs --apply
 
+      - name: Publish requested website and CMS developer card once
+        if: github.ref == 'refs/heads/main'
+        env:
+          SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
+        run: node seed/import-digital-platforms-card.mjs --apply
+
       - name: Save pre-import backup
         # Each importer writes its snapshot before changing public content.
         if: always()
