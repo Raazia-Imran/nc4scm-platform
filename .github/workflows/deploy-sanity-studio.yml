@@ -146,6 +146,12 @@ jobs:
           SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
         run: node seed/import-team-honorifics.mjs --apply
 
+      - name: Update Azmat and Muhammad Hamza profiles once
+        if: github.ref == 'refs/heads/main'
+        env:
+          SANITY_CONTENT_WRITE_TOKEN: ${{ secrets.SANITY_CONTENT_WRITE_TOKEN }}
+        run: node seed/import-azmat-hamza-profiles.mjs --apply
+
       - name: Save pre-import backup
         # Each importer writes its snapshot before changing public content.
         if: always()

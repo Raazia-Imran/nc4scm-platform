@@ -75,6 +75,9 @@ export default {
     { name: "linkedinUrl", title: "LinkedIn URL", type: "url" },
     { name: "githubUrl", title: "GitHub URL", type: "url" },
     { name: "profileUrl", title: "Official academic profile", type: "url" },
+    { name: "orcidUrl", title: "ORCID URL", type: "url" },
+    { name: "googleScholarUrl", title: "Google Scholar URL", type: "url" },
+    { name: "researchGateUrl", title: "ResearchGate URL", type: "url" },
     {
       name: "displayPriority",
       title: "Display Priority",

@@ -101,7 +101,8 @@ Open **Team Member → Create new document**, check for an existing record first
 | Qualification summary | One line covering the completed degree and/or current programme. Leave empty if not supplied. |
 | Biography | The complete approved third-person profile. It appears in the full-profile dialog and does not stretch the card. |
 | Public email / Additional public email | Only addresses approved for public display; the additional address appears in the full profile. |
-| LinkedIn URL / Official academic profile | Approved full URLs; optional fields can remain empty. |
+| LinkedIn URL / GitHub URL / Official academic profile | Approved full URLs; optional fields can remain empty. |
+| ORCID URL / Google Scholar URL / ResearchGate URL | Add approved public researcher profile links. These fields are optional. |
 
 Use this summary structure: **[Name] holds [qualification] / is pursuing [programme] at [institution]. Their research focuses on [two or three supplied areas].** Omit any part that was not provided; do not add qualifications or research interests to fill space.
 
