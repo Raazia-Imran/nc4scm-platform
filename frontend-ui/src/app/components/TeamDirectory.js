@@ -28,6 +28,9 @@ function Contacts({member,text}) {
   {member.linkedinUrl&&<a href={member.linkedinUrl} target="_blank" rel="noopener noreferrer">{text.linkedin} <span aria-hidden="true">↗</span></a>}
   {member.githubUrl&&<a href={member.githubUrl} target="_blank" rel="noopener noreferrer">{text.github} <span aria-hidden="true">↗</span></a>}
   {member.profileUrl&&<a href={member.profileUrl} target="_blank" rel="noopener noreferrer">{text.academicProfile} <span aria-hidden="true">↗</span></a>}
+  {member.orcidUrl&&<a href={member.orcidUrl} target="_blank" rel="noopener noreferrer">{text.orcid || "ORCID"} <span aria-hidden="true">↗</span></a>}
+  {member.googleScholarUrl&&<a href={member.googleScholarUrl} target="_blank" rel="noopener noreferrer">{text.googleScholar || "Google Scholar"} <span aria-hidden="true">↗</span></a>}
+  {member.researchGateUrl&&<a href={member.researchGateUrl} target="_blank" rel="noopener noreferrer">{text.researchGate || "ResearchGate"} <span aria-hidden="true">↗</span></a>}
  </div>;
 }
 export default function TeamDirectory({members,text}) {
