@@ -51,7 +51,7 @@ await client.transaction()
  .create({_id:migrationId,_type:'contentMigration',completedAt:new Date().toISOString(),source:'User-provided Azmat academic profiles and Muhammad Hamza profile details, 28 October 2026'})
  .commit({visibility:'sync'});
 const saved=await client.getDocuments(ids);
-for(const [i,fields] of [[0,azmatSet],[1,hamzaSet]].entries()){
+for(const [i,fields] of [[0,azmatSet],[1,hamzaSet]]){
  for(const [field,value] of Object.entries(fields))if(!isDeepStrictEqual(saved[i][field],value))throw Error('Saved profile mismatch: '+saved[i]._id+'.'+field);
  if(saved[i].displayPriority!==docs[i].displayPriority||saved[i].fullName!==docs[i].fullName)throw Error('Existing name or directory order changed: '+saved[i]._id);
 }
