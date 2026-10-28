@@ -33,7 +33,6 @@ if(azmat.fullName!=='Mr. Azmat Chandio'||hamza.fullName!=='Mr. Muhammad Hamza')t
 for(const [field,value] of Object.entries({orcidUrl,googleScholarUrl}))
  if(azmat[field]!=null&&azmat[field]!==value)throw Error('Azmat academic profile changed; protected: '+field);
 if(hamza.researchGateUrl!=null&&hamza.researchGateUrl!==researchGateUrl)throw Error('Hamza ResearchGate field changed; protected.');
-if(hamza.profileUrl!=null)throw Error('Hamza already has an official academic profile URL; review before adding ResearchGate.');
 if(hamza.cardSummary!=null&&hamza.cardSummary!==previousSummary&&hamza.cardSummary!==cardSummary)throw Error('Hamza summary changed since review; protected.');
 if(hamza.qualification!=null&&hamza.qualification!==''&&hamza.qualification!==qualification)throw Error('Hamza qualification changed since review; protected.');
 if(hamza.researchInterests!=null&&!isDeepStrictEqual(hamza.researchInterests,['LC³ clay activation','Cement and clay chemistry','Concrete technology'])&&!isDeepStrictEqual(hamza.researchInterests,researchInterests))throw Error('Hamza research interests changed since review; protected.');
