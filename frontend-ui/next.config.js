@@ -1,3 +1,4 @@
+const { contentSecurityPolicy } = require("./src/lib/security.cjs");
 // next.config.js
 // -----------------------------------------------------------------------------
 // Core Next.js configuration. The `images.remotePatterns` allow-list is a
@@ -25,6 +26,8 @@ const nextConfig = {
       {
         source: "/:path*",
         headers: [
+          { key: "Content-Security-Policy", value: contentSecurityPolicy(process.env.NEXT_PUBLIC_FORM_ENDPOINT, process.env.NODE_ENV === "development") },
+          ...(process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production" ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }] : []),
           { key: "X-Content-Type-Options", value: "nosniff" },
           { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
           {

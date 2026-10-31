@@ -28,7 +28,7 @@ jobs:
           CI: 'true'
       - run: npm ci --ignore-scripts
         working-directory: frontend-ui
-      - run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npm run lint && npm run test:security
         working-directory: frontend-ui
       - run: npx playwright install --with-deps chromium
         working-directory: frontend-ui

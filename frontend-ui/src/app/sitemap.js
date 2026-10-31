@@ -9,6 +9,9 @@ export default async function sitemap() {
     "/events",
     "/news",
     "/contact",
+    "/privacy",
+    "/cookies",
+    "/terms",
   ];
   const dynamic = await client
     .fetch(
@@ -19,11 +22,10 @@ export default async function sitemap() {
   return [
     ...staticRoutes.map((path) => ({
       url: `${base}${path}`,
-      lastModified: new Date(),
       changeFrequency: path ? "weekly" : "daily",
       priority: path?.length ? 0.8 : 1,
     })),
-    ...dynamic.map((x) => ({
+    ...dynamic.filter((x) => /^[a-zA-Z0-9_-]+$/.test(x.slug)).map((x) => ({
       url: `${base}/${prefix[x._type]}/${x.slug}`,
       lastModified: x._updatedAt,
       changeFrequency: "monthly",

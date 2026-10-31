@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import TeamDirectory from "@/app/components/TeamDirectory";
 import { getSiteContent } from "@/lib/content";
 import Image from "next/image";
@@ -11,11 +12,11 @@ export const revalidate = 60;
 const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember" && hideFromDirectory != true]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,cardSummary,researchInterests,qualification,portraitPlaceholder,email,secondaryEmail,linkedinUrl,githubUrl,profileUrl,orcidUrl,googleScholarUrl,researchGateUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
-  return {
+  return pageMetadata({
     title: p?.seo?.title || p?.headline,
     description: p?.seo?.description || p?.introduction,
     alternates: { canonical: "/about" },
-  };
+  });
 }
 
 export default async function AboutPage() {

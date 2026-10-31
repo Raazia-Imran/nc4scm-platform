@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import CompactText from "@/app/components/CompactText";
 import Link from "next/link";
 import { client } from "@/sanityClient";
@@ -6,11 +7,11 @@ import ServiceCards from "@/app/components/ServiceCards";
 const QUERY = `{"page":*[_type=="pageSettings"][0],"services":*[_type=="service"]|order(displayOrder asc){_id,title,slug,summary,image,displayOrder}}`;
 export async function generateMetadata() {
   const page = await client.fetch('*[_type=="pageSettings"][0]');
-  return {
+  return pageMetadata({
     title: page?.servicesHeadline,
     description: page?.servicesIntroduction,
     alternates: { canonical: "/services" },
-  };
+  });
 }
 export default async function ServicesPage() {
   const [data, site] = await Promise.all([

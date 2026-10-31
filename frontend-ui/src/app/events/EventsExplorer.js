@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import FilterMenu from "@/app/components/FilterMenu";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 
 export default function EventsExplorer({ events, now }) {
   const [period, setPeriod] = useState("upcoming");

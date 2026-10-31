@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 
 // One automatic layout for photos, posters and future CMS cover uploads.
 export default function ContentImage({ image, fallbackAlt = "", viewLabel, className = "", priority = false }) {

@@ -1,3 +1,5 @@
+import { pageMetadata } from "@/lib/page-metadata";
+import LocationMap from "@/app/components/LocationMap";
 import EmailLinks from "@/app/components/EmailLinks";
 import CompactText from "@/app/components/CompactText";
 import { Suspense } from "react";
@@ -6,11 +8,11 @@ import { getSiteContent } from "@/lib/content";
 import ContactForm from "./ContactForm";
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="pageSettings"][0]');
-  return {
+  return pageMetadata({
     title: p?.contactHeadline,
     description: p?.contactIntroduction,
     alternates: { canonical: "/contact" },
-  };
+  });
 }
 export default async function ContactPage() {
   const [site, page, services] = await Promise.all([
@@ -109,13 +111,7 @@ export default async function ContactPage() {
                 )}
               </div>
               {map && (
-                <iframe
-                  src={map}
-                  title={text.location}
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                  className="h-[260px] w-full border-0 lg:h-full lg:min-h-[280px]"
-                />
+                <LocationMap src={map} title={text.location} />
               )}
             </div>
           </div>

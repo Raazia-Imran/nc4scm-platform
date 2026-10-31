@@ -30,16 +30,19 @@ export default function ContactForm({
     setForm((v) => ({ ...v, [e.target.name]: e.target.value }));
   async function submit(e) {
     e.preventDefault();
-    if (form.website) return;
+    if (form.website || status === "submitting") return;
     setStatus("submitting");
     const endpoint =
       process.env.NEXT_PUBLIC_FORM_ENDPOINT ||
       (recipientEmail ? `https://formsubmit.co/ajax/${recipientEmail}` : null);
     try {
-      if (!endpoint) throw new Error("Missing contact endpoint");
+      if (!endpoint || new URL(endpoint).protocol !== "https:") throw new Error("Invalid contact endpoint");
       const { website, ...message } = form;
       const response = await fetch(endpoint, {
         method: "POST",
+        credentials: "omit",
+        referrerPolicy: "no-referrer",
+        signal: AbortSignal.timeout(20000),
         headers: {
           "Content-Type": "application/json",
           Accept: "application/json",
@@ -162,6 +165,7 @@ export default function ContactForm({
         autoComplete="off"
         className="hidden"
       />
+      <p className="text-sm leading-7 sm:col-span-2">Your details are used to respond to your enquiry. Please avoid sending sensitive personal information. <a href="/privacy" className="underline">Read our privacy notice</a>.</p>
       <div className="sm:col-span-2">
         <button
           disabled={status === "submitting"}

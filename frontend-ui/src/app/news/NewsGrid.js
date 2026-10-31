@@ -3,7 +3,7 @@ import { useContent } from "@/app/components/ContentProvider";
 import Image from "next/image";
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 import NewsCategoryFilter from "./NewsCategoryFilter";
 export default function NewsGrid({ articles }) {
   const text = useContent();

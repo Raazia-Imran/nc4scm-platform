@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -11,14 +12,16 @@ export async function generateStaticParams() {
   return (slugs || []).map(({ slug }) => ({ slug }));
 }
 export async function generateMetadata({ params }) {
+  params = await params;
   const service = await client.fetch(QUERY, { slug: params.slug });
-  return {
+  return pageMetadata({
     title: service?.title,
     description: service?.summary,
     alternates: { canonical: `/services/${params.slug}` },
-  };
+  });
 }
 export default async function ServiceDetail({ params }) {
+  params = await params;
   const [service, site] = await Promise.all([
     client.fetch(QUERY, { slug: params.slug }),
     getSiteContent(),

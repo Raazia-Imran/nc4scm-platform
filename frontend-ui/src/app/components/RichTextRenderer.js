@@ -1,3 +1,4 @@
+import { safeHref } from "@/lib/safe-url.mjs";
 // src/app/components/RichTextRenderer.js
 // -----------------------------------------------------------------------------
 // Sanity stores rich text as "Portable Text" — a JSON array describing
@@ -14,7 +15,7 @@
 // -----------------------------------------------------------------------------
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 
 const components = {
   block: {
@@ -43,10 +44,12 @@ const components = {
       // External links open in a new tab; `rel="noopener noreferrer"`
       // prevents the new page from gaining access to `window.opener`,
       // a standard security precaution for user-authored external links.
-      const isExternal = value?.href?.startsWith("http");
+      const href = safeHref(value?.href);
+      if (!href) return <>{children}</>;
+      const isExternal = /^https?:/i.test(href);
       return (
         <a
-          href={value?.href}
+          href={href}
           target={isExternal ? "_blank" : undefined}
           rel={isExternal ? "noopener noreferrer" : undefined}
           className="text-accent underline underline-offset-4 hover:text-ink"

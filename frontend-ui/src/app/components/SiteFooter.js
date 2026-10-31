@@ -1,7 +1,7 @@
 import EmailLinks from "./EmailLinks";
 import Link from "next/link";
 import Image from "next/image";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 
 export default function SiteFooter({ settings }) {
   const nav = settings?.navigation || [];
@@ -89,6 +89,11 @@ export default function SiteFooter({ settings }) {
         </div>
         <div className="flex flex-col gap-3 pt-6 text-xs text-ivory/45 sm:flex-row sm:items-center sm:justify-between">
           <p>{settings?.copyrightText}</p>
+          <nav aria-label="Website notices" className="flex flex-wrap gap-4">
+            <Link className="footer-link" href="/privacy">Privacy</Link>
+            <Link className="footer-link" href="/cookies">Cookies and external services</Link>
+            <Link className="footer-link" href="/terms">Terms of use</Link>
+          </nav>
           <p>{text.footerTagline}</p>
         </div>
       </div>

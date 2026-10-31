@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 // src/app/news/[slug]/page.js
 // -----------------------------------------------------------------------------
 // The dynamic route template for a single news article. The `[slug]` folder
@@ -36,17 +37,19 @@ export async function generateStaticParams() {
 
 // Dynamic per-page metadata (browser tab title) based on the fetched article.
 export async function generateMetadata({ params }) {
+  params = await params;
   const article = await client.fetch(ARTICLE_BY_SLUG_QUERY, {
     slug: params.slug,
   });
-  return {
+  return pageMetadata({
     title: article?.headline,
     description: article?.excerpt,
     alternates: { canonical: `/news/${params.slug}` },
-  };
+  });
 }
 
 export default async function NewsArticlePage({ params }) {
+  params = await params;
   const [article, site] = await Promise.all([
     client.fetch(ARTICLE_BY_SLUG_QUERY, { slug: params.slug }),
     getSiteContent(),

@@ -1,5 +1,9 @@
 # NC4SCM Platform — Setup & Launch Guide
 
+Security, privacy, SEO findings, verification evidence, release checks and rollback steps: [audit handover](docs/SECURITY-PRIVACY-SEO.md).
+
+Use `npm ci` for reproducible installs. The public frontend uses Next.js 15; the Studio remains on its existing major version.
+
 The October 2026 client Word update and CMS editing/import instructions are in
 [the approved content guide](cms-backend/seed/README.md). Content is imported into
 Sanity once through the secure GitHub deployment workflow; the frontend reads the
@@ -8,7 +12,7 @@ CMS and does not use seed files as hardcoded fallback copy.
 This repo has two independent projects:
 
 - `cms-backend/` — Sanity Studio v3 (content editing UI)
-- `frontend-ui/` — Next.js 14 App Router site (public website)
+- `frontend-ui/` — Next.js 15 App Router site (public website)
 
 They deploy separately and talk to each other only over Sanity's API.
 
@@ -122,3 +126,4 @@ In the Vercel project dashboard, add the same environment variables from
       sitemap.xml, and robots.txt
 - [ ] Run `npm run build` inside `frontend-ui/` locally with zero errors
       before deploying to production
+

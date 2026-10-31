@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 
 export default function SiteHeader({ settings }) {
   const pathname = usePathname();
