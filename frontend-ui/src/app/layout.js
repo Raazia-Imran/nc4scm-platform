@@ -10,14 +10,15 @@ export async function generateMetadata() {
   const description = site.defaultSeo?.description || site.missionLine;
   const image = {
     url: "https://www.nc4scm.com/media/opengraph-image.jpg",
-    width: 1200,
-    height: 630,
+    width: 2048,
+    height: 2048,
     alt: site.organizationName,
   };
   return {
     metadataBase: new URL("https://www.nc4scm.com"),
     title,
     description,
+    robots: process.env.VERCEL_ENV && process.env.VERCEL_ENV !== "production" ? { index: false, follow: false } : { index: true, follow: true },
     icons: { icon: "/media/favicon.ico" },
     openGraph: {
       title,

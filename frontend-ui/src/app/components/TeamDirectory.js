@@ -1,7 +1,7 @@
 "use client";
 import {useRef, useState, useEffect} from "react";
 import Image from "next/image";
-import {urlFor} from "@/sanityClient";
+import {urlFor} from "@/lib/image-url";
 import RichTextRenderer from "./RichTextRenderer";
 import EmailLinks from "./EmailLinks";
 

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 export default function TestimonialShowcase({ testimonials = [], text = {} }) {
   const items = testimonials.filter(
     (item) =>

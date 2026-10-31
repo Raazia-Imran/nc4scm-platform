@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import { getSiteContent } from "@/lib/content";
 import Link from "next/link";
 import Image from "next/image";
@@ -7,11 +8,11 @@ import RichTextRenderer from "@/app/components/RichTextRenderer";
 
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="homePage"][0]');
-  return {
+  return pageMetadata({
     title: p?.seo?.title || p?.headline,
     description: p?.seo?.description || p?.intro,
     alternates: { canonical: "/" },
-  };
+  });
 }
 const QUERY = `{"page":*[_type=="homePage"][0],"services":*[_type=="service"]|order(displayOrder asc)[0...4]{_id,title,slug,summary,image,displayOrder},"partners":*[_type=="partner"]|order(organizationName asc)[0...8]{_id,organizationName,logo,targetUrl},"testimonials":*[_type=="testimonial"&&published==true&&publicationApproved==true]|order(displayOrder asc){_id,quote,personName,role,organization,portrait,published,publicationApproved},"news":*[_type=="news"]|order(publishedAt desc)[0...2]{_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl},"events":*[_type=="event"&&coalesce(endDateTime,eventDateTime)>=now()]|order(eventDateTime asc)[0...1]{_id,title,slug,eventDateTime,venue,registrationUrl}}`;
 

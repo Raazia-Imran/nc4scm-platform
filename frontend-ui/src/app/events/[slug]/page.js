@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import CompactText from "@/app/components/CompactText";
 import EventGallery from "@/app/components/EventGallery";
 import { getSiteContent } from "@/lib/content";
@@ -14,14 +15,16 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }) {
+  params = await params;
   const event = await client.fetch(QUERY, { slug: params.slug });
-  return {
+  return pageMetadata({
     title: event?.title,
     description: event?.description,
     alternates: { canonical: `/events/${params.slug}` },
-  };
+  });
 }
 export default async function EventDetail({ params }) {
+  params = await params;
   const [event, site] = await Promise.all([
     client.fetch(QUERY, { slug: params.slug }),
     getSiteContent(),

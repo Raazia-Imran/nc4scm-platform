@@ -21,8 +21,8 @@
 // that doesn't need to reflect an edit within milliseconds (our news,
 // events, publications, etc. are all fine with a short cache window).
 // -----------------------------------------------------------------------------
-import { createClient } from "next-sanity";
-import imageUrlBuilder from "@sanity/image-url";
+import "server-only";
+import { createClient } from "@sanity/client";
 
 // Fail loudly and early if the project hasn't configured its environment
 // variables yet, rather than silently returning empty data everywhere and
@@ -58,22 +58,4 @@ export const client = createClient({
   perspective: "published",
 });
 
-// imageUrlBuilder wraps our client and exposes a fluent API for generating
-// resized/cropped/format-converted image URLs on the fly, e.g.
-//   urlFor(doc.avatar).width(400).height(400).url()
-const builder = imageUrlBuilder(client);
-
-/**
- * Safely builds an image URL from a Sanity image reference object.
- * Returns `null` instead of throwing when `source` is missing/null so every
- * calling component can do a simple `{url && <img src={url} />}` check
- * rather than needing its own try/catch.
- */
-export function urlFor(source) {
-  // Empty Studio image objects would otherwise throw later at .url().
-  const ref =
-    typeof source === "string" ? source : source?.asset?._ref || source?._ref;
-  if (!ref || !/^image-[a-zA-Z0-9]+-\d+x\d+-[a-zA-Z0-9]+$/.test(ref))
-    return null;
-  return builder.image(source);
-}
+export { urlFor } from "./lib/image-url";

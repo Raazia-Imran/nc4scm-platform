@@ -32,7 +32,7 @@ try {
   await run(["node_modules/next/dist/bin/next", "build"]);
   server = spawn(
     process.execPath,
-    ["node_modules/next/dist/bin/next", "start", "-p", "3100"],
+    ["node_modules/next/dist/bin/next", "start", "-H", "127.0.0.1", "-p", "3100"],
     { cwd, env, stdio: "inherit" },
   );
   for (let i = 0; i < 100; i++) {
@@ -75,6 +75,9 @@ try {
     "/events",
     "/news",
     "/contact",
+    "/privacy",
+    "/cookies",
+    "/terms",
     ...fixture.docs
       .filter((d) => d._type === "service")
       .map((d) => "/services/" + d.slug.current),
@@ -266,6 +269,30 @@ try {
   const heights = await page.locator(".team-profile-card").evaluateAll(cards => cards.map(card => card.getBoundingClientRect().height));
   assert.ok(heights.every(height=>height>0), "All team cards remain visible");
   assert.equal(await page.locator('a[href^="mailto:"]').count(), 0);
+  // External maps require a fresh action on every visit and support withdrawal.
+  const mapRequests = [];
+  await page.route('https://www.openstreetmap.org/**', route => {
+    mapRequests.push(route.request().url());
+    return route.fulfill({contentType:'text/html', body:'<html><body>Local map fixture</body></html>'});
+  });
+  await page.goto('http://127.0.0.1:3100/contact');
+  assert.equal(await page.locator('iframe').count(), 0);
+  assert.equal(mapRequests.length, 0, 'No map request before choice');
+  await page.getByRole('button', {name:'Load location map'}).focus();
+  await page.keyboard.press('Enter');
+  await page.locator('iframe').waitFor();
+  assert.equal(await page.locator('iframe').count(), 1);
+  await page.getByRole('button', {name:'Close map'}).click();
+  assert.equal(await page.locator('iframe').count(), 0);
+  await page.reload();
+  assert.equal(await page.locator('iframe').count(), 0);
+  assert.deepEqual(await page.evaluate(() => ({local:localStorage.length, session:sessionStorage.length})), {local:0, session:0});
+  assert.equal((await page.context().cookies()).length, 0);
+  const headers = (await page.request.get('http://127.0.0.1:3100/contact')).headers();
+  assert.ok(headers['content-security-policy'].includes("object-src 'none'"));
+  assert.equal((await page.request.get('http://127.0.0.1:3100/audit-missing')).status(), 404);
+  const sitemap = await (await page.request.get('http://127.0.0.1:3100/sitemap.xml')).text();
+  for (const path of ['/privacy', '/cookies', '/terms']) assert.ok(sitemap.includes('https://www.nc4scm.com'+path));
   await page.goto("http://127.0.0.1:3100/contact?service=lc3-technology");
   assert.equal(
     await page.getByLabel("Selected service", { exact: true }).inputValue(),

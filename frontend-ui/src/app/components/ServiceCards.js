@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import ServiceIcon from "./ServiceIcon";
-import { urlFor } from "@/sanityClient";
+import { urlFor } from "@/lib/image-url";
 export default function ServiceCards({ services = [], text = {} }) {
   return (
     <div className="service-editorial-grid">

@@ -1,0 +1,133 @@
+{
+  "date": "2026-10-31",
+  "sourceCommit": "405dc75635ea680bb3d10db4e0c84542b820ea34",
+  "responses": [
+    {
+      "url": "http://nc4scm.com",
+      "status": 200,
+      "final": "https://www.nc4scm.com/",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "http://www.nc4scm.com",
+      "status": 200,
+      "final": "https://www.nc4scm.com/",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://nc4scm.com",
+      "status": 200,
+      "final": "https://www.nc4scm.com/",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://www.nc4scm.com",
+      "status": 200,
+      "final": "https://www.nc4scm.com",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://www.nc4scm.com/robots.txt",
+      "status": 200,
+      "final": "https://www.nc4scm.com/robots.txt",
+      "headers": {
+        "content-type": "text/plain",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://www.nc4scm.com/sitemap.xml",
+      "status": 200,
+      "final": "https://www.nc4scm.com/sitemap.xml",
+      "headers": {
+        "content-type": "application/xml",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://www.nc4scm.com/contact",
+      "status": 200,
+      "final": "https://www.nc4scm.com/contact",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://www.nc4scm.com/audit-missing-20261031",
+      "status": 404,
+      "final": "https://www.nc4scm.com/audit-missing-20261031",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "SAMEORIGIN"
+      }
+    },
+    {
+      "url": "https://gcgc.nc4scm.com",
+      "status": 200,
+      "final": "https://gcgc.nc4scm.com",
+      "headers": {
+        "content-type": "text/html; charset=utf-8",
+        "strict-transport-security": "max-age=63072000"
+      }
+    },
+    {
+      "url": "https://hoshintegrity.com",
+      "status": 200,
+      "final": "https://hoshintegrity.com",
+      "headers": {
+        "content-security-policy": "default-src 'self'; script-src 'nonce-eed2b4ae50f04a27b8376b80fff5d6db' 'strict-dynamic'; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; connect-src 'self' https://api.web3forms.com; frame-src 'none'; frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self' https://api.web3forms.com; upgrade-insecure-requests",
+        "content-type": "text/html; charset=utf-8",
+        "permissions-policy": "camera=(), microphone=(), geolocation=()",
+        "referrer-policy": "strict-origin-when-cross-origin",
+        "strict-transport-security": "max-age=63072000",
+        "x-content-type-options": "nosniff",
+        "x-frame-options": "DENY"
+      }
+    }
+  ]
+}

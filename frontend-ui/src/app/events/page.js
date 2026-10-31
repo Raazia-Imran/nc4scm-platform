@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
 import { client } from "@/sanityClient";
@@ -5,11 +6,11 @@ import EventsExplorer from "./EventsExplorer";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"events":*[_type=="event"]{_id,title,slug,eventType,eventDateTime,endDateTime,venue,description,registrationUrl,coverImage}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="pageSettings"][0]');
-  return {
+  return pageMetadata({
     title: p?.eventsHeadline,
     description: p?.eventsIntroduction,
     alternates: { canonical: "/events" },
-  };
+  });
 }
 export default async function EventsPage() {
   const [data, site] = await Promise.all([

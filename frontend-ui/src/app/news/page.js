@@ -1,3 +1,4 @@
+import { pageMetadata } from "@/lib/page-metadata";
 import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
 import { client } from "@/sanityClient";
@@ -5,11 +6,11 @@ import NewsGrid from "./NewsGrid";
 const QUERY = `{"settings":*[_type=="pageSettings"][0],"articles":*[_type=="news"]|order(publishedAt desc){_id,headline,slug,publishedAt,category,excerpt,coverImage,externalUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="pageSettings"][0]');
-  return {
+  return pageMetadata({
     title: p?.newsHeadline,
     description: p?.newsIntroduction,
     alternates: { canonical: "/news" },
-  };
+  });
 }
 export default async function NewsPage() {
   const [data, site] = await Promise.all([
