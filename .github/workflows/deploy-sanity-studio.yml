@@ -46,6 +46,14 @@ jobs:
         id: install
         run: npm ci --ignore-scripts
 
+      - name: Audit Studio dependencies
+        id: audit
+        run: npm run audit:security
+
+      - name: Verify CLI security compatibility
+        id: security
+        run: npm run test:security
+
       - name: Verify approved content mapping
         id: verify
         run: npm run test:content
@@ -163,5 +171,5 @@ jobs:
           retention-days: 30
 
       - name: Deploy hosted Studio
-        if: always() && steps.install.outcome == 'success' && steps.verify.outcome == 'success'
+        if: always() && steps.install.outcome == 'success' && steps.audit.outcome == 'success' && steps.security.outcome == 'success' && steps.verify.outcome == 'success'
         run: ./node_modules/.bin/sanity deploy --no-minify --yes

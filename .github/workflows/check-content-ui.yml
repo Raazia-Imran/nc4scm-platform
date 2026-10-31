@@ -20,6 +20,8 @@ jobs:
             frontend-ui/package-lock.json
       - run: npm ci --ignore-scripts
         working-directory: cms-backend
+      - run: npm run audit:security && npm run test:security
+        working-directory: cms-backend
       - run: npm run test:content
         working-directory: cms-backend
       - run: npm run build
@@ -31,6 +33,8 @@ jobs:
       - run: npm run lint && npm run test:security
         working-directory: frontend-ui
       - run: npx playwright install --with-deps chromium
+        working-directory: frontend-ui
+      - run: node ../cms-backend/tests/studio-smoke.mjs
         working-directory: frontend-ui
       - run: node tests/responsive.mjs
         working-directory: frontend-ui

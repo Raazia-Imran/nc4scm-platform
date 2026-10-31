@@ -1,6 +1,6 @@
 // sanity.config.js
 // -----------------------------------------------------------------------------
-// This is the root configuration file for Sanity Studio v3. Sanity Studio is
+// This is the root configuration file for Sanity Studio. Sanity Studio is
 // a React application that runs entirely in the browser and gives editors a
 // friendly UI to create/edit the content that our Next.js frontend will later
 // fetch over Sanity's Content API (GROQ / CDN).
@@ -9,7 +9,7 @@
 // 1. We register our content models (schemaTypes) so the Studio knows what
 //    document types exist (Team Member, Partner, Service, Publication, etc).
 // 2. We wire up two plugins:
-//      - deskTool: renders the default content-editing UI (the tree of
+//      - structureTool: renders the default content-editing UI (the tree of
 //        document lists you see on the left of the Studio).
 //      - visionTool: an in-Studio playground for testing GROQ queries before
 //        you use them in the frontend.
@@ -18,7 +18,7 @@
 //    without ever hard-coding secrets into source control.
 // -----------------------------------------------------------------------------
 import { defineConfig } from "sanity";
-import { deskTool } from "sanity/desk";
+import { structureTool } from "sanity/structure";
 import { visionTool } from "@sanity/vision";
 import { schemaTypes } from "./schemaTypes";
 
@@ -34,8 +34,11 @@ export default defineConfig({
   projectId: process.env.SANITY_STUDIO_PROJECT_ID || "dxinqb51",
   dataset: process.env.SANITY_STUDIO_DATASET || "production",
 
+  // Keep the existing editor search behavior across the v6 default change.
+  search: { strategy: "groqLegacy" },
+
   plugins: [
-    deskTool({
+    structureTool({
       structure: (S) =>
         S.list()
           .title("NC4SCM Content")

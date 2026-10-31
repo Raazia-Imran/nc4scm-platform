@@ -1,5 +1,7 @@
 # NC4SCM security, privacy and indexing handover
 
+**Studio follow-up:** the 28 outstanding dependency findings in this historical audit have been remediated on `fix/sanity-studio-security`. A clean Studio install now reports zero known vulnerabilities. See [Studio security update](STUDIO-SECURITY-UPDATE.md) for versions, compatibility checks, release status and remaining account checks. The original audit report is retained as baseline evidence.
+
 Audit date: 31 October 2026. Baseline: main `405dc75635ea680bb3d10db4e0c84542b820ea34`.
 Scope: this repository’s public Next.js website and Sanity Studio build. The conference portal is a separate application; its live homepage was checked, but its code was not changed. HosH was inspected as a reference, including its live CSP and privacy implementation. Its provider, storage preferences and nonce architecture were not copied wholesale.
 
