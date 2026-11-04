@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { pageMetadata } from "@/lib/page-metadata";
 import TeamDirectory from "@/app/components/TeamDirectory";
 import { getSiteContent } from "@/lib/content";
@@ -9,7 +10,7 @@ import PartnerRail from "@/app/components/PartnerRail";
 // Refresh published CMS profiles without requiring another deployment.
 export const revalidate = 60;
 
-const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember" && hideFromDirectory != true]|order(displayPriority asc){_id,fullName,position,group,avatar,bio,cardSummary,researchInterests,qualification,portraitPlaceholder,email,secondaryEmail,linkedinUrl,githubUrl,profileUrl,orcidUrl,googleScholarUrl,researchGateUrl},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
+const QUERY = `{"page":*[_type=="aboutPage"][0],"team":*[_type=="teamMember"&&hideFromDirectory!=true]|order(displayPriority asc){...},"partners":*[_type=="partner"]|order(category asc,organizationName asc){_id,organizationName,category,logo,targetUrl}}`;
 export async function generateMetadata() {
   const p = await client.fetch('*[_type=="aboutPage"][0]');
   return pageMetadata({
@@ -80,7 +81,7 @@ export default async function AboutPage() {
           </div>
         </div>
       </section>
-      <section className="journey-editorial section-shell overflow-hidden">
+      <section id="journey" className="journey-editorial section-shell overflow-hidden">
         <div className="relative z-10 grid gap-8 lg:grid-cols-[.7fr_1.3fr] lg:items-end">
           <div>
             <p className="eyebrow text-clay">{text.journey}</p>
@@ -98,7 +99,7 @@ export default async function AboutPage() {
               key={item.year}
               className={`journey-editorial-row ${index % 2 ? "is-right" : "is-left"}`}
             >
-              <article className="journey-editorial-card group">
+              <Link href={`/events/timeline?year=${encodeURIComponent(item.year)}`} className="journey-editorial-card journey-linked-card group">
                 <span className="journey-index" aria-hidden="true">
                   {String(index + 1).padStart(2, "0")}
                 </span>
@@ -109,12 +110,13 @@ export default async function AboutPage() {
                 <p className="mt-4 max-w-xl text-sm leading-7 text-carbon/58">
                   {item.description}
                 </p>
-              </article>
+                <span className="journey-photo-link">Explore this chapter <span aria-hidden="true">↗</span></span>
+              </Link>
             </div>
           ))}
         </div>
       </section>
-      <section className="section-shell bg-ivory">
+      <section id="people" className="section-shell bg-ivory">
         <p className="eyebrow text-clay">{text.people}</p>
         <div className="mt-4 grid gap-6 border-b border-forest/15 pb-6 lg:grid-cols-2">
           <h2 className="section-title">
@@ -124,7 +126,8 @@ export default async function AboutPage() {
             {p.teamIntroduction}
           </p>
         </div>
-        <TeamDirectory members={data.team || []} text={text} />
+        <TeamDirectory members={data.team || []} text={text} now={Date.now()} />
+        <Link href="/legacy" className="legacy-about-link"><span><small>People, projects and practical contributions</small><strong>Discover our Living Legacy</strong></span><span aria-hidden="true">↗</span></Link>
       </section>
       <section className="section-shell overflow-hidden bg-[#0b282d] text-ivory">
         <div>

@@ -1,3 +1,4 @@
+import {addLegacyFixtures,verifyLegacy} from "./legacy.mjs";
 import { createRequire } from "node:module";
 import { spawn } from "node:child_process";
 import { readFile, mkdir, writeFile, readdir } from "node:fs/promises";
@@ -10,6 +11,7 @@ fixture.docs.push(
  {_id:"team-digital-fixture",_type:"teamMember",fullName:"Website Maintainer",position:"Website and CMS Developer",group:"digital-platforms",displayPriority:500,cardSummary:"Maintains the centre website and conference platform.",portraitPlaceholder:"neutral"},
  {_id:"team-finance-fixture",_type:"teamMember",fullName:"Finance Member",position:"Finance",group:"finance",displayPriority:600,portraitPlaceholder:"neutral"}
 );
+addLegacyFixtures(fixture);
 const env = {
   ...process.env,
   NEXT_PUBLIC_SANITY_PROJECT_ID: "dxinqb51",
@@ -75,6 +77,9 @@ try {
     "/events",
     "/news",
     "/contact",
+    "/events/timeline?year=2020",
+    "/legacy",
+    "/legacy/projects/materials-research-fixture",
     "/privacy",
     "/cookies",
     "/terms",
@@ -89,7 +94,7 @@ try {
     "/news/student-seminar-lc3-cement-chemistry-2026",
     "/news/portrait-poster",
   ];
-  const widths = [280, 320, 375, 414, 600, 768, 1024, 1280, 1366, 1440, 1536, 1920, 2560];
+  const widths = process.env.UI_WIDTHS ? process.env.UI_WIDTHS.split(",").map(Number) : [280, 320, 375, 414, 600, 768, 1024, 1280, 1366, 1440, 1536, 1920, 2560];
   await mkdir(new URL("../test-results/", import.meta.url), {
     recursive: true,
   });
@@ -160,13 +165,13 @@ try {
       results.push({ width, path, status: response.status(), overflow: false });
       if (
         (width === 375 || width === 1440) &&
-        ["/", "/services", "/about", "/news", "/publications", "/events", "/contact", "/events/gcgc-2025", "/services/lc3-technology"].includes(
+        ["/", "/services", "/about", "/news", "/publications", "/events", "/contact", "/events/gcgc-2025", "/services/lc3-technology", "/legacy", "/events/timeline?year=2020"].includes(
           path,
         )
       )
         await page.screenshot({
           path: new URL(
-            `../test-results/${path.slice(1).replaceAll("/", "-") || "home"}-${width}.png`,
+            `../test-results/${path.split("?")[0].slice(1).replaceAll("/", "-") || "home"}-${width}.png`,
             import.meta.url,
           ).pathname,
           fullPage: true,
@@ -182,7 +187,7 @@ try {
   const homeLayout=await page.evaluate(()=>({eventHeight:document.querySelector('.home-events').getBoundingClientRect().height}));
   assert.ok(homeLayout.eventHeight<500, "Empty event box stays content-sized");
   await page.goto("http://127.0.0.1:3100/about");
-  assert.deepEqual(await page.locator('.team-profile-card h4').allTextContents(), fixture.docs.filter(d=>d._type==='teamMember').sort((a,b)=>a.displayPriority-b.displayPriority).map(d=>d.fullName));
+  assert.deepEqual(await page.locator('.team-profile-card h4').allTextContents(), fixture.docs.filter(d=>d._type==='teamMember'&&d.hideFromDirectory!==true&&(d.contractStatus!=='ended'||d.keepMainCredit===true)).sort((a,b)=>a.displayPriority-b.displayPriority).map(d=>d.fullName));
   assert.equal(await page.locator('.team-portrait-empty').count(),4);
   assert.ok(await page.locator('.partner-logo-image').count() >= 3);
   for (const img of await page.locator('.partner-logo-image').all()) {
@@ -324,7 +329,7 @@ try {
   await page
     .getByRole("button", { name: "Send an enquiry", exact: false })
     .click();
-  await page.getByRole("alert").waitFor();
+  await page.getByRole("alert").filter({ hasText: "The message could not be sent" }).waitFor();
   await page.unroute("https://formsubmit.co/**");
   await page.route("https://formsubmit.co/**", mockEmail("true"));
   await page
@@ -337,6 +342,7 @@ try {
     )
     .waitFor();
   assert.deepEqual(errors, []);
+  await verifyLegacy(page,'http://127.0.0.1:3100');
   await verifyNewsEditor(page,fixture,'http://127.0.0.1:3100');
   await writeFile(
     new URL("../test-results/responsive.json", import.meta.url),

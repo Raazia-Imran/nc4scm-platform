@@ -1,3 +1,4 @@
+import EventsNavigation from "@/app/components/EventsNavigation";
 import { pageMetadata } from "@/lib/page-metadata";
 import CompactText from "@/app/components/CompactText";
 import { getSiteContent } from "@/lib/content";
@@ -34,6 +35,7 @@ export default async function EventsPage() {
         </div>
       </section>
       <section className="section-shell marble-surface">
+        <EventsNavigation />
         <EventsExplorer events={events} now={Date.now()} />
       </section>
     </>
