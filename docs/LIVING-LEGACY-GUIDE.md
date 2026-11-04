@@ -66,6 +66,8 @@ Implementation is on `feat/journey-living-legacy`, based on main `7964546`. The 
 
 Tests cover the Pakistan-time contract boundary, ended/future/legacy profiles, lasting credit, hide precedence, unchanged biography data, timeline deep links, mouse/touch/keyboard photo browsing, fullscreen focus return, approval gating, project supervision/outcomes, real 404s for unapproved projects and sitemap inclusion. The existing content tests and responsive website suite also run. Check the associated PR’s latest results for exact local/CI/deployment completion.
 
+The global streaming loading skeleton is removed and metadata is resolved before streaming. This allows missing or unapproved project URLs to return HTTP 404 before response headers are sent. The rendered page layouts and content are preserved.
+
 No fixture names, sample projects, fake work photographs or synthetic contribution records are published. The centre must add its actual year photographs, former-member contract information, student projects and practical contributor records through the new CMS fields.
 
 ## Rollback

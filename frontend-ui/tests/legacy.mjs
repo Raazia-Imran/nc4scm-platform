@@ -107,7 +107,7 @@ export function addLegacyFixtures(fixture) {
   );
 }
 export async function verifyLegacy(page, base) {
-  await page.goto(base + "/about");
+  await page.goto(base + "/about", {waitUntil:"networkidle"});
   assert.equal(
     await page.getByText("Past Researcher Fixture", { exact: true }).count(),
     0,
@@ -154,7 +154,7 @@ export async function verifyLegacy(page, base) {
       .getByRole("button", { name: "Open photograph fullscreen" })
       .evaluate((el) => el === document.activeElement),
   );
-  await page.goto(base + "/legacy");
+  await page.goto(base + "/legacy", {waitUntil:"networkidle"});
   assert.ok(
     await page
       .getByText("Past Researcher Fixture", { exact: true })
@@ -206,7 +206,7 @@ export async function verifyLegacy(page, base) {
   assert.ok(sitemap.includes("/legacy/projects/materials-research-fixture"));
   assert.ok(!sitemap.includes("unapproved-fixture"));
   await page.setViewportSize({ width: 375, height: 850 });
-  await page.goto(base + "/events/timeline?year=2020");
+  await page.goto(base + "/events/timeline?year=2020", {waitUntil:"networkidle"});
   await page.locator(".timeline-chapter .swipe-stage").first().scrollIntoViewIfNeeded();
   const touchBox = await page
     .locator(".timeline-chapter .swipe-stage")

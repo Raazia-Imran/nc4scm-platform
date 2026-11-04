@@ -10,6 +10,8 @@ const { contentSecurityPolicy } = require("./src/lib/security.cjs");
 // -----------------------------------------------------------------------------
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  // Resolve metadata before streaming so unpublished project URLs return a real 404.
+  htmlLimitedBots: /.*/,
   poweredByHeader: false,
   compress: true,
   images: {
