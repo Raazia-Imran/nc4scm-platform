@@ -24,7 +24,7 @@ export default {
         layout: "radio",
       },
       description:
-        "Mark ended to show the complete profile in Living Legacy. Leaving this active still respects an end date.",
+        "Mark ended to show the complete profile in Centre Archive. Leaving this active still respects an end date.",
     },
     { name: "contractStartDate", title: "Contract start date", type: "date" },
     {
@@ -32,7 +32,7 @@ export default {
       title: "Contract end date",
       type: "date",
       description:
-        "The last active day, in Pakistan time. The profile moves to Living Legacy after this day, without a deployment.",
+        "The last active day, in Pakistan time. The profile moves to Centre Archive after this day, without a deployment.",
       validation: (Rule) =>
         Rule.custom(
           (value, context) =>
@@ -48,7 +48,7 @@ export default {
       type: "boolean",
       initialValue: false,
       description:
-        "Retain a credited contributor card on About after the contract ends, while also showing the full profile in Living Legacy. It is labelled as a lasting contribution, not current employment.",
+        "Retain a credited contributor card on About after the contract ends, while also showing the full profile in Centre Archive. It is labelled as a lasting contribution, not current employment.",
     },
     {
       name: "contributionSummary",

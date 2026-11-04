@@ -127,7 +127,7 @@ export default async function AboutPage() {
           </p>
         </div>
         <TeamDirectory members={data.team || []} text={text} now={Date.now()} />
-        <Link href="/legacy" className="legacy-about-link"><span><small>People, projects and practical contributions</small><strong>Discover our Living Legacy</strong></span><span aria-hidden="true">↗</span></Link>
+        <Link href="/legacy" className="legacy-about-link"><span><small>People, projects and practical contributions</small><strong>Discover our Centre Archive</strong></span><span aria-hidden="true">↗</span></Link>
       </section>
       <section className="section-shell overflow-hidden bg-[#0b282d] text-ivory">
         <div>

@@ -1585,7 +1585,7 @@ body {
  .team-level-single .team-profile-actions { margin-top:.75rem; }
 }
 
-/* Living Legacy: an editorial archive in the centre's existing palette. */
+/* Centre Archive: an editorial archive in the centre's existing palette. */
 .archive-serif,.legacy-hero h1 em,.legacy-section-heading h2 em,.legacy-closing h2 em{font-family:Georgia,'Times New Roman',serif;font-weight:400;font-style:italic}
 .archive-surface{background:#f2f3ed}
 .journey-linked-card{display:block;text-decoration:none}.journey-photo-link{display:flex;justify-content:space-between;margin-top:1.5rem;padding-top:1rem;border-top:1px solid #174e3220;font-size:.72rem;font-weight:600;letter-spacing:.06em;color:#315d48}.journey-linked-card:focus-visible{outline:3px solid #416e55;outline-offset:5px}
