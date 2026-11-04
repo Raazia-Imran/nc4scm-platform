@@ -1,3 +1,4 @@
+import { archivePhoto, legacyPage, contributionProject, practicalContributor } from "./legacy";
 // schemaTypes/index.js
 // -----------------------------------------------------------------------------
 // Central schema registry. sanity.config.js imports `schemaTypes` from this
@@ -20,6 +21,7 @@ import interfaceText from "./interfaceText";
 import { link, seo, statistic } from "./objects";
 
 export const schemaTypes = [
+  archivePhoto, legacyPage, contributionProject, practicalContributor,
   interfaceText,
   link,
   seo,

@@ -47,6 +47,14 @@ export default {
           type: "object",
           fields: [
             {
+              name: "photos",
+              title: "Milestone photographs",
+              type: "array",
+              of: [{ type: "archivePhoto" }],
+              description:
+                "Shown in Events → Journey in pictures. Add a caption and alternative text to every photograph.",
+            },
+            {
               name: "year",
               title: "Year",
               type: "string",

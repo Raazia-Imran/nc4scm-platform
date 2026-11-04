@@ -65,10 +65,12 @@ export default defineConfig({
                   .schemaType("pageSettings")
                   .documentId("pageSettings"),
               ),
+            S.listItem().title("Living Legacy page").child(S.document().schemaType("legacyPage").documentId("legacyPage")),
             S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>
                 ![
+                  "legacyPage",
                   "siteSettings",
                   "homePage",
                   "aboutPage",

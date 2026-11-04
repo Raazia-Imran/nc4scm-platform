@@ -11,6 +11,11 @@ export const getSiteContent = cache(
       .catch(() => null)) || {};
     // Shared Studio defaults keep controls usable before a new CMS field is saved.
     // Explicit editor values, including empty strings, always take precedence.
-    return { ...content, interfaceText: { ...interfaceDefaults, ...content.interfaceText } };
+    const navigation = [...(content.navigation || [])];
+    if (!navigation.some(item => item.href === "/legacy")) {
+      const index = navigation.findIndex(item => item.href === "/contact");
+      navigation.splice(index < 0 ? navigation.length : index, 0, {label:"Living Legacy",href:"/legacy"});
+    }
+    return { ...content, navigation, interfaceText: { ...interfaceDefaults, ...content.interfaceText } };
   },
 );
