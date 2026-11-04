@@ -114,12 +114,9 @@ export default function TeamDirectory({
 }) {
   const [clock, setClock] = useState(now);
   useEffect(() => {
-    const started = performance.now();
-    setClock(now);
-    const timer = setInterval(
-      () => setClock(now + performance.now() - started),
-      60000,
-    );
+    // Hydrate against the current time even if the first ISR response was stale.
+    setClock(Date.now());
+    const timer = setInterval(() => setClock(Date.now()), 60000);
     return () => clearInterval(timer);
   }, [now]);
   members = directoryMembers(members, scope, clock);
