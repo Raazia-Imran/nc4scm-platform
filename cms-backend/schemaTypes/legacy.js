@@ -22,7 +22,7 @@ export const archivePhoto = {
 };
 export const legacyPage = {
   name: "legacyPage",
-  title: "Living Legacy page",
+  title: "Centre Archive page",
   type: "document",
   fields: [
     { name: "eyebrow", title: "Eyebrow", type: "string" },
@@ -43,7 +43,7 @@ export const legacyPage = {
       },
     ]),
   ],
-  preview: { prepare: () => ({ title: "Living Legacy page" }) },
+  preview: { prepare: () => ({ title: "Centre Archive page" }) },
 };
 export const contributionProject = {
   name: "contributionProject",

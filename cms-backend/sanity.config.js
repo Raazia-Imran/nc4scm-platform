@@ -65,7 +65,7 @@ export default defineConfig({
                   .schemaType("pageSettings")
                   .documentId("pageSettings"),
               ),
-            S.listItem().title("Living Legacy page").child(S.document().schemaType("legacyPage").documentId("legacyPage")),
+            S.listItem().title("Centre Archive page").child(S.document().schemaType("legacyPage").documentId("legacyPage")),
             S.divider(),
             ...S.documentTypeListItems().filter(
               (item) =>

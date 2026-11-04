@@ -10,7 +10,7 @@ import EventGallery from "@/app/components/EventGallery";
 import RichTextRenderer from "@/app/components/RichTextRenderer";
 export const revalidate = 60;
 export const metadata = pageMetadata({
-  title: "Living Legacy | NC4SCM",
+  title: "Centre Archive | NC4SCM",
   description:
     "The people, student and research projects, and practical contributions that continue to shape NC4SCM.",
   alternates: { canonical: "/legacy" },
@@ -38,14 +38,14 @@ export default async function LegacyPage() {
         <div className="legacy-hero-inner">
           <div className="legacy-hero-copy">
             <p className="eyebrow text-mint">
-              {page.eyebrow || "The NC4SCM Living Legacy"}
+              {page.eyebrow || "The NC4SCM Centre Archive"}
             </p>
             <h1>
               {page.headline || (
                 <>
-                  The work
+                  Centre
                   <br />
-                  carries <em>forward.</em>
+                  <em>Archive.</em>
                 </>
               )}
             </h1>
@@ -54,7 +54,7 @@ export default async function LegacyPage() {
                 "A centre is shaped by more than the present. Meet the people, explore the projects and recognise the practical contributions that remain part of our story."}
             </p>
             <a href="#legacy-people" className="legacy-explore">
-              Explore the legacy <span aria-hidden="true">↓</span>
+              Explore the archive <span aria-hidden="true">↓</span>
             </a>
           </div>
           <figure className="legacy-hero-image">
@@ -81,7 +81,7 @@ export default async function LegacyPage() {
           </figure>
         </div>
       </section>
-      <nav className="legacy-index section-shell" aria-label="Legacy sections">
+      <nav className="legacy-index section-shell" aria-label="Centre Archive sections">
         {[
           ["01", "People", "The people who shaped the centre", "people"],
           ["02", "Projects", "Ideas developed into lasting work", "projects"],

@@ -41,7 +41,7 @@ export default async function ProjectPage({ params }) {
       <section className="page-hero text-ivory">
         <div className="page-hero-inner">
           <Link className="eyebrow text-mint" href="/legacy#legacy-projects">
-            Living Legacy / Projects ↗
+            Centre Archive / Projects ↗
           </Link>
           <h1 className="page-hero-title mt-5">{project.title}</h1>
           <p className="page-hero-intro">{project.summary}</p>

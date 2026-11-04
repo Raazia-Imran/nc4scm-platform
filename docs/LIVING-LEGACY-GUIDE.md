@@ -1,4 +1,4 @@
-# Journey photographs and Living Legacy
+# Journey photographs and Centre Archive
 
 ## What visitors see
 
@@ -6,7 +6,7 @@
 - Events has two linked views: **Events & gatherings** and **Journey in pictures**.
 - Year chapters show captioned milestone photographs plus already-published event/news photographs from that calendar year. Older years without photographs have an honest empty state.
 - Galleries support touch swipes, mouse dragging, left/right keyboard keys, thumbnails, previous/next buttons and fullscreen viewing. Escape closes fullscreen and returns focus to its opener.
-- **Living Legacy** (`/legacy`) recognises past team members, student/research projects and practical contributors using different layouts.
+- **Centre Archive** (`/legacy`) recognises past team members, student/research projects and practical contributors using different layouts.
 - Approved projects have individual pages at `/legacy/projects/<slug>` with team, supervisors, outcomes, full story and photographs.
 
 The editorial presentation draws inspiration from Framer’s Elena Vasari and Novum Gallery references. The implementation is native to the existing Next.js/Sanity site and keeps the established colour palette and public content. No template source or invented research/project data is imported.
@@ -24,7 +24,7 @@ Open the existing **Team Member** profile. Either:
 1. Set **Contract end date** to the final active day; or
 2. Set **Contract status → Contract ended** for an immediate change.
 
-Publish the same profile. The site reads the same document for both directories. A past member stops appearing among current team profiles and appears in Living Legacy with their complete existing biography, links, qualification and interests. Contribution summary and highlights can be added to explain their work. Nothing is deleted or copied to another CMS document.
+Publish the same profile. The site reads the same document for both directories. A past member stops appearing among current team profiles and appears in Centre Archive with their complete existing biography, links, qualification and interests. Contribution summary and highlights can be added to explain their work. Nothing is deleted or copied to another CMS document.
 
 An end date includes the entire stated day in **Asia/Karachi**. Automatic classification occurs after that day ends. No scheduled content-writing job or manual profile transfer is required. Pages use the existing minute-based regeneration, and open directories recheck the passage of time every minute. Newly published CMS changes can take a short time to pass through the API/page caches; refresh after publishing.
 
@@ -32,7 +32,7 @@ Existing profiles without contract fields remain current. A future end date does
 
 ## Lasting website credit
 
-Use **Keep lasting credit on the main team page** for someone whose contribution should stay visible after service ends. That person appears in Living Legacy and also keeps a card on About labelled **Lasting contribution**, rather than being represented as a current employee.
+Use **Keep lasting credit on the main team page** for someone whose contribution should stay visible after service ends. That person appears in Centre Archive and also keeps a card on About labelled **Lasting contribution**, rather than being represented as a current employee.
 
 Raazia Imran Reshamwala’s existing CMS document ID `team-razia` (with her established slug `raazia-imran-reshamwala` as a fallback) receives this lasting-credit treatment automatically, as requested. This does not fabricate or copy a second profile. If the profile is recreated as a new document with a different ID and slug, explicitly enable the lasting-credit field. An explicit public-directory hide still takes precedence.
 
@@ -56,9 +56,9 @@ These fields are designed for technicians, craftspeople, workers and practical t
 
 ## Edit the new page
 
-**Living Legacy page** in the Studio sidebar controls its title, introduction, hero photograph and section headings/descriptions. Before it has been saved, built-in English interface text keeps the page usable, and its hero can reuse the already-published About photograph. No existing singleton or content is overwritten.
+**Centre Archive page** in the Studio sidebar controls its title, introduction, hero photograph and section headings/descriptions. Before it has been saved, built-in English interface text keeps the page usable, and its hero can reuse the already-published About photograph. No existing singleton or content is overwritten.
 
-The main navigation adds Living Legacy if the CMS navigation does not already include that URL; an existing CMS navigation item is preserved. About and Events also link directly to the new features.
+The main navigation adds Centre Archive if the CMS navigation does not already include that URL; an existing CMS navigation item is preserved. About and Events also link directly to the new features.
 
 ## Release and verification
 
