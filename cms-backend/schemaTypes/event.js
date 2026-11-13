@@ -128,6 +128,20 @@ export default {
       fields: [{ name: "alt", title: "Alternative text", type: "string" }],
     },
     {
+      name: "posterImage",
+      title: "Official conference poster",
+      description: "For GCGC 2027, upload the complete approved poster artwork (PNG or JPG). The conference website displays the original image without cropping.",
+      type: "image",
+      fields: [
+        {
+          name: "alt",
+          title: "Alternative text",
+          type: "string",
+          validation: (Rule) => Rule.required(),
+        },
+      ],
+    },
+    {
       name: "gallery",
       group: "recap",
       title: "Past event gallery",
