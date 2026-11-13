@@ -95,6 +95,32 @@ export default {
       type: "url",
     },
     {
+      name: "keynoteProfiles",
+      title: "Keynote speaker profiles",
+      description: "Published profiles are read by the conference Speakers page on its next production build. Keep biographies factual and link their sources.",
+      type: "array",
+      of: [{
+        type: "object", name: "keynoteProfile", title: "Keynote speaker",
+        fields: [
+          {name: "name", title: "Full name", type: "string", validation: Rule => Rule.required()},
+          {name: "initials", title: "Display initials", type: "string", validation: Rule => Rule.required().max(4)},
+          {name: "role", title: "Role / expertise", type: "string", validation: Rule => Rule.required()},
+          {name: "affiliation", title: "Institution and country", type: "string", validation: Rule => Rule.required()},
+          {name: "bio", title: "Biography", type: "text", rows: 5, validation: Rule => Rule.required()},
+          {name: "expertise", title: "Areas of expertise", type: "array", of: [{type: "string"}], validation: Rule => Rule.required().min(1)},
+          {name: "attendeeValue", title: "Why their expertise matters to delegates", type: "text", rows: 3, validation: Rule => Rule.required()},
+          {name: "linkedin", title: "LinkedIn profile", type: "url", validation: Rule => Rule.required().uri({scheme: ["https"]})},
+          {name: "sources", title: "Verified profile sources", type: "array", validation: Rule => Rule.required().min(1), of: [{
+            type: "object", name: "profileSource", fields: [
+              {name: "label", title: "Source name", type: "string", validation: Rule => Rule.required()},
+              {name: "url", title: "Source link", type: "url", validation: Rule => Rule.required().uri({scheme: ["https"]})},
+            ],
+          }]},
+        ],
+        preview: {select: {title: "name", subtitle: "role"}},
+      }],
+    },
+    {
       name: "coverImage",
       title: "Cover image",
       type: "image",
