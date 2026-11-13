@@ -1,0 +1,79 @@
+{
+  "eventId": "event-gcgc-2027",
+  "startDate": "2027-04-16",
+  "endDate": "2027-04-17",
+  "keynoteProfiles": [
+    {
+      "_key": "fernando-martirena",
+      "_type": "keynoteProfile",
+      "name": "Dr. Fernando Martirena",
+      "initials": "FM",
+      "role": "Head of LC3 Technical Resource Centre Latin America · Principal Consultant",
+      "affiliation": "CalClay Europe, Portugal",
+      "bio": "A co-developer of Limestone Calcined Clay Cement (LC3), Fernando Martirena works on low-carbon binders, calcined clays and their industrial implementation. He brings research and consulting experience in turning sustainable construction materials into practical solutions.",
+      "expertise": [
+        "LC3 and calcined clays",
+        "Low-carbon cement",
+        "Industrial implementation"
+      ],
+      "attendeeValue": "His expertise offers a practical perspective on taking low-carbon cement from research into production and construction, helping researchers and engineers connect material innovation with real applications.",
+      "linkedin": "https://www.linkedin.com/in/fernando-martirena-baa16a54/",
+      "sources": [
+        {
+          "_key": "linkedin",
+          "_type": "profileSource",
+          "label": "Professional profile",
+          "url": "https://www.linkedin.com/in/fernando-martirena-baa16a54/"
+        },
+        {
+          "_key": "lc3",
+          "_type": "profileSource",
+          "label": "Official LC3 team",
+          "url": "https://lc3.ch/project-team/"
+        },
+        {
+          "_key": "lcca",
+          "_type": "profileSource",
+          "label": "Low Carbon Construction Association",
+          "url": "https://www.lowcarbon.construction/"
+        }
+      ]
+    },
+    {
+      "_key": "sofia-sanchez-berriel",
+      "_type": "keynoteProfile",
+      "name": "Dr. Sofía Sánchez Berriel",
+      "initials": "SS",
+      "role": "Economist · Sustainability Consultant",
+      "affiliation": "CalClay Europe, Portugal",
+      "bio": "Sofía Sánchez Berriel holds a PhD in Economics and specializes in the environmental and economic assessment of low-carbon cement. Her LC3 work connects life cycle assessment, eco-efficiency and investment evaluation to help assess sustainable construction options.",
+      "expertise": [
+        "Life cycle assessment",
+        "Economic and environmental assessment",
+        "Eco-efficiency"
+      ],
+      "attendeeValue": "Her expertise helps delegates assess both the environmental benefits and economic case for low-carbon cement, supporting more informed decisions about materials, investment and sustainable construction.",
+      "linkedin": "https://www.linkedin.com/in/sofia-sanchez-8004663a/",
+      "sources": [
+        {
+          "_key": "linkedin",
+          "_type": "profileSource",
+          "label": "Professional profile",
+          "url": "https://www.linkedin.com/in/sofia-sanchez-8004663a/"
+        },
+        {
+          "_key": "lc3",
+          "_type": "profileSource",
+          "label": "Official LC3 team",
+          "url": "https://lc3.ch/project-team/"
+        },
+        {
+          "_key": "eth",
+          "_type": "profileSource",
+          "label": "ETH Zurich research publications",
+          "url": "https://sc.ibi.ethz.ch/en/publications.html"
+        }
+      ]
+    }
+  ]
+}
