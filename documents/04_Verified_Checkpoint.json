@@ -1,0 +1,94 @@
+{
+  "checkpoint": "2026-11-24 Asia/Karachi",
+  "scope": "Read-only documentation checkpoint; no app tests or operational migration",
+  "repository_heads": {
+    "nc4scm-platform": "4a72f66914b5ee8678c5dd7ae230efcdc9e70f35",
+    "nc4scm-conference": "df08a481753c7236a3025c3923eebd23b727b4f8"
+  },
+  "published_dataset_counts": {
+    "publication": 13,
+    "aboutPage": 1,
+    "event": 3,
+    "sanity.fileAsset": 1,
+    "homePage": 1,
+    "sanity.imageAsset": 92,
+    "news": 10,
+    "pageSettings": 1,
+    "partner": 3,
+    "service": 4,
+    "siteSettings": 1,
+    "teamMember": 15
+  },
+  "conference_event": {
+    "dateOnly": true,
+    "endDateTime": "2027-04-17T23:59:59+05:00",
+    "eventDateTime": "2027-04-16T00:00:00+05:00",
+    "keynotes": [
+      "Dr. Fernando Martirena",
+      "Dr. Sofía Sánchez Berriel"
+    ],
+    "title": "Global Conference on Green Construction Materials and Practices 2027"
+  },
+  "team_documents": 15,
+  "explicitly_hidden_team_documents": 1,
+  "public_http_observations": {
+    "https://www.nc4scm.com": 200,
+    "https://nc4scm.com": "redirected to https://www.nc4scm.com/ then 200",
+    "https://gcgc.nc4scm.com": 200,
+    "https://nc4scm-admin.sanity.studio": "redirected to Sanity authentication"
+  },
+  "connected_vercel_scope": "raazias-projects-142c0b42",
+  "connected_projects": {
+    "nc4scm-platform": {
+      "id": "prj_Wgc9jcbOEJyohy0PphwUVGvlb4Bl",
+      "latest_returned_deployment": "dpl_CKdSPRjU7JpevNhfFxwCijUHG8oi",
+      "target": null,
+      "state": "READY",
+      "domains_returned": [
+        "nc4scm-platform.vercel.app"
+      ]
+    },
+    "nc4scm-conference": {
+      "id": "prj_xYpiaDDpGen7vrfOTogUXRbClbUS",
+      "latest_returned_deployment": "dpl_D427XAZjfhZ2GLZceFiHRPoE15uL",
+      "target": "production",
+      "state": "READY",
+      "domains_returned": [
+        "nc4scm-conference.vercel.app"
+      ]
+    }
+  },
+  "unresolved": [
+    "Actual custom-domain-owning project/team",
+    "Production commit SHAs",
+    "Authenticated Sanity roles/drafts/token scopes/CORS",
+    "Search Console verified owner and reports",
+    "Namecheap authoritative DNS records",
+    "Form delivery",
+    "Client acceptance"
+  ],
+  "source_links": {
+    "Website": "https://www.nc4scm.com",
+    "Conference": "https://gcgc.nc4scm.com",
+    "CMS editor": "https://nc4scm-admin.sanity.studio",
+    "Sanity project management": "https://www.sanity.io/manage/project/dxinqb51",
+    "Sanity account dashboard": "https://www.sanity.io/@ockpUZMTG",
+    "Embedded Studio": "https://www.sanity.io/@ockpUZMTG/studio/wr6t87lt017qmzeuf553rqra/default/structure",
+    "Platform repository": "https://github.com/Raazia-Imran/nc4scm-platform",
+    "Conference repository": "https://github.com/Raazia-Imran/nc4scm-conference",
+    "Platform hosting": "https://vercel.com/raazias-projects-142c0b42/nc4scm-platform",
+    "Conference hosting": "https://vercel.com/raazias-projects-142c0b42/nc4scm-conference",
+    "Search Console": "https://search.google.com/search-console?resource_id=sc-domain%3Anc4scm.com",
+    "Domain registrar": "https://ap.www.namecheap.com"
+  },
+  "official_references": {
+    "Vercel project transfer": "https://vercel.com/docs/projects/transferring-projects",
+    "GitHub repository duplication": "https://docs.github.com/en/repositories/creating-and-managing-repositories/duplicating-a-repository",
+    "GitHub attribution": "https://docs.github.com/en/account-and-profile/how-tos/contribution-settings/troubleshooting-missing-contributions",
+    "Google hosting move": "https://developers.google.com/search/docs/crawling-indexing/site-move-no-url-changes",
+    "Google Change of Address": "https://support.google.com/webmasters/answer/9370220",
+    "Sanity project management": "https://www.sanity.io/docs/platform-management/projects-organizations-and-billing"
+  },
+  "historical_source": "D:\\PROJECTS DATA\\NC4SCM_Project_Handover_2026-10-26.md",
+  "not_a_backup": "Public response contains selected published fields only; no dataset export, drafts, credentials or asset binaries."
+}
